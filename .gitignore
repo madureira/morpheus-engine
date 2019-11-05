@@ -1,5 +1,13 @@
+# IDE
 .vs/
-bin/
-build/
-Makefile
-morpheus.*
+
+# Build
+Build/
+Dist/
+Generated/
+
+# Dependencies
+Libraries/Glad/bin/
+Libraries/Glad/bin-int/
+Libraries/Glad/Makefile
+Libraries/Glad/Glad.*
