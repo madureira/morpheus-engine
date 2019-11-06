@@ -19,7 +19,7 @@ group "Dependencies"
 group ""
 
 project "Morpheus"
-   location "Generated"
+   location "Morpheus"
    kind "ConsoleApp"
    language "C++"
    cppdialect "C++11"
@@ -33,6 +33,7 @@ project "Morpheus"
 
    includedirs
 	{
+      "%{prj.name}/Source",
 		"%{IncludeDir.GLFW}",
 		"%{IncludeDir.Glad}"
    }
@@ -47,15 +48,13 @@ project "Morpheus"
       "glfw3",
       "Glad"
 	}
-	
+
 	filter { "system:windows" }
+      systemversion "latest"
       links { "OpenGL32" }
    
    filter { "system:not windows" }
       links { "GL" }
-
-   filter "system:windows"
-		systemversion "latest"
 
    filter "configurations:Debug"
       defines { "DEBUG" }
@@ -63,6 +62,8 @@ project "Morpheus"
 
    filter "configurations:Release"
       defines { "NDEBUG" }
+      kind "WindowedApp"
+      flags { entrypoint "mainCRTStartup" }
       optimize "On"
 
 
