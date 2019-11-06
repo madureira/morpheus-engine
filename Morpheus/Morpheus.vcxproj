@@ -170,7 +170,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Source\main.cpp" />
-    <ClCompile Include="Source\Window\Window.cpp" />
+    <ClCompile Include="Source\Core\Window\Window.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Libraries\Glad\Glad.vcxproj">
@@ -178,7 +178,10 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Source\Window\Window.h" />
+    <ClInclude Include="Source\Core\Event\Event.h" />
+    <ClInclude Include="Source\Core\Event\EventBus.h" />
+    <ClInclude Include="Source\Core\Event\MemberFunctionHandler.h" />
+    <ClInclude Include="Source\Core\Window\Window.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
