@@ -12,4 +12,9 @@ namespace Game {
 
 	}
 
+	GameApp::~GameApp()
+	{
+
+	}
+
 }

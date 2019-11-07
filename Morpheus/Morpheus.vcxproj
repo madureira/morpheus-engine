@@ -180,7 +180,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Source\Core\App\App.h" />
+    <ClInclude Include="Source\Core\App.h" />
     <ClInclude Include="Source\Core\Engine.h" />
     <ClInclude Include="Source\Core\Event\Event.h" />
     <ClInclude Include="Source\Core\Event\EventBus.h" />

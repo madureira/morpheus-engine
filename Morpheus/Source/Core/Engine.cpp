@@ -1,7 +1,7 @@
 #include "Engine.h"
 #include "Window/Window.h"
 #include "Core/Event/EventBus.h"
-#include "Core/App/App.h"
+#include "Core/App.h"
 
 namespace Morpheus {
 
