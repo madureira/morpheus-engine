@@ -26,8 +26,8 @@ namespace Morpheus {
 		~Window();
 
 		bool IsOpen();
-		void OnFrameStart();
-		void OnFrameEnd();
+		void PollEvents();
+		void SwapBuffers();
 		unsigned int GetWidth() const { return m_Data.Width; }
 		unsigned int GetHeight() const { return m_Data.Height; }
 

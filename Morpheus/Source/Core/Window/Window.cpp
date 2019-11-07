@@ -23,12 +23,12 @@ namespace Morpheus {
 		return !glfwWindowShouldClose(this->m_Window);
 	}
 
-	void Window::OnFrameStart()
+	void Window::PollEvents()
 	{
 		glfwPollEvents();
 	}
 
-	void Window::OnFrameEnd()
+	void Window::SwapBuffers()
 	{
 		glfwSwapBuffers(this->m_Window);
 	}

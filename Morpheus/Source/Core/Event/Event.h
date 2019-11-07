@@ -5,7 +5,7 @@ namespace Morpheus {
 	class Event
 	{
 	protected:
-		virtual ~Event() {};
+		virtual ~Event() = default;
 	};
 
 }

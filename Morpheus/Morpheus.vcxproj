@@ -169,6 +169,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Source\Core\Engine.cpp" />
+    <ClCompile Include="Source\Game\GameApp.cpp" />
     <ClCompile Include="Source\main.cpp" />
     <ClCompile Include="Source\Core\Window\Window.cpp" />
   </ItemGroup>
@@ -178,10 +180,13 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Source\Core\App\App.h" />
+    <ClInclude Include="Source\Core\Engine.h" />
     <ClInclude Include="Source\Core\Event\Event.h" />
     <ClInclude Include="Source\Core\Event\EventBus.h" />
     <ClInclude Include="Source\Core\Event\MemberFunctionHandler.h" />
     <ClInclude Include="Source\Core\Window\Window.h" />
+    <ClInclude Include="Source\Game\GameApp.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

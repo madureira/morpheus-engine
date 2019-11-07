@@ -1,7 +1,7 @@
 #pragma once
 
-#include <list>
 #include <map>
+#include <list>
 #include <typeindex>
 #include "MemberFunctionHandler.h"
 
