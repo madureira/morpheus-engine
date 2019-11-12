@@ -110,6 +110,12 @@
       <AdditionalDependencies>glfw3.lib;OpenGL32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>..\Libraries\GLFW\lib\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
+    <PostBuildEvent>
+      <Command>mkdir $(ProjectDir)..\Dist\windows\Debug\x64\Config
+mkdir $(ProjectDir)..\Build\windows\Debug\x64\Config
+copy $(ProjectDir)Source\Config\engine.lua $(ProjectDir)..\Dist\windows\Debug\x64\Config\engine.lua
+copy $(ProjectDir)Source\Config\engine.lua $(ProjectDir)..\Build\windows\Debug\x64\Config\engine.lua</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug x32|x64'">
     <ClCompile>
@@ -127,6 +133,12 @@
       <AdditionalDependencies>glfw3.lib;OpenGL32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>..\Libraries\GLFW\lib\x32;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
+    <PostBuildEvent>
+      <Command>mkdir $(ProjectDir)..\Dist\windows\Debug\x64\Config
+mkdir $(ProjectDir)..\Build\windows\Debug\x64\Config
+copy $(ProjectDir)Source\Config\engine.lua $(ProjectDir)..\Dist\windows\Debug\x64\Config\engine.lua
+copy $(ProjectDir)Source\Config\engine.lua $(ProjectDir)..\Build\windows\Debug\x64\Config\engine.lua</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
@@ -149,6 +161,12 @@
       <AdditionalLibraryDirectories>..\Libraries\GLFW\lib\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <EntryPointSymbol>mainCRTStartup</EntryPointSymbol>
     </Link>
+    <PostBuildEvent>
+      <Command>mkdir $(ProjectDir)..\Dist\windows\Debug\x64\Config
+mkdir $(ProjectDir)..\Build\windows\Debug\x64\Config
+copy $(ProjectDir)Source\Config\engine.lua $(ProjectDir)..\Dist\windows\Debug\x64\Config\engine.lua
+copy $(ProjectDir)Source\Config\engine.lua $(ProjectDir)..\Build\windows\Debug\x64\Config\engine.lua</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release x32|x64'">
     <ClCompile>
@@ -171,6 +189,12 @@
       <AdditionalLibraryDirectories>..\Libraries\GLFW\lib\x32;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <EntryPointSymbol>mainCRTStartup</EntryPointSymbol>
     </Link>
+    <PostBuildEvent>
+      <Command>mkdir $(ProjectDir)..\Dist\windows\Debug\x64\Config
+mkdir $(ProjectDir)..\Build\windows\Debug\x64\Config
+copy $(ProjectDir)Source\Config\engine.lua $(ProjectDir)..\Dist\windows\Debug\x64\Config\engine.lua
+copy $(ProjectDir)Source\Config\engine.lua $(ProjectDir)..\Build\windows\Debug\x64\Config\engine.lua</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Source\Core\App.h" />
@@ -190,6 +214,10 @@
     <ClCompile Include="Source\Core\Window\Window.cpp" />
     <ClCompile Include="Source\Game\GameApp.cpp" />
     <ClCompile Include="Source\main.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Source\Config\engine.lua" />
+    <None Include="Source\Config\game.lua" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Libraries\Glad\Glad.vcxproj">

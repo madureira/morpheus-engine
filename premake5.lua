@@ -31,7 +31,8 @@ project "Morpheus"
 
    files {
       "%{prj.name}/Source/**.h",
-      "%{prj.name}/Source/**.cpp"
+      "%{prj.name}/Source/**.cpp",
+      "%{prj.name}/Source/**.lua"
    }
 
    includedirs
@@ -58,6 +59,12 @@ project "Morpheus"
 	filter { "system:windows" }
       systemversion "latest"
       links { "OpenGL32" }
+      postbuildcommands {
+         "mkdir %{prj.location}..\\Dist\\windows\\Debug\\x64\\Config",
+         "mkdir %{prj.location}..\\Build\\windows\\Debug\\x64\\Config",
+         "copy %{prj.location}Source\\Config\\engine.lua %{prj.location}..\\Dist\\windows\\Debug\\x64\\Config\\engine.lua",
+         "copy %{prj.location}Source\\Config\\engine.lua %{prj.location}..\\Build\\windows\\Debug\\x64\\Config\\engine.lua",
+      }
    
    filter { "system:not windows" }
       links { "GL" }
