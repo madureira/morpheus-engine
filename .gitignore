@@ -11,3 +11,8 @@ Libraries/Glad/bin/
 Libraries/Glad/bin-int/
 Libraries/Glad/Makefile
 Libraries/Glad/Glad.*
+
+Libraries/lua/bin/
+Libraries/lua/bin-int/
+Libraries/lua/Makefile
+Libraries/lua/lua.*

@@ -1,21 +1,19 @@
+#include "Core/Event/EventBus.h"
+#include "Core/Input/Keyboard/KeyboardEvent.h"
 #include "Window.h"
 
 namespace Morpheus {
 
-	Window::Window(const std::string& title, unsigned int width, unsigned int height, bool vsync)
+	Window::Window(const std::string& title, unsigned int width, unsigned int height, bool vsync, EventBus* pEventBus)
 		: m_Window(nullptr)
 	{
 		m_Data.Title = title;
 		m_Data.Width = width;
 		m_Data.Height = height;
 		m_Data.VSync = vsync;
+		m_Data.EventCallback = pEventBus;
 
-		this->Init();
-	}
-
-	Window::~Window()
-	{
-		this->Shutdown();
+		this->Initialize();
 	}
 
 	bool Window::IsOpen()
@@ -33,7 +31,7 @@ namespace Morpheus {
 		glfwSwapBuffers(this->m_Window);
 	}
 
-	void Window::Init()
+	void Window::Initialize()
 	{
 		if (!glfwInit())
 		{
@@ -66,6 +64,11 @@ namespace Morpheus {
 		glfwMakeContextCurrent(this->m_Window);
 		glfwSetWindowUserPointer(this->m_Window, &this->m_Data);
 
+		glfwSetErrorCallback([](int error, const char* description)
+			{
+				std::cout << "GLFW ERROR: code " << error << " msg: " << description << std::endl;
+			});
+
 		glfwSetWindowSizeCallback(this->m_Window, [](GLFWwindow* window, int width, int height)
 			{
 				WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
@@ -73,9 +76,25 @@ namespace Morpheus {
 				data.Height = height;
 			});
 
-		glfwSetErrorCallback([](int error, const char* description)
+		glfwSetKeyCallback(this->m_Window, [](GLFWwindow* window, int key, int scancode, int action, int mods)
 			{
-				std::cout << "GLFW ERROR: code " << error << " msg: " << description << std::endl;
+				WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
+
+				switch (action)
+				{
+					case GLFW_PRESS:
+					{
+						KeyboardEvent event(KeyboardEvent::Action::PRESS, key);
+						data.EventCallback->publish(&event);
+						break;
+					}
+					case GLFW_RELEASE:
+					{
+						KeyboardEvent event(KeyboardEvent::Action::RELEASE, key);
+						data.EventCallback->publish(&event);
+						break;
+					}
+				}
 			});
 
 		if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
@@ -102,5 +121,10 @@ namespace Morpheus {
 	{
 		glfwDestroyWindow(this->m_Window);
 		glfwTerminate();
+	}
+
+	Window::~Window()
+	{
+		this->Shutdown();
 	}
 }

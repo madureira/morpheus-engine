@@ -7,6 +7,8 @@
 
 namespace Morpheus {
 
+	class EventBus;
+
 	class Window
 	{
 	private:
@@ -16,13 +18,14 @@ namespace Morpheus {
 			unsigned int Width = 800;
 			unsigned int Height = 600;
 			bool VSync = true;
+			EventBus* EventCallback;
 		};
 
 		GLFWwindow* m_Window;
 		WindowData m_Data;
 
 	public:
-		Window(const std::string& title, unsigned int width, unsigned int height, bool vsync);
+		Window(const std::string& title, unsigned int width, unsigned int height, bool vsync, EventBus* pEventBus);
 		~Window();
 
 		bool IsOpen();
@@ -30,9 +33,10 @@ namespace Morpheus {
 		void SwapBuffers();
 		unsigned int GetWidth() const { return m_Data.Width; }
 		unsigned int GetHeight() const { return m_Data.Height; }
+		GLFWwindow* GetNativeWindow() { return m_Window; };
 
 	private:
-		void Init();
+		void Initialize();
 		void Shutdown();
 	};
 

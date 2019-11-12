@@ -14,20 +14,20 @@ namespace Morpheus {
 
 	public:
 		template<typename EventType>
-		void publish(EventType* evnt)
+		void publish(EventType* pEvent)
 		{
-			HandlerList* handlers = subscribers[typeid(EventType)];
+			HandlerList* pHandlers = subscribers[typeid(EventType)];
 
-			if (handlers == nullptr)
+			if (pHandlers == nullptr)
 			{
 				return;
 			}
 
-			for (auto& handler : *handlers)
+			for (auto& handler : *pHandlers)
 			{
 				if (handler != nullptr)
 				{
-					handler->exec(evnt);
+					handler->exec(pEvent);
 				}
 			}
 		}
@@ -35,16 +35,16 @@ namespace Morpheus {
 		template<class T, class EventType>
 		void subscribe(T* instance, void (T::* memberFunction)(EventType*))
 		{
-			HandlerList* handlers = subscribers[typeid(EventType)];
+			HandlerList* pHandlers = subscribers[typeid(EventType)];
 
 			//First time initialization
-			if (handlers == nullptr)
+			if (pHandlers == nullptr)
 			{
-				handlers = new HandlerList();
-				subscribers[typeid(EventType)] = handlers;
+				pHandlers = new HandlerList();
+				subscribers[typeid(EventType)] = pHandlers;
 			}
 
-			handlers->push_back(new MemberFunctionHandler<T, EventType>(instance, memberFunction));
+			pHandlers->push_back(new MemberFunctionHandler<T, EventType>(instance, memberFunction));
 		}
 	};
 

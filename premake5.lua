@@ -9,12 +9,15 @@ outputdir = "%{cfg.system}/%{cfg.buildcfg}/%{cfg.platform}"
 IncludeDir = {}
 IncludeDir["GLFW"] = "Libraries/GLFW/include"
 IncludeDir["Glad"] = "Libraries/Glad/include"
+IncludeDir["lua"] = "Libraries/lua/src"
+IncludeDir["sol3"] = "Libraries/sol3/include"
 
 LibrariesDir = {}
 LibrariesDir["GLFW"] = "Libraries/GLFW/lib/%{cfg.platform}"
 
 group "Dependencies"
-	include "Libraries/Glad"
+   include "Libraries/Glad"
+   include "Libraries/lua"
 
 group ""
 
@@ -22,7 +25,7 @@ project "Morpheus"
    location "Morpheus"
    kind "ConsoleApp"
    language "C++"
-   cppdialect "C++11"
+   cppdialect "C++17"
    objdir("Build/" .. outputdir)
    targetdir("Dist/" .. outputdir)
 
@@ -35,7 +38,9 @@ project "Morpheus"
 	{
       "%{prj.name}/Source",
 		"%{IncludeDir.GLFW}",
-		"%{IncludeDir.Glad}"
+      "%{IncludeDir.Glad}",
+      "%{IncludeDir.lua}",
+      "%{IncludeDir.sol3}"
    }
 
    libdirs
@@ -46,7 +51,8 @@ project "Morpheus"
    links 
 	{ 
       "glfw3",
-      "Glad"
+      "Glad",
+      "lua"
 	}
 
 	filter { "system:windows" }

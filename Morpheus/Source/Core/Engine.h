@@ -2,16 +2,18 @@
 
 namespace Morpheus {
 
-	class Window;
-	class EventBus;
 	class App;
+	class EventBus;
+	class Input;
+	class Window;
 
 	class Engine
 	{
 	private:
-		Window* m_Window;
-		EventBus* m_EventBus;
 		App* m_App;
+		EventBus* m_EventBus;
+		Input* m_Input;
+		Window* m_Window;
 
 	public:
 		Engine();
