@@ -22,7 +22,7 @@ group "Dependencies"
 group ""
 
 project "Morpheus"
-   location "Morpheus"
+   location "Morpheus/Source"
    kind "ConsoleApp"
    language "C++"
    cppdialect "C++17"
@@ -60,8 +60,8 @@ project "Morpheus"
       systemversion "latest"
       links { "OpenGL32" }
       postbuildcommands {
-         "mkdir %{prj.location}..\\Dist\\windows\\Debug\\x64\\Config",
-         "mkdir %{prj.location}..\\Build\\windows\\Debug\\x64\\Config",
+         "mkdir %{prj.location}..\\..\\Dist\\windows\\Debug\\x64\\Config",
+         "mkdir %{prj.location}..\\..\\Build\\windows\\Debug\\x64\\Config",
          "copy %{prj.location}Source\\Config\\engine.lua %{prj.location}..\\Dist\\windows\\Debug\\x64\\Config\\engine.lua",
          "copy %{prj.location}Source\\Config\\engine.lua %{prj.location}..\\Build\\windows\\Debug\\x64\\Config\\engine.lua",
       }

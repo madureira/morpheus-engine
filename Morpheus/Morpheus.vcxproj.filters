@@ -54,6 +54,8 @@
     <ClInclude Include="Source\Game\GameApp.h">
       <Filter>Game</Filter>
     </ClInclude>
+    <ClInclude Include="Source\Core\Script\Script.h" />
+    <ClInclude Include="Source\Core\Util\FileUtil.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Core\Engine.cpp">

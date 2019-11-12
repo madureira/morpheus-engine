@@ -205,6 +205,8 @@ copy $(ProjectDir)Source\Config\engine.lua $(ProjectDir)..\Build\windows\Debug\x
     <ClInclude Include="Source\Core\Input\Input.h" />
     <ClInclude Include="Source\Core\Input\Keyboard\KeyboardEvent.h" />
     <ClInclude Include="Source\Core\Input\Keyboard\Keys.h" />
+    <ClInclude Include="Source\Core\Script\Script.h" />
+    <ClInclude Include="Source\Core\Util\FileUtil.h" />
     <ClInclude Include="Source\Core\Window\Window.h" />
     <ClInclude Include="Source\Game\GameApp.h" />
   </ItemGroup>

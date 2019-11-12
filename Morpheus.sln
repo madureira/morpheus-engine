@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 16
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Morpheus", "Morpheus\Morpheus.vcxproj", "{183E12FE-040B-6D09-2D24-5BB11950A297}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Morpheus", "Morpheus\Source\Morpheus.vcxproj", "{183E12FE-040B-6D09-2D24-5BB11950A297}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Dependencies", "Dependencies", "{53E47842-3FC8-3998-A828-34EB942B241A}"
 EndProject

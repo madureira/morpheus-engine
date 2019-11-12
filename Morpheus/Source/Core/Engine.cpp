@@ -12,7 +12,7 @@ namespace Morpheus {
 		m_Input(nullptr),
 		m_App(nullptr)
 	{
-		this->m_Window = new Window("Morpheus", 1280, 768, true, this->m_EventBus);
+		this->m_Window = new Window("Morpheus", 800, 600, true, this->m_EventBus);
 		this->m_Input = new Input(this->m_EventBus);
 	}
 
