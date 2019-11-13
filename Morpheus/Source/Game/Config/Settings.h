@@ -15,7 +15,6 @@
     } while (false)
 
 
-
 namespace Morpheus {
 
 	class Settings
@@ -31,7 +30,8 @@ namespace Morpheus {
 		Settings()
 			: m_LuaState(new sol::state()),
 			m_WindowWidth(800),
-			m_WindowHeight(600)
+			m_WindowHeight(600),
+			m_WindowFullScreen(false)
 		{
 			this->m_LuaState->open_libraries(sol::lib::base);
 
@@ -48,8 +48,23 @@ namespace Morpheus {
 			delete this->m_LuaState;
 		}
 
+		inline unsigned int GetWindowWidth() const
+		{
+			return this->m_WindowWidth;
+		}
+
+		inline unsigned int GetWindowHeight() const
+		{
+			return this->m_WindowHeight;
+		}
+
+		inline bool GetWindowFullscreen() const
+		{
+			return this->m_WindowFullScreen;
+		}
+
 	private:
-		bool IsSettingsValid(sol::load_result& scriptSettings)
+		inline bool IsSettingsValid(sol::load_result& scriptSettings)
 		{
 			if (!scriptSettings.valid()) {
 				return false;
