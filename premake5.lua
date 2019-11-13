@@ -60,10 +60,14 @@ project "Morpheus"
       systemversion "latest"
       links { "OpenGL32" }
       postbuildcommands {
-         "mkdir %{prj.location}..\\..\\Dist\\windows\\Debug\\x64\\Config",
-         "mkdir %{prj.location}..\\..\\Build\\windows\\Debug\\x64\\Config",
-         "copy %{prj.location}Source\\Config\\engine.lua %{prj.location}..\\Dist\\windows\\Debug\\x64\\Config\\engine.lua",
-         "copy %{prj.location}Source\\Config\\engine.lua %{prj.location}..\\Build\\windows\\Debug\\x64\\Config\\engine.lua",
+         "mkdir %{prj.location}..\\..\\Build\\windows\\Debug\\x64\\Core\\Config",
+         "mkdir %{prj.location}..\\..\\Build\\windows\\Debug\\x64\\Game\\Config",
+         "copy %{prj.location}Game\\Config\\settings.lua %{prj.location}..\\..\\Build\\windows\\Debug\\x64\\Core\\Config\\settings.lua",
+         "copy %{prj.location}Game\\Config\\settings.lua %{prj.location}..\\..\\Build\\windows\\Debug\\x64\\Game\\Config\\settings.lua",
+         "mkdir %{prj.location}..\\..\\Dist\\windows\\Debug\\x64\\Core\\Config",
+         "mkdir %{prj.location}..\\..\\Dist\\windows\\Debug\\x64\\Game\\Config",
+         "copy %{prj.location}Core\\Config\\settings.lua %{prj.location}..\\..\\Dist\\windows\\Debug\\x64\\Core\\Config\\settings.lua",
+         "copy %{prj.location}Core\\Config\\settings.lua %{prj.location}..\\..\\Dist\\windows\\Debug\\x64\\Game\\Config\\settings.lua",
       }
    
    filter { "system:not windows" }

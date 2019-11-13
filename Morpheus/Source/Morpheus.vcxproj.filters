@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Config">
-      <UniqueIdentifier>{5B583FAC-47FA-6982-30B5-7DD61CF6F0D2}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Core">
       <UniqueIdentifier>{2EB4837C-1AEB-840D-C3D7-6A10AFED000F}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\Config">
+      <UniqueIdentifier>{73EFF66E-DFA4-6F64-6899-693BD44D6668}</UniqueIdentifier>
     </Filter>
     <Filter Include="Core\Event">
       <UniqueIdentifier>{FF1F37CD-EBD7-781A-54DF-517640B6130B}</UniqueIdentifier>
@@ -27,6 +27,9 @@
     </Filter>
     <Filter Include="Game">
       <UniqueIdentifier>{7FA9857C-6BE0-860D-14CD-6C1000E3020F}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Config">
+      <UniqueIdentifier>{A49F6705-1055-E0FA-9949-DAD105FED6FE}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -66,6 +69,8 @@
     <ClInclude Include="Game\GameApp.h">
       <Filter>Game</Filter>
     </ClInclude>
+    <ClInclude Include="Core\Config\Settings.h" />
+    <ClInclude Include="Game\Config\Settings.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Core\Engine.cpp">
@@ -83,11 +88,11 @@
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Config\engine.lua">
-      <Filter>Config</Filter>
+    <None Include="Core\Config\settings.lua">
+      <Filter>Core\Config</Filter>
     </None>
-    <None Include="Config\game.lua">
-      <Filter>Config</Filter>
+    <None Include="Game\Config\settings.lua">
+      <Filter>Game\Config</Filter>
     </None>
   </ItemGroup>
 </Project>

@@ -111,10 +111,14 @@
       <AdditionalLibraryDirectories>..\..\Libraries\GLFW\lib\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
     <PostBuildEvent>
-      <Command>mkdir $(ProjectDir)..\Dist\windows\Debug\x64\Config
-mkdir $(ProjectDir)..\Build\windows\Debug\x64\Config
-copy $(ProjectDir)Source\Config\engine.lua $(ProjectDir)..\Dist\windows\Debug\x64\Config\engine.lua
-copy $(ProjectDir)Source\Config\engine.lua $(ProjectDir)..\Build\windows\Debug\x64\Config\engine.lua</Command>
+      <Command>mkdir $(ProjectDir)..\..\Build\windows\Debug\x64\Core\Config
+mkdir $(ProjectDir)..\..\Build\windows\Debug\x64\Game\Config
+copy $(ProjectDir)Game\Config\settings.lua $(ProjectDir)..\..\Build\windows\Debug\x64\Core\Config\settings.lua
+copy $(ProjectDir)Game\Config\settings.lua $(ProjectDir)..\..\Build\windows\Debug\x64\Game\Config\settings.lua
+mkdir $(ProjectDir)..\..\Dist\windows\Debug\x64\Core\Config
+mkdir $(ProjectDir)..\..\Dist\windows\Debug\x64\Game\Config
+copy $(ProjectDir)Core\Config\settings.lua $(ProjectDir)..\..\Dist\windows\Debug\x64\Core\Config\settings.lua
+copy $(ProjectDir)Core\Config\settings.lua $(ProjectDir)..\..\Dist\windows\Debug\x64\Game\Config\settings.lua</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug x32|x64'">
@@ -134,10 +138,14 @@ copy $(ProjectDir)Source\Config\engine.lua $(ProjectDir)..\Build\windows\Debug\x
       <AdditionalLibraryDirectories>..\..\Libraries\GLFW\lib\x32;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
     <PostBuildEvent>
-      <Command>mkdir $(ProjectDir)..\Dist\windows\Debug\x64\Config
-mkdir $(ProjectDir)..\Build\windows\Debug\x64\Config
-copy $(ProjectDir)Source\Config\engine.lua $(ProjectDir)..\Dist\windows\Debug\x64\Config\engine.lua
-copy $(ProjectDir)Source\Config\engine.lua $(ProjectDir)..\Build\windows\Debug\x64\Config\engine.lua</Command>
+      <Command>mkdir $(ProjectDir)..\..\Build\windows\Debug\x64\Core\Config
+mkdir $(ProjectDir)..\..\Build\windows\Debug\x64\Game\Config
+copy $(ProjectDir)Game\Config\settings.lua $(ProjectDir)..\..\Build\windows\Debug\x64\Core\Config\settings.lua
+copy $(ProjectDir)Game\Config\settings.lua $(ProjectDir)..\..\Build\windows\Debug\x64\Game\Config\settings.lua
+mkdir $(ProjectDir)..\..\Dist\windows\Debug\x64\Core\Config
+mkdir $(ProjectDir)..\..\Dist\windows\Debug\x64\Game\Config
+copy $(ProjectDir)Core\Config\settings.lua $(ProjectDir)..\..\Dist\windows\Debug\x64\Core\Config\settings.lua
+copy $(ProjectDir)Core\Config\settings.lua $(ProjectDir)..\..\Dist\windows\Debug\x64\Game\Config\settings.lua</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -162,10 +170,14 @@ copy $(ProjectDir)Source\Config\engine.lua $(ProjectDir)..\Build\windows\Debug\x
       <EntryPointSymbol>mainCRTStartup</EntryPointSymbol>
     </Link>
     <PostBuildEvent>
-      <Command>mkdir $(ProjectDir)..\Dist\windows\Debug\x64\Config
-mkdir $(ProjectDir)..\Build\windows\Debug\x64\Config
-copy $(ProjectDir)Source\Config\engine.lua $(ProjectDir)..\Dist\windows\Debug\x64\Config\engine.lua
-copy $(ProjectDir)Source\Config\engine.lua $(ProjectDir)..\Build\windows\Debug\x64\Config\engine.lua</Command>
+      <Command>mkdir $(ProjectDir)..\..\Build\windows\Debug\x64\Core\Config
+mkdir $(ProjectDir)..\..\Build\windows\Debug\x64\Game\Config
+copy $(ProjectDir)Game\Config\settings.lua $(ProjectDir)..\..\Build\windows\Debug\x64\Core\Config\settings.lua
+copy $(ProjectDir)Game\Config\settings.lua $(ProjectDir)..\..\Build\windows\Debug\x64\Game\Config\settings.lua
+mkdir $(ProjectDir)..\..\Dist\windows\Debug\x64\Core\Config
+mkdir $(ProjectDir)..\..\Dist\windows\Debug\x64\Game\Config
+copy $(ProjectDir)Core\Config\settings.lua $(ProjectDir)..\..\Dist\windows\Debug\x64\Core\Config\settings.lua
+copy $(ProjectDir)Core\Config\settings.lua $(ProjectDir)..\..\Dist\windows\Debug\x64\Game\Config\settings.lua</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release x32|x64'">
@@ -190,14 +202,19 @@ copy $(ProjectDir)Source\Config\engine.lua $(ProjectDir)..\Build\windows\Debug\x
       <EntryPointSymbol>mainCRTStartup</EntryPointSymbol>
     </Link>
     <PostBuildEvent>
-      <Command>mkdir $(ProjectDir)..\Dist\windows\Debug\x64\Config
-mkdir $(ProjectDir)..\Build\windows\Debug\x64\Config
-copy $(ProjectDir)Source\Config\engine.lua $(ProjectDir)..\Dist\windows\Debug\x64\Config\engine.lua
-copy $(ProjectDir)Source\Config\engine.lua $(ProjectDir)..\Build\windows\Debug\x64\Config\engine.lua</Command>
+      <Command>mkdir $(ProjectDir)..\..\Build\windows\Debug\x64\Core\Config
+mkdir $(ProjectDir)..\..\Build\windows\Debug\x64\Game\Config
+copy $(ProjectDir)Game\Config\settings.lua $(ProjectDir)..\..\Build\windows\Debug\x64\Core\Config\settings.lua
+copy $(ProjectDir)Game\Config\settings.lua $(ProjectDir)..\..\Build\windows\Debug\x64\Game\Config\settings.lua
+mkdir $(ProjectDir)..\..\Dist\windows\Debug\x64\Core\Config
+mkdir $(ProjectDir)..\..\Dist\windows\Debug\x64\Game\Config
+copy $(ProjectDir)Core\Config\settings.lua $(ProjectDir)..\..\Dist\windows\Debug\x64\Core\Config\settings.lua
+copy $(ProjectDir)Core\Config\settings.lua $(ProjectDir)..\..\Dist\windows\Debug\x64\Game\Config\settings.lua</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Core\App.h" />
+    <ClInclude Include="Core\Config\Settings.h" />
     <ClInclude Include="Core\Engine.h" />
     <ClInclude Include="Core\Event\Event.h" />
     <ClInclude Include="Core\Event\EventBus.h" />
@@ -208,6 +225,7 @@ copy $(ProjectDir)Source\Config\engine.lua $(ProjectDir)..\Build\windows\Debug\x
     <ClInclude Include="Core\Script\Script.h" />
     <ClInclude Include="Core\Util\FileUtil.h" />
     <ClInclude Include="Core\Window\Window.h" />
+    <ClInclude Include="Game\Config\Settings.h" />
     <ClInclude Include="Game\GameApp.h" />
   </ItemGroup>
   <ItemGroup>
@@ -218,8 +236,8 @@ copy $(ProjectDir)Source\Config\engine.lua $(ProjectDir)..\Build\windows\Debug\x
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Config\engine.lua" />
-    <None Include="Config\game.lua" />
+    <None Include="Core\Config\settings.lua" />
+    <None Include="Game\Config\settings.lua" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Libraries\Glad\Glad.vcxproj">
