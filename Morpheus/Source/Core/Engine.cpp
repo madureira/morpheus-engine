@@ -4,6 +4,8 @@
 #include "Core/Event/EventBus.h"
 #include "Core/Input/Input.h"
 #include "Core/App.h"
+#include <chrono>
+#include <thread>
 
 namespace Morpheus {
 
@@ -34,10 +36,29 @@ namespace Morpheus {
 
 	void Engine::Start()
 	{
+		int FPS = this->m_Settings->GetRenderFPS();
+		float secondsPerFrame = (1.0 / FPS) * 1000;
+		int frames = 0;
+		auto start = std::chrono::steady_clock::now();
+
 		while (this->m_Window->IsOpen())
 		{
+			++frames;
+			auto now = std::chrono::steady_clock::now();
+			auto diff = now - start;
+			auto end = now + std::chrono::milliseconds((int)secondsPerFrame);
+			if (diff >= std::chrono::seconds(1))
+			{
+				start = now;
+				std::cout << "\rFPS: " << frames;
+				frames = 0;
+			}
+
 			this->m_Window->PollEvents();
 			this->m_App->OnFrameStarted();
+
+			std::this_thread::sleep_until(end);
+
 			this->m_Window->SwapBuffers();
 		}
 	}

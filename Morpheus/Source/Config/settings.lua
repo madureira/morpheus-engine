@@ -8,6 +8,7 @@ config = {
 		},
 	},
 	render = {
+		fps = 60,
 		vsync = false
 	}
 }

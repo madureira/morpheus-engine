@@ -26,6 +26,7 @@ namespace Morpheus {
 		bool m_WindowFullScreen;
 		unsigned int m_WindowWidth;
 		unsigned int m_WindowHeight;
+		unsigned int m_RenderFPS;
 		bool m_RenderVSync;
 
 	public:
@@ -35,6 +36,7 @@ namespace Morpheus {
 			m_WindowFullScreen(false),
 			m_WindowWidth(800),
 			m_WindowHeight(600),
+			m_RenderFPS(60),
 			m_RenderVSync(false)
 		{
 			this->m_LuaState = new sol::state();
@@ -73,6 +75,11 @@ namespace Morpheus {
 			return this->m_WindowHeight;
 		}
 
+		inline unsigned int GetRenderFPS() const
+		{
+			return this->m_RenderFPS;
+		}
+
 		inline bool GetRenderVSync() const
 		{
 			return this->m_RenderVSync;
@@ -95,18 +102,21 @@ namespace Morpheus {
 			sol::optional<bool> windowFullScreen = (*this->m_LuaState)["config"]["window"]["fullscreen"];
 			sol::optional<unsigned int> windowResolutionWidth = (*this->m_LuaState)["config"]["window"]["resolution"]["width"];
 			sol::optional<unsigned int> windowResolutionHeight = (*this->m_LuaState)["config"]["window"]["resolution"]["height"];
+			sol::optional<unsigned int> renderFPS = (*this->m_LuaState)["config"]["render"]["fps"];
 			sol::optional<bool> renderVSync = (*this->m_LuaState)["config"]["render"]["vsync"];
 
 			c_assert(windowTitle != sol::nullopt);
 			c_assert(windowFullScreen != sol::nullopt);
 			c_assert(windowResolutionWidth != sol::nullopt);
 			c_assert(windowResolutionHeight != sol::nullopt);
+			c_assert(renderFPS != sol::nullopt);
 			c_assert(renderVSync != sol::nullopt);
 
 			this->m_WindowTitle = windowTitle.value();
 			this->m_WindowFullScreen = windowFullScreen.value();
 			this->m_WindowWidth = windowResolutionWidth.value();
 			this->m_WindowHeight = windowResolutionHeight.value();
+			this->m_RenderFPS = renderFPS.value();
 			this->m_RenderVSync = renderVSync.value();
 
 			return true;
