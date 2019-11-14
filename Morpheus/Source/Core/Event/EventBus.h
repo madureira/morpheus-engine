@@ -10,13 +10,13 @@ namespace Morpheus {
 	typedef std::list<HandlerFunctionBase*> HandlerList;
 	class EventBus {
 	private:
-		std::map<std::type_index, HandlerList*> subscribers;
+		std::map<std::type_index, HandlerList*> m_Subscribers;
 
 	public:
 		template<typename EventType>
 		void publish(EventType* pEvent)
 		{
-			HandlerList* pHandlers = subscribers[typeid(EventType)];
+			HandlerList* pHandlers = m_Subscribers[typeid(EventType)];
 
 			if (pHandlers == nullptr)
 			{
@@ -33,20 +33,19 @@ namespace Morpheus {
 		}
 
 		template<class T, class EventType>
-		void subscribe(T* instance, void (T::* memberFunction)(EventType*))
+		void subscribe(T* pInstance, void(T::* memberFunction)(EventType*))
 		{
-			HandlerList* pHandlers = subscribers[typeid(EventType)];
+			HandlerList* pHandlers = this->m_Subscribers[typeid(EventType)];
 
 			//First time initialization
 			if (pHandlers == nullptr)
 			{
 				pHandlers = new HandlerList();
-				subscribers[typeid(EventType)] = pHandlers;
+				this->m_Subscribers[typeid(EventType)] = pHandlers;
 			}
 
-			pHandlers->push_back(new MemberFunctionHandler<T, EventType>(instance, memberFunction));
+			pHandlers->push_back(new MemberFunctionHandler<T, EventType>(pInstance, memberFunction));
 		}
 	};
 
 }
-

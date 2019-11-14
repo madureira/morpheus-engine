@@ -10,7 +10,7 @@ namespace Game {
 
 	void GameApp::OnFrameStarted()
 	{
-
+		
 	}
 
 	GameApp::~GameApp()

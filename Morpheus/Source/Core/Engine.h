@@ -6,6 +6,7 @@ namespace Morpheus {
 	class EventBus;
 	class Input;
 	class Window;
+	class Settings;
 
 	class Engine
 	{
@@ -14,12 +15,13 @@ namespace Morpheus {
 		EventBus* m_EventBus;
 		Input* m_Input;
 		Window* m_Window;
+		Settings* m_Settings;
 
 	public:
 		Engine();
 		~Engine();
 		void Initialize(App* app);
-		void Run();
+		void Start();
 	};
 
 }

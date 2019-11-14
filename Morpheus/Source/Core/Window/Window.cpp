@@ -58,9 +58,9 @@ namespace Morpheus {
 			return;
 		}
 
-		GLFWmonitor* monitor = glfwGetPrimaryMonitor();
-		const GLFWvidmode* mode = glfwGetVideoMode(monitor);
-		glfwSetWindowPos(this->m_Window, (mode->width - this->m_Data.Width) / 2, (mode->height - this->m_Data.Height) / 2);
+		GLFWmonitor* pMonitor = glfwGetPrimaryMonitor();
+		const GLFWvidmode* pMode = glfwGetVideoMode(pMonitor);
+		glfwSetWindowPos(this->m_Window, (pMode->width - this->m_Data.Width) / 2, (pMode->height - this->m_Data.Height) / 2);
 		glfwMakeContextCurrent(this->m_Window);
 		glfwSetWindowUserPointer(this->m_Window, &this->m_Data);
 

@@ -1,11 +1,14 @@
 workspace "Morpheus"
-   architecture "x64"
-   startproject "Morpheus"
-   configurations { "Debug", "Release" }
-   platforms { "x64", "x32" }
-   
+	architecture "x64"
+	startproject "Morpheus"
+	configurations { "Debug", "Release" }
+	platforms { "x64", "x32" }
+	files {
+		".editorconfig"
+	}
+
 outputdir = "%{cfg.system}/%{cfg.buildcfg}/%{cfg.platform}"
-   
+
 IncludeDir = {}
 IncludeDir["GLFW"] = "Libraries/GLFW/include"
 IncludeDir["Glad"] = "Libraries/Glad/include"
@@ -16,86 +19,77 @@ LibrariesDir = {}
 LibrariesDir["GLFW"] = "Libraries/GLFW/lib/%{cfg.platform}"
 
 group "Dependencies"
-   include "Libraries/Glad"
-   include "Libraries/lua"
+	include "Libraries/Glad"
+	include "Libraries/lua"
 
 group ""
 
 project "Morpheus"
-   location "Morpheus/Source"
-   kind "ConsoleApp"
-   language "C++"
-   cppdialect "C++17"
-   objdir("Build/" .. outputdir)
-   targetdir("Dist/" .. outputdir)
+	location "Morpheus/Source"
+	kind "ConsoleApp"
+	language "C++"
+	cppdialect "C++17"
+	objdir("Build/" .. outputdir)
+	targetdir("Dist/" .. outputdir)
 
-   files {
-      "%{prj.name}/Source/**.h",
-      "%{prj.name}/Source/**.cpp",
-      "%{prj.name}/Source/**.lua"
-   }
+	files {
+		"%{prj.name}/Source/**.h",
+		"%{prj.name}/Source/**.cpp",
+		"%{prj.name}/Source/**.lua"
+	}
 
-   includedirs
-	{
-      "%{prj.name}/Source",
+	includedirs {
+		"%{prj.name}/Source",
 		"%{IncludeDir.GLFW}",
-      "%{IncludeDir.Glad}",
-      "%{IncludeDir.lua}",
-      "%{IncludeDir.sol3}"
-   }
+		"%{IncludeDir.Glad}",
+		"%{IncludeDir.lua}",
+		"%{IncludeDir.sol3}"
+	}
 
-   libdirs
-   {
-      "%{LibrariesDir.GLFW}"
-   }
+	libdirs {
+		"%{LibrariesDir.GLFW}"
+	}
 
-   links 
-	{ 
-      "glfw3",
-      "Glad",
-      "lua"
+	links {
+		"glfw3",
+		"Glad",
+		"lua"
 	}
 
 	filter { "system:windows" }
-      systemversion "latest"
-      links { "OpenGL32" }
-      postbuildcommands {
-         "mkdir %{prj.location}..\\..\\Build\\windows\\Debug\\x64\\Core\\Config",
-         "mkdir %{prj.location}..\\..\\Build\\windows\\Debug\\x64\\Game\\Config",
-         "copy %{prj.location}Game\\Config\\settings.lua %{prj.location}..\\..\\Build\\windows\\Debug\\x64\\Core\\Config\\settings.lua",
-         "copy %{prj.location}Game\\Config\\settings.lua %{prj.location}..\\..\\Build\\windows\\Debug\\x64\\Game\\Config\\settings.lua",
-         "mkdir %{prj.location}..\\..\\Dist\\windows\\Debug\\x64\\Core\\Config",
-         "mkdir %{prj.location}..\\..\\Dist\\windows\\Debug\\x64\\Game\\Config",
-         "copy %{prj.location}Core\\Config\\settings.lua %{prj.location}..\\..\\Dist\\windows\\Debug\\x64\\Core\\Config\\settings.lua",
-         "copy %{prj.location}Core\\Config\\settings.lua %{prj.location}..\\..\\Dist\\windows\\Debug\\x64\\Game\\Config\\settings.lua",
-      }
-   
-   filter { "system:not windows" }
-      links { "GL" }
+		systemversion "latest"
+		links { "OpenGL32" }
+		postbuildcommands {
+			"mkdir %{prj.location}..\\..\\Dist\\windows\\Debug\\x64\\Config",
+			"copy %{prj.location}Config\\settings.lua %{prj.location}..\\..\\Dist\\windows\\Debug\\x64\\Config\\settings.lua",
+		}
 
-   filter "configurations:Debug"
-      defines { "DEBUG" }
-      symbols "On"
+	filter { "system:not windows" }
+		links { "GL" }
 
-   filter "configurations:Release"
-      defines { "NDEBUG" }
-      kind "WindowedApp"
-      flags { entrypoint "mainCRTStartup" }
-      optimize "On"
+	filter "configurations:Debug"
+		defines { "DEBUG" }
+		symbols "On"
+
+	filter "configurations:Release"
+		defines { "NDEBUG" }
+		kind "WindowedApp"
+		flags { entrypoint "mainCRTStartup" }
+		optimize "On"
 
 
 -- Clean Function --
 newaction {
-   trigger = "clean",
-   description = "clean the build",
-   execute = function()
-      print("Cleanning the build...")
-      os.rmdir("./.vs")
-      os.rmdir("./Build")
-      os.rmdir("./Dist")
-      os.rmdir("./Generated")
-      os.remove("./Morpheus.sln")
-      os.remove("./Makefile")
-      print("Done.")
-   end
+	trigger = "clean",
+	description = "clean the build",
+	execute = function()
+		print("Cleanning the build...")
+		os.rmdir("./.vs")
+		os.rmdir("./Build")
+		os.rmdir("./Dist")
+		os.rmdir("./Generated")
+		os.remove("./Morpheus.sln")
+		os.remove("./Makefile")
+		print("Done.")
+	end
 }

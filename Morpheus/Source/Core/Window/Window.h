@@ -31,9 +31,9 @@ namespace Morpheus {
 		bool IsOpen();
 		void PollEvents();
 		void SwapBuffers();
-		unsigned int GetWidth() const { return m_Data.Width; }
-		unsigned int GetHeight() const { return m_Data.Height; }
-		GLFWwindow* GetNativeWindow() { return m_Window; };
+		inline unsigned int GetWidth() const { return m_Data.Width; }
+		inline unsigned int GetHeight() const { return m_Data.Height; }
+		inline GLFWwindow* GetNativeWindow() { return m_Window; };
 
 	private:
 		void Initialize();
