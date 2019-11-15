@@ -9,7 +9,8 @@ namespace Game {
 	public:
 		~GameApp();
 		void Initialize(Morpheus::EventBus* eventBus) override;
-		void OnFrameStarted() override;
+		void FrameListener(double deltaTime, int frame) override;
+		void OnFrameStarted(double deltaTime, int frame) override;
 	};
 
 }

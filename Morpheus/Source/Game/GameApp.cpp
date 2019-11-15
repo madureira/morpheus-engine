@@ -8,14 +8,16 @@ namespace Game {
 		this->m_EventBus = pEventBus;
 	}
 
-	void GameApp::OnFrameStarted()
+	void GameApp::FrameListener(double deltaTime, int frame)
 	{
-		
+	}
+
+	void GameApp::OnFrameStarted(double deltaTime, int frame)
+	{
 	}
 
 	GameApp::~GameApp()
 	{
-
 	}
 
 }

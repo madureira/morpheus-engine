@@ -4,8 +4,6 @@
 #include "Core/Event/EventBus.h"
 #include "Core/Input/Input.h"
 #include "Core/App.h"
-#include <chrono>
-#include <thread>
 
 namespace Morpheus {
 
@@ -36,31 +34,45 @@ namespace Morpheus {
 
 	void Engine::Start()
 	{
-		int FPS = this->m_Settings->GetRenderFPS();
-		float secondsPerFrame = (1.0 / FPS) * 1000;
+		const int MAX_FPS = this->m_Settings->GetRenderFPS();
+		const double MS_PER_FRAME = 1.0 / (MAX_FPS * 1.0);
+		const double ONE_SECOND = 1.0;
+		double lastFrameTime = 0.0;
+		double lastTime = 0.0;
 		int frames = 0;
-		auto start = std::chrono::steady_clock::now();
 
 		while (this->m_Window->IsOpen())
 		{
-			++frames;
-			auto now = std::chrono::steady_clock::now();
-			auto diff = now - start;
-			auto end = now + std::chrono::milliseconds((int)secondsPerFrame);
-			if (diff >= std::chrono::seconds(1))
-			{
-				start = now;
-				std::cout << "\rFPS: " << frames;
-				frames = 0;
-			}
+			double currentTime = this->m_Window->GetTime();
+			double deltaTime = currentTime - lastTime;
 
 			this->m_Window->PollEvents();
-			this->m_App->OnFrameStarted();
+			this->m_App->FrameListener(deltaTime, frames);
 
-			std::this_thread::sleep_until(end);
+			if (deltaTime >= MS_PER_FRAME)
+			{
+				frames++;
 
-			this->m_Window->SwapBuffers();
+				double deltaFrame = currentTime - lastFrameTime;
+
+				this->m_App->OnFrameStarted(deltaFrame, frames);
+
+				if (deltaFrame >= ONE_SECOND)
+				{
+					this->PrintFPS(frames, deltaTime);
+					lastFrameTime = currentTime;
+					frames = 0;
+				}
+
+				lastTime = currentTime;
+				this->m_Window->SwapBuffers();
+			}
 		}
+	}
+
+	void Engine::PrintFPS(unsigned int frames, double deltaTime) const
+	{
+		std::cout << "\rFPS: " << frames << " " << deltaTime << "ms/frame";
 	}
 
 	Engine::~Engine()

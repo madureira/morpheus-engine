@@ -33,7 +33,8 @@ namespace Morpheus {
 		void SwapBuffers();
 		inline unsigned int GetWidth() const { return m_Data.Width; }
 		inline unsigned int GetHeight() const { return m_Data.Height; }
-		inline GLFWwindow* GetNativeWindow() { return m_Window; };
+		inline double GetTime() { return glfwGetTime(); }
+		inline const GLFWwindow* GetNativeWindow() const { return m_Window; };
 
 	private:
 		void Initialize();
