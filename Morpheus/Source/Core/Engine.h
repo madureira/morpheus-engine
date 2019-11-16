@@ -7,6 +7,8 @@ namespace Morpheus {
 	class Input;
 	class Window;
 	class Settings;
+	class Shader;
+	class TextRenderer;
 
 	class Engine
 	{
@@ -16,13 +18,17 @@ namespace Morpheus {
 		Input* m_Input;
 		Window* m_Window;
 		Settings* m_Settings;
+		Shader* m_TextShader;
+		TextRenderer* m_TextRenderer;
+		float m_InitialWindowWidth;
+		float m_InitialWindowHeight;
 
 	public:
 		Engine();
 		~Engine();
 		void Initialize(App* app);
 		void Start();
-		void PrintFPS(unsigned int frames, double deltaTime) const;
+		void DisplayFPS(unsigned int frames, double deltaTime);
 	};
 
 }

@@ -16,3 +16,8 @@ Libraries/lua/bin/
 Libraries/lua/bin-int/
 Libraries/lua/Makefile
 Libraries/lua/lua.*
+
+Libraries/freetype2/bin/
+Libraries/freetype2/bin-int/
+Libraries/freetype2/Makefile
+Libraries/freetype2/FreeType2.*

@@ -1,5 +1,4 @@
 #include "GameApp.h"
-#include "Core/Event/EventBus.h"
 
 namespace Game {
 
@@ -8,11 +7,11 @@ namespace Game {
 		this->m_EventBus = pEventBus;
 	}
 
-	void GameApp::FrameListener(double deltaTime, int frame)
+	void GameApp::OnFrameStarted(double deltaTime, int frame)
 	{
 	}
 
-	void GameApp::OnFrameStarted(double deltaTime, int frame)
+	void GameApp::FrameListener(double deltaTime, int frame)
 	{
 	}
 

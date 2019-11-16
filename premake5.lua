@@ -13,7 +13,9 @@ IncludeDir = {}
 IncludeDir["GLFW"] = "Libraries/GLFW/include"
 IncludeDir["Glad"] = "Libraries/Glad/include"
 IncludeDir["lua"] = "Libraries/lua/src"
+IncludeDir["glm"] = "Libraries/glm"
 IncludeDir["sol3"] = "Libraries/sol3/include"
+IncludeDir["freetype2"] = "Libraries/freetype2/include"
 
 LibrariesDir = {}
 LibrariesDir["GLFW"] = "Libraries/GLFW/lib/%{cfg.platform}"
@@ -21,6 +23,7 @@ LibrariesDir["GLFW"] = "Libraries/GLFW/lib/%{cfg.platform}"
 group "Dependencies"
 	include "Libraries/Glad"
 	include "Libraries/lua"
+	include "Libraries/freetype2"
 
 group ""
 
@@ -35,7 +38,8 @@ project "Morpheus"
 	files {
 		"%{prj.name}/Source/**.h",
 		"%{prj.name}/Source/**.cpp",
-		"%{prj.name}/Source/**.lua"
+		"%{prj.name}/Source/**.lua",
+		"%{prj.name}/Source/Assets/**"
 	}
 
 	includedirs {
@@ -43,7 +47,9 @@ project "Morpheus"
 		"%{IncludeDir.GLFW}",
 		"%{IncludeDir.Glad}",
 		"%{IncludeDir.lua}",
-		"%{IncludeDir.sol3}"
+		"%{IncludeDir.glm}",
+		"%{IncludeDir.sol3}",
+		"%{IncludeDir.freetype2}"
 	}
 
 	libdirs {
@@ -53,7 +59,8 @@ project "Morpheus"
 	links {
 		"glfw3",
 		"Glad",
-		"lua"
+		"lua",
+		"freetype2"
 	}
 
 	filter { "system:windows" }
@@ -61,7 +68,13 @@ project "Morpheus"
 		links { "OpenGL32" }
 		postbuildcommands {
 			"mkdir %{prj.location}..\\..\\Dist\\windows\\Debug\\x64\\Config",
+			"mkdir %{prj.location}..\\..\\Dist\\windows\\Debug\\x64\\Assets",
 			"copy %{prj.location}Config\\settings.lua %{prj.location}..\\..\\Dist\\windows\\Debug\\x64\\Config\\settings.lua",
+			"xcopy %{prj.location}Assets %{prj.location}..\\..\\Dist\\windows\\Debug\\x64\\Assets /s /e /h /d",
+			"mkdir %{prj.location}..\\..\\Dist\\windows\\Release\\x64\\Config",
+			"mkdir %{prj.location}..\\..\\Dist\\windows\\Release\\x64\\Assets",
+			"copy %{prj.location}Config\\settings.lua %{prj.location}..\\..\\Dist\\windows\\Release\\x64\\Config\\settings.lua",
+			"xcopy %{prj.location}Assets %{prj.location}..\\..\\Dist\\windows\\Release\\x64\\Assets /s /e /h /d"
 		}
 
 	filter { "system:not windows" }

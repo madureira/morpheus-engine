@@ -26,6 +26,13 @@ namespace Morpheus {
 		glfwPollEvents();
 	}
 
+	void Window::Clear()
+	{
+		glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+		glClear(GL_COLOR_BUFFER_BIT);
+		glViewport(0, 0, this->m_Data.Width, this->m_Data.Height);
+	}
+
 	void Window::SwapBuffers()
 	{
 		glfwSwapBuffers(this->m_Window);
@@ -49,7 +56,17 @@ namespace Morpheus {
 		glfwWindowHint(GLFW_RESIZABLE, GL_TRUE);
 		glfwSwapInterval(this->m_Data.VSync ? 1 : 0);
 
+		GLFWmonitor* pMonitor = glfwGetPrimaryMonitor();
+		const GLFWvidmode* pMode = glfwGetVideoMode(pMonitor);
+
+#ifdef DEBUG
 		this->m_Window = glfwCreateWindow(this->m_Data.Width, this->m_Data.Height, this->m_Data.Title.c_str(), nullptr, nullptr);
+#else
+		//this->m_Data.Width = pMode->width;
+		//this->m_Data.Height = pMode->height;
+		this->m_Window = glfwCreateWindow(this->m_Data.Width, this->m_Data.Height, this->m_Data.Title.c_str(), pMonitor, nullptr);
+#endif // DEBUG
+
 
 		if (!this->m_Window)
 		{
@@ -58,8 +75,11 @@ namespace Morpheus {
 			return;
 		}
 
-		GLFWmonitor* pMonitor = glfwGetPrimaryMonitor();
-		const GLFWvidmode* pMode = glfwGetVideoMode(pMonitor);
+		glfwWindowHint(GLFW_RED_BITS, pMode->redBits);
+		glfwWindowHint(GLFW_GREEN_BITS, pMode->greenBits);
+		glfwWindowHint(GLFW_BLUE_BITS, pMode->blueBits);
+		glfwWindowHint(GLFW_REFRESH_RATE, pMode->refreshRate);
+
 		glfwSetWindowPos(this->m_Window, (pMode->width - this->m_Data.Width) / 2, (pMode->height - this->m_Data.Height) / 2);
 		glfwMakeContextCurrent(this->m_Window);
 		glfwSetWindowUserPointer(this->m_Window, &this->m_Data);
@@ -112,6 +132,7 @@ namespace Morpheus {
 
 		glClear(GL_COLOR_BUFFER_BIT);
 		glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+
 		glViewport(0, 0, this->m_Data.Width, this->m_Data.Height);
 
 		std::cout << "OpenGL " << glGetString(GL_VERSION) << std::endl;

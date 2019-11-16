@@ -1,29 +1,29 @@
 project "lua"
     kind "StaticLib"
     language "C"
-    staticruntime "on"
-    
+    staticruntime "On"
+
     targetdir ("bin/" .. outputdir .. "/%{prj.name}")
     objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
 
-    files
-    {
-        "src/**.h",
-        "src/**.c"
-    }
-
-    includedirs
+	includedirs
     {
         "src"
+	}
+
+    files
+    {
+        "src/*.h",
+        "src/*.c"
     }
-    
+
     filter "system:windows"
         systemversion "latest"
 
     filter "configurations:Debug"
         runtime "Debug"
-        symbols "on"
+        symbols "On"
 
     filter "configurations:Release"
         runtime "Release"
-        optimize "on"
+        optimize "On"

@@ -3,8 +3,8 @@ config = {
 		title = "Game Engine",
 		fullscreen = false,
 		resolution = {
-			width = 800,
-			height = 600
+			width = 1280,
+			height = 720
 		},
 	},
 	render = {
