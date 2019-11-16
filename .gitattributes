@@ -8,6 +8,8 @@
 *.h text
 *.fsh text
 *.vsh text
+*.vert text
+*.frag text
 *.txt text
 *.html text
 *.md text
@@ -15,6 +17,7 @@
 *.py text
 *.json text
 *.xml text
+*.lua text
 
 # Declare files that will always have CRLF line endings on checkout.
 *.sln text eol=crlf
