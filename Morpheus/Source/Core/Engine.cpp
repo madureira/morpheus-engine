@@ -1,16 +1,13 @@
 #include "Engine.h"
 
 #include <glad/glad.h>
-#include <ft2build.h>
-#include FT_FREETYPE_H
-
 #include "Config/Settings.h"
 #include "Core/Window/Window.h"
 #include "Core/Event/EventBus.h"
 #include "Core/Input/Input.h"
-#include "Core/App.h"
 #include "Core/Shader/Shader.h"
 #include "Core/Text/TextRenderer.h"
+#include "Core/App.h"
 
 namespace Morpheus {
 

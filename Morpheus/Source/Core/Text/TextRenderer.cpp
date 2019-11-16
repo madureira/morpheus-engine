@@ -1,4 +1,7 @@
 #include "TextRenderer.h"
+
+#include <ft2build.h>
+#include FT_FREETYPE_H
 #include "Core/Shader/Shader.h"
 
 namespace Morpheus {
