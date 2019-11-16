@@ -1,20 +1,26 @@
+#include "Config/Settings.h"
 #include "Core/Event/EventBus.h"
 #include "Core/Input/Keyboard/KeyboardEvent.h"
 #include "Window.h"
 
 namespace Morpheus {
 
-	Window::Window(const std::string& title, unsigned int width, unsigned int height, bool fullScreen, bool vsync, EventBus* pEventBus)
+	Window::Window(const std::string& title, unsigned int width, unsigned int height, bool fullScreen, EventBus* pEventBus, Settings* pSettings)
 		: m_Window(nullptr)
 	{
 		m_Data.Title = title;
 		m_Data.Width = width;
 		m_Data.Height = height;
 		m_Data.FullScreen = fullScreen;
-		m_Data.VSync = vsync;
 		m_Data.EventCallback = pEventBus;
+		this->m_Settings = pSettings;
 
 		this->Initialize();
+	}
+
+	Window::~Window()
+	{
+		this->Shutdown();
 	}
 
 	bool Window::IsOpen()
@@ -53,9 +59,9 @@ namespace Morpheus {
 		glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
 		glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
 		glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-		glfwWindowHint(GLFW_SAMPLES, 4); // Anti-Alising
 		glfwWindowHint(GLFW_RESIZABLE, GL_TRUE);
-		glfwSwapInterval(this->m_Data.VSync ? 1 : 0);
+		glfwWindowHint(GLFW_DOUBLEBUFFER, GL_TRUE);
+		glfwWindowHint(GLFW_SAMPLES, this->m_Settings->GetMSAASamples());
 
 		GLFWmonitor* pMonitor = glfwGetPrimaryMonitor();
 		const GLFWvidmode* pMode = glfwGetVideoMode(pMonitor);
@@ -117,19 +123,16 @@ namespace Morpheus {
 			this->Shutdown();
 			return;
 		}
+		std::cout << "OpenGL " << glGetString(GL_VERSION) << std::endl;
 
 		// Set OpenGL options
 		glEnable(GL_BLEND);
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 		glEnable(GL_FRONT_FACE);
 		glFrontFace(GL_CW);
+		glEnable(GL_MULTISAMPLE);
 
-		glClear(GL_COLOR_BUFFER_BIT);
-		glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
-
-		glViewport(0, 0, this->m_Data.Width, this->m_Data.Height);
-
-		std::cout << "OpenGL " << glGetString(GL_VERSION) << std::endl;
+		this->Clear();
 	}
 
 	void Window::Shutdown()
@@ -138,8 +141,4 @@ namespace Morpheus {
 		glfwTerminate();
 	}
 
-	Window::~Window()
-	{
-		this->Shutdown();
-	}
 }

@@ -26,31 +26,45 @@ namespace Morpheus {
 			this->m_Settings->GetWindowTitle(),
 			this->m_Settings->GetWindowWidth(),
 			this->m_Settings->GetWindowHeight(),
-			this->m_Settings->GetWindowFullscreen(),
-			this->m_Settings->GetRenderVSync(),
-			this->m_EventBus
+			this->m_Settings->IsWindowFullscreen(),
+			this->m_EventBus,
+			this->m_Settings
 		);
 		this->m_Input = new Input(this->m_EventBus);
-		this->m_TextShader = new Shader("Assets/shaders/text.vert", "Assets/shaders/text.frag");
-		this->m_TextRenderer = new TextRenderer("Assets/fonts/roboto-regular.ttf");
-
 		this->m_InitialWindowWidth = static_cast<GLfloat>(this->m_Window->GetWidth());
 		this->m_InitialWindowHeight = static_cast<GLfloat>(this->m_Window->GetHeight());
+	}
 
-		glm::mat4 projection = glm::ortho(0.0f, this->m_InitialWindowWidth, 0.0f, this->m_InitialWindowHeight);
-		this->m_TextShader->Enable();
-		glUniformMatrix4fv(glGetUniformLocation(this->m_TextShader->GetProgram(), "projection"), 1, GL_FALSE, glm::value_ptr(projection));
+	Engine::~Engine()
+	{
+		delete this->m_App;
+		delete this->m_Input;
+		delete this->m_TextRenderer;
+		delete this->m_TextShader;
+		delete this->m_Window;
+		delete this->m_EventBus;
+		delete this->m_Settings;
 	}
 
 	void Engine::Initialize(App* app)
 	{
+		if (this->m_Settings->IsDebug())
+		{
+			this->m_TextShader = new Shader("Assets/shaders/text.vert", "Assets/shaders/text.frag");
+			this->m_TextRenderer = new TextRenderer("Assets/fonts/roboto-regular.ttf");
+
+			glm::mat4 projection = glm::ortho(0.0f, this->m_InitialWindowWidth, 0.0f, this->m_InitialWindowHeight);
+			this->m_TextShader->Enable();
+			glUniformMatrix4fv(glGetUniformLocation(this->m_TextShader->GetProgram(), "projection"), 1, GL_FALSE, glm::value_ptr(projection));
+		}
+
 		this->m_App = app;
 		this->m_App->Initialize(this->m_EventBus);
 	}
 
 	void Engine::Start()
 	{
-		const int MAX_FPS = this->m_Settings->GetRenderFPS();
+		const int MAX_FPS = this->m_Settings->GetMaxFPS();
 		const double MS_PER_FRAME = 1.0 / (MAX_FPS * 1.0);
 		const double ONE_SECOND = 1.0;
 		double lastFrameTime = 0.0;
@@ -76,7 +90,10 @@ namespace Morpheus {
 
 				this->m_App->OnFrameStarted(deltaFrame, frames);
 
-				this->DisplayFPS(fpsToDisplay, deltaTime);
+				if (this->m_Settings->IsDebug())
+				{
+					this->DisplayPerformanceInfo(fpsToDisplay, deltaTime);
+				}
 
 				if (deltaFrame >= ONE_SECOND)
 				{
@@ -91,28 +108,21 @@ namespace Morpheus {
 		}
 	}
 
-	void Engine::DisplayFPS(unsigned int frames, double deltaTime)
+	void Engine::DisplayPerformanceInfo(unsigned int frames, double deltaTime)
 	{
+		static const float scale = 0.3f;
+		static const float originX = 5.0f;
+		static const float rowHeight = 20.0f;
 		const std::string fps = "FPS: " + std::to_string(frames);
 		const std::string timePerFrame = std::to_string(deltaTime) + " ms/frame";
-		const float scale = 0.3f;
-		const float originX = 5.0f;
-		const float fpsTextPosY = this->m_InitialWindowHeight - 20.0f;
-		const float timeTextPosY = this->m_InitialWindowHeight - 40.0f;
+		static const std::string msaaSamples = "MSAA Samples: " + std::to_string(this->m_Settings->GetMSAASamples());
+		const float fpsTextPosY = this->m_InitialWindowHeight - rowHeight;
+		const float timeTextPosY = this->m_InitialWindowHeight - rowHeight * 2;
+		const float msaaSamplesTextPosY = this->m_InitialWindowHeight - rowHeight * 3;
 
 		this->m_TextRenderer->Render(*this->m_TextShader, fps, originX, fpsTextPosY, scale, glm::vec3(0.5f, 0.8f, 0.2f));
 		this->m_TextRenderer->Render(*this->m_TextShader, timePerFrame, originX, timeTextPosY, scale, glm::vec3(0.3f, 0.7f, 0.9f));
-	}
-
-	Engine::~Engine()
-	{
-		delete this->m_App;
-		delete this->m_Input;
-		delete this->m_TextRenderer;
-		delete this->m_TextShader;
-		delete this->m_Window;
-		delete this->m_EventBus;
-		delete this->m_Settings;
+		this->m_TextRenderer->Render(*this->m_TextShader, msaaSamples, originX, msaaSamplesTextPosY, scale, glm::vec3(1.0f, 0.0f, 0.0f));
 	}
 
 }

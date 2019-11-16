@@ -1,14 +1,13 @@
 config = {
 	window = {
-		title = "Game Engine",
+		title = "Morpheus Engine",
 		fullscreen = false,
 		resolution = {
 			width = 1280,
 			height = 720
 		},
 	},
-	render = {
-		fps = 60,
-		vsync = false
-	}
+	fps = 60,
+	msaa = 4,
+	debug = true
 }

@@ -111,10 +111,14 @@
       <AdditionalLibraryDirectories>..\..\Libraries\GLFW\lib\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
     <PostBuildEvent>
-      <Command>mkdir $(ProjectDir)..\..\Dist\windows\Debug\x64\Config
+      <Command>del $(ProjectDir)..\..\Dist\windows\Debug\x64\Config 2&gt;nul
+del $(ProjectDir)..\..\Dist\windows\Debug\x64\Assets 2&gt;nul
+mkdir $(ProjectDir)..\..\Dist\windows\Debug\x64\Config
 mkdir $(ProjectDir)..\..\Dist\windows\Debug\x64\Assets
 copy $(ProjectDir)Config\settings.lua $(ProjectDir)..\..\Dist\windows\Debug\x64\Config\settings.lua
 xcopy $(ProjectDir)Assets $(ProjectDir)..\..\Dist\windows\Debug\x64\Assets /s /e /h /d
+del $(ProjectDir)..\..\Dist\windows\Release\x64\Config 2&gt;nul
+del $(ProjectDir)..\..\Dist\windows\Release\x64\Assets 2&gt;nul
 mkdir $(ProjectDir)..\..\Dist\windows\Release\x64\Config
 mkdir $(ProjectDir)..\..\Dist\windows\Release\x64\Assets
 copy $(ProjectDir)Config\settings.lua $(ProjectDir)..\..\Dist\windows\Release\x64\Config\settings.lua
@@ -138,10 +142,14 @@ xcopy $(ProjectDir)Assets $(ProjectDir)..\..\Dist\windows\Release\x64\Assets /s 
       <AdditionalLibraryDirectories>..\..\Libraries\GLFW\lib\x32;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
     <PostBuildEvent>
-      <Command>mkdir $(ProjectDir)..\..\Dist\windows\Debug\x64\Config
+      <Command>del $(ProjectDir)..\..\Dist\windows\Debug\x64\Config 2&gt;nul
+del $(ProjectDir)..\..\Dist\windows\Debug\x64\Assets 2&gt;nul
+mkdir $(ProjectDir)..\..\Dist\windows\Debug\x64\Config
 mkdir $(ProjectDir)..\..\Dist\windows\Debug\x64\Assets
 copy $(ProjectDir)Config\settings.lua $(ProjectDir)..\..\Dist\windows\Debug\x64\Config\settings.lua
 xcopy $(ProjectDir)Assets $(ProjectDir)..\..\Dist\windows\Debug\x64\Assets /s /e /h /d
+del $(ProjectDir)..\..\Dist\windows\Release\x64\Config 2&gt;nul
+del $(ProjectDir)..\..\Dist\windows\Release\x64\Assets 2&gt;nul
 mkdir $(ProjectDir)..\..\Dist\windows\Release\x64\Config
 mkdir $(ProjectDir)..\..\Dist\windows\Release\x64\Assets
 copy $(ProjectDir)Config\settings.lua $(ProjectDir)..\..\Dist\windows\Release\x64\Config\settings.lua
@@ -170,10 +178,14 @@ xcopy $(ProjectDir)Assets $(ProjectDir)..\..\Dist\windows\Release\x64\Assets /s 
       <EntryPointSymbol>mainCRTStartup</EntryPointSymbol>
     </Link>
     <PostBuildEvent>
-      <Command>mkdir $(ProjectDir)..\..\Dist\windows\Debug\x64\Config
+      <Command>del $(ProjectDir)..\..\Dist\windows\Debug\x64\Config 2&gt;nul
+del $(ProjectDir)..\..\Dist\windows\Debug\x64\Assets 2&gt;nul
+mkdir $(ProjectDir)..\..\Dist\windows\Debug\x64\Config
 mkdir $(ProjectDir)..\..\Dist\windows\Debug\x64\Assets
 copy $(ProjectDir)Config\settings.lua $(ProjectDir)..\..\Dist\windows\Debug\x64\Config\settings.lua
 xcopy $(ProjectDir)Assets $(ProjectDir)..\..\Dist\windows\Debug\x64\Assets /s /e /h /d
+del $(ProjectDir)..\..\Dist\windows\Release\x64\Config 2&gt;nul
+del $(ProjectDir)..\..\Dist\windows\Release\x64\Assets 2&gt;nul
 mkdir $(ProjectDir)..\..\Dist\windows\Release\x64\Config
 mkdir $(ProjectDir)..\..\Dist\windows\Release\x64\Assets
 copy $(ProjectDir)Config\settings.lua $(ProjectDir)..\..\Dist\windows\Release\x64\Config\settings.lua
@@ -202,10 +214,14 @@ xcopy $(ProjectDir)Assets $(ProjectDir)..\..\Dist\windows\Release\x64\Assets /s 
       <EntryPointSymbol>mainCRTStartup</EntryPointSymbol>
     </Link>
     <PostBuildEvent>
-      <Command>mkdir $(ProjectDir)..\..\Dist\windows\Debug\x64\Config
+      <Command>del $(ProjectDir)..\..\Dist\windows\Debug\x64\Config 2&gt;nul
+del $(ProjectDir)..\..\Dist\windows\Debug\x64\Assets 2&gt;nul
+mkdir $(ProjectDir)..\..\Dist\windows\Debug\x64\Config
 mkdir $(ProjectDir)..\..\Dist\windows\Debug\x64\Assets
 copy $(ProjectDir)Config\settings.lua $(ProjectDir)..\..\Dist\windows\Debug\x64\Config\settings.lua
 xcopy $(ProjectDir)Assets $(ProjectDir)..\..\Dist\windows\Debug\x64\Assets /s /e /h /d
+del $(ProjectDir)..\..\Dist\windows\Release\x64\Config 2&gt;nul
+del $(ProjectDir)..\..\Dist\windows\Release\x64\Assets 2&gt;nul
 mkdir $(ProjectDir)..\..\Dist\windows\Release\x64\Config
 mkdir $(ProjectDir)..\..\Dist\windows\Release\x64\Assets
 copy $(ProjectDir)Config\settings.lua $(ProjectDir)..\..\Dist\windows\Release\x64\Config\settings.lua
@@ -240,9 +256,7 @@ xcopy $(ProjectDir)Assets $(ProjectDir)..\..\Dist\windows\Release\x64\Assets /s 
   <ItemGroup>
     <None Include="..\..\.editorconfig" />
     <None Include="Assets\fonts\roboto-regular.ttf" />
-    <None Include="Assets\shaders\text.frag">
-      <FileType>Document</FileType>
-    </None>
+    <None Include="Assets\shaders\text.frag" />
     <None Include="Assets\shaders\text.vert" />
     <None Include="Config\settings.lua" />
   </ItemGroup>

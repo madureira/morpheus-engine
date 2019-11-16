@@ -8,6 +8,7 @@
 namespace Morpheus {
 
 	class EventBus;
+	class Settings;
 
 	class Window
 	{
@@ -17,16 +18,16 @@ namespace Morpheus {
 			std::string Title = "Morpheus";
 			unsigned int Width = 800;
 			unsigned int Height = 600;
-			bool VSync = true;
 			bool FullScreen = false;
 			EventBus* EventCallback;
 		};
 
 		GLFWwindow* m_Window;
 		WindowData m_Data;
+		Settings* m_Settings;
 
 	public:
-		Window(const std::string& title, unsigned int width, unsigned int height, bool fullScreen, bool vsync, EventBus* pEventBus);
+		Window(const std::string& title, unsigned int width, unsigned int height, bool fullScreen, EventBus* pEventBus, Settings* pSettings);
 		~Window();
 
 		bool IsOpen();

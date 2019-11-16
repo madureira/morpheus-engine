@@ -2,6 +2,10 @@
 
 namespace Game {
 
+	GameApp::~GameApp()
+	{
+	}
+
 	void GameApp::Initialize(Morpheus::EventBus* pEventBus)
 	{
 		this->m_EventBus = pEventBus;
@@ -12,10 +16,6 @@ namespace Game {
 	}
 
 	void GameApp::FrameListener(double deltaTime, int frame)
-	{
-	}
-
-	GameApp::~GameApp()
 	{
 	}
 

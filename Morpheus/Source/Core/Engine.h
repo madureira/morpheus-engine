@@ -28,7 +28,7 @@ namespace Morpheus {
 		~Engine();
 		void Initialize(App* app);
 		void Start();
-		void DisplayFPS(unsigned int frames, double deltaTime);
+		void DisplayPerformanceInfo(unsigned int frames, double deltaTime);
 	};
 
 }

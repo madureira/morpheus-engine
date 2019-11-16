@@ -23,21 +23,23 @@ namespace Morpheus {
 		const char* SETTINGS_FILE_PATH = "Config/settings.lua";
 		sol::state* m_LuaState;
 		std::string m_WindowTitle;
-		bool m_WindowFullScreen;
+		bool m_IsWindowFullScreen;
 		unsigned int m_WindowWidth;
 		unsigned int m_WindowHeight;
-		unsigned int m_RenderFPS;
-		bool m_RenderVSync;
+		unsigned int m_FPS;
+		unsigned int m_MSAASamples;
+		bool m_IsDebug;
 
 	public:
 		Settings()
 			: m_LuaState(nullptr),
 			m_WindowTitle("Morpheus Engine"),
-			m_WindowFullScreen(false),
+			m_IsWindowFullScreen(false),
 			m_WindowWidth(800),
 			m_WindowHeight(600),
-			m_RenderFPS(60),
-			m_RenderVSync(false)
+			m_FPS(30),
+			m_MSAASamples(2),
+			m_IsDebug(false)
 		{
 			this->m_LuaState = new sol::state();
 			this->m_LuaState->open_libraries(sol::lib::base);
@@ -60,9 +62,9 @@ namespace Morpheus {
 			return this->m_WindowTitle;
 		}
 
-		inline bool GetWindowFullscreen() const
+		inline bool IsWindowFullscreen() const
 		{
-			return this->m_WindowFullScreen;
+			return this->m_IsWindowFullScreen;
 		}
 
 		inline unsigned int GetWindowWidth() const
@@ -75,14 +77,19 @@ namespace Morpheus {
 			return this->m_WindowHeight;
 		}
 
-		inline unsigned int GetRenderFPS() const
+		inline unsigned int GetMaxFPS() const
 		{
-			return this->m_RenderFPS;
+			return this->m_FPS;
 		}
 
-		inline bool GetRenderVSync() const
+		inline unsigned int GetMSAASamples() const
 		{
-			return this->m_RenderVSync;
+			return this->m_MSAASamples;
+		}
+
+		inline bool IsDebug() const
+		{
+			return this->m_IsDebug;
 		}
 
 	private:
@@ -102,22 +109,25 @@ namespace Morpheus {
 			sol::optional<bool> windowFullScreen = (*this->m_LuaState)["config"]["window"]["fullscreen"];
 			sol::optional<unsigned int> windowResolutionWidth = (*this->m_LuaState)["config"]["window"]["resolution"]["width"];
 			sol::optional<unsigned int> windowResolutionHeight = (*this->m_LuaState)["config"]["window"]["resolution"]["height"];
-			sol::optional<unsigned int> renderFPS = (*this->m_LuaState)["config"]["render"]["fps"];
-			sol::optional<bool> renderVSync = (*this->m_LuaState)["config"]["render"]["vsync"];
+			sol::optional<unsigned int> fps = (*this->m_LuaState)["config"]["fps"];
+			sol::optional<unsigned int> msaa = (*this->m_LuaState)["config"]["msaa"];
+			sol::optional<bool> debug = (*this->m_LuaState)["config"]["debug"];
 
 			c_assert(windowTitle != sol::nullopt);
 			c_assert(windowFullScreen != sol::nullopt);
 			c_assert(windowResolutionWidth != sol::nullopt);
 			c_assert(windowResolutionHeight != sol::nullopt);
-			c_assert(renderFPS != sol::nullopt);
-			c_assert(renderVSync != sol::nullopt);
+			c_assert(fps != sol::nullopt);
+			c_assert(msaa != sol::nullopt);
+			c_assert(debug != sol::nullopt);
 
 			this->m_WindowTitle = windowTitle.value();
-			this->m_WindowFullScreen = windowFullScreen.value();
+			this->m_IsWindowFullScreen = windowFullScreen.value();
 			this->m_WindowWidth = windowResolutionWidth.value();
 			this->m_WindowHeight = windowResolutionHeight.value();
-			this->m_RenderFPS = renderFPS.value();
-			this->m_RenderVSync = renderVSync.value();
+			this->m_FPS = fps.value();
+			this->m_MSAASamples = msaa.value();
+			this->m_IsDebug = debug.value();
 
 			return true;
 		}
