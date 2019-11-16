@@ -111,14 +111,14 @@
     <None Include="Assets\fonts\roboto-regular.ttf">
       <Filter>Assets\fonts</Filter>
     </None>
-    <None Include="Assets\shaders\text.fsh">
-      <Filter>Assets\shaders</Filter>
-    </None>
-    <None Include="Assets\shaders\text.vsh">
-      <Filter>Assets\shaders</Filter>
-    </None>
     <None Include="Config\settings.lua">
       <Filter>Config</Filter>
+    </None>
+    <None Include="Assets\shaders\text.vert">
+      <Filter>Assets\shaders</Filter>
+    </None>
+    <None Include="Assets\shaders\text.frag">
+      <Filter>Assets\shaders</Filter>
     </None>
   </ItemGroup>
 </Project>

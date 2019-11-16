@@ -33,7 +33,7 @@ namespace Morpheus {
 			this->m_EventBus
 		);
 		this->m_Input = new Input(this->m_EventBus);
-		this->m_TextShader = new Shader("Assets/shaders/text.vsh", "Assets/shaders/text.fsh");
+		this->m_TextShader = new Shader("Assets/shaders/text.vert", "Assets/shaders/text.frag");
 		this->m_TextRenderer = new TextRenderer("Assets/fonts/roboto-regular.ttf");
 
 		this->m_InitialWindowWidth = static_cast<GLfloat>(this->m_Window->GetWidth());

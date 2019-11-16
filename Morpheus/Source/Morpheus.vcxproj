@@ -240,8 +240,10 @@ xcopy $(ProjectDir)Assets $(ProjectDir)..\..\Dist\windows\Release\x64\Assets /s 
   <ItemGroup>
     <None Include="..\..\.editorconfig" />
     <None Include="Assets\fonts\roboto-regular.ttf" />
-    <None Include="Assets\shaders\text.fsh" />
-    <None Include="Assets\shaders\text.vsh" />
+    <None Include="Assets\shaders\text.frag">
+      <FileType>Document</FileType>
+    </None>
+    <None Include="Assets\shaders\text.vert" />
     <None Include="Config\settings.lua" />
   </ItemGroup>
   <ItemGroup>
