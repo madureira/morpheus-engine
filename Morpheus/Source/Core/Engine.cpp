@@ -26,6 +26,7 @@ namespace Morpheus {
 			this->m_Settings->GetWindowTitle(),
 			this->m_Settings->GetWindowWidth(),
 			this->m_Settings->GetWindowHeight(),
+			this->m_Settings->GetWindowFullscreen(),
 			this->m_Settings->GetRenderVSync(),
 			this->m_EventBus
 		);

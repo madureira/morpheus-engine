@@ -18,6 +18,7 @@ namespace Morpheus {
 			unsigned int Width = 800;
 			unsigned int Height = 600;
 			bool VSync = true;
+			bool FullScreen = false;
 			EventBus* EventCallback;
 		};
 
@@ -25,7 +26,7 @@ namespace Morpheus {
 		WindowData m_Data;
 
 	public:
-		Window(const std::string& title, unsigned int width, unsigned int height, bool vsync, EventBus* pEventBus);
+		Window(const std::string& title, unsigned int width, unsigned int height, bool fullScreen, bool vsync, EventBus* pEventBus);
 		~Window();
 
 		bool IsOpen();

@@ -4,12 +4,13 @@
 
 namespace Morpheus {
 
-	Window::Window(const std::string& title, unsigned int width, unsigned int height, bool vsync, EventBus* pEventBus)
+	Window::Window(const std::string& title, unsigned int width, unsigned int height, bool fullScreen, bool vsync, EventBus* pEventBus)
 		: m_Window(nullptr)
 	{
 		m_Data.Title = title;
 		m_Data.Width = width;
 		m_Data.Height = height;
+		m_Data.FullScreen = fullScreen;
 		m_Data.VSync = vsync;
 		m_Data.EventCallback = pEventBus;
 
@@ -59,14 +60,7 @@ namespace Morpheus {
 		GLFWmonitor* pMonitor = glfwGetPrimaryMonitor();
 		const GLFWvidmode* pMode = glfwGetVideoMode(pMonitor);
 
-#ifdef DEBUG
-		this->m_Window = glfwCreateWindow(this->m_Data.Width, this->m_Data.Height, this->m_Data.Title.c_str(), nullptr, nullptr);
-#else
-		//this->m_Data.Width = pMode->width;
-		//this->m_Data.Height = pMode->height;
-		this->m_Window = glfwCreateWindow(this->m_Data.Width, this->m_Data.Height, this->m_Data.Title.c_str(), pMonitor, nullptr);
-#endif // DEBUG
-
+		this->m_Window = glfwCreateWindow(this->m_Data.Width, this->m_Data.Height, this->m_Data.Title.c_str(), this->m_Data.FullScreen ? pMonitor : nullptr, nullptr);
 
 		if (!this->m_Window)
 		{
