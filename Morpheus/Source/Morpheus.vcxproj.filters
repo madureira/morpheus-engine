@@ -7,6 +7,9 @@
     <Filter Include="Assets\fonts">
       <UniqueIdentifier>{91683F8C-7DCB-CE30-2651-07E712939AB3}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Assets\images">
+      <UniqueIdentifier>{FD69001B-692A-7C51-3265-C5CE9EE4C02D}</UniqueIdentifier>
+    </Filter>
     <Filter Include="Assets\shaders">
       <UniqueIdentifier>{31992871-1D67-1C77-06FB-8C9DF267F8DB}</UniqueIdentifier>
     </Filter>
@@ -30,6 +33,9 @@
     </Filter>
     <Filter Include="Core\Text">
       <UniqueIdentifier>{02CEC315-6E38-788C-B776-2932232056E1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\Texture">
+      <UniqueIdentifier>{8E27DC53-7A8A-6BF8-2310-A4AE0F52377B}</UniqueIdentifier>
     </Filter>
     <Filter Include="Core\Util">
       <UniqueIdentifier>{3B98C415-A702-798C-F040-2A325CEA56E1}</UniqueIdentifier>
@@ -75,6 +81,9 @@
     <ClInclude Include="Core\Text\TextRenderer.h">
       <Filter>Core\Text</Filter>
     </ClInclude>
+    <ClInclude Include="Core\Texture\Texture.h">
+      <Filter>Core\Texture</Filter>
+    </ClInclude>
     <ClInclude Include="Core\Util\FileUtil.h">
       <Filter>Core\Util</Filter>
     </ClInclude>
@@ -98,6 +107,9 @@
     <ClCompile Include="Core\Text\TextRenderer.cpp">
       <Filter>Core\Text</Filter>
     </ClCompile>
+    <ClCompile Include="Core\Texture\Texture.cpp">
+      <Filter>Core\Texture</Filter>
+    </ClCompile>
     <ClCompile Include="Core\Window\Window.cpp">
       <Filter>Core\Window</Filter>
     </ClCompile>
@@ -117,8 +129,21 @@
     <None Include="Assets\shaders\text.vert">
       <Filter>Assets\shaders</Filter>
     </None>
+    <None Include="Assets\shaders\texture.frag">
+      <Filter>Assets\shaders</Filter>
+    </None>
+    <None Include="Assets\shaders\texture.vert">
+      <Filter>Assets\shaders</Filter>
+    </None>
     <None Include="Config\settings.lua">
       <Filter>Config</Filter>
     </None>
+    <None Include="Assets\shaders\basic.vert" />
+    <None Include="Assets\shaders\basic.frag" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="Assets\images\wall.jpg">
+      <Filter>Assets\images</Filter>
+    </Image>
   </ItemGroup>
 </Project>

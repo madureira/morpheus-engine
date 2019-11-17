@@ -1,21 +1,19 @@
 #pragma once
 
-#include <iostream>
 #include <string>
-#include <vector>
 #include <glad/glad.h>
-#include "Core/Util/FileUtil.h"
 
 namespace Morpheus {
 
 	class Shader {
 	private:
 		GLuint m_ShaderID;
-		const char* m_VertPath;
-		const char* m_FragPath;
+		std::string m_VertPath;
+		std::string m_FragPath;
+		std::string m_GeomPath;
 
 	public:
-		Shader(const char* vertexPath, const char* fragmentPath);
+		Shader(std::string vertexPath, std::string fragmentPath, std::string geometryPath = "");
 		~Shader();
 
 		inline GLuint GetProgram() {
@@ -27,6 +25,7 @@ namespace Morpheus {
 
 	private:
 		GLuint Load();
+		bool CompileShader(GLuint& program, int glShaderID, std::string shaderType, std::string shaderPath);
 		GLint GetUniformLocation(const GLchar* name);
 	};
 

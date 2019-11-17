@@ -99,7 +99,7 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>.;..\..\Libraries\GLFW\include;..\..\Libraries\Glad\include;..\..\Libraries\lua\src;..\..\Libraries\glm;..\..\Libraries\sol3\include;..\..\Libraries\freetype2\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.;..\..\Libraries\GLFW\include;..\..\Libraries\Glad\include;..\..\Libraries\lua\src;..\..\Libraries\glm;..\..\Libraries\sol3\include;..\..\Libraries\stb_image\include;..\..\Libraries\freetype2\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <Optimization>Disabled</Optimization>
       <LanguageStandard>stdcpp17</LanguageStandard>
@@ -110,27 +110,13 @@
       <AdditionalDependencies>glfw3.lib;OpenGL32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>..\..\Libraries\GLFW\lib\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
-    <PostBuildEvent>
-      <Command>del $(ProjectDir)..\..\Dist\windows\Debug\x64\Config 2&gt;nul
-del $(ProjectDir)..\..\Dist\windows\Debug\x64\Assets 2&gt;nul
-mkdir $(ProjectDir)..\..\Dist\windows\Debug\x64\Config
-mkdir $(ProjectDir)..\..\Dist\windows\Debug\x64\Assets
-copy $(ProjectDir)Config\settings.lua $(ProjectDir)..\..\Dist\windows\Debug\x64\Config\settings.lua
-xcopy $(ProjectDir)Assets $(ProjectDir)..\..\Dist\windows\Debug\x64\Assets /s /e /h /d
-del $(ProjectDir)..\..\Dist\windows\Release\x64\Config 2&gt;nul
-del $(ProjectDir)..\..\Dist\windows\Release\x64\Assets 2&gt;nul
-mkdir $(ProjectDir)..\..\Dist\windows\Release\x64\Config
-mkdir $(ProjectDir)..\..\Dist\windows\Release\x64\Assets
-copy $(ProjectDir)Config\settings.lua $(ProjectDir)..\..\Dist\windows\Release\x64\Config\settings.lua
-xcopy $(ProjectDir)Assets $(ProjectDir)..\..\Dist\windows\Release\x64\Assets /s /e /h /d</Command>
-    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug x32|x64'">
     <ClCompile>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>.;..\..\Libraries\GLFW\include;..\..\Libraries\Glad\include;..\..\Libraries\lua\src;..\..\Libraries\glm;..\..\Libraries\sol3\include;..\..\Libraries\freetype2\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.;..\..\Libraries\GLFW\include;..\..\Libraries\Glad\include;..\..\Libraries\lua\src;..\..\Libraries\glm;..\..\Libraries\sol3\include;..\..\Libraries\stb_image\include;..\..\Libraries\freetype2\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <Optimization>Disabled</Optimization>
       <LanguageStandard>stdcpp17</LanguageStandard>
@@ -141,27 +127,13 @@ xcopy $(ProjectDir)Assets $(ProjectDir)..\..\Dist\windows\Release\x64\Assets /s 
       <AdditionalDependencies>glfw3.lib;OpenGL32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>..\..\Libraries\GLFW\lib\x32;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
-    <PostBuildEvent>
-      <Command>del $(ProjectDir)..\..\Dist\windows\Debug\x64\Config 2&gt;nul
-del $(ProjectDir)..\..\Dist\windows\Debug\x64\Assets 2&gt;nul
-mkdir $(ProjectDir)..\..\Dist\windows\Debug\x64\Config
-mkdir $(ProjectDir)..\..\Dist\windows\Debug\x64\Assets
-copy $(ProjectDir)Config\settings.lua $(ProjectDir)..\..\Dist\windows\Debug\x64\Config\settings.lua
-xcopy $(ProjectDir)Assets $(ProjectDir)..\..\Dist\windows\Debug\x64\Assets /s /e /h /d
-del $(ProjectDir)..\..\Dist\windows\Release\x64\Config 2&gt;nul
-del $(ProjectDir)..\..\Dist\windows\Release\x64\Assets 2&gt;nul
-mkdir $(ProjectDir)..\..\Dist\windows\Release\x64\Config
-mkdir $(ProjectDir)..\..\Dist\windows\Release\x64\Assets
-copy $(ProjectDir)Config\settings.lua $(ProjectDir)..\..\Dist\windows\Release\x64\Config\settings.lua
-xcopy $(ProjectDir)Assets $(ProjectDir)..\..\Dist\windows\Release\x64\Assets /s /e /h /d</Command>
-    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>.;..\..\Libraries\GLFW\include;..\..\Libraries\Glad\include;..\..\Libraries\lua\src;..\..\Libraries\glm;..\..\Libraries\sol3\include;..\..\Libraries\freetype2\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.;..\..\Libraries\GLFW\include;..\..\Libraries\Glad\include;..\..\Libraries\lua\src;..\..\Libraries\glm;..\..\Libraries\sol3\include;..\..\Libraries\stb_image\include;..\..\Libraries\freetype2\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <Optimization>Full</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
@@ -177,27 +149,13 @@ xcopy $(ProjectDir)Assets $(ProjectDir)..\..\Dist\windows\Release\x64\Assets /s 
       <AdditionalLibraryDirectories>..\..\Libraries\GLFW\lib\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <EntryPointSymbol>mainCRTStartup</EntryPointSymbol>
     </Link>
-    <PostBuildEvent>
-      <Command>del $(ProjectDir)..\..\Dist\windows\Debug\x64\Config 2&gt;nul
-del $(ProjectDir)..\..\Dist\windows\Debug\x64\Assets 2&gt;nul
-mkdir $(ProjectDir)..\..\Dist\windows\Debug\x64\Config
-mkdir $(ProjectDir)..\..\Dist\windows\Debug\x64\Assets
-copy $(ProjectDir)Config\settings.lua $(ProjectDir)..\..\Dist\windows\Debug\x64\Config\settings.lua
-xcopy $(ProjectDir)Assets $(ProjectDir)..\..\Dist\windows\Debug\x64\Assets /s /e /h /d
-del $(ProjectDir)..\..\Dist\windows\Release\x64\Config 2&gt;nul
-del $(ProjectDir)..\..\Dist\windows\Release\x64\Assets 2&gt;nul
-mkdir $(ProjectDir)..\..\Dist\windows\Release\x64\Config
-mkdir $(ProjectDir)..\..\Dist\windows\Release\x64\Assets
-copy $(ProjectDir)Config\settings.lua $(ProjectDir)..\..\Dist\windows\Release\x64\Config\settings.lua
-xcopy $(ProjectDir)Assets $(ProjectDir)..\..\Dist\windows\Release\x64\Assets /s /e /h /d</Command>
-    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release x32|x64'">
     <ClCompile>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>.;..\..\Libraries\GLFW\include;..\..\Libraries\Glad\include;..\..\Libraries\lua\src;..\..\Libraries\glm;..\..\Libraries\sol3\include;..\..\Libraries\freetype2\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.;..\..\Libraries\GLFW\include;..\..\Libraries\Glad\include;..\..\Libraries\lua\src;..\..\Libraries\glm;..\..\Libraries\sol3\include;..\..\Libraries\stb_image\include;..\..\Libraries\freetype2\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <Optimization>Full</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
@@ -213,20 +171,6 @@ xcopy $(ProjectDir)Assets $(ProjectDir)..\..\Dist\windows\Release\x64\Assets /s 
       <AdditionalLibraryDirectories>..\..\Libraries\GLFW\lib\x32;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <EntryPointSymbol>mainCRTStartup</EntryPointSymbol>
     </Link>
-    <PostBuildEvent>
-      <Command>del $(ProjectDir)..\..\Dist\windows\Debug\x64\Config 2&gt;nul
-del $(ProjectDir)..\..\Dist\windows\Debug\x64\Assets 2&gt;nul
-mkdir $(ProjectDir)..\..\Dist\windows\Debug\x64\Config
-mkdir $(ProjectDir)..\..\Dist\windows\Debug\x64\Assets
-copy $(ProjectDir)Config\settings.lua $(ProjectDir)..\..\Dist\windows\Debug\x64\Config\settings.lua
-xcopy $(ProjectDir)Assets $(ProjectDir)..\..\Dist\windows\Debug\x64\Assets /s /e /h /d
-del $(ProjectDir)..\..\Dist\windows\Release\x64\Config 2&gt;nul
-del $(ProjectDir)..\..\Dist\windows\Release\x64\Assets 2&gt;nul
-mkdir $(ProjectDir)..\..\Dist\windows\Release\x64\Config
-mkdir $(ProjectDir)..\..\Dist\windows\Release\x64\Assets
-copy $(ProjectDir)Config\settings.lua $(ProjectDir)..\..\Dist\windows\Release\x64\Config\settings.lua
-xcopy $(ProjectDir)Assets $(ProjectDir)..\..\Dist\windows\Release\x64\Assets /s /e /h /d</Command>
-    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Config\Settings.h" />
@@ -240,6 +184,7 @@ xcopy $(ProjectDir)Assets $(ProjectDir)..\..\Dist\windows\Release\x64\Assets /s 
     <ClInclude Include="Core\Input\Keyboard\Keys.h" />
     <ClInclude Include="Core\Shader\Shader.h" />
     <ClInclude Include="Core\Text\TextRenderer.h" />
+    <ClInclude Include="Core\Texture\Texture.h" />
     <ClInclude Include="Core\Util\FileUtil.h" />
     <ClInclude Include="Core\Window\Window.h" />
     <ClInclude Include="Game\GameApp.h" />
@@ -249,6 +194,7 @@ xcopy $(ProjectDir)Assets $(ProjectDir)..\..\Dist\windows\Release\x64\Assets /s 
     <ClCompile Include="Core\Input\Input.cpp" />
     <ClCompile Include="Core\Shader\Shader.cpp" />
     <ClCompile Include="Core\Text\TextRenderer.cpp" />
+    <ClCompile Include="Core\Texture\Texture.cpp" />
     <ClCompile Include="Core\Window\Window.cpp" />
     <ClCompile Include="Game\GameApp.cpp" />
     <ClCompile Include="main.cpp" />
@@ -256,9 +202,16 @@ xcopy $(ProjectDir)Assets $(ProjectDir)..\..\Dist\windows\Release\x64\Assets /s 
   <ItemGroup>
     <None Include="..\..\.editorconfig" />
     <None Include="Assets\fonts\roboto-regular.ttf" />
+    <None Include="Assets\shaders\basic.frag" />
+    <None Include="Assets\shaders\basic.vert" />
     <None Include="Assets\shaders\text.frag" />
     <None Include="Assets\shaders\text.vert" />
+    <None Include="Assets\shaders\texture.frag" />
+    <None Include="Assets\shaders\texture.vert" />
     <None Include="Config\settings.lua" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="Assets\images\wall.jpg" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Libraries\Glad\Glad.vcxproj">

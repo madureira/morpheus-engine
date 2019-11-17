@@ -15,6 +15,7 @@ IncludeDir["Glad"] = "Libraries/Glad/include"
 IncludeDir["lua"] = "Libraries/lua/src"
 IncludeDir["glm"] = "Libraries/glm"
 IncludeDir["sol3"] = "Libraries/sol3/include"
+IncludeDir["stb_image"] = "Libraries/stb_image/include"
 IncludeDir["freetype2"] = "Libraries/freetype2/include"
 
 LibrariesDir = {}
@@ -49,6 +50,7 @@ project "Morpheus"
 		"%{IncludeDir.lua}",
 		"%{IncludeDir.glm}",
 		"%{IncludeDir.sol3}",
+		"%{IncludeDir.stb_image}",
 		"%{IncludeDir.freetype2}"
 	}
 
@@ -66,20 +68,6 @@ project "Morpheus"
 	filter { "system:windows" }
 		systemversion "latest"
 		links { "OpenGL32" }
-		postbuildcommands {
-			"del %{prj.location}..\\..\\Dist\\windows\\Debug\\x64\\Config 2>nul",
-			"del %{prj.location}..\\..\\Dist\\windows\\Debug\\x64\\Assets 2>nul",
-			"mkdir %{prj.location}..\\..\\Dist\\windows\\Debug\\x64\\Config",
-			"mkdir %{prj.location}..\\..\\Dist\\windows\\Debug\\x64\\Assets",
-			"copy %{prj.location}Config\\settings.lua %{prj.location}..\\..\\Dist\\windows\\Debug\\x64\\Config\\settings.lua",
-			"xcopy %{prj.location}Assets %{prj.location}..\\..\\Dist\\windows\\Debug\\x64\\Assets /s /e /h /d",
-			"del %{prj.location}..\\..\\Dist\\windows\\Release\\x64\\Config 2>nul",
-			"del %{prj.location}..\\..\\Dist\\windows\\Release\\x64\\Assets 2>nul",
-			"mkdir %{prj.location}..\\..\\Dist\\windows\\Release\\x64\\Config",
-			"mkdir %{prj.location}..\\..\\Dist\\windows\\Release\\x64\\Assets",
-			"copy %{prj.location}Config\\settings.lua %{prj.location}..\\..\\Dist\\windows\\Release\\x64\\Config\\settings.lua",
-			"xcopy %{prj.location}Assets %{prj.location}..\\..\\Dist\\windows\\Release\\x64\\Assets /s /e /h /d"
-		}
 
 	filter { "system:not windows" }
 		links { "GL" }

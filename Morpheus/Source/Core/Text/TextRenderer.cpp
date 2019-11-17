@@ -1,5 +1,6 @@
 #include "TextRenderer.h"
 
+#include <iostream>
 #include <ft2build.h>
 #include FT_FREETYPE_H
 #include "Core/Shader/Shader.h"
@@ -80,6 +81,7 @@ namespace Morpheus {
 	void TextRenderer::Render(Shader& shader, std::string text, GLfloat x, GLfloat y, GLfloat scale, glm::vec3 color)
 	{
 		shader.Enable();
+
 		glUniform3f(glGetUniformLocation(shader.GetProgram(), "textColor"), color.x, color.y, color.z);
 		glActiveTexture(GL_TEXTURE0);
 		glBindVertexArray(this->m_VAO);
@@ -115,6 +117,8 @@ namespace Morpheus {
 		}
 		glBindVertexArray(0);
 		glBindTexture(GL_TEXTURE_2D, 0);
+
+		shader.Disable();
 	}
 
 }
