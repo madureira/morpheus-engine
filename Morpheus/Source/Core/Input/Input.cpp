@@ -7,10 +7,15 @@ namespace Morpheus {
 
 	Input::Input(EventBus* pEventBus)
 		: m_EventBus(pEventBus),
-		m_KeyUpPressed(false),
-		m_KeyDownPressed(false),
-		m_KeyLeftPressed(false),
-		m_KeyRightPressed(false)
+		m_IsUpKeyPressed(false),
+		m_IsDownKeyPressed(false),
+		m_IsLeftKeyPressed(false),
+		m_IsRightKeyPressed(false),
+		m_IsSpaceKeyPressed(false),
+		m_IsAKeyPressed(false),
+		m_IsWKeyPressed(false),
+		m_IsDKeyPressed(false),
+		m_IsSKeyPressed(false)
 	{
 		this->m_EventBus->subscribe(this, &Input::OnKeyboardEvent);
 	}
@@ -19,10 +24,15 @@ namespace Morpheus {
 	{
 		this->UpdateKeyStatus(pEvent->GetKey(), pEvent->GetAction());
 
-		std::cout << "\r" << "UP: " << this->m_KeyUpPressed
-			<< ", DOWN: " << this->m_KeyDownPressed
-			<< ", LEFT: " << this->m_KeyLeftPressed
-			<< ", RIGHT: " << this->m_KeyRightPressed;
+		std::cout << "\r" << "UP: " << this->m_IsUpKeyPressed
+			<< ", DOWN: " << this->m_IsDownKeyPressed
+			<< ", LEFT: " << this->m_IsLeftKeyPressed
+			<< ", RIGHT: " << this->m_IsRightKeyPressed
+			<< ", SPACE: " << this->m_IsSpaceKeyPressed
+			<< ", A: " << this->m_IsAKeyPressed
+			<< ", W: " << this->m_IsWKeyPressed
+			<< ", D: " << this->m_IsDKeyPressed
+			<< ", S: " << this->m_IsSKeyPressed;
 	}
 
 	void Input::UpdateKeyStatus(int key, KeyboardEvent::Action action)
@@ -32,16 +42,31 @@ namespace Morpheus {
 		switch (key)
 		{
 		case Keys::UP:
-			this->m_KeyUpPressed = isPressing;
+			this->m_IsUpKeyPressed = isPressing;
 			break;
 		case Keys::DOWN:
-			this->m_KeyDownPressed = isPressing;
+			this->m_IsDownKeyPressed = isPressing;
 			break;
 		case Keys::LEFT:
-			this->m_KeyLeftPressed = isPressing;
+			this->m_IsLeftKeyPressed = isPressing;
 			break;
 		case Keys::RIGHT:
-			this->m_KeyRightPressed = isPressing;
+			this->m_IsRightKeyPressed = isPressing;
+			break;
+		case Keys::SPACE:
+			this->m_IsSpaceKeyPressed = isPressing;
+			break;
+		case Keys::A:
+			this->m_IsAKeyPressed = isPressing;
+			break;
+		case Keys::W:
+			this->m_IsWKeyPressed = isPressing;
+			break;
+		case Keys::D:
+			this->m_IsDKeyPressed = isPressing;
+			break;
+		case Keys::S:
+			this->m_IsSKeyPressed = isPressing;
 			break;
 		default:
 			break;

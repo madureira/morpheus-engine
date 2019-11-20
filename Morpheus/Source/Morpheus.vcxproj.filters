@@ -123,6 +123,12 @@
     <None Include="Assets\fonts\roboto-regular.ttf">
       <Filter>Assets\fonts</Filter>
     </None>
+    <None Include="Assets\shaders\basic.frag">
+      <Filter>Assets\shaders</Filter>
+    </None>
+    <None Include="Assets\shaders\basic.vert">
+      <Filter>Assets\shaders</Filter>
+    </None>
     <None Include="Assets\shaders\text.frag">
       <Filter>Assets\shaders</Filter>
     </None>
@@ -138,8 +144,6 @@
     <None Include="Config\settings.lua">
       <Filter>Config</Filter>
     </None>
-    <None Include="Assets\shaders\basic.vert" />
-    <None Include="Assets\shaders\basic.frag" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="Assets\images\wall.jpg">

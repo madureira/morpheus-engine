@@ -10,10 +10,15 @@ namespace Morpheus {
 	{
 	private:
 		EventBus* m_EventBus;
-		bool m_KeyUpPressed;
-		bool m_KeyDownPressed;
-		bool m_KeyLeftPressed;
-		bool m_KeyRightPressed;
+		bool m_IsUpKeyPressed;
+		bool m_IsDownKeyPressed;
+		bool m_IsLeftKeyPressed;
+		bool m_IsRightKeyPressed;
+		bool m_IsSpaceKeyPressed;
+		bool m_IsAKeyPressed;
+		bool m_IsWKeyPressed;
+		bool m_IsDKeyPressed;
+		bool m_IsSKeyPressed;
 
 	public:
 		Input(EventBus* pEventBus);
