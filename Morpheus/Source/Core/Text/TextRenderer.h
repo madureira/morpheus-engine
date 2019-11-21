@@ -9,7 +9,7 @@
 
 namespace Morpheus {
 
-	class Shader;
+	class ShaderXXX;
 
 	class TextRenderer
 	{
@@ -26,7 +26,7 @@ namespace Morpheus {
 
 	public:
 		TextRenderer(std::string fontPath);
-		void Render(Shader& shader, std::string text, GLfloat x, GLfloat y, GLfloat scale, glm::vec3 color);
+		void Render(ShaderXXX& shader, std::string text, GLfloat x, GLfloat y, GLfloat scale, glm::vec3 color);
 	};
 
 }

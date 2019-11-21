@@ -107,7 +107,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>glfw3.lib;OpenGL32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>glfw3.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>..\..\Libraries\GLFW\lib\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
@@ -124,7 +124,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>glfw3.lib;OpenGL32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>glfw3.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>..\..\Libraries\GLFW\lib\x32;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
@@ -145,7 +145,7 @@
       <SubSystem>Windows</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalDependencies>glfw3.lib;OpenGL32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>glfw3.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>..\..\Libraries\GLFW\lib\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <EntryPointSymbol>mainCRTStartup</EntryPointSymbol>
     </Link>
@@ -167,7 +167,7 @@
       <SubSystem>Windows</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalDependencies>glfw3.lib;OpenGL32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>glfw3.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>..\..\Libraries\GLFW\lib\x32;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <EntryPointSymbol>mainCRTStartup</EntryPointSymbol>
     </Link>
@@ -182,35 +182,59 @@
     <ClInclude Include="Core\Input\Input.h" />
     <ClInclude Include="Core\Input\Keyboard\KeyboardEvent.h" />
     <ClInclude Include="Core\Input\Keyboard\Keys.h" />
-    <ClInclude Include="Core\Shader\Shader.h" />
+    <ClInclude Include="Core\Shader\ShaderXXX.h" />
+    <ClInclude Include="Core\Texture\TextureXXX.h" />
     <ClInclude Include="Core\Text\TextRenderer.h" />
-    <ClInclude Include="Core\Texture\Texture.h" />
     <ClInclude Include="Core\Util\FileUtil.h" />
     <ClInclude Include="Core\Window\Window.h" />
     <ClInclude Include="Game\GameApp.h" />
+    <ClInclude Include="shader.h" />
+    <ClInclude Include="spriteBatcher.h" />
+    <ClInclude Include="stb_image.h" />
+    <ClInclude Include="texture.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Core\Engine.cpp" />
     <ClCompile Include="Core\Input\Input.cpp" />
-    <ClCompile Include="Core\Shader\Shader.cpp" />
+    <ClCompile Include="Core\Shader\ShaderXXX.cpp" />
+    <ClCompile Include="Core\Texture\TextureXXX.cpp" />
     <ClCompile Include="Core\Text\TextRenderer.cpp" />
-    <ClCompile Include="Core\Texture\Texture.cpp" />
     <ClCompile Include="Core\Window\Window.cpp" />
     <ClCompile Include="Game\GameApp.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="shader.cpp" />
+    <ClCompile Include="spriteBatcher.cpp" />
+    <ClCompile Include="texture.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\.editorconfig" />
     <None Include="Assets\fonts\roboto-regular.ttf" />
     <None Include="Assets\shaders\basic.frag" />
     <None Include="Assets\shaders\basic.vert" />
+    <None Include="Assets\shaders\camera.frag" />
+    <None Include="Assets\shaders\camera.vert" />
+    <None Include="Assets\shaders\core.frag" />
+    <None Include="Assets\shaders\core.vert" />
+    <None Include="Assets\shaders\instancing.frag" />
+    <None Include="Assets\shaders\instancing.vert" />
+    <None Include="Assets\shaders\sprite.frag" />
+    <None Include="Assets\shaders\sprite.vert" />
     <None Include="Assets\shaders\text.frag" />
     <None Include="Assets\shaders\text.vert" />
     <None Include="Assets\shaders\texture.frag" />
     <None Include="Assets\shaders\texture.vert" />
+    <None Include="Assets\shaders\tile.frag" />
+    <None Include="Assets\shaders\tile.geom" />
+    <None Include="Assets\shaders\tile.vert" />
     <None Include="Config\settings.lua" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="Assets\images\atlas.png" />
+    <Image Include="Assets\images\awesomeface.png" />
+    <Image Include="Assets\images\container.jpg" />
+    <Image Include="Assets\images\texture.png" />
+    <Image Include="Assets\images\texture2.png" />
+    <Image Include="Assets\images\tileset.png" />
     <Image Include="Assets\images\wall.jpg" />
   </ItemGroup>
   <ItemGroup>

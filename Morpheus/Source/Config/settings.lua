@@ -7,7 +7,7 @@ config = {
 			height = 600
 		},
 	},
-	fps = 600,
+	fps = 60,
 	msaa = 4,
 	debug = true
 }

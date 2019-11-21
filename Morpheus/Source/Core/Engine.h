@@ -7,7 +7,7 @@ namespace Morpheus {
 	class Input;
 	class Window;
 	class Settings;
-	class Shader;
+	class ShaderXXX;
 	class TextRenderer;
 
 	class Engine
@@ -18,7 +18,7 @@ namespace Morpheus {
 		Input* m_Input;
 		Window* m_Window;
 		Settings* m_Settings;
-		Shader* m_TextShader;
+		ShaderXXX* m_TextShader;
 		TextRenderer* m_TextRenderer;
 		float m_InitialWindowWidth;
 		float m_InitialWindowHeight;

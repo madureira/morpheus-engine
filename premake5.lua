@@ -67,7 +67,7 @@ project "Morpheus"
 
 	filter { "system:windows" }
 		systemversion "latest"
-		links { "OpenGL32" }
+		links { "opengl32" }
 
 	filter { "system:not windows" }
 		links { "GL" }

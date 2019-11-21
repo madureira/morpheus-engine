@@ -5,7 +5,7 @@
 #include "Core/Window/Window.h"
 #include "Core/Event/EventBus.h"
 #include "Core/Input/Input.h"
-#include "Core/Shader/Shader.h"
+#include "Core/Shader/ShaderXXX.h"
 #include "Core/Text/TextRenderer.h"
 #include "Core/App.h"
 
@@ -50,7 +50,7 @@ namespace Morpheus {
 	{
 		if (this->m_Settings->IsDebug())
 		{
-			this->m_TextShader = new Shader("Assets/shaders/text.vert", "Assets/shaders/text.frag");
+			this->m_TextShader = new ShaderXXX("Assets/shaders/text.vert", "Assets/shaders/text.frag");
 			this->m_TextRenderer = new TextRenderer("Assets/fonts/roboto-regular.ttf");
 
 			glm::mat4 projection = glm::ortho(0.0f, this->m_InitialWindowWidth, 0.0f, this->m_InitialWindowHeight);

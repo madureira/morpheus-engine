@@ -55,13 +55,13 @@ namespace Morpheus {
 		}
 
 		// Set all the required options for GLFW
-		glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
-		glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
-		glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
-		glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-		glfwWindowHint(GLFW_RESIZABLE, GL_TRUE);
-		glfwWindowHint(GLFW_DOUBLEBUFFER, GL_TRUE);
-		glfwWindowHint(GLFW_SAMPLES, this->m_Settings->GetMSAASamples());
+		//glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
+		//glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
+		//glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
+		//glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+		//glfwWindowHint(GLFW_RESIZABLE, GL_TRUE);
+		//glfwWindowHint(GLFW_DOUBLEBUFFER, GL_TRUE);
+		//glfwWindowHint(GLFW_SAMPLES, this->m_Settings->GetMSAASamples());
 
 		GLFWmonitor* pMonitor = glfwGetPrimaryMonitor();
 		const GLFWvidmode* pMode = glfwGetVideoMode(pMonitor);
@@ -75,10 +75,10 @@ namespace Morpheus {
 			return;
 		}
 
-		glfwWindowHint(GLFW_RED_BITS, pMode->redBits);
-		glfwWindowHint(GLFW_GREEN_BITS, pMode->greenBits);
-		glfwWindowHint(GLFW_BLUE_BITS, pMode->blueBits);
-		glfwWindowHint(GLFW_REFRESH_RATE, pMode->refreshRate);
+		//glfwWindowHint(GLFW_RED_BITS, pMode->redBits);
+		//glfwWindowHint(GLFW_GREEN_BITS, pMode->greenBits);
+		//glfwWindowHint(GLFW_BLUE_BITS, pMode->blueBits);
+		//glfwWindowHint(GLFW_REFRESH_RATE, pMode->refreshRate);
 
 		glfwSetWindowPos(this->m_Window, (pMode->width - this->m_Data.Width) / 2, (pMode->height - this->m_Data.Height) / 2);
 		glfwMakeContextCurrent(this->m_Window);
