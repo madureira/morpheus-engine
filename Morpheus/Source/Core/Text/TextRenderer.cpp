@@ -3,7 +3,7 @@
 #include <iostream>
 #include <ft2build.h>
 #include FT_FREETYPE_H
-#include "Core/Shader/ShaderXXX.h"
+#include "Core/Shader/Shader.h"
 
 namespace Morpheus {
 
@@ -78,7 +78,7 @@ namespace Morpheus {
 		glBindVertexArray(0);
 	}
 
-	void TextRenderer::Render(ShaderXXX& shader, std::string text, GLfloat x, GLfloat y, GLfloat scale, glm::vec3 color)
+	void TextRenderer::Render(Shader& shader, std::string text, GLfloat x, GLfloat y, GLfloat scale, glm::vec3 color)
 	{
 		shader.Enable();
 

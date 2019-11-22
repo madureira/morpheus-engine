@@ -5,7 +5,7 @@
 #include "Core/Window/Window.h"
 #include "Core/Event/EventBus.h"
 #include "Core/Input/Input.h"
-#include "Core/Shader/ShaderXXX.h"
+#include "Core/Shader/Shader.h"
 #include "Core/Text/TextRenderer.h"
 #include "Core/App.h"
 
@@ -50,7 +50,7 @@ namespace Morpheus {
 	{
 		if (this->m_Settings->IsDebug())
 		{
-			this->m_TextShader = new ShaderXXX("Assets/shaders/text.vert", "Assets/shaders/text.frag");
+			this->m_TextShader = new Shader("Assets/shaders/text.vert", "Assets/shaders/text.frag");
 			this->m_TextRenderer = new TextRenderer("Assets/fonts/roboto-regular.ttf");
 
 			glm::mat4 projection = glm::ortho(0.0f, this->m_InitialWindowWidth, 0.0f, this->m_InitialWindowHeight);
@@ -59,7 +59,7 @@ namespace Morpheus {
 		}
 
 		this->m_App = app;
-		this->m_App->Initialize(this->m_EventBus);
+		this->m_App->Initialize(this->m_EventBus, this->m_Settings);
 	}
 
 	void Engine::Start()
@@ -115,14 +115,11 @@ namespace Morpheus {
 		static const float rowHeight = 20.0f;
 		const std::string fps = "FPS: " + std::to_string(frames);
 		const std::string timePerFrame = std::to_string(deltaTime) + " ms/frame";
-		static const std::string msaaSamples = "MSAA Samples: " + std::to_string(this->m_Settings->GetMSAASamples());
 		const float fpsTextPosY = this->m_InitialWindowHeight - rowHeight;
 		const float timeTextPosY = this->m_InitialWindowHeight - rowHeight * 2;
-		const float msaaSamplesTextPosY = this->m_InitialWindowHeight - rowHeight * 3;
 
 		this->m_TextRenderer->Render(*this->m_TextShader, fps, originX, fpsTextPosY, scale, glm::vec3(0.5f, 0.8f, 0.2f));
 		this->m_TextRenderer->Render(*this->m_TextShader, timePerFrame, originX, timeTextPosY, scale, glm::vec3(0.3f, 0.7f, 0.9f));
-		this->m_TextRenderer->Render(*this->m_TextShader, msaaSamples, originX, msaaSamplesTextPosY, scale, glm::vec3(1.0f, 0.0f, 0.0f));
 	}
 
 }

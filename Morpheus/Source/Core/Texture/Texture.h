@@ -6,19 +6,18 @@
 
 namespace Morpheus {
 
-	class TextureXXX
+	class Texture
 	{
 	private:
-		GLuint m_texture;
-		unsigned int m_refCount = 0;
+		GLuint m_Texture;
+		unsigned int m_RefCount = 0;
 
 	public:
-		TextureXXX(const char* filePath);
-		~TextureXXX();
+		Texture(const char* filePath, bool flipVertically = false);
+		~Texture();
 		void IncRefCount();
 		void DecRefCount();
 		GLuint GetGLTexture();
-
 	};
 
 }

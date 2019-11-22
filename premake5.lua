@@ -75,12 +75,13 @@ project "Morpheus"
 	filter "configurations:Debug"
 		defines { "DEBUG" }
 		symbols "On"
+		optimize "On"
 
 	filter "configurations:Release"
 		defines { "NDEBUG" }
 		kind "WindowedApp"
 		flags { entrypoint "mainCRTStartup" }
-		optimize "On"
+		optimize "Speed"
 
 
 -- Clean Function --

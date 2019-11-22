@@ -28,14 +28,17 @@
     <Filter Include="Core\Input\Keyboard">
       <UniqueIdentifier>{CD557F35-39B7-5C43-C224-A3F52E859302}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Core\Renderer">
+      <UniqueIdentifier>{948B5FDE-004C-DB14-C986-2492350620F1}</UniqueIdentifier>
+    </Filter>
     <Filter Include="Core\Shader">
       <UniqueIdentifier>{14A4C393-8059-3C89-094E-36607502338D}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Core\Sprite">
-      <UniqueIdentifier>{B4D15D94-2087-D689-A97B-D0601530CD8D}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Core\Text">
       <UniqueIdentifier>{02CEC315-6E38-788C-B776-2932232056E1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\Texture">
+      <UniqueIdentifier>{8E27DC53-7A8A-6BF8-2310-A4AE0F52377B}</UniqueIdentifier>
     </Filter>
     <Filter Include="Core\Util">
       <UniqueIdentifier>{3B98C415-A702-798C-F040-2A325CEA56E1}</UniqueIdentifier>
@@ -51,37 +54,78 @@
     <ClInclude Include="Config\Settings.h">
       <Filter>Config</Filter>
     </ClInclude>
-    <ClInclude Include="shader.h" />
-    <ClInclude Include="spriteBatcher.h" />
-    <ClInclude Include="stb_image.h" />
-    <ClInclude Include="texture.h" />
-    <ClInclude Include="Core\Event\Event.h" />
-    <ClInclude Include="Core\Event\EventBus.h" />
-    <ClInclude Include="Core\Event\MemberFunctionHandler.h" />
-    <ClInclude Include="Core\Input\Keyboard\KeyboardEvent.h" />
-    <ClInclude Include="Core\Input\Keyboard\Keys.h" />
-    <ClInclude Include="Core\Input\Input.h" />
-    <ClInclude Include="Core\Text\TextRenderer.h" />
-    <ClInclude Include="Core\Texture\TextureXXX.h" />
-    <ClInclude Include="Core\Util\FileUtil.h" />
-    <ClInclude Include="Core\Window\Window.h" />
-    <ClInclude Include="Core\App.h" />
-    <ClInclude Include="Core\Engine.h" />
-    <ClInclude Include="Game\GameApp.h" />
-    <ClInclude Include="Core\Shader\ShaderXXX.h" />
+    <ClInclude Include="Core\App.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Engine.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Event\Event.h">
+      <Filter>Core\Event</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Event\EventBus.h">
+      <Filter>Core\Event</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Event\MemberFunctionHandler.h">
+      <Filter>Core\Event</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Input\Input.h">
+      <Filter>Core\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Input\Keyboard\KeyboardEvent.h">
+      <Filter>Core\Input\Keyboard</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Input\Keyboard\Keys.h">
+      <Filter>Core\Input\Keyboard</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Renderer\SpriteBatcher.h">
+      <Filter>Core\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Shader\Shader.h">
+      <Filter>Core\Shader</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Text\TextRenderer.h">
+      <Filter>Core\Text</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Texture\Texture.h">
+      <Filter>Core\Texture</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Util\FileUtil.h">
+      <Filter>Core\Util</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Window\Window.h">
+      <Filter>Core\Window</Filter>
+    </ClInclude>
+    <ClInclude Include="Game\GameApp.h">
+      <Filter>Game</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Core\Engine.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\Input\Input.cpp">
+      <Filter>Core\Input</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\Renderer\SpriteBatcher.cpp">
+      <Filter>Core\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\Shader\Shader.cpp">
+      <Filter>Core\Shader</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\Text\TextRenderer.cpp">
+      <Filter>Core\Text</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\Texture\Texture.cpp">
+      <Filter>Core\Texture</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\Window\Window.cpp">
+      <Filter>Core\Window</Filter>
+    </ClCompile>
+    <ClCompile Include="Game\GameApp.cpp">
+      <Filter>Game</Filter>
+    </ClCompile>
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="shader.cpp" />
-    <ClCompile Include="spriteBatcher.cpp" />
-    <ClCompile Include="texture.cpp" />
-    <ClCompile Include="Core\Input\Input.cpp" />
-    <ClCompile Include="Core\Text\TextRenderer.cpp" />
-    <ClCompile Include="Core\Texture\TextureXXX.cpp" />
-    <ClCompile Include="Core\Window\Window.cpp" />
-    <ClCompile Include="Core\Engine.cpp" />
-    <ClCompile Include="Game\GameApp.cpp" />
-    <ClCompile Include="Core\Shader\ShaderXXX.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\.editorconfig" />
@@ -94,8 +138,6 @@
     <None Include="Assets\shaders\basic.vert">
       <Filter>Assets\shaders</Filter>
     </None>
-<<<<<<< Updated upstream
-=======
     <None Include="Assets\shaders\camera.frag">
       <Filter>Assets\shaders</Filter>
     </None>
@@ -120,7 +162,6 @@
     <None Include="Assets\shaders\sprite.vert">
       <Filter>Assets\shaders</Filter>
     </None>
->>>>>>> Stashed changes
     <None Include="Assets\shaders\text.frag">
       <Filter>Assets\shaders</Filter>
     </None>
@@ -156,13 +197,14 @@
     <Image Include="Assets\images\container.jpg">
       <Filter>Assets\images</Filter>
     </Image>
-    <Image Include="Assets\images\texture2.png">
+    <Image Include="Assets\images\texture.png">
+      <Filter>Assets\images</Filter>
+    </Image>
+    <Image Include="Assets\images\tileset.png">
       <Filter>Assets\images</Filter>
     </Image>
     <Image Include="Assets\images\wall.jpg">
       <Filter>Assets\images</Filter>
     </Image>
-    <Image Include="Assets\images\texture.png" />
-    <Image Include="Assets\images\tileset.png" />
   </ItemGroup>
 </Project>

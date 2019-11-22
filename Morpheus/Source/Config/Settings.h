@@ -27,7 +27,6 @@ namespace Morpheus {
 		unsigned int m_WindowWidth;
 		unsigned int m_WindowHeight;
 		unsigned int m_FPS;
-		unsigned int m_MSAASamples;
 		bool m_IsDebug;
 
 	public:
@@ -38,7 +37,6 @@ namespace Morpheus {
 			m_WindowWidth(800),
 			m_WindowHeight(600),
 			m_FPS(30),
-			m_MSAASamples(2),
 			m_IsDebug(false)
 		{
 			this->m_LuaState = new sol::state();
@@ -82,11 +80,6 @@ namespace Morpheus {
 			return this->m_FPS;
 		}
 
-		inline unsigned int GetMSAASamples() const
-		{
-			return this->m_MSAASamples;
-		}
-
 		inline bool IsDebug() const
 		{
 			return this->m_IsDebug;
@@ -110,7 +103,6 @@ namespace Morpheus {
 			sol::optional<unsigned int> windowResolutionWidth = (*this->m_LuaState)["config"]["window"]["resolution"]["width"];
 			sol::optional<unsigned int> windowResolutionHeight = (*this->m_LuaState)["config"]["window"]["resolution"]["height"];
 			sol::optional<unsigned int> fps = (*this->m_LuaState)["config"]["fps"];
-			sol::optional<unsigned int> msaa = (*this->m_LuaState)["config"]["msaa"];
 			sol::optional<bool> debug = (*this->m_LuaState)["config"]["debug"];
 
 			c_assert(windowTitle != sol::nullopt);
@@ -118,7 +110,6 @@ namespace Morpheus {
 			c_assert(windowResolutionWidth != sol::nullopt);
 			c_assert(windowResolutionHeight != sol::nullopt);
 			c_assert(fps != sol::nullopt);
-			c_assert(msaa != sol::nullopt);
 			c_assert(debug != sol::nullopt);
 
 			this->m_WindowTitle = windowTitle.value();
@@ -126,7 +117,6 @@ namespace Morpheus {
 			this->m_WindowWidth = windowResolutionWidth.value();
 			this->m_WindowHeight = windowResolutionHeight.value();
 			this->m_FPS = fps.value();
-			this->m_MSAASamples = msaa.value();
 			this->m_IsDebug = debug.value();
 
 			return true;

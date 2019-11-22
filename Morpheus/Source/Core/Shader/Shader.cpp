@@ -1,4 +1,4 @@
-#include "ShaderXXX.h"
+#include "Shader.h"
 
 #include <vector>
 #include <iostream>
@@ -6,7 +6,7 @@
 
 namespace Morpheus {
 
-	ShaderXXX::ShaderXXX(std::string vertexPath, std::string fragmentPath, std::string geometryPath) :
+	Shader::Shader(std::string vertexPath, std::string fragmentPath, std::string geometryPath) :
 		m_VertPath(vertexPath),
 		m_FragPath(fragmentPath),
 		m_GeomPath(geometryPath)
@@ -14,22 +14,25 @@ namespace Morpheus {
 		this->m_ShaderID = this->Load();
 	}
 
-	ShaderXXX::~ShaderXXX()
+	Shader::~Shader()
 	{
-		glDeleteProgram(this->m_ShaderID);
+		if (this->m_ShaderID != 0)
+		{
+			glDeleteProgram(this->m_ShaderID);
+		}
 	}
 
-	void ShaderXXX::Enable() const
+	void Shader::Enable() const
 	{
 		glUseProgram(this->m_ShaderID);
 	}
 
-	void ShaderXXX::Disable() const
+	void Shader::Disable() const
 	{
 		glUseProgram(0);
 	}
 
-	GLuint ShaderXXX::Load()
+	GLuint Shader::Load()
 	{
 		GLuint program = glCreateProgram();
 
@@ -47,7 +50,7 @@ namespace Morpheus {
 		return program;
 	}
 
-	bool ShaderXXX::CompileShader(GLuint& program, int glShaderID, std::string shaderType, std::string shaderPath)
+	bool Shader::CompileShader(GLuint& program, int glShaderType, std::string shaderType, std::string shaderPath)
 	{
 		std::string shaderFile = FileUtil::ReadFile(shaderPath.c_str());
 
@@ -59,11 +62,12 @@ namespace Morpheus {
 
 		const char* shaderSource = shaderFile.c_str();
 
-		GLint isCompiled;
-		GLuint shader = glCreateShader(glShaderID);
+		GLuint shader = glCreateShader(glShaderType);
 
 		glShaderSource(shader, 1, &shaderSource, NULL);
 		glCompileShader(shader);
+
+		GLint isCompiled;
 		glGetShaderiv(shader, GL_COMPILE_STATUS, &isCompiled);
 
 		if (isCompiled == GL_FALSE)
@@ -82,9 +86,9 @@ namespace Morpheus {
 		return true;
 	}
 
-	GLint ShaderXXX::GetUniformLocation(const GLchar* name)
+	GLint Shader::GetUniformLocation(const GLchar* pName)
 	{
-		return glGetUniformLocation(this->m_ShaderID, name);
+		return glGetUniformLocation(this->m_ShaderID, pName);
 	}
 
 }

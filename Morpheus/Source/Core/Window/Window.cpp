@@ -37,7 +37,6 @@ namespace Morpheus {
 	{
 		glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT);
-		glViewport(0, 0, this->m_Data.Width, this->m_Data.Height);
 	}
 
 	void Window::SwapBuffers()
@@ -54,17 +53,20 @@ namespace Morpheus {
 			return;
 		}
 
-		// Set all the required options for GLFW
-		//glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
-		//glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
-		//glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
-		//glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-		//glfwWindowHint(GLFW_RESIZABLE, GL_TRUE);
-		//glfwWindowHint(GLFW_DOUBLEBUFFER, GL_TRUE);
-		//glfwWindowHint(GLFW_SAMPLES, this->m_Settings->GetMSAASamples());
-
 		GLFWmonitor* pMonitor = glfwGetPrimaryMonitor();
 		const GLFWvidmode* pMode = glfwGetVideoMode(pMonitor);
+
+		glfwWindowHint(GLFW_CLIENT_API, GLFW_OPENGL_API);
+		glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
+		glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 1);
+		glfwWindowHint(GLFW_RESIZABLE, GLFW_TRUE);
+		glfwWindowHint(GLFW_AUTO_ICONIFY, GLFW_TRUE);
+		glfwWindowHint(GLFW_DOUBLEBUFFER, GL_TRUE);
+		glfwWindowHint(GLFW_SCALE_TO_MONITOR, GLFW_FALSE);
+		glfwWindowHint(GLFW_RED_BITS, pMode->redBits);
+		glfwWindowHint(GLFW_GREEN_BITS, pMode->greenBits);
+		glfwWindowHint(GLFW_BLUE_BITS, pMode->blueBits);
+		glfwWindowHint(GLFW_REFRESH_RATE, pMode->refreshRate);
 
 		this->m_Window = glfwCreateWindow(this->m_Data.Width, this->m_Data.Height, this->m_Data.Title.c_str(), this->m_Data.FullScreen ? pMonitor : nullptr, nullptr);
 
@@ -75,14 +77,10 @@ namespace Morpheus {
 			return;
 		}
 
-		//glfwWindowHint(GLFW_RED_BITS, pMode->redBits);
-		//glfwWindowHint(GLFW_GREEN_BITS, pMode->greenBits);
-		//glfwWindowHint(GLFW_BLUE_BITS, pMode->blueBits);
-		//glfwWindowHint(GLFW_REFRESH_RATE, pMode->refreshRate);
-
 		glfwSetWindowPos(this->m_Window, (pMode->width - this->m_Data.Width) / 2, (pMode->height - this->m_Data.Height) / 2);
 		glfwMakeContextCurrent(this->m_Window);
 		glfwSetWindowUserPointer(this->m_Window, &this->m_Data);
+		glfwSetWindowAspectRatio(this->m_Window, 16, 9);
 
 		glfwSetErrorCallback([](int error, const char* description)
 			{
@@ -94,6 +92,12 @@ namespace Morpheus {
 				WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
 				data.Width = width;
 				data.Height = height;
+			});
+
+		glfwSetFramebufferSizeCallback(this->m_Window, [](GLFWwindow* window, int width, int height)
+			{
+				WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
+				glViewport(0, 0, width, height - 20);
 			});
 
 		glfwSetKeyCallback(this->m_Window, [](GLFWwindow* window, int key, int scancode, int action, int mods)
@@ -123,7 +127,12 @@ namespace Morpheus {
 			this->Shutdown();
 			return;
 		}
-		std::cout << "OpenGL " << glGetString(GL_VERSION) << std::endl;
+
+		if (GLAD_GL_VERSION_3_1)
+		{
+			// Call OpenGL 3.2+ specific code
+			std::cout << "OpenGL " << glGetString(GL_VERSION) << std::endl;
+		}
 
 		// Set OpenGL options
 		glEnable(GL_BLEND);
