@@ -26,38 +26,13 @@ namespace Game {
 		static const int tileSize = 40;
 		static const int columns = (this->m_Settings->GetWindowWidth() / tileSize) - 1;
 		static const int rows = (this->m_Settings->GetWindowHeight() / tileSize) - 2;
-		static const int layers = 5;
+		static const int layers = 8;
 		static const int distance = -10;
 		static const int margin = tileSize;
 
 		static int playerX = 0;
 		static int playerY = 0;
 		static const int speed = 5;
-
-		/*
-		for (int z = 0; z < layers; z++)
-		{
-			for (int x = 0; x < columns; x++)
-			{
-				for (int y = 0; y < rows; y++)
-				{
-					this->m_SpriteBatcher->Draw(
-						// position of the rectangle
-						glm::vec4(margin + x * tileSize + z * distance, margin + y * tileSize + z * distance, tileSize, tileSize),
-
-						// rectangle size
-						getTile(tileSize, z),
-
-						// color to tint the sprite
-						glm::vec4(x / 10.f, y / 10.f, z / 10.f, 1),
-
-						// texture of the sprite
-						this->m_Texture
-					);
-				}
-			}
-		}
-		*/
 
 		if (this->m_InputState.UP)
 		{
@@ -118,27 +93,27 @@ namespace Game {
 
 	glm::vec4 GameApp::getTile(int tileSize, int layer)
 	{
-		if (layer == 0)
+		if (layer == 0 || layer == 5 || layer == 10 || layer == 15)
 		{
 			return glm::vec4(0, tileSize, tileSize, 0);
 		}
 
-		if (layer == 1)
+		if (layer == 1 || layer == 6 || layer == 11 || layer == 16)
 		{
 			return glm::vec4(tileSize * 8, tileSize, tileSize * 9, 0);
 		}
 
-		if (layer == 2)
+		if (layer == 2 || layer == 7 || layer == 12 || layer == 17)
 		{
 			return glm::vec4(tileSize * 4, tileSize, tileSize * 5, 0);
 		}
 
-		if (layer == 3)
+		if (layer == 3 || layer == 8 || layer == 13 || layer == 18)
 		{
 			return glm::vec4(tileSize * 4, tileSize * 4, tileSize * 5, tileSize * 3);
 		}
 
-		if (layer == 4)
+		if (layer == 4 || layer == 9 || layer == 14 || layer == 19)
 		{
 			return glm::vec4(tileSize, tileSize, tileSize * 2, 0);
 		}

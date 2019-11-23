@@ -51,6 +51,7 @@ namespace Morpheus {
 
 			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
 			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+
 			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 
@@ -62,6 +63,7 @@ namespace Morpheus {
 			};
 			this->m_Characters.insert(std::pair<GLchar, Character>(c, character));
 		}
+
 		glBindTexture(GL_TEXTURE_2D, 0);
 
 		FT_Done_Face(face);

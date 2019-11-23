@@ -3,11 +3,11 @@ config = {
 		title = "Morpheus Engine",
 		fullscreen = true,
 		resolution = {
-			width = 1920,
-			height = 1080
+			width = 1280,
+			height = 720
 		},
 	},
-	fps = 60,
+	fps = 120,
 	vsync = true,
 	debug = true
 }

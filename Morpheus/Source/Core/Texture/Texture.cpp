@@ -32,6 +32,7 @@ namespace Morpheus {
 		stbi_image_free(data);
 
 		glGenerateMipmap(GL_TEXTURE_2D);
+
 		glBindTexture(GL_TEXTURE_2D, 0);
 	}
 

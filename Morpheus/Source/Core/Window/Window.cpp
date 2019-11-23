@@ -53,10 +53,10 @@ namespace Morpheus {
 			return;
 		}
 
-		//int MONITOR_INDEX = 0;
-		//int monitors;
-		//GLFWmonitor* pMonitor = glfwGetMonitors(&monitors)[MONITOR_INDEX];
-		GLFWmonitor* pMonitor = glfwGetPrimaryMonitor();
+		int MONITOR_INDEX = 1;
+		int monitors;
+		GLFWmonitor* pMonitor = glfwGetMonitors(&monitors)[MONITOR_INDEX];
+		//GLFWmonitor* pMonitor = glfwGetPrimaryMonitor();
 		const GLFWvidmode* pMode = glfwGetVideoMode(pMonitor);
 
 		glfwWindowHint(GLFW_CLIENT_API, GLFW_OPENGL_API);
@@ -82,6 +82,8 @@ namespace Morpheus {
 		glfwSetWindowUserPointer(this->m_Window, &this->m_Data);
 		glfwSetWindowAspectRatio(this->m_Window, 16, 9);
 		glfwSwapInterval(this->m_Settings->IsVSyncOn() ? 1 : 0);
+		glfwFocusWindow(this->m_Window);
+		glfwSetInputMode(this->m_Window, GLFW_CURSOR, GLFW_CURSOR_HIDDEN);
 
 		glfwSetErrorCallback([](int error, const char* description)
 			{
