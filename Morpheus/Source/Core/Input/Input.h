@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Core/Input/Keyboard/KeyboardEvent.h"
+#include <GLFW/glfw3.h>
 
 namespace Morpheus {
 
@@ -9,7 +9,10 @@ namespace Morpheus {
 	class Input
 	{
 	private:
+		GLFWgamepadstate m_GamepadState;
+		GLFWwindow* m_NativeWindow;
 		EventBus* m_EventBus;
+
 		bool m_IsUpKeyPressed;
 		bool m_IsDownKeyPressed;
 		bool m_IsLeftKeyPressed;
@@ -21,11 +24,14 @@ namespace Morpheus {
 		bool m_IsSKeyPressed;
 
 	public:
-		Input(EventBus* pEventBus);
+		Input(EventBus* pEventBus, GLFWwindow* pNativeWindow);
+		void Update();
 
 	private:
-		void OnKeyboardEvent(KeyboardEvent* pEvent);
-		void UpdateKeyStatus(int key, KeyboardEvent::Action action);
+		void UpdateKeyboardState();
+		void UpdateGamepadState();
+		void EmitEvent();
+		void ResetInput();
 	};
 
 }

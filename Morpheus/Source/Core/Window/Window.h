@@ -1,43 +1,38 @@
 #pragma once
 
 #include <iostream>
-#include <string>
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
 namespace Morpheus {
 
-	class EventBus;
 	class Settings;
+	class EventBus;
 
 	class Window
 	{
 	private:
-		struct WindowData
-		{
-			std::string Title = "Morpheus";
-			unsigned int Width = 800;
-			unsigned int Height = 600;
-			bool FullScreen = false;
-			EventBus* EventCallback;
-		};
-
-		GLFWwindow* m_Window;
-		WindowData m_Data;
 		Settings* m_Settings;
+		EventBus* m_EventCallback;
+		GLFWwindow* m_Window;
+
+		std::string m_Title;
+		unsigned int m_Width;
+		unsigned int m_Height;
+		bool m_IsFullScreen;
 
 	public:
-		Window(const std::string& title, unsigned int width, unsigned int height, bool fullScreen, EventBus* pEventBus, Settings* pSettings);
+		Window(Settings* pSettings, EventBus* pEventBus);
 		~Window();
 
 		bool IsOpen();
 		void PollEvents();
 		void Clear();
 		void SwapBuffers();
-		inline unsigned int GetWidth() const { return m_Data.Width; }
-		inline unsigned int GetHeight() const { return m_Data.Height; }
+		inline unsigned int GetWidth() const { return this->m_Width; }
+		inline unsigned int GetHeight() const { return this->m_Height; }
+		inline GLFWwindow* GetNativeWindow() const { return this->m_Window; };
 		inline double GetTime() { return glfwGetTime(); }
-		inline const GLFWwindow* GetNativeWindow() const { return m_Window; };
 
 	private:
 		void Initialize();

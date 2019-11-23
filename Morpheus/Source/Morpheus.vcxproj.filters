@@ -72,12 +72,6 @@
     <ClInclude Include="Core\Input\Input.h">
       <Filter>Core\Input</Filter>
     </ClInclude>
-    <ClInclude Include="Core\Input\Keyboard\KeyboardEvent.h">
-      <Filter>Core\Input\Keyboard</Filter>
-    </ClInclude>
-    <ClInclude Include="Core\Input\Keyboard\Keys.h">
-      <Filter>Core\Input\Keyboard</Filter>
-    </ClInclude>
     <ClInclude Include="Core\Renderer\SpriteBatcher.h">
       <Filter>Core\Renderer</Filter>
     </ClInclude>
@@ -100,7 +94,8 @@
       <Filter>Game</Filter>
     </ClInclude>
     <ClInclude Include="Core\Renderer\Performance.h" />
-    <ClInclude Include="Core\Input\InputEvent.h" />
+    <ClInclude Include="Core\Event\Types\InputEvent.h" />
+    <ClInclude Include="Core\Event\Types\WindowResizeEvent.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Core\Engine.cpp">

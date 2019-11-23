@@ -1,19 +1,19 @@
+#include "Window.h"
 #include "Config/Settings.h"
 #include "Core/Event/EventBus.h"
-#include "Core/Input/Keyboard/KeyboardEvent.h"
-#include "Window.h"
+#include "Core/Event/Types/WindowResizeEvent.h"
 
 namespace Morpheus {
 
-	Window::Window(const std::string& title, unsigned int width, unsigned int height, bool fullScreen, EventBus* pEventBus, Settings* pSettings)
-		: m_Window(nullptr)
+	Window::Window(Settings* pSettings, EventBus* pEventBus)
+		: m_Settings(pSettings),
+		m_EventCallback(pEventBus),
+		m_Window(nullptr)
 	{
-		m_Data.Title = title;
-		m_Data.Width = width;
-		m_Data.Height = height;
-		m_Data.FullScreen = fullScreen;
-		m_Data.EventCallback = pEventBus;
-		this->m_Settings = pSettings;
+		this->m_Title = this->m_Settings->GetWindowTitle();
+		this->m_Width = this->m_Settings->GetWindowWidth();
+		this->m_Height = this->m_Settings->GetWindowHeight();
+		this->m_IsFullScreen = this->m_Settings->IsWindowFullscreen();
 
 		this->Initialize();
 	}
@@ -53,23 +53,22 @@ namespace Morpheus {
 			return;
 		}
 
-		int MONITOR_INDEX = 1;
+		const int MONITOR_INDEX = this->m_Settings->IsPrimaryMonitor() ? 0 : 1;
 		int monitors;
 		GLFWmonitor* pMonitor = glfwGetMonitors(&monitors)[MONITOR_INDEX];
-		//GLFWmonitor* pMonitor = glfwGetPrimaryMonitor();
 		const GLFWvidmode* pMode = glfwGetVideoMode(pMonitor);
 
 		glfwWindowHint(GLFW_CLIENT_API, GLFW_OPENGL_API);
 		glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
 		glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 0);
-		glfwWindowHint(GLFW_RESIZABLE, GLFW_FALSE);
+		glfwWindowHint(GLFW_RESIZABLE, GLFW_TRUE);
 		glfwWindowHint(GLFW_DOUBLEBUFFER, GL_TRUE);
 		glfwWindowHint(GLFW_RED_BITS, pMode->redBits);
 		glfwWindowHint(GLFW_GREEN_BITS, pMode->greenBits);
 		glfwWindowHint(GLFW_BLUE_BITS, pMode->blueBits);
 		glfwWindowHint(GLFW_REFRESH_RATE, pMode->refreshRate);
 
-		this->m_Window = glfwCreateWindow(this->m_Data.Width, this->m_Data.Height, this->m_Data.Title.c_str(), this->m_Data.FullScreen ? pMonitor : nullptr, nullptr);
+		this->m_Window = glfwCreateWindow(this->m_Width, this->m_Height, this->m_Title.c_str(), this->m_IsFullScreen ? pMonitor : nullptr, nullptr);
 
 		if (!this->m_Window)
 		{
@@ -77,53 +76,29 @@ namespace Morpheus {
 			this->Shutdown();
 			return;
 		}
+
 		glfwMakeContextCurrent(this->m_Window);
-		glfwSetWindowPos(this->m_Window, (pMode->width - this->m_Data.Width) / 2, (pMode->height - this->m_Data.Height) / 2);
-		glfwSetWindowUserPointer(this->m_Window, &this->m_Data);
+		glfwSetWindowPos(this->m_Window, (pMode->width - this->m_Width) / 2, (pMode->height - this->m_Height) / 2);
+		glfwSetWindowUserPointer(this->m_Window, this);
 		glfwSetWindowAspectRatio(this->m_Window, 16, 9);
 		glfwSwapInterval(this->m_Settings->IsVSyncOn() ? 1 : 0);
-		glfwFocusWindow(this->m_Window);
 		glfwSetInputMode(this->m_Window, GLFW_CURSOR, GLFW_CURSOR_HIDDEN);
+		glfwFocusWindow(this->m_Window);
 
 		glfwSetErrorCallback([](int error, const char* description)
 			{
 				std::cout << "GLFW ERROR: code " << error << " msg: " << description << std::endl;
 			});
 
-		glfwSetWindowSizeCallback(this->m_Window, [](GLFWwindow* window, int width, int height)
+		glfwSetWindowSizeCallback(this->m_Window, [](GLFWwindow* pNativeWindow, int width, int height)
 			{
-				WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
-				data.Width = width;
-				data.Height = height;
-			});
-
-		glfwSetFramebufferSizeCallback(this->m_Window, [](GLFWwindow* window, int width, int height)
-			{
-				WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
-				data.Width = width;
-				data.Height = height;
+				Window& window = *(Window*)glfwGetWindowUserPointer(pNativeWindow);
+				window.m_Width = width;
+				window.m_Height = height;
 				glViewport(0, 0, width, height);
-			});
 
-		glfwSetKeyCallback(this->m_Window, [](GLFWwindow* window, int key, int scancode, int action, int mods)
-			{
-				WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
-
-				switch (action)
-				{
-					case GLFW_PRESS:
-					{
-						KeyboardEvent event(KeyboardEvent::Action::PRESS, key);
-						data.EventCallback->publish(&event);
-						break;
-					}
-					case GLFW_RELEASE:
-					{
-						KeyboardEvent event(KeyboardEvent::Action::RELEASE, key);
-						data.EventCallback->publish(&event);
-						break;
-					}
-				}
+				WindowResizeEvent event(width, height);
+				window.m_EventCallback->publish(&event);
 			});
 
 		if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
@@ -133,11 +108,7 @@ namespace Morpheus {
 			return;
 		}
 
-		if (GLAD_GL_VERSION_3_1)
-		{
-			// Call OpenGL 3.2+ specific code
-			std::cout << "OpenGL " << glGetString(GL_VERSION) << std::endl;
-		}
+		std::cout << "OpenGL " << glGetString(GL_VERSION) << std::endl;
 
 		// Set OpenGL options
 		glEnable(GL_BLEND);

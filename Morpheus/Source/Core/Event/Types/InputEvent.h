@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Core/Event/Event.h"
+#include "../Event.h"
 
 namespace Morpheus {
 

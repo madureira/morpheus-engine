@@ -24,6 +24,7 @@ namespace Morpheus {
 		sol::state* m_LuaState;
 		std::string m_WindowTitle;
 		bool m_IsWindowFullScreen;
+		bool m_IsPrimaryMonitor;
 		unsigned int m_WindowWidth;
 		unsigned int m_WindowHeight;
 		unsigned int m_FPS;
@@ -35,6 +36,7 @@ namespace Morpheus {
 			: m_LuaState(nullptr),
 			m_WindowTitle("Morpheus Engine"),
 			m_IsWindowFullScreen(false),
+			m_IsPrimaryMonitor(false),
 			m_WindowWidth(800),
 			m_WindowHeight(600),
 			m_FPS(30),
@@ -65,6 +67,11 @@ namespace Morpheus {
 		inline bool IsWindowFullscreen() const
 		{
 			return this->m_IsWindowFullScreen;
+		}
+
+		inline bool IsPrimaryMonitor() const
+		{
+			return this->m_IsPrimaryMonitor;
 		}
 
 		inline unsigned int GetWindowWidth() const
@@ -107,6 +114,7 @@ namespace Morpheus {
 
 			sol::optional<std::string> windowTitle = (*this->m_LuaState)["config"]["window"]["title"];
 			sol::optional<bool> windowFullScreen = (*this->m_LuaState)["config"]["window"]["fullscreen"];
+			sol::optional<bool> windowPrimaryMonitor = (*this->m_LuaState)["config"]["window"]["primary_monitor"];
 			sol::optional<unsigned int> windowResolutionWidth = (*this->m_LuaState)["config"]["window"]["resolution"]["width"];
 			sol::optional<unsigned int> windowResolutionHeight = (*this->m_LuaState)["config"]["window"]["resolution"]["height"];
 			sol::optional<unsigned int> fps = (*this->m_LuaState)["config"]["fps"];
@@ -115,6 +123,7 @@ namespace Morpheus {
 
 			c_assert(windowTitle != sol::nullopt);
 			c_assert(windowFullScreen != sol::nullopt);
+			c_assert(windowPrimaryMonitor != sol::nullopt);
 			c_assert(windowResolutionWidth != sol::nullopt);
 			c_assert(windowResolutionHeight != sol::nullopt);
 			c_assert(fps != sol::nullopt);
@@ -123,6 +132,7 @@ namespace Morpheus {
 
 			this->m_WindowTitle = windowTitle.value();
 			this->m_IsWindowFullScreen = windowFullScreen.value();
+			this->m_IsPrimaryMonitor = windowPrimaryMonitor.value();
 			this->m_WindowWidth = windowResolutionWidth.value();
 			this->m_WindowHeight = windowResolutionHeight.value();
 			this->m_FPS = fps.value();

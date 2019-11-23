@@ -6,8 +6,6 @@ namespace Morpheus {
 	class EventBus;
 	class Window;
 	class Input;
-	class Shader;
-	class TextRenderer;
 	class Performance;
 	class App;
 
@@ -18,8 +16,6 @@ namespace Morpheus {
 		EventBus* m_EventBus;
 		Window* m_Window;
 		Input* m_Input;
-		Shader* m_TextShader;
-		TextRenderer* m_TextRenderer;
 		Performance* m_Performance;
 		App* m_App;
 

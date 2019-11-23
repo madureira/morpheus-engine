@@ -26,13 +26,12 @@ namespace Game {
 		static const int tileSize = 40;
 		static const int columns = (this->m_Settings->GetWindowWidth() / tileSize) - 1;
 		static const int rows = (this->m_Settings->GetWindowHeight() / tileSize) - 2;
-		static const int layers = 8;
+		static const int layers = 5;
 		static const int distance = -10;
 		static const int margin = tileSize;
-
+		static const int speed = 5;
 		static int playerX = 0;
 		static int playerY = 0;
-		static const int speed = 5;
 
 		if (this->m_InputState.UP)
 		{
@@ -55,7 +54,7 @@ namespace Game {
 		}
 
 		//this->m_SpriteBatcher->Draw(glm::vec4(playerX, playerY, tileSize, tileSize), getTile(tileSize, 0), glm::vec4(10.f, 10.f, 10.f, 1), this->m_Texture);
-
+		
 		for (int z = 0; z < layers; z++)
 		{
 			for (int x = 0; x < columns; x++)
@@ -78,7 +77,7 @@ namespace Game {
 				}
 			}
 		}
-
+		
 		this->m_SpriteBatcher->Flush();
 	}
 
