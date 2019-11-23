@@ -99,6 +99,8 @@
     <ClInclude Include="Game\GameApp.h">
       <Filter>Game</Filter>
     </ClInclude>
+    <ClInclude Include="Core\Renderer\Performance.h" />
+    <ClInclude Include="Core\Input\InputEvent.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Core\Engine.cpp">
@@ -126,6 +128,7 @@
       <Filter>Game</Filter>
     </ClCompile>
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Core\Renderer\Performance.cpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\.editorconfig" />
@@ -136,24 +139,6 @@
       <Filter>Assets\shaders</Filter>
     </None>
     <None Include="Assets\shaders\basic.vert">
-      <Filter>Assets\shaders</Filter>
-    </None>
-    <None Include="Assets\shaders\camera.frag">
-      <Filter>Assets\shaders</Filter>
-    </None>
-    <None Include="Assets\shaders\camera.vert">
-      <Filter>Assets\shaders</Filter>
-    </None>
-    <None Include="Assets\shaders\core.frag">
-      <Filter>Assets\shaders</Filter>
-    </None>
-    <None Include="Assets\shaders\core.vert">
-      <Filter>Assets\shaders</Filter>
-    </None>
-    <None Include="Assets\shaders\instancing.frag">
-      <Filter>Assets\shaders</Filter>
-    </None>
-    <None Include="Assets\shaders\instancing.vert">
       <Filter>Assets\shaders</Filter>
     </None>
     <None Include="Assets\shaders\sprite.frag">
@@ -174,36 +159,15 @@
     <None Include="Assets\shaders\texture.vert">
       <Filter>Assets\shaders</Filter>
     </None>
-    <None Include="Assets\shaders\tile.frag">
-      <Filter>Assets\shaders</Filter>
-    </None>
-    <None Include="Assets\shaders\tile.geom">
-      <Filter>Assets\shaders</Filter>
-    </None>
-    <None Include="Assets\shaders\tile.vert">
-      <Filter>Assets\shaders</Filter>
-    </None>
     <None Include="Config\settings.lua">
       <Filter>Config</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Image Include="Assets\images\atlas.png">
-      <Filter>Assets\images</Filter>
-    </Image>
-    <Image Include="Assets\images\awesomeface.png">
-      <Filter>Assets\images</Filter>
-    </Image>
     <Image Include="Assets\images\container.jpg">
       <Filter>Assets\images</Filter>
     </Image>
-    <Image Include="Assets\images\texture.png">
-      <Filter>Assets\images</Filter>
-    </Image>
     <Image Include="Assets\images\tileset.png">
-      <Filter>Assets\images</Filter>
-    </Image>
-    <Image Include="Assets\images\wall.jpg">
       <Filter>Assets\images</Filter>
     </Image>
   </ItemGroup>

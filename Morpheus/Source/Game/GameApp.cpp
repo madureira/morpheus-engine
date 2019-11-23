@@ -8,15 +8,17 @@ namespace Game {
 		delete this->m_Texture;
 	}
 
-	void GameApp::Initialize(Morpheus::EventBus* pEventBus, Morpheus::Settings* pSettings)
+	void GameApp::Initialize(Morpheus::Settings* pSettings, Morpheus::EventBus* pEventBus)
 	{
-		this->m_EventBus = pEventBus;
 		this->m_Settings = pSettings;
+		this->m_EventBus = pEventBus;
+
+		this->m_SpriteBatcher = new Morpheus::SpriteBatcher(glm::vec2(this->m_Settings->GetWindowWidth(), this->m_Settings->GetWindowHeight()));
 
 		this->m_Texture = new Morpheus::Texture("Assets/images/tileset.png");
 		this->m_Texture->IncRefCount();
 
-		this->m_SpriteBatcher = new Morpheus::SpriteBatcher(glm::vec2(this->m_Settings->GetWindowWidth(), this->m_Settings->GetWindowHeight()));
+		this->m_EventBus->subscribe(this, &GameApp::InputHandler);
 	}
 
 	void GameApp::OnFrameStarted(double deltaTime, int frame)
@@ -28,6 +30,11 @@ namespace Game {
 		static const int distance = -10;
 		static const int margin = tileSize;
 
+		static int playerX = 0;
+		static int playerY = 0;
+		static const int speed = 5;
+
+		/*
 		for (int z = 0; z < layers; z++)
 		{
 			for (int x = 0; x < columns; x++)
@@ -50,12 +57,63 @@ namespace Game {
 				}
 			}
 		}
+		*/
+
+		if (this->m_InputState.UP)
+		{
+			playerY += speed;
+		}
+
+		if (this->m_InputState.DOWN)
+		{
+			playerY -= speed;
+		}
+
+		if (this->m_InputState.RIGHT)
+		{
+			playerX += speed;
+		}
+
+		if (this->m_InputState.LEFT)
+		{
+			playerX -= speed;
+		}
+
+		//this->m_SpriteBatcher->Draw(glm::vec4(playerX, playerY, tileSize, tileSize), getTile(tileSize, 0), glm::vec4(10.f, 10.f, 10.f, 1), this->m_Texture);
+
+		for (int z = 0; z < layers; z++)
+		{
+			for (int x = 0; x < columns; x++)
+			{
+				for (int y = 0; y < rows; y++)
+				{
+					this->m_SpriteBatcher->Draw(
+						// position of the rectangle
+						glm::vec4(margin + x * tileSize + z * distance + playerX, margin + y * tileSize + z * distance + playerY, tileSize, tileSize),
+
+						// rectangle size
+						getTile(tileSize, z),
+
+						// color to tint the sprite
+						glm::vec4(x / 10.f, y / 10.f, z / 10.f, 1),
+
+						// texture of the sprite
+						this->m_Texture
+					);
+				}
+			}
+		}
 
 		this->m_SpriteBatcher->Flush();
 	}
 
 	void GameApp::FrameListener(double deltaTime, int frame)
 	{
+	}
+
+	void GameApp::InputHandler(Morpheus::InputEvent* pEvent)
+	{
+		this->m_InputState = pEvent->GetState();
 	}
 
 	glm::vec4 GameApp::getTile(int tileSize, int layer)
@@ -84,6 +142,8 @@ namespace Game {
 		{
 			return glm::vec4(tileSize, tileSize, tileSize * 2, 0);
 		}
+
+		return glm::vec4(0, tileSize, tileSize, 0);
 	}
 
 }

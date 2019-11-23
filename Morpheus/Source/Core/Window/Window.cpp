@@ -53,16 +53,17 @@ namespace Morpheus {
 			return;
 		}
 
+		//int MONITOR_INDEX = 0;
+		//int monitors;
+		//GLFWmonitor* pMonitor = glfwGetMonitors(&monitors)[MONITOR_INDEX];
 		GLFWmonitor* pMonitor = glfwGetPrimaryMonitor();
 		const GLFWvidmode* pMode = glfwGetVideoMode(pMonitor);
 
 		glfwWindowHint(GLFW_CLIENT_API, GLFW_OPENGL_API);
 		glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-		glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 1);
-		glfwWindowHint(GLFW_RESIZABLE, GLFW_TRUE);
-		glfwWindowHint(GLFW_AUTO_ICONIFY, GLFW_TRUE);
+		glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 0);
+		glfwWindowHint(GLFW_RESIZABLE, GLFW_FALSE);
 		glfwWindowHint(GLFW_DOUBLEBUFFER, GL_TRUE);
-		glfwWindowHint(GLFW_SCALE_TO_MONITOR, GLFW_FALSE);
 		glfwWindowHint(GLFW_RED_BITS, pMode->redBits);
 		glfwWindowHint(GLFW_GREEN_BITS, pMode->greenBits);
 		glfwWindowHint(GLFW_BLUE_BITS, pMode->blueBits);
@@ -76,11 +77,11 @@ namespace Morpheus {
 			this->Shutdown();
 			return;
 		}
-
-		glfwSetWindowPos(this->m_Window, (pMode->width - this->m_Data.Width) / 2, (pMode->height - this->m_Data.Height) / 2);
 		glfwMakeContextCurrent(this->m_Window);
+		glfwSetWindowPos(this->m_Window, (pMode->width - this->m_Data.Width) / 2, (pMode->height - this->m_Data.Height) / 2);
 		glfwSetWindowUserPointer(this->m_Window, &this->m_Data);
 		glfwSetWindowAspectRatio(this->m_Window, 16, 9);
+		glfwSwapInterval(this->m_Settings->IsVSyncOn() ? 1 : 0);
 
 		glfwSetErrorCallback([](int error, const char* description)
 			{
@@ -97,7 +98,9 @@ namespace Morpheus {
 		glfwSetFramebufferSizeCallback(this->m_Window, [](GLFWwindow* window, int width, int height)
 			{
 				WindowData& data = *(WindowData*)glfwGetWindowUserPointer(window);
-				glViewport(0, 0, width, height - 20);
+				data.Width = width;
+				data.Height = height;
+				glViewport(0, 0, width, height);
 			});
 
 		glfwSetKeyCallback(this->m_Window, [](GLFWwindow* window, int key, int scancode, int action, int mods)
@@ -137,11 +140,6 @@ namespace Morpheus {
 		// Set OpenGL options
 		glEnable(GL_BLEND);
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-		glEnable(GL_FRONT_FACE);
-		glFrontFace(GL_CW);
-		glEnable(GL_MULTISAMPLE);
-
-		this->Clear();
 	}
 
 	void Window::Shutdown()

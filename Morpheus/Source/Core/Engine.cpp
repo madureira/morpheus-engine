@@ -7,6 +7,7 @@
 #include "Core/Input/Input.h"
 #include "Core/Shader/Shader.h"
 #include "Core/Text/TextRenderer.h"
+#include "Core/Renderer/Performance.h"
 #include "Core/App.h"
 
 namespace Morpheus {
@@ -15,9 +16,9 @@ namespace Morpheus {
 		: m_Settings(nullptr),
 		m_EventBus(nullptr),
 		m_Window(nullptr),
+		m_Input(nullptr),
 		m_TextShader(nullptr),
 		m_TextRenderer(nullptr),
-		m_Input(nullptr),
 		m_App(nullptr)
 	{
 		this->m_Settings = new Settings();
@@ -31,8 +32,7 @@ namespace Morpheus {
 			this->m_Settings
 		);
 		this->m_Input = new Input(this->m_EventBus);
-		this->m_InitialWindowWidth = static_cast<GLfloat>(this->m_Window->GetWidth());
-		this->m_InitialWindowHeight = static_cast<GLfloat>(this->m_Window->GetHeight());
+		this->m_Performance = new Performance(this->m_Settings);
 	}
 
 	Engine::~Engine()
@@ -46,20 +46,10 @@ namespace Morpheus {
 		delete this->m_Settings;
 	}
 
-	void Engine::Initialize(App* app)
+	void Engine::Initialize(App* pApp)
 	{
-		if (this->m_Settings->IsDebug())
-		{
-			this->m_TextShader = new Shader("Assets/shaders/text.vert", "Assets/shaders/text.frag");
-			this->m_TextRenderer = new TextRenderer("Assets/fonts/roboto-regular.ttf");
-
-			glm::mat4 projection = glm::ortho(0.0f, this->m_InitialWindowWidth, 0.0f, this->m_InitialWindowHeight);
-			this->m_TextShader->Enable();
-			glUniformMatrix4fv(glGetUniformLocation(this->m_TextShader->GetProgram(), "projection"), 1, GL_FALSE, glm::value_ptr(projection));
-		}
-
-		this->m_App = app;
-		this->m_App->Initialize(this->m_EventBus, this->m_Settings);
+		this->m_App = pApp;
+		this->m_App->Initialize(this->m_Settings, this->m_EventBus);
 	}
 
 	void Engine::Start()
@@ -80,20 +70,15 @@ namespace Morpheus {
 			this->m_Window->PollEvents();
 			this->m_App->FrameListener(deltaTime, frames);
 
-			if (deltaTime >= MS_PER_FRAME)
+			if (this->m_Settings->IsVSyncOn() || deltaTime >= MS_PER_FRAME)
 			{
 				frames++;
 
 				double deltaFrame = currentTime - lastFrameTime;
 
 				this->m_Window->Clear();
-
 				this->m_App->OnFrameStarted(deltaFrame, frames);
-
-				if (this->m_Settings->IsDebug())
-				{
-					this->DisplayPerformanceInfo(fpsToDisplay, deltaTime);
-				}
+				this->m_Performance->Show(fpsToDisplay, deltaTime);
 
 				if (deltaFrame >= ONE_SECOND)
 				{
@@ -106,20 +91,6 @@ namespace Morpheus {
 				this->m_Window->SwapBuffers();
 			}
 		}
-	}
-
-	void Engine::DisplayPerformanceInfo(unsigned int frames, double deltaTime)
-	{
-		static const float scale = 0.3f;
-		static const float originX = 5.0f;
-		static const float rowHeight = 20.0f;
-		const std::string fps = "FPS: " + std::to_string(frames);
-		const std::string timePerFrame = std::to_string(deltaTime) + " ms/frame";
-		const float fpsTextPosY = this->m_InitialWindowHeight - rowHeight;
-		const float timeTextPosY = this->m_InitialWindowHeight - rowHeight * 2;
-
-		this->m_TextRenderer->Render(*this->m_TextShader, fps, originX, fpsTextPosY, scale, glm::vec3(0.5f, 0.8f, 0.2f));
-		this->m_TextRenderer->Render(*this->m_TextShader, timePerFrame, originX, timeTextPosY, scale, glm::vec3(0.3f, 0.7f, 0.9f));
 	}
 
 }

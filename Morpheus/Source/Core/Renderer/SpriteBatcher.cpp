@@ -3,12 +3,13 @@
 namespace Morpheus {
 
 	SpriteBatcher::SpriteBatcher(glm::vec2 screenSize)
+		: m_Shader(nullptr),
+		m_Texture(nullptr)
 	{
 		this->m_Shader = new Morpheus::Shader("Assets/shaders/sprite.vert", "Assets/shaders/sprite.frag");
 
 		// Get the texture uniform from the shader program.
 		this->m_TextureUniform = glGetUniformLocation(this->m_Shader->GetProgram(), "tex");
-		this->m_Texture = nullptr;
 
 		// Setup vertex buffer
 		glGenBuffers(1, &this->m_VBO);
@@ -100,6 +101,8 @@ namespace Morpheus {
 		glDisableVertexAttribArray(0);
 		glDisableVertexAttribArray(1);
 		glDisableVertexAttribArray(2);
+
+		this->m_Shader->Disable();
 
 		this->m_VertexBuffer.clear();
 	}

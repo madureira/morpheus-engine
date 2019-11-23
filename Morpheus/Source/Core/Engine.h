@@ -2,33 +2,32 @@
 
 namespace Morpheus {
 
-	class App;
-	class EventBus;
-	class Input;
-	class Window;
 	class Settings;
+	class EventBus;
+	class Window;
+	class Input;
 	class Shader;
 	class TextRenderer;
+	class Performance;
+	class App;
 
 	class Engine
 	{
 	private:
-		App* m_App;
-		EventBus* m_EventBus;
-		Input* m_Input;
-		Window* m_Window;
 		Settings* m_Settings;
+		EventBus* m_EventBus;
+		Window* m_Window;
+		Input* m_Input;
 		Shader* m_TextShader;
 		TextRenderer* m_TextRenderer;
-		float m_InitialWindowWidth;
-		float m_InitialWindowHeight;
+		Performance* m_Performance;
+		App* m_App;
 
 	public:
 		Engine();
 		~Engine();
-		void Initialize(App* app);
+		void Initialize(App* pApp);
 		void Start();
-		void DisplayPerformanceInfo(unsigned int frames, double deltaTime);
 	};
 
 }

@@ -192,8 +192,10 @@
     <ClInclude Include="Core\Event\EventBus.h" />
     <ClInclude Include="Core\Event\MemberFunctionHandler.h" />
     <ClInclude Include="Core\Input\Input.h" />
+    <ClInclude Include="Core\Input\InputEvent.h" />
     <ClInclude Include="Core\Input\Keyboard\KeyboardEvent.h" />
     <ClInclude Include="Core\Input\Keyboard\Keys.h" />
+    <ClInclude Include="Core\Renderer\Performance.h" />
     <ClInclude Include="Core\Renderer\SpriteBatcher.h" />
     <ClInclude Include="Core\Shader\Shader.h" />
     <ClInclude Include="Core\Text\TextRenderer.h" />
@@ -205,6 +207,7 @@
   <ItemGroup>
     <ClCompile Include="Core\Engine.cpp" />
     <ClCompile Include="Core\Input\Input.cpp" />
+    <ClCompile Include="Core\Renderer\Performance.cpp" />
     <ClCompile Include="Core\Renderer\SpriteBatcher.cpp" />
     <ClCompile Include="Core\Shader\Shader.cpp" />
     <ClCompile Include="Core\Text\TextRenderer.cpp" />
@@ -218,30 +221,17 @@
     <None Include="Assets\fonts\roboto-regular.ttf" />
     <None Include="Assets\shaders\basic.frag" />
     <None Include="Assets\shaders\basic.vert" />
-    <None Include="Assets\shaders\camera.frag" />
-    <None Include="Assets\shaders\camera.vert" />
-    <None Include="Assets\shaders\core.frag" />
-    <None Include="Assets\shaders\core.vert" />
-    <None Include="Assets\shaders\instancing.frag" />
-    <None Include="Assets\shaders\instancing.vert" />
     <None Include="Assets\shaders\sprite.frag" />
     <None Include="Assets\shaders\sprite.vert" />
     <None Include="Assets\shaders\text.frag" />
     <None Include="Assets\shaders\text.vert" />
     <None Include="Assets\shaders\texture.frag" />
     <None Include="Assets\shaders\texture.vert" />
-    <None Include="Assets\shaders\tile.frag" />
-    <None Include="Assets\shaders\tile.geom" />
-    <None Include="Assets\shaders\tile.vert" />
     <None Include="Config\settings.lua" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="Assets\images\atlas.png" />
-    <Image Include="Assets\images\awesomeface.png" />
     <Image Include="Assets\images\container.jpg" />
-    <Image Include="Assets\images\texture.png" />
     <Image Include="Assets\images\tileset.png" />
-    <Image Include="Assets\images\wall.jpg" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Libraries\Glad\Glad.vcxproj">

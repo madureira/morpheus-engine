@@ -2,6 +2,7 @@
 #include "Input.h"
 #include "Core/Event/EventBus.h"
 #include "Core/Input/Keyboard/Keys.h"
+#include "InputEvent.h"
 
 namespace Morpheus {
 
@@ -24,6 +25,7 @@ namespace Morpheus {
 	{
 		this->UpdateKeyStatus(pEvent->GetKey(), pEvent->GetAction());
 
+		/*
 		std::cout << "\r" << "UP: " << this->m_IsUpKeyPressed
 			<< ", DOWN: " << this->m_IsDownKeyPressed
 			<< ", LEFT: " << this->m_IsLeftKeyPressed
@@ -33,11 +35,21 @@ namespace Morpheus {
 			<< ", W: " << this->m_IsWKeyPressed
 			<< ", D: " << this->m_IsDKeyPressed
 			<< ", S: " << this->m_IsSKeyPressed;
+			*/
+
+		InputState state;
+		state.UP = this->m_IsUpKeyPressed;
+		state.DOWN = this->m_IsDownKeyPressed;
+		state.LEFT = this->m_IsLeftKeyPressed;
+		state.RIGHT = this->m_IsRightKeyPressed;
+
+		InputEvent inputEvent(state);
+		this->m_EventBus->publish(&inputEvent);
 	}
 
 	void Input::UpdateKeyStatus(int key, KeyboardEvent::Action action)
 	{
-		bool isPressing = action == KeyboardEvent::Action::PRESS;
+		bool isPressing = (action == KeyboardEvent::Action::PRESS);
 
 		switch (key)
 		{

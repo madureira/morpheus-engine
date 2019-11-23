@@ -29,18 +29,10 @@ namespace Morpheus {
 	{
 	private:
 		GLuint m_VBO;
-
-		// Collection of vertices
 		std::vector<Vertex2dUVColor> m_VertexBuffer;
-
-		// Shaders.
 		Shader* m_Shader;
-
-		// Texture and uniform location
 		Texture* m_Texture;
 		GLuint m_TextureUniform;
-
-		// stuff to send word matrices
 		glm::mat3 m_ScreenTransform;
 		GLuint m_ScreenTransformUniform;
 
