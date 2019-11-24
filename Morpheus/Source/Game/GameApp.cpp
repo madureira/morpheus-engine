@@ -32,6 +32,8 @@ namespace Game {
 		static const int speed = 5;
 		static int playerX = 0;
 		static int playerY = 0;
+		static float zoom = 1.0f;
+		static const float scaleFactor = 0.025f;
 
 		if (this->m_InputState.UP)
 		{
@@ -53,7 +55,18 @@ namespace Game {
 			playerX -= speed;
 		}
 
-		//this->m_SpriteBatcher->Draw(glm::vec4(playerX, playerY, tileSize, tileSize), getTile(tileSize, 0), glm::vec4(10.f, 10.f, 10.f, 1), this->m_Texture);
+		if (this->m_InputState.W)
+		{
+
+			zoom += scaleFactor;
+		}
+
+		if (this->m_InputState.S)
+		{
+			zoom -= scaleFactor;
+		}
+
+		zoom = zoom < scaleFactor ? scaleFactor : zoom;
 		
 		for (int z = 0; z < layers; z++)
 		{
@@ -78,6 +91,10 @@ namespace Game {
 			}
 		}
 		
+		//this->m_SpriteBatcher->Draw(glm::vec4(playerX, playerY, tileSize, tileSize), getTile(tileSize, 1), glm::vec4(10.f, 10.f, 10.f, 1), this->m_Texture);
+
+		this->m_SpriteBatcher->SetScale(zoom);
+
 		this->m_SpriteBatcher->Flush();
 	}
 

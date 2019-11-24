@@ -21,9 +21,6 @@ namespace Morpheus {
 
 		this->m_Shader->Enable();
 
-		// Setup things related to the screen Transform
-		this->m_ScreenTransformUniform = glGetUniformLocation(this->m_Shader->GetProgram(), "screenTransform");
-
 		SetScreenSize(screenSize);
 	}
 
@@ -87,7 +84,8 @@ namespace Morpheus {
 		glBindBuffer(GL_ARRAY_BUFFER, 0);
 
 		// Set the screen transform matrix
-		glUniformMatrix3fv(this->m_ScreenTransformUniform, 1, GL_FALSE, &(this->m_ScreenTransform[0][0]));
+		this->m_Shader->setMat3("screenTransform", this->m_ScreenTransform);
+		this->m_Shader->setFloat("scale", this->m_Scale);
 
 		// Enable vertex attributes for position, uv, and color
 		glEnableVertexAttribArray(0);
@@ -115,6 +113,11 @@ namespace Morpheus {
 		this->m_ScreenTransform[1][1] = 2 / screenSize.y;
 		this->m_ScreenTransform[2][0] = -1;
 		this->m_ScreenTransform[2][1] = -1;
+	}
+
+	void SpriteBatcher::SetScale(float scale)
+	{
+		this->m_Scale = scale;
 	}
 
 }

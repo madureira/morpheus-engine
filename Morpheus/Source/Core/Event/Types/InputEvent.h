@@ -10,6 +10,8 @@ namespace Morpheus {
 		int DOWN;
 		int LEFT;
 		int RIGHT;
+		int W;
+		int S;
 	};
 
 	class InputEvent : public Event {

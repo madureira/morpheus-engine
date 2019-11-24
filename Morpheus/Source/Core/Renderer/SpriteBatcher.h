@@ -32,9 +32,11 @@ namespace Morpheus {
 		std::vector<Vertex2dUVColor> m_VertexBuffer;
 		Shader* m_Shader;
 		Texture* m_Texture;
-		GLuint m_TextureUniform;
 		glm::mat3 m_ScreenTransform;
-		GLuint m_ScreenTransformUniform;
+		GLuint m_TextureUniform;
+		float m_Scale;
+
+		Shader* m_LightShader;
 
 	public:
 		SpriteBatcher(glm::vec2 screenSize);
@@ -45,6 +47,7 @@ namespace Morpheus {
 
 		// Call this to tell the spritebatcher how many pixels wide/tall the window is. Setting to 1 will make the entire screen render 1 pixel
 		void SetScreenSize(glm::vec2 screenSize);
+		void SetScale(float scale);
 	};
 
 }

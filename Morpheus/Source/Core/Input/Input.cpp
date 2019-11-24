@@ -45,6 +45,8 @@ namespace Morpheus {
 		this->m_IsDownKeyPressed = glfwGetKey(this->m_NativeWindow, GLFW_KEY_DOWN) == GLFW_PRESS;
 		this->m_IsLeftKeyPressed = glfwGetKey(this->m_NativeWindow, GLFW_KEY_LEFT) == GLFW_PRESS;
 		this->m_IsRightKeyPressed = glfwGetKey(this->m_NativeWindow, GLFW_KEY_RIGHT) == GLFW_PRESS;
+		this->m_IsWKeyPressed = glfwGetKey(this->m_NativeWindow, GLFW_KEY_W) == GLFW_PRESS;
+		this->m_IsSKeyPressed = glfwGetKey(this->m_NativeWindow, GLFW_KEY_S) == GLFW_PRESS;
 	}
 
 	void Input::UpdateGamepadState()
@@ -53,7 +55,12 @@ namespace Morpheus {
 		{
 			if (this->m_GamepadState.buttons[GLFW_GAMEPAD_BUTTON_A])
 			{
-				std::cout << "BUTTON_A" << std::endl;
+				this->m_IsWKeyPressed = true;
+			}
+
+			if (this->m_GamepadState.buttons[GLFW_GAMEPAD_BUTTON_B])
+			{
+				this->m_IsSKeyPressed = true;
 			}
 
 			float x = this->m_GamepadState.axes[GLFW_GAMEPAD_AXIS_LEFT_X];
@@ -90,6 +97,8 @@ namespace Morpheus {
 		state.DOWN = this->m_IsDownKeyPressed;
 		state.LEFT = this->m_IsLeftKeyPressed;
 		state.RIGHT = this->m_IsRightKeyPressed;
+		state.W = this->m_IsWKeyPressed;
+		state.S = this->m_IsSKeyPressed;
 
 		InputEvent inputEvent(state);
 		this->m_EventBus->publish(&inputEvent);
