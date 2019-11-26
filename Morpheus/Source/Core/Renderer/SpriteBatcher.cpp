@@ -11,15 +11,21 @@ namespace Morpheus {
 		// Get the texture uniform from the shader program.
 		this->m_TextureUniform = glGetUniformLocation(this->m_Shader->GetProgram(), "tex");
 
+		// Setup vertex array
+		glGenVertexArrays(1, &this->m_VAO);
+		glBindVertexArray(this->m_VAO);
+
 		// Setup vertex buffer
 		glGenBuffers(1, &this->m_VBO);
 		glBindBuffer(GL_ARRAY_BUFFER, this->m_VBO);
+		glEnableVertexAttribArray(0);
+
 		glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex2dUVColor), (void*)0);
 		glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex2dUVColor), (void*)sizeof(glm::vec2));
 		glVertexAttribPointer(2, 4, GL_FLOAT, GL_FALSE, sizeof(Vertex2dUVColor), (void*)sizeof(glm::vec4));
 		glBindBuffer(GL_ARRAY_BUFFER, 0);
 
-		this->m_Shader->Enable();
+		glEnableVertexAttribArray(0);
 
 		SetScreenSize(screenSize);
 	}
@@ -72,6 +78,7 @@ namespace Morpheus {
 
 		// Set the current shader program.
 		this->m_Shader->Enable();
+		glBindVertexArray(this->m_VAO);
 
 		// Bind texture
 		glActiveTexture(GL_TEXTURE0);
@@ -99,6 +106,8 @@ namespace Morpheus {
 		glDisableVertexAttribArray(0);
 		glDisableVertexAttribArray(1);
 		glDisableVertexAttribArray(2);
+
+		glBindVertexArray(0);
 
 		this->m_Shader->Disable();
 

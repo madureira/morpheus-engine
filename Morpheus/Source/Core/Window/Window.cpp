@@ -58,9 +58,11 @@ namespace Morpheus {
 		GLFWmonitor* pMonitor = glfwGetMonitors(&monitors)[MONITOR_INDEX];
 		const GLFWvidmode* pMode = glfwGetVideoMode(pMonitor);
 
-		glfwWindowHint(GLFW_CLIENT_API, GLFW_OPENGL_API);
 		glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-		glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 0);
+		glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
+		glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE); // To make MacOS happy;
+		glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
+		glfwWindowHint(GLFW_CLIENT_API, GLFW_OPENGL_API);
 		glfwWindowHint(GLFW_RESIZABLE, GLFW_TRUE);
 		glfwWindowHint(GLFW_DOUBLEBUFFER, GL_TRUE);
 		glfwWindowHint(GLFW_RED_BITS, pMode->redBits);
@@ -78,9 +80,9 @@ namespace Morpheus {
 		}
 
 		glfwMakeContextCurrent(this->m_Window);
-		glfwSetWindowPos(this->m_Window, (pMode->width - this->m_Width) / 2, (pMode->height - this->m_Height) / 2);
 		glfwSetWindowUserPointer(this->m_Window, this);
 		glfwSetWindowAspectRatio(this->m_Window, 16, 9);
+		glfwSetWindowPos(this->m_Window, (pMode->width - this->m_Width) / 2, (pMode->height - this->m_Height) / 2);
 		glfwSwapInterval(this->m_Settings->IsVSyncOn() ? 1 : 0);
 		glfwSetInputMode(this->m_Window, GLFW_CURSOR, GLFW_CURSOR_HIDDEN);
 		glfwFocusWindow(this->m_Window);

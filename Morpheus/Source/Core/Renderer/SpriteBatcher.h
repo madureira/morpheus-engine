@@ -28,6 +28,7 @@ namespace Morpheus {
 	class SpriteBatcher
 	{
 	private:
+		GLuint m_VAO;
 		GLuint m_VBO;
 		std::vector<Vertex2dUVColor> m_VertexBuffer;
 		Shader* m_Shader;
