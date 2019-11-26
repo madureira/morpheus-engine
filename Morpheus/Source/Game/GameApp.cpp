@@ -82,10 +82,10 @@ namespace Game {
 						glm::vec4(margin + x * tileSize + z * distance + playerX, margin + y * tileSize + z * distance + playerY, tileSize, tileSize),
 
 						// rectangle size
-						getTile(tileSize, z),
+						getTile(tileSize, z)
 
 						// optional: color to tint the sprite
-						glm::vec4(x / 10.f, y / 10.f, z / 10.f, 1)
+						,glm::vec4(x / 10.f, y / 10.f, z / 10.f, 1)
 					);
 				}
 			}
