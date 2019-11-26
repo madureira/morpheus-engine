@@ -1,4 +1,3 @@
-#include <iostream>
 #include "Input.h"
 #include "Core/Event/EventBus.h"
 #include "Core/Event/Types/InputEvent.h"
@@ -11,6 +10,8 @@ namespace Morpheus {
 		: m_EventBus(pEventBus),
 		m_NativeWindow(pNativeWindow)
 	{
+		this->ResetInput();
+
 		glfwSetJoystickCallback([](int jid, int event) {
 			if (event == GLFW_CONNECTED)
 			{
@@ -45,6 +46,7 @@ namespace Morpheus {
 		this->m_IsDownKeyPressed = glfwGetKey(this->m_NativeWindow, GLFW_KEY_DOWN) == GLFW_PRESS;
 		this->m_IsLeftKeyPressed = glfwGetKey(this->m_NativeWindow, GLFW_KEY_LEFT) == GLFW_PRESS;
 		this->m_IsRightKeyPressed = glfwGetKey(this->m_NativeWindow, GLFW_KEY_RIGHT) == GLFW_PRESS;
+		this->m_IsSpaceKeyPressed = glfwGetKey(this->m_NativeWindow, GLFW_KEY_SPACE) == GLFW_PRESS;
 		this->m_IsWKeyPressed = glfwGetKey(this->m_NativeWindow, GLFW_KEY_W) == GLFW_PRESS;
 		this->m_IsSKeyPressed = glfwGetKey(this->m_NativeWindow, GLFW_KEY_S) == GLFW_PRESS;
 	}
@@ -97,6 +99,7 @@ namespace Morpheus {
 		state.DOWN = this->m_IsDownKeyPressed;
 		state.LEFT = this->m_IsLeftKeyPressed;
 		state.RIGHT = this->m_IsRightKeyPressed;
+		state.SPACE = this->m_IsSpaceKeyPressed;
 		state.W = this->m_IsWKeyPressed;
 		state.S = this->m_IsSKeyPressed;
 

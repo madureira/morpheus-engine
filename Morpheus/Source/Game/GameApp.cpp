@@ -75,17 +75,17 @@ namespace Game {
 				for (int y = 0; y < rows; y++)
 				{
 					this->m_SpriteBatcher->Draw(
+						// texture of the sprite
+						this->m_Texture,
+
 						// position of the rectangle
 						glm::vec4(margin + x * tileSize + z * distance + playerX, margin + y * tileSize + z * distance + playerY, tileSize, tileSize),
 
 						// rectangle size
 						getTile(tileSize, z),
 
-						// color to tint the sprite
-						glm::vec4(x / 10.f, y / 10.f, z / 10.f, 1),
-
-						// texture of the sprite
-						this->m_Texture
+						// optional: color to tint the sprite
+						glm::vec4(x / 10.f, y / 10.f, z / 10.f, 1)
 					);
 				}
 			}

@@ -6,12 +6,13 @@ namespace Morpheus {
 
 	struct InputState
 	{
-		int UP;
-		int DOWN;
-		int LEFT;
-		int RIGHT;
-		int W;
-		int S;
+		bool UP;
+		bool DOWN;
+		bool LEFT;
+		bool RIGHT;
+		bool SPACE;
+		bool W;
+		bool S;
 	};
 
 	class InputEvent : public Event {

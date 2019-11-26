@@ -35,7 +35,7 @@ namespace Morpheus {
 		glDeleteProgram(this->m_Shader->GetProgram());
 	}
 
-	void SpriteBatcher::Draw(glm::vec4 destRect, glm::vec4 sourceRect, glm::vec4 color, Texture* pTexture)
+	void SpriteBatcher::Draw(Texture* pTexture, glm::vec4 destRect, glm::vec4 sourceRect, glm::vec4 color)
 	{
 		// Draw doesn't actually have to draw anything.
 		// Instead it collects a bunch of vertex information until flush is called, and then draws it all.
@@ -59,19 +59,19 @@ namespace Morpheus {
 
 		// Create vertices for the given draw request and add them to the buffer.
 		// A more complex spritebatcher may allow for rotation of vertices, which would also happen here
-		this->m_VertexBuffer.push_back(Vertex2dUVColor(glm::vec2(destRect.x, destRect.y), glm::vec2(sourceRect.x, sourceRect.y), color));
-		this->m_VertexBuffer.push_back(Vertex2dUVColor(glm::vec2(destRect.x + destRect.z, destRect.y), glm::vec2(sourceRect.z, sourceRect.y), color));
-		this->m_VertexBuffer.push_back(Vertex2dUVColor(glm::vec2(destRect.x, destRect.y + destRect.w), glm::vec2(sourceRect.x, sourceRect.w), color));
-		this->m_VertexBuffer.push_back(Vertex2dUVColor(glm::vec2(destRect.x + destRect.z, destRect.y), glm::vec2(sourceRect.z, sourceRect.y), color));
-		this->m_VertexBuffer.push_back(Vertex2dUVColor(glm::vec2(destRect.x, destRect.y + destRect.w), glm::vec2(sourceRect.x, sourceRect.w), color));
-		this->m_VertexBuffer.push_back(Vertex2dUVColor(glm::vec2(destRect.x + destRect.z, destRect.y + destRect.w), glm::vec2(sourceRect.z, sourceRect.w), color));
+		this->m_Vertices.push_back(Vertex2dUVColor(glm::vec2(destRect.x, destRect.y), glm::vec2(sourceRect.x, sourceRect.y), color));
+		this->m_Vertices.push_back(Vertex2dUVColor(glm::vec2(destRect.x + destRect.z, destRect.y), glm::vec2(sourceRect.z, sourceRect.y), color));
+		this->m_Vertices.push_back(Vertex2dUVColor(glm::vec2(destRect.x, destRect.y + destRect.w), glm::vec2(sourceRect.x, sourceRect.w), color));
+		this->m_Vertices.push_back(Vertex2dUVColor(glm::vec2(destRect.x + destRect.z, destRect.y), glm::vec2(sourceRect.z, sourceRect.y), color));
+		this->m_Vertices.push_back(Vertex2dUVColor(glm::vec2(destRect.x, destRect.y + destRect.w), glm::vec2(sourceRect.x, sourceRect.w), color));
+		this->m_Vertices.push_back(Vertex2dUVColor(glm::vec2(destRect.x + destRect.z, destRect.y + destRect.w), glm::vec2(sourceRect.z, sourceRect.w), color));
 	}
 
 	void SpriteBatcher::Flush()
 	{
 		// If there's a false alarm, don't draw anything
 		// (this will always happen on the first texture)
-		if (this->m_VertexBuffer.size() == 0 || this->m_Texture == nullptr)
+		if (this->m_Vertices.size() == 0 || this->m_Texture == nullptr)
 		{
 			return;
 		}
@@ -87,7 +87,7 @@ namespace Morpheus {
 
 		// Copy our vertex buffer into the actual vertex buffer.
 		glBindBuffer(GL_ARRAY_BUFFER, this->m_VBO);
-		glBufferData(GL_ARRAY_BUFFER, sizeof(Vertex2dUVColor) * this->m_VertexBuffer.size(), &this->m_VertexBuffer[0], GL_STATIC_DRAW);
+		glBufferData(GL_ARRAY_BUFFER, sizeof(Vertex2dUVColor) * this->m_Vertices.size(), &this->m_Vertices[0], GL_STATIC_DRAW);
 		glBindBuffer(GL_ARRAY_BUFFER, 0);
 
 		// Set the screen transform matrix
@@ -100,7 +100,7 @@ namespace Morpheus {
 		glEnableVertexAttribArray(2);
 
 		// Draw all indices in the index buffer
-		glDrawArrays(GL_TRIANGLES, 0, this->m_VertexBuffer.size());
+		glDrawArrays(GL_TRIANGLES, 0, this->m_Vertices.size());
 
 		// Disable vertex attribute
 		glDisableVertexAttribArray(0);
@@ -111,7 +111,7 @@ namespace Morpheus {
 
 		this->m_Shader->Disable();
 
-		this->m_VertexBuffer.clear();
+		this->m_Vertices.clear();
 	}
 
 	void SpriteBatcher::SetScreenSize(glm::vec2 screenSize)
