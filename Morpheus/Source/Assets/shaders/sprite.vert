@@ -10,8 +10,8 @@ uniform mat3 screenTransform;
 uniform float scale;
 
 // output variables
-out vec2 uv;
-out vec4 color;
+out vec2 vTexCoord;
+out vec4 vColor;
 
 void main()
 {
@@ -20,6 +20,6 @@ void main()
 	gl_Position = vec4(transformed, 1);
 	
 	// pass through uv and color
-	uv = in_uv;
-	color = in_color;
+	vTexCoord = in_uv;
+	vColor = in_color;
 }

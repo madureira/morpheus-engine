@@ -1,15 +1,14 @@
-#include "SpriteBatcher.h"
+#include "SpriteRenderer.h"
 
 namespace Morpheus {
 
-	SpriteBatcher::SpriteBatcher(glm::vec2 screenSize)
+	SpriteRenderer::SpriteRenderer(glm::vec2 screenSize)
 		: m_Shader(nullptr),
-		m_Texture(nullptr)
+		m_DiffuseMap(nullptr),
+		m_NormalMap(nullptr),
+		m_ScreenSize(screenSize)
 	{
 		this->m_Shader = new Morpheus::Shader("Assets/shaders/sprite.vert", "Assets/shaders/sprite.frag");
-
-		// Get the texture uniform from the shader program.
-		this->m_TextureUniform = glGetUniformLocation(this->m_Shader->GetProgram(), "tex");
 
 		// Setup vertex array
 		glGenVertexArrays(1, &this->m_VAO);
@@ -23,38 +22,57 @@ namespace Morpheus {
 		glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex2dUVColor), (void*)0);
 		glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, sizeof(Vertex2dUVColor), (void*)sizeof(glm::vec2));
 		glVertexAttribPointer(2, 4, GL_FLOAT, GL_FALSE, sizeof(Vertex2dUVColor), (void*)sizeof(glm::vec4));
-		glBindBuffer(GL_ARRAY_BUFFER, 0);
 
+		glBindBuffer(GL_ARRAY_BUFFER, 0);
 		glEnableVertexAttribArray(0);
 
-		SetScreenSize(screenSize);
+		this->m_AmbientColor = glm::vec4(1.0f, 1.0f, 1.f, 0.2f);
+
+		this->m_Shader->Enable();
+
+		glUniform1i(glGetUniformLocation(this->m_Shader->GetProgram(), "u_texture"), 0);
+		glUniform1i(glGetUniformLocation(this->m_Shader->GetProgram(), "u_normals"), 1);
+
+		this->m_Shader->setVec2("Resolution", this->m_ScreenSize);
+
+		this->m_Shader->Disable();
+
+		SetScreenSize(this->m_ScreenSize);
 	}
 
-	SpriteBatcher::~SpriteBatcher()
+	SpriteRenderer::~SpriteRenderer()
 	{
 		glDeleteProgram(this->m_Shader->GetProgram());
 	}
 
-	void SpriteBatcher::Draw(Texture* pTexture, glm::vec4 destRect, glm::vec4 sourceRect, glm::vec4 color)
+	void SpriteRenderer::Draw(Texture* pDiffuseMap, Texture* pNormalMap, glm::vec4 destRect, glm::vec4 sourceRect, glm::vec4 color)
 	{
 		// Draw doesn't actually have to draw anything.
 		// Instead it collects a bunch of vertex information until flush is called, and then draws it all.
 
 		// In one draw call we can only render sprites that have the same texture in.
 		// If we get something with a different texture, we have to flush and start over.
-		if (this->m_Texture != pTexture)
+		if (this->m_DiffuseMap != pDiffuseMap)
 		{
 			// Draw everything in the current buffer.
 			this->Flush();
 
 			// Make sure the texture exists so long as we are holding on to it.
-			pTexture->IncRefCount();
-			if (this->m_Texture != nullptr)
+			pDiffuseMap->IncRefCount();
+			pNormalMap->IncRefCount();
+
+			if (this->m_DiffuseMap != nullptr)
 			{
-				this->m_Texture->DecRefCount();
+				this->m_DiffuseMap->DecRefCount();
+			}
+
+			if (this->m_NormalMap != nullptr)
+			{
+				this->m_NormalMap->DecRefCount();
 			}
 			// Switch textures
-			this->m_Texture = pTexture;
+			this->m_DiffuseMap = pDiffuseMap;
+			this->m_NormalMap = pNormalMap;
 		}
 
 		// Create vertices for the given draw request and add them to the buffer.
@@ -67,23 +85,45 @@ namespace Morpheus {
 		this->m_Vertices.push_back(Vertex2dUVColor(glm::vec2(destRect.x + destRect.z, destRect.y + destRect.w), glm::vec2(sourceRect.z, sourceRect.w), color));
 	}
 
-	void SpriteBatcher::Flush()
+	void SpriteRenderer::AddLightSource(glm::vec3 lightPosition, glm::vec4 lightColor, glm::vec3 lightFalloff)
 	{
-		// If there's a false alarm, don't draw anything
-		// (this will always happen on the first texture)
-		if (this->m_Vertices.size() == 0 || this->m_Texture == nullptr)
+		this->m_LightSources.push_back(Light(lightPosition, lightColor, lightFalloff));
+	}
+
+	void SpriteRenderer::SetAmbientColor(glm::vec4 ambientColor)
+	{
+		this->m_AmbientColor = ambientColor;
+	}
+
+	void SpriteRenderer::Flush()
+	{
+		if (this->m_Vertices.size() == 0 || this->m_DiffuseMap == nullptr)
 		{
 			return;
 		}
 
-		// Set the current shader program.
+		glm::vec3 lightPosition = this->m_LightSources[0].m_Position;
+
+		lightPosition.x = lightPosition.x / this->m_ScreenSize.x;
+		lightPosition.y = -((lightPosition.y - this->m_ScreenSize.y) / this->m_ScreenSize.y);
+		lightPosition.z = lightPosition.z;
+
 		this->m_Shader->Enable();
+
+		this->m_Shader->setVec4("AmbientColor", this->m_AmbientColor);
+		this->m_Shader->setVec3("LightPos", lightPosition);
+		this->m_Shader->setVec4("LightColor", this->m_LightSources[0].m_Color);
+		this->m_Shader->setVec3("LightFalloff", this->m_LightSources[0].m_Falloff);
+
 		glBindVertexArray(this->m_VAO);
+
+		// Bind normal
+		glActiveTexture(GL_TEXTURE1);
+		glBindTexture(GL_TEXTURE_2D, this->m_NormalMap->GetID());
 
 		// Bind texture
 		glActiveTexture(GL_TEXTURE0);
-		glBindTexture(GL_TEXTURE_2D, this->m_Texture->GetGLTexture());
-		glUniform1i(this->m_TextureUniform, 0);
+		glBindTexture(GL_TEXTURE_2D, this->m_DiffuseMap->GetID());
 
 		// Copy our vertex buffer into the actual vertex buffer.
 		glBindBuffer(GL_ARRAY_BUFFER, this->m_VBO);
@@ -110,21 +150,26 @@ namespace Morpheus {
 		glBindVertexArray(0);
 
 		this->m_Shader->Disable();
-
 		this->m_Vertices.clear();
+		this->m_LightSources.clear();
 	}
 
-	void SpriteBatcher::SetScreenSize(glm::vec2 screenSize)
+	void SpriteRenderer::SetScreenSize(glm::vec2 screenSize)
 	{
+		this->m_ScreenSize = screenSize;
 		// Since opengl normally renders with the screen being -1 to 1, and I want it from 0 to screen size,
 		// I have to multiply everything by this scaling and translation matrix
-		this->m_ScreenTransform[0][0] = 2 / screenSize.x;
-		this->m_ScreenTransform[1][1] = 2 / screenSize.y;
+		this->m_ScreenTransform[0][0] = 2 / this->m_ScreenSize.x;
+		this->m_ScreenTransform[1][1] = 2 / this->m_ScreenSize.y;
 		this->m_ScreenTransform[2][0] = -1;
 		this->m_ScreenTransform[2][1] = -1;
+
+		this->m_Shader->Enable();
+		this->m_Shader->setVec2("Resolution", this->m_ScreenSize);
+		this->m_Shader->Disable();
 	}
 
-	void SpriteBatcher::SetScale(float scale)
+	void SpriteRenderer::SetScale(float scale)
 	{
 		this->m_Scale = scale;
 	}

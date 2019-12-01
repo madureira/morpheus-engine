@@ -195,9 +195,9 @@
     <ClInclude Include="Core\Input\Input.h" />
     <ClInclude Include="Core\Event\Types\InputEvent.h" />
     <ClInclude Include="Core\Renderer\Performance.h" />
-    <ClInclude Include="Core\Renderer\SpriteBatcher.h" />
+    <ClInclude Include="Core\Renderer\SpriteRenderer.h" />
     <ClInclude Include="Core\Shader\Shader.h" />
-    <ClInclude Include="Core\Text\TextRenderer.h" />
+    <ClInclude Include="Core\Renderer\TextRenderer.h" />
     <ClInclude Include="Core\Texture\Texture.h" />
     <ClInclude Include="Core\Util\FileUtil.h" />
     <ClInclude Include="Core\Window\Window.h" />
@@ -207,9 +207,9 @@
     <ClCompile Include="Core\Engine.cpp" />
     <ClCompile Include="Core\Input\Input.cpp" />
     <ClCompile Include="Core\Renderer\Performance.cpp" />
-    <ClCompile Include="Core\Renderer\SpriteBatcher.cpp" />
+    <ClCompile Include="Core\Renderer\SpriteRenderer.cpp" />
     <ClCompile Include="Core\Shader\Shader.cpp" />
-    <ClCompile Include="Core\Text\TextRenderer.cpp" />
+    <ClCompile Include="Core\Renderer\TextRenderer.cpp" />
     <ClCompile Include="Core\Texture\Texture.cpp" />
     <ClCompile Include="Core\Window\Window.cpp" />
     <ClCompile Include="Game\GameApp.cpp" />
@@ -229,8 +229,14 @@
     <None Include="Config\settings.lua" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="Assets\images\alphaglow_sharp.png" />
+    <Image Include="Assets\images\ash.png" />
+    <Image Include="Assets\images\ash_n.png" />
     <Image Include="Assets\images\container.jpg" />
+    <Image Include="Assets\images\lightmask.png" />
+    <Image Include="Assets\images\map.jpg" />
     <Image Include="Assets\images\tileset.png" />
+    <Image Include="Assets\images\tileset_n.png" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\..\Libraries\Glad\Glad.vcxproj">

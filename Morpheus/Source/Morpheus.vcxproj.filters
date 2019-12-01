@@ -72,14 +72,8 @@
     <ClInclude Include="Core\Input\Input.h">
       <Filter>Core\Input</Filter>
     </ClInclude>
-    <ClInclude Include="Core\Renderer\SpriteBatcher.h">
-      <Filter>Core\Renderer</Filter>
-    </ClInclude>
     <ClInclude Include="Core\Shader\Shader.h">
       <Filter>Core\Shader</Filter>
-    </ClInclude>
-    <ClInclude Include="Core\Text\TextRenderer.h">
-      <Filter>Core\Text</Filter>
     </ClInclude>
     <ClInclude Include="Core\Texture\Texture.h">
       <Filter>Core\Texture</Filter>
@@ -96,6 +90,12 @@
     <ClInclude Include="Core\Renderer\Performance.h" />
     <ClInclude Include="Core\Event\Types\InputEvent.h" />
     <ClInclude Include="Core\Event\Types\WindowResizeEvent.h" />
+    <ClInclude Include="Core\Renderer\TextRenderer.h">
+      <Filter>Core\Text</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Renderer\SpriteRenderer.h">
+      <Filter>Core\Renderer</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Core\Engine.cpp">
@@ -104,14 +104,8 @@
     <ClCompile Include="Core\Input\Input.cpp">
       <Filter>Core\Input</Filter>
     </ClCompile>
-    <ClCompile Include="Core\Renderer\SpriteBatcher.cpp">
-      <Filter>Core\Renderer</Filter>
-    </ClCompile>
     <ClCompile Include="Core\Shader\Shader.cpp">
       <Filter>Core\Shader</Filter>
-    </ClCompile>
-    <ClCompile Include="Core\Text\TextRenderer.cpp">
-      <Filter>Core\Text</Filter>
     </ClCompile>
     <ClCompile Include="Core\Texture\Texture.cpp">
       <Filter>Core\Texture</Filter>
@@ -124,6 +118,12 @@
     </ClCompile>
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Core\Renderer\Performance.cpp" />
+    <ClCompile Include="Core\Renderer\TextRenderer.cpp">
+      <Filter>Core\Text</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\Renderer\SpriteRenderer.cpp">
+      <Filter>Core\Renderer</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\.editorconfig" />
@@ -165,5 +165,11 @@
     <Image Include="Assets\images\tileset.png">
       <Filter>Assets\images</Filter>
     </Image>
+    <Image Include="Assets\images\tileset_n.png" />
+    <Image Include="Assets\images\map.jpg" />
+    <Image Include="Assets\images\lightmask.png" />
+    <Image Include="Assets\images\ash_n.png" />
+    <Image Include="Assets\images\ash.png" />
+    <Image Include="Assets\images\alphaglow_sharp.png" />
   </ItemGroup>
 </Project>

@@ -84,8 +84,8 @@ namespace Morpheus {
 		glfwSetWindowAspectRatio(this->m_Window, 16, 9);
 		glfwSetWindowPos(this->m_Window, (pMode->width - this->m_Width) / 2, (pMode->height - this->m_Height) / 2);
 		glfwSwapInterval(this->m_Settings->IsVSyncOn() ? 1 : 0);
-		glfwSetInputMode(this->m_Window, GLFW_CURSOR, GLFW_CURSOR_HIDDEN);
 		glfwFocusWindow(this->m_Window);
+		//glfwSetInputMode(this->m_Window, GLFW_CURSOR, GLFW_CURSOR_HIDDEN);
 
 		glfwSetErrorCallback([](int error, const char* description)
 			{

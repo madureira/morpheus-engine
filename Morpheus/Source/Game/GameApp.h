@@ -4,7 +4,7 @@
 #include "Config/Settings.h"
 #include "Core/Event/EventBus.h"
 #include "Core/Event/Types/InputEvent.h"
-#include "Core/Renderer/SpriteBatcher.h"
+#include "Core/Renderer/SpriteRenderer.h"
 #include "Core/Texture/Texture.h"
 
 namespace Game {
@@ -14,9 +14,10 @@ namespace Game {
 	private:
 		Morpheus::Settings* m_Settings;
 		Morpheus::EventBus* m_EventBus;
-		Morpheus::SpriteBatcher* m_SpriteBatcher;
-		Morpheus::Texture* m_Texture;
+		Morpheus::SpriteRenderer* m_SpriteRenderer;
 		Morpheus::InputState m_InputState;
+		Morpheus::Texture* m_Texture;
+		Morpheus::Texture* m_Normal;
 
 	public:
 		~GameApp();

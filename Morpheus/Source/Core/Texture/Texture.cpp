@@ -55,7 +55,7 @@ namespace Morpheus {
 		}
 	}
 
-	GLuint Texture::GetGLTexture()
+	GLuint Texture::GetID()
 	{
 		return this->m_Texture;
 	}

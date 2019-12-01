@@ -17,7 +17,7 @@ namespace Morpheus {
 		~Texture();
 		void IncRefCount();
 		void DecRefCount();
-		GLuint GetGLTexture();
+		GLuint GetID();
 	};
 
 }

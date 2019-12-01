@@ -6,7 +6,7 @@
 
 #include "Config/Settings.h"
 #include "Core/Shader/Shader.h"
-#include "Core/Text/TextRenderer.h"
+#include "./TextRenderer.h"
 
 namespace Morpheus {
 
