@@ -12,13 +12,11 @@ namespace Game {
 	{
 		this->m_Settings = pSettings;
 		this->m_EventBus = pEventBus;
+		this->m_EventBus->subscribe(this, &GameApp::InputHandler);
 
 		this->m_SpriteRenderer = new Morpheus::SpriteRenderer(glm::vec2(this->m_Settings->GetWindowWidth(), this->m_Settings->GetWindowHeight()));
-
 		this->m_Texture = new Morpheus::Texture("Assets/images/tileset.png");
 		this->m_Normal = new Morpheus::Texture("Assets/images/tileset_n.png");
-
-		this->m_EventBus->subscribe(this, &GameApp::InputHandler);
 	}
 
 	void GameApp::OnFrameStarted(double deltaTime, int frame)
@@ -75,18 +73,14 @@ namespace Game {
 				for (int y = 0; y < rows; y++)
 				{
 					this->m_SpriteRenderer->Draw(
-						// texture of the sprite
 						this->m_Texture,
 						this->m_Normal,
 
-						// position of the rectangle
 						glm::vec4(margin + x * tileSize + z * distance + playerX, margin + y * tileSize + z * distance + playerY, tileSize, tileSize),
 
-						// rectangle size
 						getTile(tileSize, z)
 
-						// optional: color to tint the sprite
-						//,glm::vec4(x / 10.f, y / 10.f, z / 10.f, 1)
+						,glm::vec4(x / 10.f, y / 10.f, z / 10.f, 1.0f)
 					);
 				}
 			}
@@ -104,7 +98,7 @@ namespace Game {
 
 		this->m_SpriteRenderer->AddLightSource(glm::vec3(600.0 + playerX, 400.0 + (-playerY), 0.01f), glm::vec4(1.0f, 0.8f, 0.6f, 1.0f), glm::vec3(0.4f, 3.0f, 20.0f));
 
-		this->m_SpriteRenderer->Flush();
+		this->m_SpriteRenderer->Render();
 	}
 
 	void GameApp::FrameListener(double deltaTime, int frame)

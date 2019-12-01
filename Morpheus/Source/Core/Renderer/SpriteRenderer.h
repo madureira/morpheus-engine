@@ -9,6 +9,8 @@
 
 namespace Morpheus {
 
+#define MAX_LIGHT_SOURCES 128
+
 	struct Vertex2dUVColor
 	{
 		glm::vec2 m_Position;
@@ -61,7 +63,7 @@ namespace Morpheus {
 		void SetAmbientColor(glm::vec4 ambientColor);
 		void SetScreenSize(glm::vec2 screenSize);
 		void SetScale(float scale);
-		void Flush();
+		void Render();
 	};
 
 }

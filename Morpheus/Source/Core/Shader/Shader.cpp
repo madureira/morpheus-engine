@@ -86,9 +86,4 @@ namespace Morpheus {
 		return true;
 	}
 
-	GLint Shader::GetUniformLocation(const GLchar* pName)
-	{
-		return glGetUniformLocation(this->m_ShaderID, pName);
-	}
-
 }

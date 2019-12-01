@@ -191,13 +191,13 @@
     <ClInclude Include="Core\Event\Event.h" />
     <ClInclude Include="Core\Event\EventBus.h" />
     <ClInclude Include="Core\Event\MemberFunctionHandler.h" />
+    <ClInclude Include="Core\Event\Types\InputEvent.h" />
     <ClInclude Include="Core\Event\Types\WindowResizeEvent.h" />
     <ClInclude Include="Core\Input\Input.h" />
-    <ClInclude Include="Core\Event\Types\InputEvent.h" />
     <ClInclude Include="Core\Renderer\Performance.h" />
     <ClInclude Include="Core\Renderer\SpriteRenderer.h" />
-    <ClInclude Include="Core\Shader\Shader.h" />
     <ClInclude Include="Core\Renderer\TextRenderer.h" />
+    <ClInclude Include="Core\Shader\Shader.h" />
     <ClInclude Include="Core\Texture\Texture.h" />
     <ClInclude Include="Core\Util\FileUtil.h" />
     <ClInclude Include="Core\Window\Window.h" />
@@ -208,8 +208,8 @@
     <ClCompile Include="Core\Input\Input.cpp" />
     <ClCompile Include="Core\Renderer\Performance.cpp" />
     <ClCompile Include="Core\Renderer\SpriteRenderer.cpp" />
-    <ClCompile Include="Core\Shader\Shader.cpp" />
     <ClCompile Include="Core\Renderer\TextRenderer.cpp" />
+    <ClCompile Include="Core\Shader\Shader.cpp" />
     <ClCompile Include="Core\Texture\Texture.cpp" />
     <ClCompile Include="Core\Window\Window.cpp" />
     <ClCompile Include="Game\GameApp.cpp" />

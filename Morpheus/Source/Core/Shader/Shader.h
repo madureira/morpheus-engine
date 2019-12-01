@@ -24,70 +24,74 @@ namespace Morpheus {
 		void Enable() const;
 		void Disable() const;
 
-		void setBool(const std::string& name, bool value) const
+		inline void SetBool(const std::string& name, bool value) const
 		{
-			glUniform1i(glGetUniformLocation(m_ShaderID, name.c_str()), (int)value);
+			glUniform1i(this->GetUniformLocation(name.c_str()), (int)value);
 		}
 
-		void setInt(const std::string& name, int value) const
+		inline void SetInt(const std::string& name, int value) const
 		{
-			glUniform1i(glGetUniformLocation(m_ShaderID, name.c_str()), value);
+			glUniform1i(this->GetUniformLocation(name.c_str()), value);
 		}
 
-		void setFloat(const std::string& name, float value) const
+		inline void SetFloat(const std::string& name, float value) const
 		{
-			glUniform1f(glGetUniformLocation(m_ShaderID, name.c_str()), value);
+			glUniform1f(this->GetUniformLocation(name.c_str()), value);
 		}
 
-		void setVec2(const std::string& name, const glm::vec2& value) const
+		inline void SetVec2(const std::string& name, const glm::vec2& value) const
 		{
-			glUniform2fv(glGetUniformLocation(m_ShaderID, name.c_str()), 1, &value[0]);
+			glUniform2fv(this->GetUniformLocation(name.c_str()), 1, &value[0]);
 		}
 
-		void setVec2(const std::string& name, float x, float y) const
+		inline void SetVec2(const std::string& name, float x, float y) const
 		{
-			glUniform2f(glGetUniformLocation(m_ShaderID, name.c_str()), x, y);
+			glUniform2f(glGetUniformLocation(this->m_ShaderID, name.c_str()), x, y);
 		}
 
-		void setVec3(const std::string& name, const glm::vec3& value) const
+		inline void SetVec3(const std::string& name, const glm::vec3& value) const
 		{
-			glUniform3fv(glGetUniformLocation(m_ShaderID, name.c_str()), 1, &value[0]);
+			glUniform3fv(this->GetUniformLocation(name.c_str()), 1, &value[0]);
 		}
 
-		void setVec3(const std::string& name, float x, float y, float z) const
+		inline void SetVec3(const std::string& name, float x, float y, float z) const
 		{
-			glUniform3f(glGetUniformLocation(m_ShaderID, name.c_str()), x, y, z);
+			glUniform3f(this->GetUniformLocation(name.c_str()), x, y, z);
 		}
 
-		void setVec4(const std::string& name, const glm::vec4& value) const
+		inline void SetVec4(const std::string& name, const glm::vec4& value) const
 		{
-			glUniform4fv(glGetUniformLocation(m_ShaderID, name.c_str()), 1, &value[0]);
+			glUniform4fv(this->GetUniformLocation(name.c_str()), 1, &value[0]);
 		}
 
-		void setVec4(const std::string& name, float x, float y, float z, float w)
+		inline void SetVec4(const std::string& name, float x, float y, float z, float w)
 		{
-			glUniform4f(glGetUniformLocation(m_ShaderID, name.c_str()), x, y, z, w);
+			glUniform4f(this->GetUniformLocation(name.c_str()), x, y, z, w);
 		}
 
-		void setMat2(const std::string& name, const glm::mat2& mat) const
+		inline void SetMat2(const std::string& name, const glm::mat2& mat) const
 		{
-			glUniformMatrix2fv(glGetUniformLocation(m_ShaderID, name.c_str()), 1, GL_FALSE, &mat[0][0]);
+			glUniformMatrix2fv(this->GetUniformLocation(name.c_str()), 1, GL_FALSE, &mat[0][0]);
 		}
 
-		void setMat3(const std::string& name, const glm::mat3& mat) const
+		inline void SetMat3(const std::string& name, const glm::mat3& mat) const
 		{
-			glUniformMatrix3fv(glGetUniformLocation(m_ShaderID, name.c_str()), 1, GL_FALSE, &mat[0][0]);
+			glUniformMatrix3fv(this->GetUniformLocation(name.c_str()), 1, GL_FALSE, &mat[0][0]);
 		}
 
-		void setMat4(const std::string& name, const glm::mat4& mat) const
+		inline void SetMat4(const std::string& name, const glm::mat4& mat) const
 		{
-			glUniformMatrix4fv(glGetUniformLocation(m_ShaderID, name.c_str()), 1, GL_FALSE, &mat[0][0]);
+			glUniformMatrix4fv(this->GetUniformLocation(name.c_str()), 1, GL_FALSE, &mat[0][0]);
+		}
+
+		inline GLint GetUniformLocation(const std::string& name) const
+		{
+			return glGetUniformLocation(this->m_ShaderID, name.c_str());
 		}
 
 	private:
 		GLuint Load();
 		bool CompileShader(GLuint& program, int glShaderType, std::string shaderType, std::string shaderPath);
-		GLint GetUniformLocation(const GLchar* pName);
 	};
 
 }

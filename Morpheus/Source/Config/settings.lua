@@ -9,6 +9,6 @@ config = {
 		}
 	},
 	fps = 120,
-	vsync = false,
+	vsync = true,
 	debug = true
 }

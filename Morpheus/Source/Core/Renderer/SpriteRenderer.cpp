@@ -26,9 +26,9 @@ namespace Morpheus {
 		glEnableVertexAttribArray(0);
 
 		this->m_Shader->Enable();
-		this->m_Shader->setVec2("Resolution", this->m_ScreenSize);
-		glUniform1i(glGetUniformLocation(this->m_Shader->GetProgram(), "u_texture"), 0);
-		glUniform1i(glGetUniformLocation(this->m_Shader->GetProgram(), "u_normals"), 1);
+		this->m_Shader->SetVec2("Resolution", this->m_ScreenSize);
+		glUniform1i(this->m_Shader->GetUniformLocation("u_texture"), 0);
+		glUniform1i(this->m_Shader->GetUniformLocation("u_normals"), 1);
 		this->m_Shader->Disable();
 
 		SetScreenSize(this->m_ScreenSize);
@@ -43,7 +43,7 @@ namespace Morpheus {
 	{
 		if (this->m_DiffuseMap != pDiffuseMap)
 		{
-			this->Flush();
+			this->Render();
 
 			pDiffuseMap->IncRefCount();
 			pNormalMap->IncRefCount();
@@ -72,7 +72,10 @@ namespace Morpheus {
 
 	void SpriteRenderer::AddLightSource(glm::vec3 lightPosition, glm::vec4 lightColor, glm::vec3 lightFalloff)
 	{
-		this->m_LightSources.push_back(LightSource(lightPosition, lightColor, lightFalloff));
+		if (this->m_LightSources.size() < MAX_LIGHT_SOURCES)
+		{
+			this->m_LightSources.push_back(LightSource(lightPosition, lightColor, lightFalloff));
+		}
 	}
 
 	void SpriteRenderer::SetAmbientColor(glm::vec4 ambientColor)
@@ -90,7 +93,7 @@ namespace Morpheus {
 		this->m_ScreenTransform[2][1] = -1;
 
 		this->m_Shader->Enable();
-		this->m_Shader->setVec2("Resolution", this->m_ScreenSize);
+		this->m_Shader->SetVec2("Resolution", this->m_ScreenSize);
 		this->m_Shader->Disable();
 	}
 
@@ -99,7 +102,7 @@ namespace Morpheus {
 		this->m_Scale = scale;
 	}
 
-	void SpriteRenderer::Flush()
+	void SpriteRenderer::Render()
 	{
 		if (this->m_Vertices.size() == 0 || this->m_DiffuseMap == nullptr)
 		{
@@ -108,11 +111,13 @@ namespace Morpheus {
 
 		this->m_Shader->Enable();
 
-		this->m_Shader->setVec4("AmbientColor", this->m_AmbientColor);
+		this->m_Shader->SetVec4("AmbientColor", this->m_AmbientColor);
+		this->m_Shader->SetMat3("screenTransform", this->m_ScreenTransform);
+		this->m_Shader->SetFloat("scale", this->m_Scale);
 
-		glm::vec3 lightPositions[64] = { };
-		glm::vec4 lightColors[64] = { };
-		glm::vec3 lightFalloffs[64] = { };
+		glm::vec3 lightPositions[MAX_LIGHT_SOURCES] = { };
+		glm::vec4 lightColors[MAX_LIGHT_SOURCES] = { };
+		glm::vec3 lightFalloffs[MAX_LIGHT_SOURCES] = { };
 
 		int index = 0;
 		for (auto light : this->m_LightSources)
@@ -130,16 +135,10 @@ namespace Morpheus {
 			index++;
 		}
 
-		int lightPos = glGetUniformLocation(this->m_Shader->GetProgram(), "LightPos");
-		glUniform3fv(lightPos, this->m_LightSources.size(), (float*) lightPositions);
-
-		int lightColor = glGetUniformLocation(this->m_Shader->GetProgram(), "LightColor");
-		glUniform4fv(lightColor, this->m_LightSources.size(), (float*) lightColors);
-
-		int lightFalloff = glGetUniformLocation(this->m_Shader->GetProgram(), "LightFalloff");
-		glUniform3fv(lightFalloff, this->m_LightSources.size(), (float*) lightFalloffs);
-
-		this->m_Shader->setInt("TotalLightSources", this->m_LightSources.size());
+		this->m_Shader->SetInt("TotalLightSources", (GLsizei) this->m_LightSources.size());
+		glUniform3fv(this->m_Shader->GetUniformLocation("LightPos"), (GLsizei) this->m_LightSources.size(), (float*) lightPositions);
+		glUniform4fv(this->m_Shader->GetUniformLocation("LightColor"), (GLsizei) this->m_LightSources.size(), (float*) lightColors);
+		glUniform3fv(this->m_Shader->GetUniformLocation("LightFalloff"), (GLsizei) this->m_LightSources.size(), (float*) lightFalloffs);
 
 		glBindVertexArray(this->m_VAO);
 
@@ -153,15 +152,12 @@ namespace Morpheus {
 		glBufferData(GL_ARRAY_BUFFER, sizeof(Vertex2dUVColor) * this->m_Vertices.size(), &this->m_Vertices[0], GL_STATIC_DRAW);
 		glBindBuffer(GL_ARRAY_BUFFER, 0);
 
-		this->m_Shader->setMat3("screenTransform", this->m_ScreenTransform);
-		this->m_Shader->setFloat("scale", this->m_Scale);
-
 		// Enable vertex attributes for position, uv, and color
 		glEnableVertexAttribArray(0);
 		glEnableVertexAttribArray(1);
 		glEnableVertexAttribArray(2);
 
-		glDrawArrays(GL_TRIANGLES, 0, this->m_Vertices.size());
+		glDrawArrays(GL_TRIANGLES, 0, (GLsizei) this->m_Vertices.size());
 
 		// Disable vertex attribute
 		glDisableVertexAttribArray(0);

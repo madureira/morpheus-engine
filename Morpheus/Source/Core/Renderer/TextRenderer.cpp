@@ -59,7 +59,7 @@ namespace Morpheus {
 				texture,
 				glm::ivec2(face->glyph->bitmap.width, face->glyph->bitmap.rows),
 				glm::ivec2(face->glyph->bitmap_left, face->glyph->bitmap_top),
-				face->glyph->advance.x
+				(GLuint) face->glyph->advance.x
 			};
 			this->m_Characters.insert(std::pair<GLchar, Character>(c, character));
 		}
