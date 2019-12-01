@@ -7,11 +7,12 @@ uniform sampler2D u_texture;
 uniform sampler2D u_normals;
 
 //values used for shading algorithm...
-uniform vec2 Resolution;          //resolution of screen
-uniform vec3 LightPos[64];        //light position, normalized
-uniform vec4 LightColor[64];      //light RGBA -- alpha is intensity
-uniform vec3 LightFalloff[64];    //attenuation coefficients
-uniform vec4 AmbientColor;        //ambient RGBA -- alpha is intensity
+uniform int TotalLightSources;    // total of defined light sources
+uniform vec2 Resolution;          // resolution of screen
+uniform vec3 LightPos[64];        // light position, normalized
+uniform vec4 LightColor[64];      // light RGBA -- alpha is intensity
+uniform vec3 LightFalloff[64];    // attenuation coefficients
+uniform vec4 AmbientColor;        // ambient RGBA -- alpha is intensity
 
 out vec4 FragColor;
 
@@ -24,9 +25,9 @@ void main()
 	vec3 NormalMap = texelFetch(u_normals, ivec2(vTexCoord), 0).rgb;
 	//NormalMap.g = 1.0 - NormalMap.g;
 
-	vec3 Sum = vec3(0.0);
+	vec3 LightsSum = vec3(0.0);
 
-	for(int i = 0; i < 2; i++)
+	for(int i = 0; i < TotalLightSources; i++)
 	{
 		//The delta position of light
 		vec3 LightDir = vec3(LightPos[i].xy - (gl_FragCoord.xy / Resolution.xy), LightPos[i].z);
@@ -55,8 +56,14 @@ void main()
 		vec3 Intensity = Ambient + Diffuse * Attenuation;
 		vec3 FinalColor = DiffuseColor.rgb * Intensity;
 
-		Sum += FinalColor;
+		LightsSum += FinalColor;
 	}
 
-	FragColor = vColor * vec4(Sum, DiffuseColor.a);
+	if (LightsSum == vec3(0.0))
+	{
+		FragColor = vColor * DiffuseColor;
+	}
+	else {
+		FragColor = vColor * vec4(LightsSum, DiffuseColor.a);
+	}
 }

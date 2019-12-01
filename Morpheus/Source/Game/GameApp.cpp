@@ -98,7 +98,11 @@ namespace Game {
 
 		this->m_SpriteRenderer->AddLightSource(glm::vec3(300.0, 200.0, 0.01f), glm::vec4(1.0f, 0.8f, 0.6f, 1.0f), glm::vec3(0.4f, 3.0f, 20.0f));
 
+		this->m_SpriteRenderer->AddLightSource(glm::vec3(600.0, 400.0, 0.01f), glm::vec4(1.0f, 0.8f, 0.6f, 1.0f), glm::vec3(0.4f, 3.0f, 20.0f));
+
 		this->m_SpriteRenderer->AddLightSource(glm::vec3(300.0 + playerX, 200.0 + (-playerY), 0.01f), glm::vec4(1.0f, 0.8f, 0.6f, 1.0f), glm::vec3(0.4f, 3.0f, 20.0f));
+
+		this->m_SpriteRenderer->AddLightSource(glm::vec3(600.0 + playerX, 400.0 + (-playerY), 0.01f), glm::vec4(1.0f, 0.8f, 0.6f, 1.0f), glm::vec3(0.4f, 3.0f, 20.0f));
 
 		this->m_SpriteRenderer->Flush();
 	}

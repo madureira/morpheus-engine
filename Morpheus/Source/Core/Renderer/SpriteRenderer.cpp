@@ -7,7 +7,7 @@ namespace Morpheus {
 		m_DiffuseMap(nullptr),
 		m_NormalMap(nullptr),
 		m_ScreenSize(screenSize),
-		m_AmbientColor(glm::vec4(1.0f, 1.0f, 1.f, 0.2f))
+		m_AmbientColor(glm::vec4(1.0f, 1.0f, 1.f, 0.25f))
 	{
 		this->m_Shader = new Morpheus::Shader("Assets/shaders/sprite.vert", "Assets/shaders/sprite.frag");
 
@@ -138,6 +138,8 @@ namespace Morpheus {
 
 		int lightFalloff = glGetUniformLocation(this->m_Shader->GetProgram(), "LightFalloff");
 		glUniform3fv(lightFalloff, this->m_LightSources.size(), (float*) lightFalloffs);
+
+		this->m_Shader->setInt("TotalLightSources", this->m_LightSources.size());
 
 		glBindVertexArray(this->m_VAO);
 
