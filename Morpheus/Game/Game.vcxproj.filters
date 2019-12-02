@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Assets">
+      <UniqueIdentifier>{3824E0A7-24C6-0A7E-0D81-1ED2F9C191CE}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Assets\fonts">
+      <UniqueIdentifier>{91683F8C-7DCB-CE30-2651-07E712939AB3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Assets\images">
+      <UniqueIdentifier>{FD69001B-692A-7C51-3265-C5CE9EE4C02D}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Assets\shaders">
+      <UniqueIdentifier>{31992871-1D67-1C77-06FB-8C9DF267F8DB}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source">
+      <UniqueIdentifier>{56EB95D1-428D-C0A7-2B48-D4FB178947F8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\MyGame">
+      <UniqueIdentifier>{659DC142-D15D-3D79-9A98-86F606188255}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Source\MyGame\GameApp.h">
+      <Filter>Source\MyGame</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Source\MyGame\GameApp.cpp">
+      <Filter>Source\MyGame</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\main.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\.editorconfig" />
+    <None Include="Assets\fonts\roboto-regular.ttf">
+      <Filter>Assets\fonts</Filter>
+    </None>
+    <None Include="Assets\settings.lua">
+      <Filter>Assets</Filter>
+    </None>
+    <None Include="Assets\shaders\basic.frag">
+      <Filter>Assets\shaders</Filter>
+    </None>
+    <None Include="Assets\shaders\basic.vert">
+      <Filter>Assets\shaders</Filter>
+    </None>
+    <None Include="Assets\shaders\sprite.frag">
+      <Filter>Assets\shaders</Filter>
+    </None>
+    <None Include="Assets\shaders\sprite.vert">
+      <Filter>Assets\shaders</Filter>
+    </None>
+    <None Include="Assets\shaders\text.frag">
+      <Filter>Assets\shaders</Filter>
+    </None>
+    <None Include="Assets\shaders\text.vert">
+      <Filter>Assets\shaders</Filter>
+    </None>
+    <None Include="Assets\shaders\texture.frag">
+      <Filter>Assets\shaders</Filter>
+    </None>
+    <None Include="Assets\shaders\texture.vert">
+      <Filter>Assets\shaders</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="Assets\images\alphaglow_sharp.png">
+      <Filter>Assets\images</Filter>
+    </Image>
+    <Image Include="Assets\images\ash.png">
+      <Filter>Assets\images</Filter>
+    </Image>
+    <Image Include="Assets\images\ash_n.png">
+      <Filter>Assets\images</Filter>
+    </Image>
+    <Image Include="Assets\images\container.jpg">
+      <Filter>Assets\images</Filter>
+    </Image>
+    <Image Include="Assets\images\lightmask.png">
+      <Filter>Assets\images</Filter>
+    </Image>
+    <Image Include="Assets\images\map.jpg">
+      <Filter>Assets\images</Filter>
+    </Image>
+    <Image Include="Assets\images\tileset.png">
+      <Filter>Assets\images</Filter>
+    </Image>
+    <Image Include="Assets\images\tileset_n.png">
+      <Filter>Assets\images</Filter>
+    </Image>
+  </ItemGroup>
+</Project>

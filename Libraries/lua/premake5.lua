@@ -6,13 +6,11 @@ project "lua"
     targetdir ("bin/" .. outputdir .. "/%{prj.name}")
     objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
 
-	includedirs
-    {
+	includedirs {
         "src"
 	}
 
-    files
-    {
+    files {
         "src/*.h",
         "src/*.c"
     }

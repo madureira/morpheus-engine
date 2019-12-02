@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 16
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Morpheus", "Morpheus\Source\Morpheus.vcxproj", "{183E12FE-040B-6D09-2D24-5BB11950A297}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Game", "Morpheus\Game\Game.vcxproj", "{7FA9857C-6BE0-860D-14CD-6C1000E3020F}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Dependencies", "Dependencies", "{53E47842-3FC8-3998-A828-34EB942B241A}"
 EndProject
@@ -11,6 +11,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Glad", "Libraries\Glad\Glad
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "lua", "Libraries\lua\lua.vcxproj", "{C78D880B-3397-887C-BC12-9F7C281B947C}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Engine", "Morpheus\Engine\Engine.vcxproj", "{DBC7D3B0-C769-FE86-B024-12DB9C6585D7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -19,14 +21,14 @@ Global
 		Release|x64 = Release|x64
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{183E12FE-040B-6D09-2D24-5BB11950A297}.Debug|Win32.ActiveCfg = Debug x32|x64
-		{183E12FE-040B-6D09-2D24-5BB11950A297}.Debug|Win32.Build.0 = Debug x32|x64
-		{183E12FE-040B-6D09-2D24-5BB11950A297}.Debug|x64.ActiveCfg = Debug|x64
-		{183E12FE-040B-6D09-2D24-5BB11950A297}.Debug|x64.Build.0 = Debug|x64
-		{183E12FE-040B-6D09-2D24-5BB11950A297}.Release|Win32.ActiveCfg = Release x32|x64
-		{183E12FE-040B-6D09-2D24-5BB11950A297}.Release|Win32.Build.0 = Release x32|x64
-		{183E12FE-040B-6D09-2D24-5BB11950A297}.Release|x64.ActiveCfg = Release|x64
-		{183E12FE-040B-6D09-2D24-5BB11950A297}.Release|x64.Build.0 = Release|x64
+		{7FA9857C-6BE0-860D-14CD-6C1000E3020F}.Debug|Win32.ActiveCfg = Debug x32|x64
+		{7FA9857C-6BE0-860D-14CD-6C1000E3020F}.Debug|Win32.Build.0 = Debug x32|x64
+		{7FA9857C-6BE0-860D-14CD-6C1000E3020F}.Debug|x64.ActiveCfg = Debug|x64
+		{7FA9857C-6BE0-860D-14CD-6C1000E3020F}.Debug|x64.Build.0 = Debug|x64
+		{7FA9857C-6BE0-860D-14CD-6C1000E3020F}.Release|Win32.ActiveCfg = Release x32|x64
+		{7FA9857C-6BE0-860D-14CD-6C1000E3020F}.Release|Win32.Build.0 = Release x32|x64
+		{7FA9857C-6BE0-860D-14CD-6C1000E3020F}.Release|x64.ActiveCfg = Release|x64
+		{7FA9857C-6BE0-860D-14CD-6C1000E3020F}.Release|x64.Build.0 = Release|x64
 		{9B8AFB51-07F5-AFC8-5033-616EBCDC8D1D}.Debug|Win32.ActiveCfg = Debug x32|x64
 		{9B8AFB51-07F5-AFC8-5033-616EBCDC8D1D}.Debug|Win32.Build.0 = Debug x32|x64
 		{9B8AFB51-07F5-AFC8-5033-616EBCDC8D1D}.Debug|x64.ActiveCfg = Debug|x64
@@ -51,6 +53,14 @@ Global
 		{C78D880B-3397-887C-BC12-9F7C281B947C}.Release|Win32.Build.0 = Release x32|x64
 		{C78D880B-3397-887C-BC12-9F7C281B947C}.Release|x64.ActiveCfg = Release|x64
 		{C78D880B-3397-887C-BC12-9F7C281B947C}.Release|x64.Build.0 = Release|x64
+		{DBC7D3B0-C769-FE86-B024-12DB9C6585D7}.Debug|Win32.ActiveCfg = Debug x32|x64
+		{DBC7D3B0-C769-FE86-B024-12DB9C6585D7}.Debug|Win32.Build.0 = Debug x32|x64
+		{DBC7D3B0-C769-FE86-B024-12DB9C6585D7}.Debug|x64.ActiveCfg = Debug|x64
+		{DBC7D3B0-C769-FE86-B024-12DB9C6585D7}.Debug|x64.Build.0 = Debug|x64
+		{DBC7D3B0-C769-FE86-B024-12DB9C6585D7}.Release|Win32.ActiveCfg = Release x32|x64
+		{DBC7D3B0-C769-FE86-B024-12DB9C6585D7}.Release|Win32.Build.0 = Release x32|x64
+		{DBC7D3B0-C769-FE86-B024-12DB9C6585D7}.Release|x64.ActiveCfg = Release|x64
+		{DBC7D3B0-C769-FE86-B024-12DB9C6585D7}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

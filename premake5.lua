@@ -1,14 +1,20 @@
 workspace "Morpheus"
 	architecture "x64"
-	startproject "Morpheus"
+	startproject "Game"
 	configurations { "Debug", "Release" }
 	platforms { "x64", "x32" }
 	files {
 		".editorconfig"
 	}
 
-outputdir = "%{cfg.system}/%{cfg.buildcfg}/%{cfg.platform}"
+	flags
+	{
+		"MultiProcessorCompile"
+	}
 
+outputdir = "%{cfg.system}/%{cfg.buildcfg}/%{cfg.platform}/%{prj.name}"
+
+-- Include directories relative to root folder (solution directory)
 IncludeDir = {}
 IncludeDir["GLFW"] = "Libraries/GLFW/include"
 IncludeDir["Glad"] = "Libraries/Glad/include"
@@ -28,23 +34,26 @@ group "Dependencies"
 
 group ""
 
-project "Morpheus"
-	location "Morpheus/Source"
-	kind "ConsoleApp"
+project "Engine"
+	location "Morpheus/Engine"
+	kind "StaticLib"
 	language "C++"
 	cppdialect "C++17"
 	objdir("Build/" .. outputdir)
 	targetdir("Dist/" .. outputdir)
 
+	pchheader "mepch.h"
+	pchsource "Morpheus/%{prj.name}/Source/mepch.cpp"
+
 	files {
-		"%{prj.name}/Source/**.h",
-		"%{prj.name}/Source/**.cpp",
-		"%{prj.name}/Source/**.lua",
-		"%{prj.name}/Source/Assets/**"
+		"Morpheus/%{prj.name}/Source/**.h",
+		"Morpheus/%{prj.name}/Source/**.cpp",
+		"Morpheus/%{prj.name}/Source/**.lua",
+		"Morpheus/%{prj.name}/Assets/**"
 	}
 
 	includedirs {
-		"%{prj.name}/Source",
+		"Morpheus/%{prj.name}/Source",
 		"%{IncludeDir.GLFW}",
 		"%{IncludeDir.Glad}",
 		"%{IncludeDir.lua}",
@@ -71,6 +80,51 @@ project "Morpheus"
 
 	filter { "system:not windows" }
 		links { "GL" }
+
+	filter "configurations:Debug"
+		defines { "DEBUG" }
+		symbols "On"
+		optimize "On"
+
+	filter "configurations:Release"
+		defines { "NDEBUG" }
+		symbols "On"
+		optimize "Speed"
+
+
+project "Game"
+	location "Morpheus/Game"
+	kind "ConsoleApp"
+	language "C++"
+	cppdialect "C++17"
+	objdir("Build/" .. outputdir)
+	targetdir("Dist/" .. outputdir)
+
+	files {
+		"Morpheus/%{prj.name}/Source/**.h",
+		"Morpheus/%{prj.name}/Source/**.cpp",
+		"Morpheus/%{prj.name}/Source/**.lua",
+		"Morpheus/%{prj.name}/Assets/**"
+	}
+
+	includedirs {
+		"Morpheus/%{prj.name}/Source",
+		"Morpheus/Engine/Source",
+		"%{IncludeDir.GLFW}",
+		"%{IncludeDir.Glad}",
+		"%{IncludeDir.lua}",
+		"%{IncludeDir.glm}",
+		"%{IncludeDir.sol3}",
+		"%{IncludeDir.stb_image}",
+		"%{IncludeDir.freetype2}"
+	}
+
+	links {
+		"Engine"
+	}
+
+	filter { "system:windows" }
+		systemversion "latest"
 
 	filter "configurations:Debug"
 		defines { "DEBUG" }
