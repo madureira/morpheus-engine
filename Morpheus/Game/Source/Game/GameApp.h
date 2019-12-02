@@ -3,6 +3,7 @@
 #include "Core/App.h"
 #include "Core/Config/Settings.h"
 #include "Core/Event/EventBus.h"
+#include "Core/Window/Window.h"
 #include "Core/Event/Types/InputEvent.h"
 #include "Core/Renderer/SpriteRenderer.h"
 #include "Core/Texture/Texture.h"
@@ -24,7 +25,7 @@ namespace Game {
 
 	public:
 		~GameApp();
-		void Initialize(Morpheus::Settings* pSettings, Morpheus::EventBus* pEventBus) override;
+		void Initialize(Morpheus::Settings* pSettings, Morpheus::EventBus* pEventBus, Morpheus::Window* pWindow) override;
 		void OnFrameStarted(double deltaTime, int frame) override;
 		void FrameListener(double deltaTime, int frame) override;
 

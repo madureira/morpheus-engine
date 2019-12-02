@@ -1,5 +1,5 @@
 #include "Core/Engine.h"
-#include "MyGame/GameApp.h"
+#include "Game/GameApp.h"
 
 #if defined(_WIN32)
 extern "C"

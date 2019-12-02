@@ -1,6 +1,6 @@
 workspace "Morpheus"
 	architecture "x64"
-	startproject "Game"
+	startproject "Editor"
 	configurations { "Debug", "Release" }
 	platforms { "x64", "x32" }
 	files {
@@ -17,6 +17,7 @@ outputdir = "%{cfg.system}/%{cfg.buildcfg}/%{cfg.platform}/%{prj.name}"
 IncludeDir = {}
 IncludeDir["GLFW"] = "Libraries/GLFW/include"
 IncludeDir["Glad"] = "Libraries/Glad/include"
+IncludeDir["ImGui"] = "Libraries/imgui"
 IncludeDir["lua"] = "Libraries/lua/src"
 IncludeDir["glm"] = "Libraries/glm"
 IncludeDir["sol3"] = "Libraries/sol3/include"
@@ -26,11 +27,13 @@ IncludeDir["freetype2"] = "Libraries/freetype2/include"
 group "Dependencies"
 	include "Libraries/GLFW"
 	include "Libraries/Glad"
+	include "Libraries/imgui"
 	include "Libraries/lua"
 	include "Libraries/freetype2"
 
 group ""
 
+-- ENGINE
 project "Engine"
 	location "Morpheus/Engine"
 	kind "StaticLib"
@@ -95,6 +98,61 @@ project "Engine"
 		optimize "Speed"
 
 
+-- EDITOR
+project "Editor"
+	location "Morpheus/Editor"
+	kind "ConsoleApp"
+	language "C++"
+	cppdialect "C++17"
+	staticruntime "On"
+	objdir("Build/" .. outputdir)
+	targetdir("Dist/" .. outputdir)
+
+	files {
+		"Morpheus/%{prj.name}/Source/**.h",
+		"Morpheus/%{prj.name}/Source/**.cpp",
+		"Morpheus/%{prj.name}/Source/**.lua",
+		"Morpheus/%{prj.name}/Assets/**"
+	}
+
+	includedirs {
+		"Morpheus/%{prj.name}/Source",
+		"Morpheus/Engine/Source",
+		"%{IncludeDir.GLFW}",
+		"%{IncludeDir.Glad}",
+		"%{IncludeDir.ImGui}",
+		"%{IncludeDir.lua}",
+		"%{IncludeDir.glm}",
+		"%{IncludeDir.sol3}",
+		"%{IncludeDir.stb_image}",
+		"%{IncludeDir.freetype2}"
+	}
+
+	links {
+		"Engine",
+		"ImGui"
+	}
+
+	defines {
+		"_CRT_SECURE_NO_WARNINGS"
+	}
+
+	filter { "system:windows" }
+		systemversion "latest"
+
+	filter "configurations:Debug"
+		defines { "DEBUG" }
+		symbols "On"
+		optimize "On"
+
+	filter "configurations:Release"
+		defines { "NDEBUG" }
+		kind "WindowedApp"
+		flags { entrypoint "mainCRTStartup" }
+		optimize "Speed"
+
+
+-- GAME
 project "Game"
 	location "Morpheus/Game"
 	kind "ConsoleApp"
@@ -125,6 +183,10 @@ project "Game"
 
 	links {
 		"Engine"
+	}
+
+	defines {
+		"_CRT_SECURE_NO_WARNINGS"
 	}
 
 	filter { "system:windows" }

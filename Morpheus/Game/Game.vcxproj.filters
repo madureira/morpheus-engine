@@ -16,18 +16,18 @@
     <Filter Include="Source">
       <UniqueIdentifier>{56EB95D1-428D-C0A7-2B48-D4FB178947F8}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source\MyGame">
-      <UniqueIdentifier>{659DC142-D15D-3D79-9A98-86F606188255}</UniqueIdentifier>
+    <Filter Include="Source\Game">
+      <UniqueIdentifier>{BF8A170F-2B40-9004-B434-8ADB20E98608}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Source\MyGame\GameApp.h">
-      <Filter>Source\MyGame</Filter>
+    <ClInclude Include="Source\Game\GameApp.h">
+      <Filter>Source\Game</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Source\MyGame\GameApp.cpp">
-      <Filter>Source\MyGame</Filter>
+    <ClCompile Include="Source\Game\GameApp.cpp">
+      <Filter>Source\Game</Filter>
     </ClCompile>
     <ClCompile Include="Source\main.cpp">
       <Filter>Source</Filter>

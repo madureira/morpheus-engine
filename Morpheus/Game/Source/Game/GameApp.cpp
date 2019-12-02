@@ -8,7 +8,7 @@ namespace Game {
 		delete this->m_Texture;
 	}
 
-	void GameApp::Initialize(Morpheus::Settings* pSettings, Morpheus::EventBus* pEventBus)
+	void GameApp::Initialize(Morpheus::Settings* pSettings, Morpheus::EventBus* pEventBus, Morpheus::Window* pWindow)
 	{
 		this->m_Settings = pSettings;
 		this->m_EventBus = pEventBus;

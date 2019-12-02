@@ -17,6 +17,12 @@ Libraries/Glad/bin-int/
 Libraries/Glad/Makefile
 Libraries/Glad/Glad.*
 
+Libraries/imgui/bin/
+Libraries/imgui/bin-int/
+Libraries/imgui/Makefile
+Libraries/imgui/ImGui.vcxproj
+Libraries/imgui/ImGui.vcxproj.filters
+
 Libraries/lua/bin/
 Libraries/lua/bin-int/
 Libraries/lua/Makefile
