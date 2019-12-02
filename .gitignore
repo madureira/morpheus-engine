@@ -1,5 +1,6 @@
 # IDE
 .vs/
+Morpheus.sln
 Morpheus.vcxproj.user
 Morpheus/Engine/Engine.vcxproj
 Morpheus/Engine/Engine.vcxproj.*
