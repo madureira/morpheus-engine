@@ -17,18 +17,18 @@ outputdir = "%{cfg.system}/%{cfg.buildcfg}/%{cfg.platform}/%{prj.name}"
 IncludeDir = {}
 IncludeDir["GLFW"] = "Libraries/GLFW/include"
 IncludeDir["Glad"] = "Libraries/Glad/include"
+IncludeDir["Lua"] = "Libraries/lua/src"
 IncludeDir["ImGui"] = "Libraries/imgui"
-IncludeDir["lua"] = "Libraries/lua/src"
+IncludeDir["FreeType2"] = "Libraries/freetype2/include"
 IncludeDir["glm"] = "Libraries/glm"
 IncludeDir["sol3"] = "Libraries/sol3/include"
 IncludeDir["stb_image"] = "Libraries/stb_image/include"
-IncludeDir["freetype2"] = "Libraries/freetype2/include"
 
 group "Dependencies"
 	include "Libraries/GLFW"
 	include "Libraries/Glad"
-	include "Libraries/imgui"
 	include "Libraries/lua"
+	include "Libraries/imgui"
 	include "Libraries/freetype2"
 
 group ""
@@ -57,18 +57,18 @@ project "Engine"
 		"Morpheus/%{prj.name}/Source",
 		"%{IncludeDir.GLFW}",
 		"%{IncludeDir.Glad}",
-		"%{IncludeDir.lua}",
+		"%{IncludeDir.Lua}",
+		"%{IncludeDir.FreeType2}",
 		"%{IncludeDir.glm}",
 		"%{IncludeDir.sol3}",
-		"%{IncludeDir.stb_image}",
-		"%{IncludeDir.freetype2}"
+		"%{IncludeDir.stb_image}"
 	}
 
 	links {
 		"GLFW",
 		"Glad",
-		"lua",
-		"freetype2"
+		"Lua",
+		"FreeType2"
 	}
 
 	defines {
@@ -120,12 +120,12 @@ project "Editor"
 		"Morpheus/Engine/Source",
 		"%{IncludeDir.GLFW}",
 		"%{IncludeDir.Glad}",
+		"%{IncludeDir.Lua}",
 		"%{IncludeDir.ImGui}",
-		"%{IncludeDir.lua}",
+		"%{IncludeDir.FreeType2}",
 		"%{IncludeDir.glm}",
 		"%{IncludeDir.sol3}",
-		"%{IncludeDir.stb_image}",
-		"%{IncludeDir.freetype2}"
+		"%{IncludeDir.stb_image}"
 	}
 
 	links {
@@ -174,11 +174,11 @@ project "Game"
 		"Morpheus/Engine/Source",
 		"%{IncludeDir.GLFW}",
 		"%{IncludeDir.Glad}",
-		"%{IncludeDir.lua}",
+		"%{IncludeDir.Lua}",
+		"%{IncludeDir.FreeType2}",
 		"%{IncludeDir.glm}",
 		"%{IncludeDir.sol3}",
-		"%{IncludeDir.stb_image}",
-		"%{IncludeDir.freetype2}"
+		"%{IncludeDir.stb_image}"
 	}
 
 	links {

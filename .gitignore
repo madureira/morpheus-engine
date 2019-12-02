@@ -1,6 +1,12 @@
 # IDE
 .vs/
 Morpheus.vcxproj.user
+Morpheus/Engine/Engine.vcxproj
+Morpheus/Engine/Engine.vcxproj.*
+Morpheus/Game/Game.vcxproj
+Morpheus/Game/Game.vcxproj.*
+Morpheus/Editor/Editor.vcxproj
+Morpheus/Editor/Editor.vcxproj.*
 
 # Build
 Build/
@@ -10,25 +16,29 @@ Dist/
 Libraries/GLFW/bin/
 Libraries/GLFW/bin-int/
 Libraries/GLFW/Makefile
-Libraries/GLFW/GLFW.*
+Libraries/GLFW/GLFW.vcxproj
+Libraries/GLFW/GLFW.vcxproj.*
 
 Libraries/Glad/bin/
 Libraries/Glad/bin-int/
 Libraries/Glad/Makefile
-Libraries/Glad/Glad.*
+Libraries/Glad/Glad.vcxproj
+Libraries/Glad/Glad.vcxproj.*
+
+Libraries/lua/bin/
+Libraries/lua/bin-int/
+Libraries/lua/Makefile
+Libraries/lua/Lua.vcxproj
+Libraries/lua/Lua.vcxproj.*
+
+Libraries/freetype2/bin/
+Libraries/freetype2/bin-int/
+Libraries/freetype2/Makefile
+Libraries/freetype2/FreeType2.vcxproj
+Libraries/freetype2/FreeType2.vcxproj.*
 
 Libraries/imgui/bin/
 Libraries/imgui/bin-int/
 Libraries/imgui/Makefile
 Libraries/imgui/ImGui.vcxproj
-Libraries/imgui/ImGui.vcxproj.filters
-
-Libraries/lua/bin/
-Libraries/lua/bin-int/
-Libraries/lua/Makefile
-Libraries/lua/lua.*
-
-Libraries/freetype2/bin/
-Libraries/freetype2/bin-int/
-Libraries/freetype2/Makefile
-Libraries/freetype2/FreeType2.*
+Libraries/imgui/ImGui.vcxproj.*

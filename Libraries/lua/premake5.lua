@@ -1,4 +1,4 @@
-project "lua"
+project "Lua"
     kind "StaticLib"
     language "C"
     staticruntime "On"
