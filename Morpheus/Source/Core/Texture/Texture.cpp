@@ -2,6 +2,7 @@
 
 #define STB_IMAGE_IMPLEMENTATION
 #include <stb_image.h>
+#include <iostream>
 
 namespace Morpheus {
 
@@ -39,20 +40,6 @@ namespace Morpheus {
 	Texture::~Texture()
 	{
 		glDeleteTextures(1, &this->m_Texture);
-	}
-
-	void Texture::IncRefCount()
-	{
-		this->m_RefCount++;
-	}
-
-	void Texture::DecRefCount()
-	{
-		this->m_RefCount--;
-		if (this->m_RefCount == 0)
-		{
-			delete this;
-		}
 	}
 
 	GLuint Texture::GetID()

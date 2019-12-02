@@ -19,6 +19,9 @@ namespace Game {
 		Morpheus::Texture* m_Texture;
 		Morpheus::Texture* m_Normal;
 
+		Morpheus::Texture* m_TexturePlayer;
+		Morpheus::Texture* m_NormalPlayer;
+
 	public:
 		~GameApp();
 		void Initialize(Morpheus::Settings* pSettings, Morpheus::EventBus* pEventBus) override;

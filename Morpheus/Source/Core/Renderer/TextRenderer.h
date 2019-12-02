@@ -14,6 +14,8 @@ namespace Morpheus {
 	class TextRenderer
 	{
 	private:
+		GLuint m_VAO;
+		GLuint m_VBO;
 		struct Character {
 			GLuint TextureID;
 			glm::ivec2 Size;
@@ -21,8 +23,6 @@ namespace Morpheus {
 			GLuint Advance;
 		};
 		std::map<GLchar, Character> m_Characters;
-		GLuint m_VAO;
-		GLuint m_VBO;
 
 	public:
 		TextRenderer(std::string fontPath);

@@ -14,7 +14,7 @@ namespace Morpheus {
 
 	public:
 		template<typename EventType>
-		void publish(EventType* pEvent)
+		void Publish(EventType* pEvent)
 		{
 			HandlerList* pHandlers = m_Subscribers[typeid(EventType)];
 
@@ -27,13 +27,13 @@ namespace Morpheus {
 			{
 				if (handler != nullptr)
 				{
-					handler->exec(pEvent);
+					handler->Exec(pEvent);
 				}
 			}
 		}
 
 		template<class T, class EventType>
-		void subscribe(T* pInstance, void(T::* memberFunction)(EventType*))
+		void Subscribe(T* pInstance, void(T::* memberFunction)(EventType*))
 		{
 			HandlerList* pHandlers = this->m_Subscribers[typeid(EventType)];
 

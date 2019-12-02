@@ -15,7 +15,6 @@ namespace Morpheus {
 		Settings* m_Settings;
 		EventBus* m_EventCallback;
 		GLFWwindow* m_Window;
-
 		std::string m_Title;
 		unsigned int m_Width;
 		unsigned int m_Height;

@@ -44,20 +44,6 @@ namespace Morpheus {
 		if (this->m_DiffuseMap != pDiffuseMap)
 		{
 			this->Render();
-
-			pDiffuseMap->IncRefCount();
-			pNormalMap->IncRefCount();
-
-			if (this->m_DiffuseMap != nullptr)
-			{
-				this->m_DiffuseMap->DecRefCount();
-			}
-
-			if (this->m_NormalMap != nullptr)
-			{
-				this->m_NormalMap->DecRefCount();
-			}
-
 			this->m_DiffuseMap = pDiffuseMap;
 			this->m_NormalMap = pNormalMap;
 		}

@@ -100,7 +100,7 @@ namespace Morpheus {
 				glViewport(0, 0, width, height);
 
 				WindowResizeEvent event(width, height);
-				window.m_EventCallback->publish(&event);
+				window.m_EventCallback->Publish(&event);
 			});
 
 		if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))

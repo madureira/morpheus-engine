@@ -13,6 +13,17 @@ namespace Morpheus {
 		bool SPACE;
 		bool W;
 		bool S;
+
+		InputState()
+			: UP(false),
+			DOWN(false),
+			LEFT(false),
+			RIGHT(false),
+			SPACE(false),
+			W(false),
+			S(false)
+		{
+		}
 	};
 
 	class InputEvent : public Event {

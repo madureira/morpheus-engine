@@ -187,14 +187,16 @@
   <ItemGroup>
     <ClInclude Include="Config\Settings.h" />
     <ClInclude Include="Core\App.h" />
+    <ClInclude Include="Core\Debug\Performance.h" />
     <ClInclude Include="Core\Engine.h" />
     <ClInclude Include="Core\Event\Event.h" />
     <ClInclude Include="Core\Event\EventBus.h" />
     <ClInclude Include="Core\Event\MemberFunctionHandler.h" />
     <ClInclude Include="Core\Event\Types\InputEvent.h" />
     <ClInclude Include="Core\Event\Types\WindowResizeEvent.h" />
+    <ClInclude Include="Core\Input\Gamepad\Gamepad.h" />
     <ClInclude Include="Core\Input\Input.h" />
-    <ClInclude Include="Core\Renderer\Performance.h" />
+    <ClInclude Include="Core\Input\Keyboard\Keyboard.h" />
     <ClInclude Include="Core\Renderer\SpriteRenderer.h" />
     <ClInclude Include="Core\Renderer\TextRenderer.h" />
     <ClInclude Include="Core\Shader\Shader.h" />
@@ -204,9 +206,11 @@
     <ClInclude Include="Game\GameApp.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Core\Debug\Performance.cpp" />
     <ClCompile Include="Core\Engine.cpp" />
+    <ClCompile Include="Core\Input\Gamepad\Gamepad.cpp" />
     <ClCompile Include="Core\Input\Input.cpp" />
-    <ClCompile Include="Core\Renderer\Performance.cpp" />
+    <ClCompile Include="Core\Input\Keyboard\Keyboard.cpp" />
     <ClCompile Include="Core\Renderer\SpriteRenderer.cpp" />
     <ClCompile Include="Core\Renderer\TextRenderer.cpp" />
     <ClCompile Include="Core\Shader\Shader.cpp" />

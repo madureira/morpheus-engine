@@ -4,7 +4,7 @@
 #include "Core/Event/EventBus.h"
 #include "Core/Window/Window.h"
 #include "Core/Input/Input.h"
-#include "Core/Renderer/Performance.h"
+#include "Core/Debug/Performance.h"
 #include "Core/App.h"
 
 namespace Morpheus {

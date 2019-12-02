@@ -8,13 +8,13 @@ namespace Morpheus {
 	class HandlerFunctionBase {
 	public:
 		// Call the member function
-		void exec(Event* pEvent)
+		void Exec(Event* pEvent)
 		{
-			call(pEvent);
+			Call(pEvent);
 		}
 	private:
 		// Implemented by MemberFunctionHandler
-		virtual void call(Event* pEvent) = 0;
+		virtual void Call(Event* pEvent) = 0;
 	};
 
 	template<class T, class EventType>
@@ -28,7 +28,7 @@ namespace Morpheus {
 		{
 		}
 
-		void call(Event* pEvent)
+		void Call(Event* pEvent)
 		{
 			// Cast event to the correct type and call member function
 			(this->m_Instance->*this->m_MemberFunction)(static_cast<EventType*>(pEvent));

@@ -9,7 +9,7 @@
 
 namespace Morpheus {
 
-#define MAX_LIGHT_SOURCES 128
+	constexpr auto MAX_LIGHT_SOURCES = 128;
 
 	struct Vertex2dUVColor
 	{

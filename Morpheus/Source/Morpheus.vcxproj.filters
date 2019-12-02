@@ -19,6 +19,9 @@
     <Filter Include="Core">
       <UniqueIdentifier>{2EB4837C-1AEB-840D-C3D7-6A10AFED000F}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Core\Debug">
+      <UniqueIdentifier>{24A91BCD-1061-5D1A-7968-3676653FF80A}</UniqueIdentifier>
+    </Filter>
     <Filter Include="Core\Event">
       <UniqueIdentifier>{FF1F37CD-EBD7-781A-54DF-517640B6130B}</UniqueIdentifier>
     </Filter>
@@ -27,6 +30,12 @@
     </Filter>
     <Filter Include="Core\Input">
       <UniqueIdentifier>{AD4E7BCD-9906-BD1A-020E-9676EEE4570B}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\Input\Gamepad">
+      <UniqueIdentifier>{0BBAB05E-F79D-71B4-60FE-6B074C015C36}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\Input\Keyboard">
+      <UniqueIdentifier>{CD557F35-39B7-5C43-C224-A3F52E859302}</UniqueIdentifier>
     </Filter>
     <Filter Include="Core\Renderer">
       <UniqueIdentifier>{948B5FDE-004C-DB14-C986-2492350620F1}</UniqueIdentifier>
@@ -54,6 +63,9 @@
     <ClInclude Include="Core\App.h">
       <Filter>Core</Filter>
     </ClInclude>
+    <ClInclude Include="Core\Debug\Performance.h">
+      <Filter>Core\Debug</Filter>
+    </ClInclude>
     <ClInclude Include="Core\Engine.h">
       <Filter>Core</Filter>
     </ClInclude>
@@ -72,11 +84,14 @@
     <ClInclude Include="Core\Event\Types\WindowResizeEvent.h">
       <Filter>Core\Event\Types</Filter>
     </ClInclude>
+    <ClInclude Include="Core\Input\Gamepad\Gamepad.h">
+      <Filter>Core\Input\Gamepad</Filter>
+    </ClInclude>
     <ClInclude Include="Core\Input\Input.h">
       <Filter>Core\Input</Filter>
     </ClInclude>
-    <ClInclude Include="Core\Renderer\Performance.h">
-      <Filter>Core\Renderer</Filter>
+    <ClInclude Include="Core\Input\Keyboard\Keyboard.h">
+      <Filter>Core\Input\Keyboard</Filter>
     </ClInclude>
     <ClInclude Include="Core\Renderer\SpriteRenderer.h">
       <Filter>Core\Renderer</Filter>
@@ -101,14 +116,20 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Core\Debug\Performance.cpp">
+      <Filter>Core\Debug</Filter>
+    </ClCompile>
     <ClCompile Include="Core\Engine.cpp">
       <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\Input\Gamepad\Gamepad.cpp">
+      <Filter>Core\Input\Gamepad</Filter>
     </ClCompile>
     <ClCompile Include="Core\Input\Input.cpp">
       <Filter>Core\Input</Filter>
     </ClCompile>
-    <ClCompile Include="Core\Renderer\Performance.cpp">
-      <Filter>Core\Renderer</Filter>
+    <ClCompile Include="Core\Input\Keyboard\Keyboard.cpp">
+      <Filter>Core\Input\Keyboard</Filter>
     </ClCompile>
     <ClCompile Include="Core\Renderer\SpriteRenderer.cpp">
       <Filter>Core\Renderer</Filter>
