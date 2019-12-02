@@ -4,6 +4,8 @@
 #include <imgui.h>
 #include "Vendors/imgui_impl_glfw.h"
 #include "Vendors/imgui_impl_opengl3.h"
+#include "Vendors/IconsFontAwesome5.h"
+#include "Theme.h"
 
 namespace Editor {
 
@@ -30,9 +32,21 @@ namespace Editor {
 		//io.ConfigFlags |= ImGuiConfigFlags_ViewportsNoTaskBarIcons;
 		//io.ConfigFlags |= ImGuiConfigFlags_ViewportsNoMerge;
 
+		// Loads editor fonts
+		static const ImWchar icons_ranges[] = { ICON_MIN_FA, ICON_MAX_FA, 0 };
+		ImFontConfig icons_config;
+		icons_config.MergeMode = true;
+		icons_config.PixelSnapH = true;
+
+		ImFont* textFont = io.Fonts->AddFontFromFileTTF("Assets/fonts/roboto-regular.ttf", 16.0f);
+		IM_ASSERT(textFont != NULL);
+
+		ImFont* iconsFont = io.Fonts->AddFontFromFileTTF("Assets/fonts/fa-solid-900.ttf", 14.0f, &icons_config, icons_ranges);
+		IM_ASSERT(iconsFont != NULL);
+
 		// Setup Dear ImGui style
-		ImGui::StyleColorsDark();
-		//ImGui::StyleColorsClassic();
+		//ImGui::StyleColorsDark();
+		ImGui_Theme::PhotoshopsUI();
 
 		// When viewports are enabled we tweak WindowRounding/WindowBg so platform windows can look identical to regular ones.
 		ImGuiStyle& style = ImGui::GetStyle();
@@ -69,7 +83,8 @@ namespace Editor {
 			}
 			ImGui::EndMainMenuBar();
 		}
-		//ImGui::ShowAboutWindow();
+		ImGui::Text( ICON_FA_PAINT_BRUSH "  Paint" );
+		ImGui::ShowAboutWindow();
 
 
 
