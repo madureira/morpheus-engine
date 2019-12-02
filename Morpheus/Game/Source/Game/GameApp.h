@@ -1,12 +1,12 @@
 #pragma once
 
-#include "Core/App.h"
-#include "Core/Config/Settings.h"
-#include "Core/Event/EventBus.h"
-#include "Core/Window/Window.h"
-#include "Core/Event/Types/InputEvent.h"
-#include "Core/Renderer/SpriteRenderer.h"
-#include "Core/Texture/Texture.h"
+#include "Engine/App.h"
+#include "Engine/Config/Settings.h"
+#include "Engine/Event/EventBus.h"
+#include "Engine/Window/Window.h"
+#include "Engine/Event/Types/InputEvent.h"
+#include "Engine/Renderer/SpriteRenderer.h"
+#include "Engine/Texture/Texture.h"
 
 namespace Game {
 

@@ -3,7 +3,7 @@
 #include <iostream>
 #include <ft2build.h>
 #include FT_FREETYPE_H
-#include "Core/Shader/Shader.h"
+#include "Engine/Shader/Shader.h"
 
 namespace Morpheus {
 

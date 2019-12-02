@@ -13,135 +13,135 @@
     <Filter Include="Source">
       <UniqueIdentifier>{56EB95D1-428D-C0A7-2B48-D4FB178947F8}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source\Core">
-      <UniqueIdentifier>{6E95150F-DA4A-8E04-633F-88DBCFF38408}</UniqueIdentifier>
+    <Filter Include="Source\Engine">
+      <UniqueIdentifier>{1BF9622F-87B9-DE65-50F4-27E3BC732342}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source\Core\Config">
-      <UniqueIdentifier>{B3E8F640-9FCC-B796-082D-B2E9F42FA218}</UniqueIdentifier>
+    <Filter Include="Source\Engine\Config">
+      <UniqueIdentifier>{C0C77386-AC56-FD4F-5575-114B41E30DF6}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source\Core\Debug">
-      <UniqueIdentifier>{647A6176-D090-5F0C-1908-EB2D855D3094}</UniqueIdentifier>
+    <Filter Include="Source\Engine\Debug">
+      <UniqueIdentifier>{D12B08A7-3D8D-E5B4-C6FA-2B67325B1C74}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source\Core\Event">
-      <UniqueIdentifier>{3FF17C76-AB07-7B0C-F47E-062E60D44B94}</UniqueIdentifier>
+    <Filter Include="Source\Engine\Event">
+      <UniqueIdentifier>{ACA223A7-1804-01B5-A171-47670DD23774}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source\Core\Event\Types">
-      <UniqueIdentifier>{2368195C-8F9F-61F3-98A9-C516046088EC}</UniqueIdentifier>
+    <Filter Include="Source\Engine\Event\Types">
+      <UniqueIdentifier>{50B7CCBB-BC79-0046-052A-8FD2712BD923}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source\Core\Input">
-      <UniqueIdentifier>{ED1FC176-5936-BF0C-A2AD-4A2E0E039094}</UniqueIdentifier>
+    <Filter Include="Source\Engine\Input">
+      <UniqueIdentifier>{5AD167A7-C632-45B5-4FA0-8B67BB007C74}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source\Core\Input\Gamepad">
-      <UniqueIdentifier>{4BCB5334-B78D-87BE-003E-164B6C3F609C}</UniqueIdentifier>
+    <Filter Include="Source\Engine\Input\Gamepad">
+      <UniqueIdentifier>{B899174E-24A7-4534-AD8D-411F199A11EB}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source\Core\Input\Keyboard">
-      <UniqueIdentifier>{0D8F84BF-F99E-3090-6258-95AE4E871F29}</UniqueIdentifier>
+    <Filter Include="Source\Engine\Input\Keyboard">
+      <UniqueIdentifier>{1A2BC211-06E6-B1BD-AF9D-2A089B37FC4D}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source\Core\Renderer">
-      <UniqueIdentifier>{D4D44230-C063-CCF9-6982-E0F455F0DC9F}</UniqueIdentifier>
+    <Filter Include="Source\Engine\Renderer">
+      <UniqueIdentifier>{21AB73C8-0DA5-9C1A-F611-332BE2AA0287}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source\Core\Shader">
-      <UniqueIdentifier>{549DC365-4081-84BB-A9E1-7E0E95E46E3D}</UniqueIdentifier>
+    <Filter Include="Source\Engine\Shader">
+      <UniqueIdentifier>{617C40AB-4D0B-CA74-F629-DE6FE297DA1A}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source\Core\Texture">
-      <UniqueIdentifier>{CE48DB65-3AAA-B873-C317-FF252F78EF32}</UniqueIdentifier>
+    <Filter Include="Source\Engine\Texture">
+      <UniqueIdentifier>{7B09F45A-E775-AF55-B069-47B31C95D1BD}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source\Core\Util">
-      <UniqueIdentifier>{7B41F558-673A-14AB-906C-F92F7CC4F3B6}</UniqueIdentifier>
+    <Filter Include="Source\Engine\Util">
+      <UniqueIdentifier>{48F9A433-34DD-6589-9D3D-60DC8940500B}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source\Core\Window">
-      <UniqueIdentifier>{957A316F-815E-F2C4-EABE-EC17D6C1DC46}</UniqueIdentifier>
+    <Filter Include="Source\Engine\Window">
+      <UniqueIdentifier>{A259AEB4-8EE8-377E-3707-4C7923754824}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Source\Core\App.h">
-      <Filter>Source\Core</Filter>
+    <ClInclude Include="Source\Engine\App.h">
+      <Filter>Source\Engine</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Core\Config\Settings.h">
-      <Filter>Source\Core\Config</Filter>
+    <ClInclude Include="Source\Engine\Config\Settings.h">
+      <Filter>Source\Engine\Config</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Core\Debug\Performance.h">
-      <Filter>Source\Core\Debug</Filter>
+    <ClInclude Include="Source\Engine\Debug\Performance.h">
+      <Filter>Source\Engine\Debug</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Core\Engine.h">
-      <Filter>Source\Core</Filter>
+    <ClInclude Include="Source\Engine\Engine.h">
+      <Filter>Source\Engine</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Core\Event\Event.h">
-      <Filter>Source\Core\Event</Filter>
+    <ClInclude Include="Source\Engine\Event\Event.h">
+      <Filter>Source\Engine\Event</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Core\Event\EventBus.h">
-      <Filter>Source\Core\Event</Filter>
+    <ClInclude Include="Source\Engine\Event\EventBus.h">
+      <Filter>Source\Engine\Event</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Core\Event\MemberFunctionHandler.h">
-      <Filter>Source\Core\Event</Filter>
+    <ClInclude Include="Source\Engine\Event\MemberFunctionHandler.h">
+      <Filter>Source\Engine\Event</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Core\Event\Types\InputEvent.h">
-      <Filter>Source\Core\Event\Types</Filter>
+    <ClInclude Include="Source\Engine\Event\Types\InputEvent.h">
+      <Filter>Source\Engine\Event\Types</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Core\Event\Types\WindowResizeEvent.h">
-      <Filter>Source\Core\Event\Types</Filter>
+    <ClInclude Include="Source\Engine\Event\Types\WindowResizeEvent.h">
+      <Filter>Source\Engine\Event\Types</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Core\Input\Gamepad\Gamepad.h">
-      <Filter>Source\Core\Input\Gamepad</Filter>
+    <ClInclude Include="Source\Engine\Input\Gamepad\Gamepad.h">
+      <Filter>Source\Engine\Input\Gamepad</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Core\Input\Input.h">
-      <Filter>Source\Core\Input</Filter>
+    <ClInclude Include="Source\Engine\Input\Input.h">
+      <Filter>Source\Engine\Input</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Core\Input\Keyboard\Keyboard.h">
-      <Filter>Source\Core\Input\Keyboard</Filter>
+    <ClInclude Include="Source\Engine\Input\Keyboard\Keyboard.h">
+      <Filter>Source\Engine\Input\Keyboard</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Core\Renderer\SpriteRenderer.h">
-      <Filter>Source\Core\Renderer</Filter>
+    <ClInclude Include="Source\Engine\Renderer\SpriteRenderer.h">
+      <Filter>Source\Engine\Renderer</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Core\Renderer\TextRenderer.h">
-      <Filter>Source\Core\Renderer</Filter>
+    <ClInclude Include="Source\Engine\Renderer\TextRenderer.h">
+      <Filter>Source\Engine\Renderer</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Core\Shader\Shader.h">
-      <Filter>Source\Core\Shader</Filter>
+    <ClInclude Include="Source\Engine\Shader\Shader.h">
+      <Filter>Source\Engine\Shader</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Core\Texture\Texture.h">
-      <Filter>Source\Core\Texture</Filter>
+    <ClInclude Include="Source\Engine\Texture\Texture.h">
+      <Filter>Source\Engine\Texture</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Core\Util\FileUtil.h">
-      <Filter>Source\Core\Util</Filter>
+    <ClInclude Include="Source\Engine\Util\FileUtil.h">
+      <Filter>Source\Engine\Util</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Core\Window\Window.h">
-      <Filter>Source\Core\Window</Filter>
+    <ClInclude Include="Source\Engine\Window\Window.h">
+      <Filter>Source\Engine\Window</Filter>
     </ClInclude>
     <ClInclude Include="Source\mepch.h">
       <Filter>Source</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Source\Core\Debug\Performance.cpp">
-      <Filter>Source\Core\Debug</Filter>
+    <ClCompile Include="Source\Engine\Debug\Performance.cpp">
+      <Filter>Source\Engine\Debug</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Core\Engine.cpp">
-      <Filter>Source\Core</Filter>
+    <ClCompile Include="Source\Engine\Engine.cpp">
+      <Filter>Source\Engine</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Core\Input\Gamepad\Gamepad.cpp">
-      <Filter>Source\Core\Input\Gamepad</Filter>
+    <ClCompile Include="Source\Engine\Input\Gamepad\Gamepad.cpp">
+      <Filter>Source\Engine\Input\Gamepad</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Core\Input\Input.cpp">
-      <Filter>Source\Core\Input</Filter>
+    <ClCompile Include="Source\Engine\Input\Input.cpp">
+      <Filter>Source\Engine\Input</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Core\Input\Keyboard\Keyboard.cpp">
-      <Filter>Source\Core\Input\Keyboard</Filter>
+    <ClCompile Include="Source\Engine\Input\Keyboard\Keyboard.cpp">
+      <Filter>Source\Engine\Input\Keyboard</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Core\Renderer\SpriteRenderer.cpp">
-      <Filter>Source\Core\Renderer</Filter>
+    <ClCompile Include="Source\Engine\Renderer\SpriteRenderer.cpp">
+      <Filter>Source\Engine\Renderer</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Core\Renderer\TextRenderer.cpp">
-      <Filter>Source\Core\Renderer</Filter>
+    <ClCompile Include="Source\Engine\Renderer\TextRenderer.cpp">
+      <Filter>Source\Engine\Renderer</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Core\Shader\Shader.cpp">
-      <Filter>Source\Core\Shader</Filter>
+    <ClCompile Include="Source\Engine\Shader\Shader.cpp">
+      <Filter>Source\Engine\Shader</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Core\Texture\Texture.cpp">
-      <Filter>Source\Core\Texture</Filter>
+    <ClCompile Include="Source\Engine\Texture\Texture.cpp">
+      <Filter>Source\Engine\Texture</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Core\Window\Window.cpp">
-      <Filter>Source\Core\Window</Filter>
+    <ClCompile Include="Source\Engine\Window\Window.cpp">
+      <Filter>Source\Engine\Window</Filter>
     </ClCompile>
     <ClCompile Include="Source\mepch.cpp">
       <Filter>Source</Filter>

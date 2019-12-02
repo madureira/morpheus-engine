@@ -199,37 +199,37 @@
     </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="Source\Core\App.h" />
-    <ClInclude Include="Source\Core\Config\Settings.h" />
-    <ClInclude Include="Source\Core\Debug\Performance.h" />
-    <ClInclude Include="Source\Core\Engine.h" />
-    <ClInclude Include="Source\Core\Event\Event.h" />
-    <ClInclude Include="Source\Core\Event\EventBus.h" />
-    <ClInclude Include="Source\Core\Event\MemberFunctionHandler.h" />
-    <ClInclude Include="Source\Core\Event\Types\InputEvent.h" />
-    <ClInclude Include="Source\Core\Event\Types\WindowResizeEvent.h" />
-    <ClInclude Include="Source\Core\Input\Gamepad\Gamepad.h" />
-    <ClInclude Include="Source\Core\Input\Input.h" />
-    <ClInclude Include="Source\Core\Input\Keyboard\Keyboard.h" />
-    <ClInclude Include="Source\Core\Renderer\SpriteRenderer.h" />
-    <ClInclude Include="Source\Core\Renderer\TextRenderer.h" />
-    <ClInclude Include="Source\Core\Shader\Shader.h" />
-    <ClInclude Include="Source\Core\Texture\Texture.h" />
-    <ClInclude Include="Source\Core\Util\FileUtil.h" />
-    <ClInclude Include="Source\Core\Window\Window.h" />
+    <ClInclude Include="Source\Engine\App.h" />
+    <ClInclude Include="Source\Engine\Config\Settings.h" />
+    <ClInclude Include="Source\Engine\Debug\Performance.h" />
+    <ClInclude Include="Source\Engine\Engine.h" />
+    <ClInclude Include="Source\Engine\Event\Event.h" />
+    <ClInclude Include="Source\Engine\Event\EventBus.h" />
+    <ClInclude Include="Source\Engine\Event\MemberFunctionHandler.h" />
+    <ClInclude Include="Source\Engine\Event\Types\InputEvent.h" />
+    <ClInclude Include="Source\Engine\Event\Types\WindowResizeEvent.h" />
+    <ClInclude Include="Source\Engine\Input\Gamepad\Gamepad.h" />
+    <ClInclude Include="Source\Engine\Input\Input.h" />
+    <ClInclude Include="Source\Engine\Input\Keyboard\Keyboard.h" />
+    <ClInclude Include="Source\Engine\Renderer\SpriteRenderer.h" />
+    <ClInclude Include="Source\Engine\Renderer\TextRenderer.h" />
+    <ClInclude Include="Source\Engine\Shader\Shader.h" />
+    <ClInclude Include="Source\Engine\Texture\Texture.h" />
+    <ClInclude Include="Source\Engine\Util\FileUtil.h" />
+    <ClInclude Include="Source\Engine\Window\Window.h" />
     <ClInclude Include="Source\mepch.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Source\Core\Debug\Performance.cpp" />
-    <ClCompile Include="Source\Core\Engine.cpp" />
-    <ClCompile Include="Source\Core\Input\Gamepad\Gamepad.cpp" />
-    <ClCompile Include="Source\Core\Input\Input.cpp" />
-    <ClCompile Include="Source\Core\Input\Keyboard\Keyboard.cpp" />
-    <ClCompile Include="Source\Core\Renderer\SpriteRenderer.cpp" />
-    <ClCompile Include="Source\Core\Renderer\TextRenderer.cpp" />
-    <ClCompile Include="Source\Core\Shader\Shader.cpp" />
-    <ClCompile Include="Source\Core\Texture\Texture.cpp" />
-    <ClCompile Include="Source\Core\Window\Window.cpp" />
+    <ClCompile Include="Source\Engine\Debug\Performance.cpp" />
+    <ClCompile Include="Source\Engine\Engine.cpp" />
+    <ClCompile Include="Source\Engine\Input\Gamepad\Gamepad.cpp" />
+    <ClCompile Include="Source\Engine\Input\Input.cpp" />
+    <ClCompile Include="Source\Engine\Input\Keyboard\Keyboard.cpp" />
+    <ClCompile Include="Source\Engine\Renderer\SpriteRenderer.cpp" />
+    <ClCompile Include="Source\Engine\Renderer\TextRenderer.cpp" />
+    <ClCompile Include="Source\Engine\Shader\Shader.cpp" />
+    <ClCompile Include="Source\Engine\Texture\Texture.cpp" />
+    <ClCompile Include="Source\Engine\Window\Window.cpp" />
     <ClCompile Include="Source\mepch.cpp">
       <PrecompiledHeader>Create</PrecompiledHeader>
     </ClCompile>

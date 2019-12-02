@@ -1,6 +1,6 @@
 #include "mepch.h"
 #include "Gamepad.h"
-#include "Core/Event/Types/InputEvent.h"
+#include "Engine/Event/Types/InputEvent.h"
 
 namespace Morpheus {
 

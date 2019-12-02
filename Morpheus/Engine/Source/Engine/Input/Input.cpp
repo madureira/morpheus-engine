@@ -1,7 +1,7 @@
 #include "mepch.h"
 #include "Input.h"
-#include "Core/Event/EventBus.h"
-#include "Core/Event/Types/InputEvent.h"
+#include "Engine/Event/EventBus.h"
+#include "Engine/Event/Types/InputEvent.h"
 #include "./Gamepad/Gamepad.h"
 #include "./Keyboard/Keyboard.h"
 

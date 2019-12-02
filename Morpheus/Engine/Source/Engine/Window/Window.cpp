@@ -1,8 +1,8 @@
 #include "mepch.h"
 #include "Window.h"
-#include "Core/Config/Settings.h"
-#include "Core/Event/EventBus.h"
-#include "Core/Event/Types/WindowResizeEvent.h"
+#include "Engine/Config/Settings.h"
+#include "Engine/Event/EventBus.h"
+#include "Engine/Event/Types/WindowResizeEvent.h"
 
 namespace Morpheus {
 

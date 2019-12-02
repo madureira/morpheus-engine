@@ -4,8 +4,8 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 #include <glm/gtc/matrix_transform.hpp>
-#include "Core/Texture/Texture.h"
-#include "Core/Shader/Shader.h"
+#include "Engine/Texture/Texture.h"
+#include "Engine/Shader/Shader.h"
 
 namespace Morpheus {
 

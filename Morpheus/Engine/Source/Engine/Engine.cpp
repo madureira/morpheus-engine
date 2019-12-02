@@ -1,11 +1,11 @@
 #include "mepch.h"
 #include "Engine.h"
-#include "Core/Config/Settings.h"
-#include "Core/Event/EventBus.h"
-#include "Core/Window/Window.h"
-#include "Core/Input/Input.h"
-#include "Core/Debug/Performance.h"
-#include "Core/App.h"
+#include "Engine/Config/Settings.h"
+#include "Engine/Event/EventBus.h"
+#include "Engine/Window/Window.h"
+#include "Engine/Input/Input.h"
+#include "Engine/Debug/Performance.h"
+#include "Engine/App.h"
 
 namespace Morpheus {
 
