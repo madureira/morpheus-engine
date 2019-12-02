@@ -43,3 +43,6 @@ Libraries/imgui/bin-int/
 Libraries/imgui/Makefile
 Libraries/imgui/ImGui.vcxproj
 Libraries/imgui/ImGui.vcxproj.*
+
+# Runtime
+Morpheus/Editor/imgui.ini
