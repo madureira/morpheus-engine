@@ -7,8 +7,7 @@ workspace "Morpheus"
 		".editorconfig"
 	}
 
-	flags
-	{
+	flags {
 		"MultiProcessorCompile"
 	}
 
@@ -24,10 +23,8 @@ IncludeDir["sol3"] = "Libraries/sol3/include"
 IncludeDir["stb_image"] = "Libraries/stb_image/include"
 IncludeDir["freetype2"] = "Libraries/freetype2/include"
 
-LibrariesDir = {}
-LibrariesDir["GLFW"] = "Libraries/GLFW/lib/%{cfg.platform}"
-
 group "Dependencies"
+	include "Libraries/GLFW"
 	include "Libraries/Glad"
 	include "Libraries/lua"
 	include "Libraries/freetype2"
@@ -39,6 +36,7 @@ project "Engine"
 	kind "StaticLib"
 	language "C++"
 	cppdialect "C++17"
+	staticruntime "On"
 	objdir("Build/" .. outputdir)
 	targetdir("Dist/" .. outputdir)
 
@@ -63,20 +61,25 @@ project "Engine"
 		"%{IncludeDir.freetype2}"
 	}
 
-	libdirs {
-		"%{LibrariesDir.GLFW}"
-	}
-
 	links {
-		"glfw3",
+		"GLFW",
 		"Glad",
 		"lua",
 		"freetype2"
 	}
 
+	defines {
+		"_CRT_SECURE_NO_WARNINGS"
+	}
+
 	filter { "system:windows" }
 		systemversion "latest"
 		links { "opengl32" }
+
+		defines {
+			"ME_BUILD_DLL",
+			"GLFW_INCLUDE_NONE"
+		}
 
 	filter { "system:not windows" }
 		links { "GL" }
@@ -97,6 +100,7 @@ project "Game"
 	kind "ConsoleApp"
 	language "C++"
 	cppdialect "C++17"
+	staticruntime "On"
 	objdir("Build/" .. outputdir)
 	targetdir("Dist/" .. outputdir)
 

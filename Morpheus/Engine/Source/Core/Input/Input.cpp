@@ -26,7 +26,7 @@ namespace Morpheus {
 			}
 			});
 
-		g_is_gamepad_connected = glfwJoystickPresent(GLFW_JOYSTICK_1) == GL_TRUE;
+		g_is_gamepad_connected = glfwJoystickPresent(GLFW_JOYSTICK_1) == 1;
 	}
 
 	void Input::Update()

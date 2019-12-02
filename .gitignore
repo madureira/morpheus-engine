@@ -7,6 +7,11 @@ Build/
 Dist/
 
 # Dependencies
+Libraries/GLFW/bin/
+Libraries/GLFW/bin-int/
+Libraries/GLFW/Makefile
+Libraries/GLFW/GLFW.*
+
 Libraries/Glad/bin/
 Libraries/Glad/bin-int/
 Libraries/Glad/Makefile
