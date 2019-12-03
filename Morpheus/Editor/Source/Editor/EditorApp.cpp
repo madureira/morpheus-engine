@@ -48,9 +48,7 @@ namespace Editor {
 		IM_ASSERT(iconsFont != NULL);
 
 		// Setup Dear ImGui style
-		//ImGui::StyleColorsDark();
 		ImGui_Theme::PhotoshopsUI();
-		//ImGui_Theme::PhotoshopsDarkUI();
 
 		// When viewports are enabled we tweak WindowRounding/WindowBg so platform windows can look identical to regular ones.
 		ImGuiStyle& style = ImGui::GetStyle();
@@ -105,7 +103,15 @@ namespace Editor {
 		ImGui::PushStyleVar(ImGuiStyleVar_WindowRounding, 0.0f);
 		ImGui::Begin("Actions", &showActionBar, windowFlags);
 		{
+			ImGui::Button(ICON_FA_ARROWS_ALT);
+			ImGui::SameLine();
+			ImGui::Button(ICON_FA_SYNC_ALT);
+			ImGui::SameLine();
+			ImGui::Button(ICON_FA_EXPAND_ARROWS_ALT);
+			ImGui::SameLine();
 			ImGui::Button(ICON_FA_PLAY);
+			ImGui::SameLine();
+			ImGui::Button(ICON_FA_PAUSE);
 		}
 		ImGui::End();
 		ImGui::PopStyleVar();
@@ -134,12 +140,12 @@ namespace Editor {
 				ImGuiID dock_right_id = ImGui::DockBuilderSplitNode(dock_main_id, ImGuiDir_Right, 0.2f, nullptr, &dock_main_id);
 				ImGuiID dock_left_id = ImGui::DockBuilderSplitNode(dock_main_id, ImGuiDir_Left, 0.2f, nullptr, &dock_main_id);
 				ImGuiID dock_down_id = ImGui::DockBuilderSplitNode(dock_main_id, ImGuiDir_Down, 0.2f, nullptr, &dock_main_id);
-				ImGuiID dock_down_right_id = ImGui::DockBuilderSplitNode(dock_down_id, ImGuiDir_Right, 0.6f, nullptr, &dock_down_id);
+				ImGuiID dock_down_right_id = ImGui::DockBuilderSplitNode(dock_down_id, ImGuiDir_Right, 0.2f, nullptr, &dock_down_id);
 
-				ImGui::DockBuilderDockWindow("Hierarchy", dock_right_id);
-				ImGui::DockBuilderDockWindow("Inspector", dock_left_id);
-				ImGui::DockBuilderDockWindow("Console", dock_down_id);
-				ImGui::DockBuilderDockWindow("Project", dock_down_right_id);
+				ImGui::DockBuilderDockWindow("Inspector", dock_right_id);
+				ImGui::DockBuilderDockWindow("Hierarchy", dock_left_id);
+				ImGui::DockBuilderDockWindow("Project", dock_down_id);
+				ImGui::DockBuilderDockWindow("Console", dock_down_right_id);
 				ImGui::DockBuilderDockWindow("Scene", dock_main_id);
 
 				ImGui::DockBuilderFinish(dock_main_id);
@@ -148,16 +154,17 @@ namespace Editor {
 			ImGuiDockNodeFlags dockspaceFlags = ImGuiDockNodeFlags_None | ImGuiDockNodeFlags_NoWindowMenuButton | ImGuiDockNodeFlags_NoCloseButton;
 			ImGui::DockSpace(dockspaceID, ImVec2(0.0f, 0.0f), dockspaceFlags);
 
-			ImGui::Begin("Hierarchy");
-			ImGui::End();
 
 			ImGui::Begin("Inspector");
 			ImGui::End();
 
-			ImGui::Begin("Console");
+			ImGui::Begin("Hierarchy");
 			ImGui::End();
 
 			ImGui::Begin("Project");
+			ImGui::End();
+
+			ImGui::Begin("Console");
 			ImGui::End();
 
 			ImGui::Begin("Scene");
