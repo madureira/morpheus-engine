@@ -1,6 +1,5 @@
 #include "mepch.h"
 #include "TextRenderer.h"
-#include <iostream>
 #include <ft2build.h>
 #include FT_FREETYPE_H
 #include "Engine/Shader/Shader.h"

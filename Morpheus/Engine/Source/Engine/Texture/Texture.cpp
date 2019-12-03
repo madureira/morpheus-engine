@@ -1,8 +1,8 @@
 #include "mepch.h"
 #include "Texture.h"
+#include <glad/glad.h>
 #define STB_IMAGE_IMPLEMENTATION
 #include <stb_image.h>
-#include <iostream>
 
 namespace Morpheus {
 
@@ -42,7 +42,7 @@ namespace Morpheus {
 		glDeleteTextures(1, &this->m_Texture);
 	}
 
-	GLuint Texture::GetID()
+	unsigned int Texture::GetID()
 	{
 		return this->m_Texture;
 	}

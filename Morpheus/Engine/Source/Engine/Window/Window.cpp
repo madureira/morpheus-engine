@@ -1,5 +1,6 @@
 #include "mepch.h"
 #include "Window.h"
+#include <glad/glad.h>
 #include "Engine/Config/Settings.h"
 #include "Engine/Event/EventBus.h"
 #include "Engine/Event/Types/WindowResizeEvent.h"
@@ -43,6 +44,16 @@ namespace Morpheus {
 	void Window::SwapBuffers()
 	{
 		glfwSwapBuffers(this->m_Window);
+	}
+
+	double Window::GetTime()
+	{
+		return glfwGetTime();
+	}
+
+	void Window::Close()
+	{
+		glfwSetWindowShouldClose(this->m_Window, GLFW_TRUE);
 	}
 
 	void Window::Initialize()

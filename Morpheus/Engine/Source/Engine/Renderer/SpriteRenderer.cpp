@@ -1,5 +1,6 @@
 #include "mepch.h"
 #include "SpriteRenderer.h"
+#include <glad/glad.h>
 
 namespace Morpheus {
 

@@ -1,8 +1,6 @@
 #pragma once
 
 #include <vector>
-#include <glad/glad.h>
-#include <GLFW/glfw3.h>
 #include <glm/gtc/matrix_transform.hpp>
 #include "Engine/Texture/Texture.h"
 #include "Engine/Shader/Shader.h"
@@ -42,8 +40,8 @@ namespace Morpheus {
 	class SpriteRenderer
 	{
 	private:
-		GLuint m_VAO;
-		GLuint m_VBO;
+		unsigned int m_VAO;
+		unsigned int m_VBO;
 		std::vector<Vertex2dUVColor> m_Vertices;
 		std::vector<LightSource> m_LightSources;
 		Shader* m_Shader;

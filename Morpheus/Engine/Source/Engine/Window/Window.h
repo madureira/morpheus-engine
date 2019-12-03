@@ -1,7 +1,6 @@
 #pragma once
 
-#include <iostream>
-#include <glad/glad.h>
+#include <string>
 #include <GLFW/glfw3.h>
 
 namespace Morpheus {
@@ -31,7 +30,8 @@ namespace Morpheus {
 		inline unsigned int GetWidth() const { return this->m_Width; }
 		inline unsigned int GetHeight() const { return this->m_Height; }
 		inline GLFWwindow* GetNativeWindow() const { return this->m_Window; };
-		inline double GetTime() { return glfwGetTime(); }
+		double GetTime();
+		void Close();
 
 	private:
 		void Initialize();
