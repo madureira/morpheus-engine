@@ -17,6 +17,9 @@ namespace Game {
 	{
 		delete this->m_SpriteRenderer;
 		delete this->m_Texture;
+		delete this->m_Normal;
+		delete this->m_TexturePlayer;
+		delete this->m_NormalPlayer;
 	}
 
 	void GameApp::Initialize(Morpheus::Settings* pSettings, Morpheus::EventBus* pEventBus, Morpheus::Window* pWindow)

@@ -9,10 +9,21 @@
 
 namespace Editor {
 
+	MorpheusEditor::MorpheusEditor()
+		: m_Settings(nullptr),
+		m_EventBus(nullptr),
+		m_Window(nullptr),
+		m_Menubar(nullptr),
+		m_Actionbar(nullptr),
+		m_Dock(nullptr)
+	{
+	}
+
 	MorpheusEditor::~MorpheusEditor()
 	{
 		delete this->m_Menubar;
 		delete this->m_Actionbar;
+		delete this->m_Dock;
 		ImGui_ImplOpenGL3_Shutdown();
 		ImGui_ImplGlfw_Shutdown();
 		ImGui::DestroyContext();

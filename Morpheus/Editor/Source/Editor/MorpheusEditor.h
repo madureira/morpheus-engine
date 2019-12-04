@@ -21,6 +21,7 @@ namespace Editor {
 		Dock* m_Dock;
 
 	public:
+		MorpheusEditor();
 		~MorpheusEditor();
 		void Initialize(Morpheus::Settings* pSettings, Morpheus::EventBus* pEventBus, Morpheus::Window* pWindow) override;
 		void OnFrameStarted(double deltaTime, int frame) override;
