@@ -2,6 +2,17 @@
 
 namespace Editor {
 
+	Dock::Dock(Morpheus::Settings* pSettings)
+		: m_Viewport(nullptr)
+	{
+		this->m_Viewport = new Viewport(pSettings);
+	}
+
+	Dock::~Dock()
+	{
+		delete this->m_Viewport;
+	}
+
 	void Dock::Draw()
 	{
 		ImGuiIO& io = ImGui::GetIO();
@@ -55,8 +66,7 @@ namespace Editor {
 			ImGui::Begin("Console");
 			ImGui::End();
 
-			ImGui::Begin("Scene");
-			ImGui::End();
+			this->m_Viewport->Draw();
 		}
 		ImGui::End();
 		ImGui::PopStyleVar();

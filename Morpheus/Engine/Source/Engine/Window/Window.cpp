@@ -93,7 +93,7 @@ namespace Morpheus {
 
 		glfwMakeContextCurrent(this->m_Window);
 		glfwSetWindowUserPointer(this->m_Window, this);
-		glfwSetWindowAspectRatio(this->m_Window, 16, 9);
+		//glfwSetWindowAspectRatio(this->m_Window, 16, 9);
 		glfwSetWindowPos(this->m_Window, (pMode->width - this->m_Width) / 2, (pMode->height - this->m_Height) / 2);
 		glfwSwapInterval(this->m_Settings->IsVSyncOn() ? 1 : 0);
 		glfwFocusWindow(this->m_Window);
