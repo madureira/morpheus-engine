@@ -2,6 +2,17 @@
 
 namespace Game {
 
+	GameApp::GameApp()
+		: m_Settings(nullptr),
+		m_EventBus(nullptr),
+		m_SpriteRenderer(nullptr),
+		m_Texture(nullptr),
+		m_Normal(nullptr),
+		m_TexturePlayer(nullptr),
+		m_NormalPlayer(nullptr)
+	{
+	}
+
 	GameApp::~GameApp()
 	{
 		delete this->m_SpriteRenderer;

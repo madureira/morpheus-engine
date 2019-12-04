@@ -24,6 +24,7 @@ namespace Game {
 		Morpheus::Texture* m_NormalPlayer;
 
 	public:
+		GameApp();
 		~GameApp();
 		void Initialize(Morpheus::Settings* pSettings, Morpheus::EventBus* pEventBus, Morpheus::Window* pWindow) override;
 		void OnFrameStarted(double deltaTime, int frame) override;

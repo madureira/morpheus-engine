@@ -48,9 +48,7 @@ namespace Editor {
 		// Setup Dear ImGui style
 		ImGui_Theme::PhotoshopsUI();
 
-		GLFWwindow* window = static_cast<GLFWwindow*>(this->m_Window->GetNativeWindow());
-
-		ImGui_ImplGlfw_InitForOpenGL(window, true);
+		ImGui_ImplGlfw_InitForOpenGL(static_cast<GLFWwindow*>(this->m_Window->GetNativeWindow()), true);
 		ImGui_ImplOpenGL3_Init("#version 430");
 
 		this->m_Menubar = new Menubar(this->m_Window);
