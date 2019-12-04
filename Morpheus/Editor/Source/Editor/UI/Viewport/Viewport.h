@@ -3,6 +3,7 @@
 #include "Editor/UI/UIComponent.h"
 #include "Engine/Shader/Shader.h"
 #include "Engine/Config/Settings.h"
+#include <glm/vec4.hpp>
 
 namespace Editor {
 
@@ -17,10 +18,12 @@ namespace Editor {
 		unsigned int m_TextureColorBuffer;
 		glm::vec4 m_FrameBufferRect;
 		Morpheus::Settings* m_Settings;
+		glm::vec4 m_Color;
 
 	public:
 		Viewport(Morpheus::Settings* pSettings);
 		~Viewport();
+		void ChangeColor(glm::vec4& color);
 		void Draw() override;
 	};
 

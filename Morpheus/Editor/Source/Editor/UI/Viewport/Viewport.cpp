@@ -1,6 +1,5 @@
 #include "Viewport.h"
 #include <glad/glad.h>
-#include <iostream>
 
 namespace Editor {
 
@@ -48,9 +47,14 @@ namespace Editor {
 		delete this->m_Shader;
 	}
 
+	void Viewport::ChangeColor(glm::vec4& color)
+	{
+		this->m_Color = color;
+	}
+
 	void Viewport::Draw()
 	{
-		ImGui::Begin("Scene");
+		ImGui::Begin(ICON_FA_VIDEO" Scene###scene");
 		{
 			ImVec2 pos = ImGui::GetCursorScreenPos();
 			ImVec2 size = ImGui::GetWindowSize();
@@ -60,7 +64,8 @@ namespace Editor {
 			glViewport(0, 0, this->m_Settings->GetWindowWidth(), this->m_Settings->GetWindowHeight());
 			glBindFramebuffer(GL_FRAMEBUFFER, this->m_FBO);
 
-			glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+			//glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+			glClearColor(m_Color.x, m_Color.y, m_Color.z, 1.0f);
 			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 

@@ -3,14 +3,15 @@
 namespace Editor {
 
 	Dock::Dock(Morpheus::Settings* pSettings)
-		: m_Viewport(nullptr)
 	{
 		this->m_Viewport = new Viewport(pSettings);
+		this->m_ColorPicker = new ColorPicker("Background color");
 	}
 
 	Dock::~Dock()
 	{
 		delete this->m_Viewport;
+		delete this->m_ColorPicker;
 	}
 
 	void Dock::Draw()
@@ -42,11 +43,11 @@ namespace Editor {
 				ImGuiID dock_down_id = ImGui::DockBuilderSplitNode(dock_main_id, ImGuiDir_Down, 0.2f, nullptr, &dock_main_id);
 				ImGuiID dock_down_right_id = ImGui::DockBuilderSplitNode(dock_down_id, ImGuiDir_Right, 0.2f, nullptr, &dock_down_id);
 
-				ImGui::DockBuilderDockWindow("Inspector", dock_right_id);
-				ImGui::DockBuilderDockWindow("Hierarchy", dock_left_id);
-				ImGui::DockBuilderDockWindow("Project", dock_down_id);
-				ImGui::DockBuilderDockWindow("Console", dock_down_right_id);
-				ImGui::DockBuilderDockWindow("Scene", dock_main_id);
+				ImGui::DockBuilderDockWindow("###inspector", dock_right_id);
+				ImGui::DockBuilderDockWindow("###hierarchy", dock_left_id);
+				ImGui::DockBuilderDockWindow("###project", dock_down_id);
+				ImGui::DockBuilderDockWindow("###console", dock_down_right_id);
+				ImGui::DockBuilderDockWindow("###scene", dock_main_id);
 
 				ImGui::DockBuilderFinish(dock_main_id);
 			}
@@ -54,18 +55,22 @@ namespace Editor {
 			ImGuiDockNodeFlags dockspaceFlags = ImGuiDockNodeFlags_None | ImGuiDockNodeFlags_NoWindowMenuButton | ImGuiDockNodeFlags_NoCloseButton;
 			ImGui::DockSpace(dockspaceID, ImVec2(0.0f, 0.0f), dockspaceFlags);
 
-			ImGui::Begin("Inspector");
+			ImGui::Begin(ICON_FA_LIST" Inspector###inspector");
+			{
+				this->m_ColorPicker->Draw();
+			}
 			ImGui::End();
 
-			ImGui::Begin("Hierarchy");
+			ImGui::Begin(ICON_FA_STREAM" Hierarchy###hierarchy");
 			ImGui::End();
 
-			ImGui::Begin("Project");
+			ImGui::Begin(ICON_FA_FOLDER" Project###project");
 			ImGui::End();
 
-			ImGui::Begin("Console");
+			ImGui::Begin(ICON_FA_TERMINAL" Console###console");
 			ImGui::End();
 
+			this->m_Viewport->ChangeColor(this->m_ColorPicker->GetSelectedColor());
 			this->m_Viewport->Draw();
 		}
 		ImGui::End();
