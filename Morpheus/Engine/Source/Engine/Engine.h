@@ -1,5 +1,7 @@
 #pragma once
 
+#include <entt/entt.hpp>
+
 namespace Morpheus {
 
 	class Settings;
@@ -18,6 +20,7 @@ namespace Morpheus {
 		Input* m_Input;
 		Performance* m_Performance;
 		App* m_App;
+		entt::registry m_Registry;
 
 	public:
 		Engine();

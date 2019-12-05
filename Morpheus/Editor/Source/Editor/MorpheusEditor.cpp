@@ -67,7 +67,7 @@ namespace Editor {
 		this->m_Dock = new Dock(this->m_Settings);
 	}
 
-	void MorpheusEditor::OnFrameStarted(double deltaTime, int frame)
+	void MorpheusEditor::OnFrameStarted(double deltaTime, int frame, entt::registry& registry)
 	{
 		ImGui_ImplOpenGL3_NewFrame();
 		ImGui_ImplGlfw_NewFrame();
@@ -85,7 +85,7 @@ namespace Editor {
 		ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 	}
 
-	void MorpheusEditor::FrameListener(double deltaTime, int frame)
+	void MorpheusEditor::FrameListener(double deltaTime, int frame, entt::registry& registry)
 	{
 	}
 }

@@ -23,6 +23,7 @@ IncludeDir["FreeType2"] = "Libraries/freetype2/include"
 IncludeDir["glm"] = "Libraries/glm"
 IncludeDir["sol3"] = "Libraries/sol3/include"
 IncludeDir["stb_image"] = "Libraries/stb_image/include"
+IncludeDir["entt"] = "Libraries/entt/include"
 
 group "Dependencies"
 	include "Libraries/GLFW"
@@ -61,7 +62,8 @@ project "Engine"
 		"%{IncludeDir.FreeType2}",
 		"%{IncludeDir.glm}",
 		"%{IncludeDir.sol3}",
-		"%{IncludeDir.stb_image}"
+		"%{IncludeDir.stb_image}",
+		"%{IncludeDir.entt}"
 	}
 
 	links {
@@ -125,7 +127,8 @@ project "Editor"
 		"%{IncludeDir.FreeType2}",
 		"%{IncludeDir.glm}",
 		"%{IncludeDir.sol3}",
-		"%{IncludeDir.stb_image}"
+		"%{IncludeDir.stb_image}",
+		"%{IncludeDir.entt}"
 	}
 
 	links {
@@ -178,7 +181,8 @@ project "Game"
 		"%{IncludeDir.FreeType2}",
 		"%{IncludeDir.glm}",
 		"%{IncludeDir.sol3}",
-		"%{IncludeDir.stb_image}"
+		"%{IncludeDir.stb_image}",
+		"%{IncludeDir.entt}"
 	}
 
 	links {

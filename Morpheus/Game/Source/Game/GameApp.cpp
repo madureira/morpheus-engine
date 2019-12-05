@@ -37,7 +37,7 @@ namespace Game {
 		this->m_NormalPlayer = new Morpheus::Texture("Assets/images/ash_n.png");
 	}
 
-	void GameApp::OnFrameStarted(double deltaTime, int frame)
+	void GameApp::OnFrameStarted(double deltaTime, int frame, entt::registry& registry)
 	{
 		static const int tileSize = 40;
 		static const int columns = (this->m_Settings->GetWindowWidth() / tileSize) - 1;
@@ -169,7 +169,7 @@ namespace Game {
 		this->m_SpriteRenderer->Render();
 	}
 
-	void GameApp::FrameListener(double deltaTime, int frame)
+	void GameApp::FrameListener(double deltaTime, int frame, entt::registry& registry)
 	{
 	}
 

@@ -51,7 +51,7 @@ namespace Morpheus {
 
 			this->m_Window->PollEvents();
 			this->m_Input->Update();
-			this->m_App->FrameListener(deltaTime, frames);
+			this->m_App->FrameListener(deltaTime, frames, this->m_Registry);
 
 			if (this->m_Settings->IsVSyncOn() || deltaTime >= MS_PER_FRAME)
 			{
@@ -60,7 +60,7 @@ namespace Morpheus {
 				double deltaFrame = currentTime - lastFrameTime;
 
 				this->m_Window->Clear();
-				this->m_App->OnFrameStarted(deltaFrame, frames);
+				this->m_App->OnFrameStarted(deltaFrame, frames, this->m_Registry);
 				this->m_Performance->Show(fpsToDisplay, deltaTime);
 
 				if (deltaFrame >= ONE_SECOND)
