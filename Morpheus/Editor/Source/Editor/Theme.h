@@ -9,8 +9,8 @@ namespace ImGui_Theme {
 		ImGuiStyle& style = ImGui::GetStyle();
 		ImVec4* colors = style.Colors;
 
-		/// 0 = FLAT APPEARENCE
-		/// 1 = MORE "3D" LOOK
+		// 0 = FLAT APPEARENCE
+		// 1 = MORE "3D" LOOK
 		int is3D = 0;
 
 		colors[ImGuiCol_Text] = ImVec4(1.00f, 1.00f, 1.00f, 1.00f);

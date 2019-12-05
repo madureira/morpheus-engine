@@ -4,13 +4,19 @@ namespace Editor {
 
 	Dock::Dock(Morpheus::Settings* pSettings)
 	{
-		this->m_Viewport = new Viewport(pSettings);
 		this->m_ColorPicker = new ColorPicker("Background color");
+		this->m_Viewport = new Viewport(pSettings);
+		this->m_Hierarchy = new Hierarchy();
+		this->m_Project = new Project();
+		this->m_Console = new Console();
 	}
 
 	Dock::~Dock()
 	{
 		delete this->m_Viewport;
+		delete this->m_Hierarchy;
+		delete this->m_Project;
+		delete this->m_Console;
 		delete this->m_ColorPicker;
 	}
 
@@ -52,7 +58,10 @@ namespace Editor {
 				ImGui::DockBuilderFinish(dock_main_id);
 			}
 
-			ImGuiDockNodeFlags dockspaceFlags = ImGuiDockNodeFlags_None | ImGuiDockNodeFlags_NoWindowMenuButton | ImGuiDockNodeFlags_NoCloseButton;
+			ImGuiDockNodeFlags dockspaceFlags = ImGuiDockNodeFlags_None
+				| ImGuiDockNodeFlags_NoWindowMenuButton
+				| ImGuiDockNodeFlags_NoCloseButton;
+
 			ImGui::DockSpace(dockspaceID, ImVec2(0.0f, 0.0f), dockspaceFlags);
 
 			ImGui::Begin(ICON_FA_LIST" Inspector###inspector");
@@ -61,14 +70,9 @@ namespace Editor {
 			}
 			ImGui::End();
 
-			ImGui::Begin(ICON_FA_STREAM" Hierarchy###hierarchy");
-			ImGui::End();
-
-			ImGui::Begin(ICON_FA_FOLDER" Project###project");
-			ImGui::End();
-
-			ImGui::Begin(ICON_FA_TERMINAL" Console###console");
-			ImGui::End();
+			this->m_Hierarchy->Draw();
+			this->m_Project->Draw();
+			this->m_Console->Draw();
 
 			this->m_Viewport->ChangeColor(this->m_ColorPicker->GetSelectedColor());
 			this->m_Viewport->Draw();

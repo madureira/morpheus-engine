@@ -51,7 +51,6 @@ namespace Editor {
 			}
 			ImGui::SameLine();
 
-
 			ImGui::Dummy(ImVec2(20.0f, 0.0f));
 			ImGui::SameLine();
 
