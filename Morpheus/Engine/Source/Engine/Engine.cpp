@@ -31,7 +31,7 @@ namespace Morpheus {
 	void Engine::Initialize(App* pApp)
 	{
 		this->m_App = pApp;
-		this->m_App->Initialize(this->m_Settings, this->m_EventBus, this->m_Window);
+		this->m_App->Initialize(this->m_Settings, this->m_EventBus, this->m_Window, this->m_Registry);
 	}
 
 	void Engine::Start()

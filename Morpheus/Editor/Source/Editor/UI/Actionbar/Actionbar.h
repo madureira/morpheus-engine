@@ -13,7 +13,7 @@ namespace Editor {
 	public:
 		Actionbar();
 		void UpdateFrameRate(int frameRate);
-		void Draw() override;
+		void Draw(entt::registry& registry) override;
 
 	private:
 		bool DrawButton(const char* icon, const char* label, bool disabled);

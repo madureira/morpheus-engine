@@ -52,7 +52,7 @@ namespace Editor {
 		this->m_Color = color;
 	}
 
-	void Viewport::Draw()
+	void Viewport::Draw(entt::registry& registry)
 	{
 		ImGui::Begin(ICON_FA_VIDEO" Scene###scene");
 		{
@@ -64,10 +64,11 @@ namespace Editor {
 			glViewport(0, 0, this->m_Settings->GetWindowWidth(), this->m_Settings->GetWindowHeight());
 			glBindFramebuffer(GL_FRAMEBUFFER, this->m_FBO);
 
-			//glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
-			glClearColor(m_Color.x, m_Color.y, m_Color.z, 1.0f);
-			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+			auto& windowEntity = registry.ctx<Morpheus::WindowEntity>();
+			auto& bgColor = registry.get<Morpheus::ColorComponent>(windowEntity.id);
 
+			glClearColor(bgColor.r, bgColor.g, bgColor.b, bgColor.a);
+			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 			// TODO: Call the game rendering here
 			this->m_Shader->Enable();

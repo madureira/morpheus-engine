@@ -2,12 +2,18 @@
 
 namespace Editor {
 
-	ColorPicker::ColorPicker(const char* label)
-		: m_Label(label)
+	ColorPicker::ColorPicker(const char* label, entt::registry& registry, entt::entity& entity)
+		: m_Label(label),
+		m_Entity(entity)
 	{
+		auto& color = registry.get<Morpheus::ColorComponent>(this->m_Entity);
+		this->m_Color.x = color.r;
+		this->m_Color.y = color.g;
+		this->m_Color.z = color.b;
+		this->m_Color.w = color.a;
 	}
 
-	void ColorPicker::Draw()
+	void ColorPicker::Draw(entt::registry& registry)
 	{
 		static bool saved_palette_inited = false;
 		static ImVec4 saved_palette[32];
@@ -21,7 +27,7 @@ namespace Editor {
 			}
 		}
 
-		bool open_popup = ImGui::ColorButton("MyColor##3b", this->m_Color, 0);
+		bool open_popup = ImGui::ColorButton("MyColor##3b", this->m_Color, ImGuiColorEditFlags_AlphaPreview);
 		ImGui::SameLine();
 		open_popup |= ImGui::Button(this->m_Label);
 
@@ -35,11 +41,11 @@ namespace Editor {
 		{
 			ImGui::Text("Color picker");
 			ImGui::Separator();
-			ImGui::ColorPicker4("##picker", (float*)&this->m_Color, 0 | ImGuiColorEditFlags_NoSidePreview);
+			ImGui::ColorPicker4("##picker", (float*)&this->m_Color, ImGuiColorEditFlags_NoSidePreview | ImGuiColorEditFlags_AlphaBar | ImGuiColorEditFlags_NoSmallPreview);
 			ImGui::SameLine();
 			ImGui::BeginGroup();
 			ImGui::Text("Current");
-			ImGui::ColorButton("##current", this->m_Color, ImGuiColorEditFlags_NoPicker | ImGuiColorEditFlags_AlphaBar | ImGuiColorEditFlags_AlphaPreview, ImVec2(60, 40));
+			ImGui::ColorButton("##current", this->m_Color, ImGuiColorEditFlags_NoPicker | ImGuiColorEditFlags_AlphaPreview, ImVec2(60, 40));
 			ImGui::Text("Previous");
 
 			if (ImGui::ColorButton("##previous", backup_color, ImGuiColorEditFlags_NoPicker | ImGuiColorEditFlags_AlphaPreview, ImVec2(60, 40)))
@@ -59,17 +65,18 @@ namespace Editor {
 
 				if (ImGui::ColorButton("##palette", saved_palette[n], ImGuiColorEditFlags_NoPicker | ImGuiColorEditFlags_NoTooltip, ImVec2(20, 20)))
 				{
-					this->m_Color = ImVec4(saved_palette[n].x, saved_palette[n].y, saved_palette[n].z, this->m_Color.w); // Preserve alpha!
+					this->m_Color = ImVec4(saved_palette[n].x, saved_palette[n].y, saved_palette[n].z, this->m_Color.w);
 				}
 				ImGui::PopID();
 			}
 			ImGui::EndGroup();
 			ImGui::EndPopup();
 		}
-	}
 
-	glm::vec4 ColorPicker::GetSelectedColor()
-	{
-		return glm::vec4(this->m_Color.x, this->m_Color.y, this->m_Color.z, this->m_Color.w);
+		auto& color = registry.get<Morpheus::ColorComponent>(this->m_Entity);
+		color.r = this->m_Color.x;
+		color.g = this->m_Color.y;
+		color.b = this->m_Color.z;
+		color.a = this->m_Color.w;
 	}
 }

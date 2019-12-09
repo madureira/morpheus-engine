@@ -24,7 +24,7 @@ namespace Editor {
 		Viewport(Morpheus::Settings* pSettings);
 		~Viewport();
 		void ChangeColor(glm::vec4& color);
-		void Draw() override;
+		void Draw(entt::registry& registry) override;
 	};
 
 }

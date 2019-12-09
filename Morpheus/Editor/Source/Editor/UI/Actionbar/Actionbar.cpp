@@ -13,7 +13,7 @@ namespace Editor {
 		this->m_FrameRate = frameRate;
 	}
 
-	void Actionbar::Draw()
+	void Actionbar::Draw(entt::registry& registry)
 	{
 		ImGuiIO& io = ImGui::GetIO();
 

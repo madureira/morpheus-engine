@@ -29,7 +29,7 @@ namespace Editor {
 		ImGui::DestroyContext();
 	}
 
-	void MorpheusEditor::Initialize(Morpheus::Settings* pSettings, Morpheus::EventBus* pEventBus, Morpheus::Window* pWindow)
+	void MorpheusEditor::Initialize(Morpheus::Settings* pSettings, Morpheus::EventBus* pEventBus, Morpheus::Window* pWindow, entt::registry& registry)
 	{
 		this->m_Settings = pSettings;
 		this->m_EventBus = pEventBus;
@@ -62,9 +62,14 @@ namespace Editor {
 		ImGui_ImplGlfw_InitForOpenGL(static_cast<GLFWwindow*>(this->m_Window->GetNativeWindow()), true);
 		ImGui_ImplOpenGL3_Init("#version 430");
 
+		Morpheus::WindowEntity windowEntity{ registry.create() };
+		registry.set<Morpheus::WindowEntity>(windowEntity);
+		registry.assign<Morpheus::ColorComponent>(windowEntity.id, 0.0f, 0.0f, 0.0f, 1.0f);
+
 		this->m_Menubar = new Menubar(this->m_Window);
 		this->m_Actionbar = new Actionbar();
-		this->m_Dock = new Dock(this->m_Settings);
+		this->m_Dock = new Dock(registry, this->m_Settings);
+
 	}
 
 	void MorpheusEditor::OnFrameStarted(double deltaTime, int currentFrame, int frameRate, entt::registry& registry)
@@ -76,10 +81,10 @@ namespace Editor {
 		ImGuiIO& io = ImGui::GetIO();
 		io.DisplaySize = ImVec2((float)this->m_Window->GetWidth(), (float)this->m_Window->GetHeight());
 
-		this->m_Menubar->Draw();
+		this->m_Menubar->Draw(registry);
 		this->m_Actionbar->UpdateFrameRate(frameRate);
-		this->m_Actionbar->Draw();
-		this->m_Dock->Draw();
+		this->m_Actionbar->Draw(registry);
+		this->m_Dock->Draw(registry);
 
 		// Rendering
 		ImGui::Render();

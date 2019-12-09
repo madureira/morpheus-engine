@@ -2,28 +2,29 @@
 
 #include "Editor/UI/UIComponent.h"
 #include "Engine/Config/Settings.h"
+#include "Engine/ECS/ECS.h"
 
 namespace Editor {
 
 	class Viewport;
-	class ColorPicker;
 	class Project;
 	class Console;
 	class Hierarchy;
+	class Inspector;
 
 	class Dock : public UIComponent
 	{
 	private:
 		Viewport* m_Viewport;
-		ColorPicker* m_ColorPicker;
 		Project* m_Project;
 		Console* m_Console;
 		Hierarchy* m_Hierarchy;
+		Inspector* m_Inspector;
 
 	public:
-		Dock(Morpheus::Settings* pSettings);
+		Dock(entt::registry& registry, Morpheus::Settings* pSettings);
 		~Dock();
-		void Draw() override;
+		void Draw(entt::registry& registry) override;
 	};
 
 }

@@ -3,13 +3,14 @@
 #include <imgui.h>
 #include <imgui_internal.h>
 #include "Vendors/IconsFontAwesome5.h"
+#include "Engine/ECS/ECS.h"
 
 namespace Editor {
 
 	class UIComponent {
 	public:
 		virtual ~UIComponent() = default;
-		virtual void Draw() = 0;
+		virtual void Draw(entt::registry& registry) = 0;
 	};
 
 }

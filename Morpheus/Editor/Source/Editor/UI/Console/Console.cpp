@@ -2,7 +2,7 @@
 
 namespace Editor {
 
-	void Console::Draw()
+	void Console::Draw(entt::registry& registry)
 	{
 		ImGui::Begin(ICON_FA_TERMINAL" Console###console");
 		ImGui::End();

@@ -1,6 +1,6 @@
 #pragma once
 
-#include <entt/entt.hpp>
+#include "./ECS/ECS.h"
 
 namespace Morpheus {
 
@@ -12,7 +12,7 @@ namespace Morpheus {
 	{
 	public:
 		virtual ~App() = default;
-		virtual void Initialize(Settings* pSettings, EventBus* pEventBus, Window* pWindow) = 0;
+		virtual void Initialize(Settings* pSettings, EventBus* pEventBus, Window* pWindow, entt::registry& registry) = 0;
 		virtual void OnFrameStarted(double deltaTime, int currentFrame, int frameRate, entt::registry& registry) = 0;
 		virtual void FrameListener(double deltaTime, int currentFrame, int frameRate, entt::registry& registry) = 0;
 	};

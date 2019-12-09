@@ -1,17 +1,19 @@
 #pragma once
 
 #include "Editor/UI/UIComponent.h"
-#include "Engine/Window/Window.h"
 
 namespace Editor {
 
-	class Menubar : public UIComponent
+	class ColorPicker;
+
+	class Inspector : public UIComponent
 	{
 	private:
-		Morpheus::Window* m_Window;
+		ColorPicker* m_ColorPicker;
 
 	public:
-		Menubar(Morpheus::Window* pWindow);
+		Inspector(entt::registry& registry);
+		~Inspector();
 		void Draw(entt::registry& registry) override;
 	};
 

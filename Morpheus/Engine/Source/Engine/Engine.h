@@ -1,6 +1,6 @@
 #pragma once
 
-#include <entt/entt.hpp>
+#include "Engine/ECS/ECS.h"
 
 namespace Morpheus {
 

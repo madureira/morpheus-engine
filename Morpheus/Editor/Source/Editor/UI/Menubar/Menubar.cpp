@@ -7,7 +7,7 @@ namespace Editor {
 	{
 	}
 
-	void Menubar::Draw()
+	void Menubar::Draw(entt::registry& registry)
 	{
 		if (ImGui::BeginMainMenuBar()) {
 			if (ImGui::BeginMenu("File")) {

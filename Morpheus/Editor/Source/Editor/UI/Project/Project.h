@@ -7,7 +7,7 @@ namespace Editor {
 	class Project : public UIComponent
 	{
 	public:
-		void Draw() override;
+		void Draw(entt::registry& registry) override;
 	};
 
 }

@@ -22,7 +22,7 @@ namespace Game {
 		delete this->m_NormalPlayer;
 	}
 
-	void GameApp::Initialize(Morpheus::Settings* pSettings, Morpheus::EventBus* pEventBus, Morpheus::Window* pWindow)
+	void GameApp::Initialize(Morpheus::Settings* pSettings, Morpheus::EventBus* pEventBus, Morpheus::Window* pWindow, entt::registry& registry)
 	{
 		this->m_Settings = pSettings;
 		this->m_EventBus = pEventBus;

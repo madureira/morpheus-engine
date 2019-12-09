@@ -23,7 +23,7 @@ namespace Editor {
 	public:
 		MorpheusEditor();
 		~MorpheusEditor();
-		void Initialize(Morpheus::Settings* pSettings, Morpheus::EventBus* pEventBus, Morpheus::Window* pWindow) override;
+		void Initialize(Morpheus::Settings* pSettings, Morpheus::EventBus* pEventBus, Morpheus::Window* pWindow, entt::registry& registry) override;
 		void OnFrameStarted(double deltaTime, int currentFrame, int frameRate, entt::registry& registry) override;
 		void FrameListener(double deltaTime, int currentFrame, int frameRate, entt::registry& registry) override;
 	};
