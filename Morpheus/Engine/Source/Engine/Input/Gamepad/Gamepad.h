@@ -1,12 +1,11 @@
 #pragma once
 
 #include <GLFW/glfw3.h>
+#include "Engine/ECS/ECS.h"
 
 namespace Morpheus {
 
 	constexpr float ANALOG_SENSIBILITY = 0.25f;
-
-	struct InputState;
 
 	class Gamepad
 	{
@@ -14,7 +13,7 @@ namespace Morpheus {
 		GLFWgamepadstate m_GamepadState;
 
 	public:
-		InputState GetState();
+		InputStateComponent GetState();
 	};
 
 }

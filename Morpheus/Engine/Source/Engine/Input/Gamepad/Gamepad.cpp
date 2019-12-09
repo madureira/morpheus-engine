@@ -1,12 +1,11 @@
 #include "mepch.h"
 #include "Gamepad.h"
-#include "Engine/Event/Types/InputEvent.h"
 
 namespace Morpheus {
 
-	InputState Gamepad::GetState()
+	InputStateComponent Gamepad::GetState()
 	{
-		InputState state;
+		InputStateComponent state;
 
 		if (glfwGetGamepadState(GLFW_JOYSTICK_1, &this->m_GamepadState))
 		{

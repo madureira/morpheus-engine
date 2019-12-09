@@ -1,6 +1,7 @@
 #pragma once
 
 #include <GLFW/glfw3.h>
+#include "Engine/ECS/ECS.h"
 
 namespace Morpheus {
 
@@ -13,7 +14,7 @@ namespace Morpheus {
 
 	public:
 		Keyboard(GLFWwindow* pNativeWindow);
-		InputState GetState();
+		InputStateComponent GetState();
 	};
 
 }

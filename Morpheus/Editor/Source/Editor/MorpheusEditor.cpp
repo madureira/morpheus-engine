@@ -11,7 +11,6 @@ namespace Editor {
 
 	MorpheusEditor::MorpheusEditor()
 		: m_Settings(nullptr),
-		m_EventBus(nullptr),
 		m_Window(nullptr),
 		m_Menubar(nullptr),
 		m_Actionbar(nullptr),
@@ -29,10 +28,9 @@ namespace Editor {
 		ImGui::DestroyContext();
 	}
 
-	void MorpheusEditor::Initialize(Morpheus::Settings* pSettings, Morpheus::EventBus* pEventBus, Morpheus::Window* pWindow, entt::registry& registry)
+	void MorpheusEditor::Initialize(Morpheus::Settings* pSettings, Morpheus::Window* pWindow, entt::registry& registry)
 	{
 		this->m_Settings = pSettings;
-		this->m_EventBus = pEventBus;
 		this->m_Window = pWindow;
 
 		IMGUI_CHECKVERSION();

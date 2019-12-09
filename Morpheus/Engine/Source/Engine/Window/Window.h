@@ -2,25 +2,25 @@
 
 #include <string>
 #include <GLFW/glfw3.h>
+#include "Engine/ECS/ECS.h"
 
 namespace Morpheus {
 
 	class Settings;
-	class EventBus;
 
 	class Window
 	{
 	private:
 		Settings* m_Settings;
-		EventBus* m_EventCallback;
 		GLFWwindow* m_Window;
 		std::string m_Title;
 		unsigned int m_Width;
 		unsigned int m_Height;
 		bool m_IsFullScreen;
+		entt::registry& m_Registry;
 
 	public:
-		Window(Settings* pSettings, EventBus* pEventBus);
+		Window(entt::registry& registry, Settings* pSettings);
 		~Window();
 
 		bool IsOpen();

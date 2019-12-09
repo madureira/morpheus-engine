@@ -1,7 +1,6 @@
 #include "mepch.h"
 #include "Engine.h"
 #include "Engine/Config/Settings.h"
-#include "Engine/Event/EventBus.h"
 #include "Engine/Window/Window.h"
 #include "Engine/Input/Input.h"
 #include "Engine/Debug/Performance.h"
@@ -12,10 +11,20 @@ namespace Morpheus {
 	Engine::Engine() : m_App(nullptr)
 	{
 		this->m_Settings = new Settings();
-		this->m_EventBus = new EventBus();
-		this->m_Window = new Window(this->m_Settings, this->m_EventBus);
-		this->m_Input = new Input(this->m_EventBus, this->m_Window->GetNativeWindow());
+
+		Morpheus::WindowEntity windowEntity{ this->m_Registry.create() };
+		this->m_Registry.set<Morpheus::WindowEntity>(windowEntity);
+		this->m_Registry.assign<Morpheus::SizeComponent>(windowEntity.id, this->m_Settings->GetWindowWidth(), this->m_Settings->GetWindowHeight());
+
+
+		Morpheus::InputEntity inputEntity{ this->m_Registry.create() };
+		this->m_Registry.set<Morpheus::InputEntity>(inputEntity);
+		this->m_Registry.assign<Morpheus::InputStateComponent>(inputEntity.id);
+
+
+		this->m_Window = new Window(this->m_Registry, this->m_Settings);
 		this->m_Performance = new Performance(this->m_Settings);
+		this->m_Input = new Input(this->m_Registry, this->m_Window->GetNativeWindow());
 	}
 
 	Engine::~Engine()
@@ -24,14 +33,13 @@ namespace Morpheus {
 		delete this->m_Performance;
 		delete this->m_Input;
 		delete this->m_Window;
-		delete this->m_EventBus;
 		delete this->m_Settings;
 	}
 
 	void Engine::Initialize(App* pApp)
 	{
 		this->m_App = pApp;
-		this->m_App->Initialize(this->m_Settings, this->m_EventBus, this->m_Window, this->m_Registry);
+		this->m_App->Initialize(this->m_Settings, this->m_Window, this->m_Registry);
 	}
 
 	void Engine::Start()
@@ -50,7 +58,7 @@ namespace Morpheus {
 			double deltaTime = currentTime - lastTime;
 
 			this->m_Window->PollEvents();
-			this->m_Input->Update();
+			this->m_Input->Update(this->m_Registry);
 			this->m_App->FrameListener(deltaTime, currentFrame, frameRate, this->m_Registry);
 
 			if (this->m_Settings->IsVSyncOn() || deltaTime >= MS_PER_FRAME)

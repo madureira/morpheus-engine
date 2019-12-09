@@ -1,7 +1,5 @@
 #include "mepch.h"
 #include "Input.h"
-#include "Engine/Event/EventBus.h"
-#include "Engine/Event/Types/InputEvent.h"
 #include "./Gamepad/Gamepad.h"
 #include "./Keyboard/Keyboard.h"
 
@@ -9,8 +7,7 @@ bool g_is_gamepad_connected = false;
 
 namespace Morpheus {
 
-	Input::Input(EventBus* pEventBus, GLFWwindow* pNativeWindow)
-		: m_EventBus(pEventBus)
+	Input::Input(entt::registry& registry, GLFWwindow* pNativeWindow)
 	{
 		this->m_Gamepad = new Gamepad();
 		this->m_Keyboard = new Keyboard(pNativeWindow);
@@ -29,17 +26,19 @@ namespace Morpheus {
 		g_is_gamepad_connected = glfwJoystickPresent(GLFW_JOYSTICK_1) == 1;
 	}
 
-	void Input::Update()
+	void Input::Update(entt::registry& registry)
 	{
+		auto& inputEntity = registry.ctx<Morpheus::InputEntity>();
+		auto& inputState = registry.get<Morpheus::InputStateComponent>(inputEntity.id);
+
 		if (g_is_gamepad_connected)
 		{
-			InputEvent inputEvent(this->m_Gamepad->GetState());
-			this->m_EventBus->Publish(&inputEvent);
+
+			inputState = this->m_Gamepad->GetState();
 		}
 		else
 		{
-			InputEvent inputEvent(this->m_Keyboard->GetState());
-			this->m_EventBus->Publish(&inputEvent);
+			inputState = this->m_Keyboard->GetState();
 		}
 	}
 

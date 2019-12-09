@@ -4,7 +4,6 @@ namespace Game {
 
 	GameApp::GameApp()
 		: m_Settings(nullptr),
-		m_EventBus(nullptr),
 		m_SpriteRenderer(nullptr),
 		m_Texture(nullptr),
 		m_Normal(nullptr),
@@ -22,11 +21,9 @@ namespace Game {
 		delete this->m_NormalPlayer;
 	}
 
-	void GameApp::Initialize(Morpheus::Settings* pSettings, Morpheus::EventBus* pEventBus, Morpheus::Window* pWindow, entt::registry& registry)
+	void GameApp::Initialize(Morpheus::Settings* pSettings, Morpheus::Window* pWindow, entt::registry& registry)
 	{
 		this->m_Settings = pSettings;
-		this->m_EventBus = pEventBus;
-		this->m_EventBus->Subscribe(this, &GameApp::InputHandler);
 
 		this->m_SpriteRenderer = new Morpheus::SpriteRenderer(glm::vec2(this->m_Settings->GetWindowWidth(), this->m_Settings->GetWindowHeight()));
 
@@ -51,33 +48,35 @@ namespace Game {
 		static float zoom = 1.0f;
 		static const float scaleFactor = 0.025f;
 
-		if (this->m_InputState.UP)
+		auto& inputEntity = registry.ctx<Morpheus::InputEntity>();
+		auto& inputState = registry.get<Morpheus::InputStateComponent>(inputEntity.id);
+
+		if (inputState.UP)
 		{
 			playerY += speed;
 		}
 
-		if (this->m_InputState.DOWN)
+		if (inputState.DOWN)
 		{
 			playerY -= speed;
 		}
 
-		if (this->m_InputState.RIGHT)
+		if (inputState.RIGHT)
 		{
 			playerX += speed;
 		}
 
-		if (this->m_InputState.LEFT)
+		if (inputState.LEFT)
 		{
 			playerX -= speed;
 		}
 
-		if (this->m_InputState.W)
+		if (inputState.W)
 		{
-
 			zoom += scaleFactor;
 		}
 
-		if (this->m_InputState.S)
+		if (inputState.S)
 		{
 			zoom -= scaleFactor;
 		}
@@ -171,11 +170,6 @@ namespace Game {
 
 	void GameApp::FrameListener(double deltaTime, int currentFrame, int frameRate, entt::registry& registry)
 	{
-	}
-
-	void GameApp::InputHandler(Morpheus::InputEvent* pEvent)
-	{
-		this->m_InputState = pEvent->GetState();
 	}
 
 	glm::vec4 GameApp::getTile(int tileSize, int layer)

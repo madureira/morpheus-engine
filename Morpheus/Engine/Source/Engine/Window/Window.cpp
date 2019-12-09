@@ -2,14 +2,13 @@
 #include "Window.h"
 #include <glad/glad.h>
 #include "Engine/Config/Settings.h"
-#include "Engine/Event/EventBus.h"
 #include "Engine/Event/Types/WindowResizeEvent.h"
 
 namespace Morpheus {
 
-	Window::Window(Settings* pSettings, EventBus* pEventBus)
+	Window::Window(entt::registry& registry, Settings* pSettings)
 		: m_Settings(pSettings),
-		m_EventCallback(pEventBus),
+		m_Registry(registry),
 		m_Window(nullptr)
 	{
 		this->m_Title = this->m_Settings->GetWindowTitle();
@@ -112,8 +111,10 @@ namespace Morpheus {
 				window.m_Height = height;
 				glViewport(0, 0, width, height);
 
-				WindowResizeEvent event(width, height);
-				window.m_EventCallback->Publish(&event);
+				auto& windowEntity = window.m_Registry.ctx<Morpheus::WindowEntity>();
+				auto& windowSize = window.m_Registry.get<Morpheus::SizeComponent>(windowEntity.id);
+				windowSize.width = (float) width;
+				windowSize.height = (float) height;
 			});
 
 		if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))

@@ -1,6 +1,5 @@
 #include "mepch.h"
 #include "Keyboard.h"
-#include "Engine/Event/Types/InputEvent.h"
 
 namespace Morpheus {
 
@@ -9,9 +8,9 @@ namespace Morpheus {
 	{
 	}
 
-	InputState Keyboard::GetState()
+	InputStateComponent Keyboard::GetState()
 	{
-		InputState state;
+		InputStateComponent state;
 
 		state.UP = glfwGetKey(this->m_NativeWindow, GLFW_KEY_UP) == GLFW_PRESS;
 		state.DOWN = glfwGetKey(this->m_NativeWindow, GLFW_KEY_DOWN) == GLFW_PRESS;

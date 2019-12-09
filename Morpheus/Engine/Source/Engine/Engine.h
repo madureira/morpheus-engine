@@ -5,7 +5,6 @@
 namespace Morpheus {
 
 	class Settings;
-	class EventBus;
 	class Window;
 	class Input;
 	class Performance;
@@ -15,7 +14,6 @@ namespace Morpheus {
 	{
 	private:
 		Settings* m_Settings;
-		EventBus* m_EventBus;
 		Window* m_Window;
 		Input* m_Input;
 		Performance* m_Performance;

@@ -1,23 +1,22 @@
 #pragma once
 
 #include <GLFW/glfw3.h>
+#include "Engine/ECS/ECS.h"
 
 namespace Morpheus {
 
-	class EventBus;
 	class Gamepad;
 	class Keyboard;
 
 	class Input
 	{
 	private:
-		EventBus* m_EventBus;
 		Gamepad* m_Gamepad;
 		Keyboard* m_Keyboard;
 
 	public:
-		Input(EventBus* pEventBus, GLFWwindow* pNativeWindow);
-		void Update();
+		Input(entt::registry& registry, GLFWwindow* pNativeWindow);
+		void Update(entt::registry& registry);
 	};
 
 }
