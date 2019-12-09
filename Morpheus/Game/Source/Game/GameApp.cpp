@@ -37,7 +37,7 @@ namespace Game {
 		this->m_NormalPlayer = new Morpheus::Texture("Assets/images/ash_n.png");
 	}
 
-	void GameApp::OnFrameStarted(double deltaTime, int frame, entt::registry& registry)
+	void GameApp::OnFrameStarted(double deltaTime, int currentFrame, int frameRate, entt::registry& registry)
 	{
 		static const int tileSize = 40;
 		static const int columns = (this->m_Settings->GetWindowWidth() / tileSize) - 1;
@@ -107,7 +107,7 @@ namespace Game {
 
 		this->m_SpriteRenderer->SetScale(zoom);
 
-		this->m_SpriteRenderer->SetAmbientColor(glm::vec4(0.01f, 0.01f, 0.01f, 0.001f));
+		this->m_SpriteRenderer->SetAmbientColor(glm::vec4(1.0f, 1.0f, 1.f, 0.25f));
 
 		this->m_SpriteRenderer->AddLightSource(glm::vec3(600.0, 400.0, 0.01f), glm::vec4(1.0f, 0.8f, 0.6f, 1.0f), glm::vec3(0.4f, 3.0f, 20.0f));
 
@@ -115,7 +115,7 @@ namespace Game {
 		
 
 		static int frameCount = 0;
-		static int currentFrame = 0;
+		static int frame = 0;
 		static int playerSpeed = 10;
 
 		if (frameCount < playerSpeed)
@@ -124,14 +124,14 @@ namespace Game {
 		}
 		else {
 			frameCount = 0;
-			currentFrame++;
+			frame++;
 		}
 
-		if (currentFrame == 4) {
-			currentFrame = 0;
+		if (frame == 4) {
+			frame = 0;
 		}
 
-		int direction = currentFrame;
+		int direction = frame;
 
 		glm::vec4 spriteFrame;
 
@@ -169,7 +169,7 @@ namespace Game {
 		this->m_SpriteRenderer->Render();
 	}
 
-	void GameApp::FrameListener(double deltaTime, int frame, entt::registry& registry)
+	void GameApp::FrameListener(double deltaTime, int currentFrame, int frameRate, entt::registry& registry)
 	{
 	}
 

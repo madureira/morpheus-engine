@@ -41,8 +41,8 @@ namespace Morpheus {
 		const double ONE_SECOND = 1.0;
 		double lastFrameTime = 0.0;
 		double lastTime = 0.0;
-		int frames = 0;
-		int fpsToDisplay = 0;
+		int currentFrame = 0;
+		int frameRate = 0;
 
 		while (this->m_Window->IsOpen())
 		{
@@ -51,23 +51,23 @@ namespace Morpheus {
 
 			this->m_Window->PollEvents();
 			this->m_Input->Update();
-			this->m_App->FrameListener(deltaTime, frames, this->m_Registry);
+			this->m_App->FrameListener(deltaTime, currentFrame, frameRate, this->m_Registry);
 
 			if (this->m_Settings->IsVSyncOn() || deltaTime >= MS_PER_FRAME)
 			{
-				frames++;
+				currentFrame++;
 
 				double deltaFrame = currentTime - lastFrameTime;
 
 				this->m_Window->Clear();
-				this->m_App->OnFrameStarted(deltaFrame, frames, this->m_Registry);
-				this->m_Performance->Show(fpsToDisplay, deltaTime);
+				this->m_App->OnFrameStarted(deltaFrame, currentFrame, frameRate, this->m_Registry);
+				this->m_Performance->Show(frameRate, deltaTime);
 
 				if (deltaFrame >= ONE_SECOND)
 				{
-					fpsToDisplay = frames;
+					frameRate = currentFrame;
 					lastFrameTime = currentTime;
-					frames = 0;
+					currentFrame = 0;
 				}
 
 				lastTime = currentTime;

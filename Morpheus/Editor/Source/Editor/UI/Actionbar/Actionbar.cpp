@@ -2,6 +2,17 @@
 
 namespace Editor {
 
+	Actionbar::Actionbar()
+		: m_IsPlaying(false),
+		m_FrameRate(0)
+	{
+	}
+
+	void Actionbar::UpdateFrameRate(int frameRate)
+	{
+		this->m_FrameRate = frameRate;
+	}
+
 	void Actionbar::Draw()
 	{
 		ImGuiIO& io = ImGui::GetIO();
@@ -51,28 +62,64 @@ namespace Editor {
 			}
 			ImGui::SameLine();
 
-			ImGui::Dummy(ImVec2(20.0f, 0.0f));
+			ImGui::Dummy(ImVec2(io.DisplaySize.x / 2 - 140.f, 0.0f));
 			ImGui::SameLine();
 
-			ImGui::Button(ICON_FA_PLAY);
-			if (ImGui::IsItemHovered())
+			static bool play = false;
+
+			if (this->DrawButton(ICON_FA_PLAY, "Play", this->m_IsPlaying))
 			{
-				ImGui::BeginTooltip();
-				ImGui::TextUnformatted("Play");
-				ImGui::EndTooltip();
+				play = true;
 			}
 			ImGui::SameLine();
 
-			ImGui::Button(ICON_FA_PAUSE);
-			if (ImGui::IsItemHovered())
+			if (this->DrawButton(ICON_FA_PAUSE, "Pause", !this->m_IsPlaying))
 			{
-				ImGui::BeginTooltip();
-				ImGui::TextUnformatted("Pause");
-				ImGui::EndTooltip();
+				play = false;
 			}
+			ImGui::SameLine();
+
+			this->m_IsPlaying = play;
+
+			ImGui::Dummy(ImVec2(io.DisplaySize.x / 2 - 110, 0.0f));
+			ImGui::SameLine();
+			ImGui::PushStyleColor(ImGuiCol_Text, ImVec4(0.4f, 0.9f, 0.2f, 1.0f));
+			ImGui::Text("FPS: %d", this->m_FrameRate);
+			ImGui::PopStyleColor();
 		}
 		ImGui::End();
 		ImGui::PopStyleVar();
+	}
+
+	bool Actionbar::DrawButton(const char* icon, const char* label, bool disabled)
+	{
+		bool clicked = false;
+
+		if (disabled)
+		{
+			ImGui::PushItemFlag(ImGuiItemFlags_Disabled, true);
+			ImGui::PushStyleVar(ImGuiStyleVar_Alpha, ImGui::GetStyle().Alpha * 0.5f);
+		}
+
+		if (ImGui::Button(icon))
+		{
+			clicked = true;
+		}
+
+		if (disabled)
+		{
+			ImGui::PopItemFlag();
+			ImGui::PopStyleVar();
+		}
+
+		if (!disabled && ImGui::IsItemHovered())
+		{
+			ImGui::BeginTooltip();
+			ImGui::TextUnformatted(label);
+			ImGui::EndTooltip();
+		}
+
+		return clicked;
 	}
 
 }

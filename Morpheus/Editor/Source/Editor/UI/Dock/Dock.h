@@ -1,14 +1,15 @@
 #pragma once
 
-#include "Engine/Config/Settings.h"
 #include "Editor/UI/UIComponent.h"
-#include "Editor/UI/Viewport/Viewport.h"
-#include "Editor/UI/ColorPicker/ColorPicker.h"
-#include "Editor/UI/Project/Project.h"
-#include "Editor/UI/Console/Console.h"
-#include "Editor/UI/Hierarchy/Hierarchy.h"
+#include "Engine/Config/Settings.h"
 
 namespace Editor {
+
+	class Viewport;
+	class ColorPicker;
+	class Project;
+	class Console;
+	class Hierarchy;
 
 	class Dock : public UIComponent
 	{

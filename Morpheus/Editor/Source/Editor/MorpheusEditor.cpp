@@ -67,7 +67,7 @@ namespace Editor {
 		this->m_Dock = new Dock(this->m_Settings);
 	}
 
-	void MorpheusEditor::OnFrameStarted(double deltaTime, int frame, entt::registry& registry)
+	void MorpheusEditor::OnFrameStarted(double deltaTime, int currentFrame, int frameRate, entt::registry& registry)
 	{
 		ImGui_ImplOpenGL3_NewFrame();
 		ImGui_ImplGlfw_NewFrame();
@@ -77,6 +77,7 @@ namespace Editor {
 		io.DisplaySize = ImVec2((float)this->m_Window->GetWidth(), (float)this->m_Window->GetHeight());
 
 		this->m_Menubar->Draw();
+		this->m_Actionbar->UpdateFrameRate(frameRate);
 		this->m_Actionbar->Draw();
 		this->m_Dock->Draw();
 
@@ -85,7 +86,7 @@ namespace Editor {
 		ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 	}
 
-	void MorpheusEditor::FrameListener(double deltaTime, int frame, entt::registry& registry)
+	void MorpheusEditor::FrameListener(double deltaTime, int currentFrame, int frameRate, entt::registry& registry)
 	{
 	}
 }

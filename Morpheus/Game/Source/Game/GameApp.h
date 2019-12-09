@@ -27,8 +27,8 @@ namespace Game {
 		GameApp();
 		~GameApp();
 		void Initialize(Morpheus::Settings* pSettings, Morpheus::EventBus* pEventBus, Morpheus::Window* pWindow) override;
-		void OnFrameStarted(double deltaTime, int frame, entt::registry& registry) override;
-		void FrameListener(double deltaTime, int frame, entt::registry& registry) override;
+		void OnFrameStarted(double deltaTime, int currentFrame, int frameRate, entt::registry& registry) override;
+		void FrameListener(double deltaTime, int currentFrame, int frameRate, entt::registry& registry) override;
 
 	private:
 		void InputHandler(Morpheus::InputEvent* pEvent);
