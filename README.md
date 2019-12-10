@@ -13,6 +13,8 @@ A simple game engine built in C++ and OpenGL.
 
 ![](.github/morpheus-logo.png?raw=true "Morpheus")
 
+## [Screenshots](https://github.com/madureira/morpheus-engine/tree/master/.github/screenshots)
+
 ## Features
 
 - Support for Windows and Linux;
@@ -86,5 +88,3 @@ make
 - [ ] Allow creating a new project through the editor;
 - [ ] Allow building the project through the editor;
 - [ ] Generate the game executable through the editor;
-
-## [Screenshots](https://github.com/madureira/morpheus-engine/tree/master/.github/screenshots)
