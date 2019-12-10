@@ -2,4 +2,4 @@
 
 ## Editor
 
-![](.github/screenshots/000.png?raw=true "000")
+![](./000.png?raw=true "First version of the editor")
