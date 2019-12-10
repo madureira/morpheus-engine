@@ -8,7 +8,7 @@ config = {
 			height = 1080
 		}
 	},
-	fps = 60,
+	fps = 120,
 	vsync = true,
 	debug = false
 }

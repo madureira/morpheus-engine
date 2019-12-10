@@ -16,7 +16,7 @@ namespace Editor {
 
 	void Inspector::Draw(entt::registry& registry)
 	{
-		ImGui::Begin(ICON_FA_LIST" Inspector###inspector");
+		ImGui::Begin(ICON_FA_INFO_CIRCLE" Inspector###inspector");
 		this->m_ColorPicker->Draw(registry);
 		ImGui::End();
 	}

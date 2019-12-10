@@ -90,12 +90,12 @@ namespace Morpheus {
 
 		glfwMakeContextCurrent(this->m_Window);
 		glfwSetWindowUserPointer(this->m_Window, this);
-		//glfwSetWindowAspectRatio(this->m_Window, 16, 9);
 		glfwSetWindowPos(this->m_Window, (pMode->width - this->m_Width) / 2, (pMode->height - this->m_Height) / 2);
 		glfwSetWindowSizeLimits(this->m_Window, 800, 600, 3840, 2160);
 		glfwSwapInterval(settingsSize.isVSyncOn ? 1 : 0);
 		glfwFocusWindow(this->m_Window);
 		//glfwSetInputMode(this->m_Window, GLFW_CURSOR, GLFW_CURSOR_HIDDEN);
+		//glfwSetWindowAspectRatio(this->m_Window, 16, 9);
 
 		glfwSetErrorCallback([](int error, const char* description)
 			{
@@ -107,7 +107,7 @@ namespace Morpheus {
 				Window& window = *(Window*)glfwGetWindowUserPointer(pNativeWindow);
 				window.m_Width = width;
 				window.m_Height = height;
-				glViewport(0, 0, width, height);
+				//glViewport(0, 0, width, height);
 
 				auto& windowEntity = window.m_Registry.ctx<Morpheus::WindowEntity>();
 				auto& windowSize = window.m_Registry.get<Morpheus::SizeComponent>(windowEntity.id);

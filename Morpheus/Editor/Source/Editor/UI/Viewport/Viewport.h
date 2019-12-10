@@ -4,6 +4,9 @@
 #include "Engine/Shader/Shader.h"
 #include <glm/vec4.hpp>
 
+#include "Engine/Renderer/SpriteRenderer.h"
+#include "Engine/Texture/Texture.h"
+
 namespace Editor {
 
 	class Viewport : public UIComponent
@@ -20,11 +23,22 @@ namespace Editor {
 		int m_InitialWindowWidth;
 		int m_InitialWindowHeight;
 
+
+		Morpheus::SpriteRenderer* m_SpriteRenderer;
+		Morpheus::Texture* m_Texture;
+		Morpheus::Texture* m_Normal;
+
+		Morpheus::Texture* m_TexturePlayer;
+		Morpheus::Texture* m_NormalPlayer;
+
 	public:
 		Viewport(entt::registry& registry);
 		~Viewport();
 		void ChangeColor(glm::vec4& color);
 		void Draw(entt::registry& registry) override;
+
+	private:
+		glm::vec4 getTile(int tileSize, int layer);
 	};
 
 }
