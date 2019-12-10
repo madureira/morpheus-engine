@@ -11,19 +11,14 @@ A simple game engine built in C++ and OpenGL.
 
 ![](.github/morpheus-logo.png?raw=true "Morpheus")
 
-## Platforms
-
-![Windows](.github/windows-logo.png?raw=true "windows10")
-![Linux](.github/linux-logo.png?raw=true "Linux")
-
 ## Features
 
-- Support for Windows, Linux;
-- Support for OpenGL;
+- Support for Windows and Linux;
+- Modern OpenGL features;
 - 2D batch rendering;
-- Basic lua scripting support;
-- Normal Map support;
-- Dynamic illumination;
+- Normal Map for 2D sprites;
+- 2D Dynamic illumination;
+- Basic Lua scripting support;
 
 ## Third Party
 
@@ -39,28 +34,44 @@ The engine use the following libraries:
 - [Sol3:](https://github.com/ThePhD/sol2) A C++ library binding to Lua;
 - [stb_image:](https://github.com/nothings/stb) Image loading/decoding from file/memory;
 
-### Building - Visual Studio IDE 2019
+## Platforms
+
+![Windows](.github/windows-logo.png?raw=true "windows10")
+
+## Windows
+
+### Building for Visual Studio IDE 2019
 
 ```
-premake5 vs2019
+install.bat
 ```
 
 Double click on the generated `Morpheus.sln` file.
 
-## Linux
+### Clean installation files
 
 ```
-$ premake5 gmake2
+clean.bat
+```
+
+![Linux](.github/linux-logo.png?raw=true "Linux")
+
+## Linux
+
+Generating Makefile
+
+```
+./install.sh
 ```
 
 ### Building
 
 ```
-$ make
+make
 ```
 
-### Running
+### Clean installation files
 
 ```
-./bin/x64_Debug/Premake_Example
+./clean.sh
 ```

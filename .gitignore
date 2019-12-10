@@ -12,6 +12,7 @@ Morpheus/Editor/Editor.vcxproj.*
 # Build
 Build/
 Dist/
+Makefile
 
 # Dependencies
 Libraries/GLFW/bin/
