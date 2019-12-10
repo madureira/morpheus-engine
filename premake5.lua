@@ -47,6 +47,8 @@ project "Engine"
 	pchheader "mepch.h"
 	pchsource "Morpheus/%{prj.name}/Source/mepch.cpp"
 
+	makesettings { "CC = gcc" }
+
 	files {
 		"Morpheus/%{prj.name}/Source/**.h",
 		"Morpheus/%{prj.name}/Source/**.cpp",
@@ -79,14 +81,14 @@ project "Engine"
 
 	filter { "system:windows" }
 		systemversion "latest"
-		links { "opengl32" }
+		links { "opengl32", "gdi32" }
 
 		defines {
 			"ME_BUILD_DLL",
 			"GLFW_INCLUDE_NONE"
 		}
 
-	filter { "system:not windows" }
+	filter "system:not windows"
 		links { "GL" }
 
 	filter "configurations:Debug"
@@ -109,6 +111,8 @@ project "Editor"
 	staticruntime "On"
 	objdir("Build/" .. outputdir)
 	targetdir("Dist/" .. outputdir)
+
+	makesettings { "CC = gcc" }
 
 	files {
 		"Morpheus/%{prj.name}/Source/**.h",
@@ -140,8 +144,13 @@ project "Editor"
 		"_CRT_SECURE_NO_WARNINGS"
 	}
 
-	filter { "system:windows" }
+	buildoptions {
+		"/MP"
+	}
+
+	filter "system:windows"
 		systemversion "latest"
+		links { "opengl32", "gdi32" }
 
 	filter "configurations:Debug"
 		defines { "DEBUG" }
@@ -164,6 +173,8 @@ project "Game"
 	staticruntime "On"
 	objdir("Build/" .. outputdir)
 	targetdir("Dist/" .. outputdir)
+
+	makesettings { "CC = gcc" }
 
 	files {
 		"Morpheus/%{prj.name}/Source/**.h",
@@ -193,8 +204,13 @@ project "Game"
 		"_CRT_SECURE_NO_WARNINGS"
 	}
 
-	filter { "system:windows" }
+	buildoptions {
+		"/MP"
+	}
+
+	filter "system:windows"
 		systemversion "latest"
+		links { "opengl32", "gdi32" }
 
 	filter "configurations:Debug"
 		defines { "DEBUG" }
@@ -245,6 +261,16 @@ newaction {
 		os.remove("./Libraries/lua/Lua.vcxproj")
 		os.remove("./Libraries/lua/Lua.vcxproj.*")
 		os.remove("./Libraries/lua/Makefile")
+		os.rmdir("./Libraries/freetype2/bin")
+		os.rmdir("./Libraries/freetype2/bin-int")
+		os.rmdir("./Libraries/Glad/bin")
+		os.rmdir("./Libraries/Glad/bin-int")
+		os.rmdir("./Libraries/GLFW/bin")
+		os.rmdir("./Libraries/GLFW/bin-int")
+		os.rmdir("./Libraries/imgui/bin")
+		os.rmdir("./Libraries/imgui/bin-int")
+		os.rmdir("./Libraries/lua/bin")
+		os.rmdir("./Libraries/lua/bin-int")
 		print("Done.")
 	end
 }

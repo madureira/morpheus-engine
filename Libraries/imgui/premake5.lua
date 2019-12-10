@@ -3,14 +3,15 @@ project "ImGui"
 	language "C++"
 
 	targetdir ("bin/" .. outputdir .. "/%{prj.name}")
-    objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
+	objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
 
-    includedirs {
-        "./"
+	makesettings { "CC = gcc" }
+
+	includedirs {
+		"./"
 	}
 
-	files
-	{
+	files {
 		"imconfig.h",
 		"imgui.h",
 		"imgui.cpp",
@@ -24,9 +25,9 @@ project "ImGui"
 	}
 
 	filter "system:windows"
-        systemversion "latest"
-        cppdialect "C++17"
-        staticruntime "On"
+		systemversion "latest"
+		cppdialect "C++17"
+		staticruntime "On"
 
-    filter { "system:windows", "configurations:Release" }
-        buildoptions "/MT"
+	filter { "system:windows", "configurations:Release" }
+		buildoptions "/MT"

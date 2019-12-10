@@ -1,27 +1,29 @@
 project "Lua"
-    kind "StaticLib"
-    language "C"
-    staticruntime "On"
+	kind "StaticLib"
+	language "C"
+	staticruntime "On"
 
-    targetdir ("bin/" .. outputdir .. "/%{prj.name}")
-    objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
+	targetdir ("bin/" .. outputdir .. "/%{prj.name}")
+	objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
+
+	makesettings { "CC = gcc" }
 
 	includedirs {
-        "src"
+		"src"
 	}
 
-    files {
-        "src/*.h",
-        "src/*.c"
-    }
+	files {
+		"src/*.h",
+		"src/*.c"
+	}
 
-    filter "system:windows"
-        systemversion "latest"
+	filter "system:windows"
+		systemversion "latest"
 
-    filter "configurations:Debug"
-        runtime "Debug"
-        symbols "On"
+	filter "configurations:Debug"
+		runtime "Debug"
+		symbols "On"
 
-    filter "configurations:Release"
-        runtime "Release"
-        optimize "On"
+	filter "configurations:Release"
+		runtime "Release"
+		optimize "On"

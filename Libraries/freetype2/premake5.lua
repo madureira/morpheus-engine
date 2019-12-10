@@ -1,6 +1,6 @@
 project "FreeType2"
-    kind "StaticLib"
-    language "C"
+	kind "StaticLib"
+	language "C"
 	staticruntime "On"
 	warnings "Off"
 	defines {
@@ -8,16 +8,16 @@ project "FreeType2"
 		"_CRT_SECURE_NO_WARNINGS"
 	}
 
-    targetdir ("bin/" .. outputdir .. "/%{prj.name}")
-    objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
+	targetdir ("bin/" .. outputdir .. "/%{prj.name}")
+	objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
 
-	includedirs
-    {
+	makesettings { "CC = gcc" }
+
+	includedirs {
 		"include"
 	}
 
-    files
-    {
+	files {
 		"src/autofit/autofit.c",
 		"src/base/ftbase.c",
 		"src/base/ftbbox.c",
@@ -53,15 +53,15 @@ project "FreeType2"
 		"src/type1/type1.c",
 		"src/type42/type42.c",
 		"src/winfonts/winfnt.c"
-    }
+	}
 
-    filter "system:windows"
-        systemversion "latest"
+	filter "system:windows"
+		systemversion "latest"
 
-    filter "configurations:Debug"
-        runtime "Debug"
-        symbols "On"
+	filter "configurations:Debug"
+		runtime "Debug"
+		symbols "On"
 
-    filter "configurations:Release"
-        runtime "Release"
-        optimize "On"
+	filter "configurations:Release"
+		runtime "Release"
+		optimize "On"
