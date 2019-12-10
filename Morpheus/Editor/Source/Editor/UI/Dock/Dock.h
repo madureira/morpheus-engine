@@ -1,7 +1,6 @@
 #pragma once
 
 #include "Editor/UI/UIComponent.h"
-#include "Engine/Config/Settings.h"
 #include "Engine/ECS/ECS.h"
 
 namespace Editor {
@@ -22,7 +21,7 @@ namespace Editor {
 		Inspector* m_Inspector;
 
 	public:
-		Dock(entt::registry& registry, Morpheus::Settings* pSettings);
+		Dock(entt::registry& registry);
 		~Dock();
 		void Draw(entt::registry& registry) override;
 	};

@@ -1,11 +1,7 @@
 #include "Menubar.h"
+#include "Engine/ECS/Components/WindowComponent.h"
 
 namespace Editor {
-
-	Menubar::Menubar(Morpheus::Window* pWindow)
-		: m_Window(pWindow)
-	{
-	}
 
 	void Menubar::Draw(entt::registry& registry)
 	{
@@ -16,7 +12,9 @@ namespace Editor {
 				if (ImGui::MenuItem(ICON_FA_SAVE"   Save")) {}
 				ImGui::Separator();
 				if (ImGui::MenuItem(ICON_FA_POWER_OFF"   Exit")) {
-					this->m_Window->Close();
+					auto& windowEntity = registry.ctx<Morpheus::WindowEntity>();
+					auto& windowComponent = registry.get<Morpheus::WindowComponent>(windowEntity.id);
+					windowComponent.Close();
 				}
 				ImGui::EndMenu();
 			}

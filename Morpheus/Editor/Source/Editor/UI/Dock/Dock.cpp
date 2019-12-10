@@ -8,13 +8,13 @@
 
 namespace Editor {
 
-	Dock::Dock(entt::registry& registry, Morpheus::Settings* pSettings)
+	Dock::Dock(entt::registry& registry)
 	{
 		this->m_Hierarchy = new Hierarchy();
 		this->m_Inspector = new Inspector(registry);
 		this->m_Project = new Project();
 		this->m_Console = new Console();
-		this->m_Viewport = new Viewport(pSettings);
+		this->m_Viewport = new Viewport(registry);
 	}
 
 	Dock::~Dock()

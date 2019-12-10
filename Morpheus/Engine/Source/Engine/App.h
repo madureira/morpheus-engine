@@ -4,16 +4,13 @@
 
 namespace Morpheus {
 
-	class Settings;
-	class Window;
-
 	class App
 	{
 	public:
 		virtual ~App() = default;
-		virtual void Initialize(Settings* pSettings, Window* pWindow, entt::registry& registry) = 0;
-		virtual void OnFrameStarted(double deltaTime, int currentFrame, int frameRate, entt::registry& registry) = 0;
-		virtual void FrameListener(double deltaTime, int currentFrame, int frameRate, entt::registry& registry) = 0;
+		virtual void Initialize(entt::registry& registry) = 0;
+		virtual void OnFrameStarted(entt::registry& registry, double deltaTime, int currentFrame, int frameRate) = 0;
+		virtual void FrameListener(entt::registry& registry, double deltaTime, int currentFrame, int frameRate) = 0;
 	};
 
 }

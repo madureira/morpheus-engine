@@ -3,8 +3,7 @@
 namespace Game {
 
 	GameApp::GameApp()
-		: m_Settings(nullptr),
-		m_SpriteRenderer(nullptr),
+		: m_SpriteRenderer(nullptr),
 		m_Texture(nullptr),
 		m_Normal(nullptr),
 		m_TexturePlayer(nullptr),
@@ -21,11 +20,15 @@ namespace Game {
 		delete this->m_NormalPlayer;
 	}
 
-	void GameApp::Initialize(Morpheus::Settings* pSettings, Morpheus::Window* pWindow, entt::registry& registry)
+	void GameApp::Initialize(entt::registry& registry)
 	{
-		this->m_Settings = pSettings;
+		auto& settingsEntity = registry.ctx<Morpheus::SettingsEntity>();
+		auto& settingsSize = registry.get<Morpheus::SettingsComponent>(settingsEntity.id);
 
-		this->m_SpriteRenderer = new Morpheus::SpriteRenderer(glm::vec2(this->m_Settings->GetWindowWidth(), this->m_Settings->GetWindowHeight()));
+		this->m_InitialWindowWidth = settingsSize.windowWidth;
+		this->m_InitialWindowHeight = settingsSize.windowHeight;
+
+		this->m_SpriteRenderer = new Morpheus::SpriteRenderer(glm::vec2(this->m_InitialWindowWidth, this->m_InitialWindowHeight));
 
 		this->m_Texture = new Morpheus::Texture("Assets/images/tileset.png");
 		this->m_Normal = new Morpheus::Texture("Assets/images/tileset_n.png");
@@ -34,11 +37,11 @@ namespace Game {
 		this->m_NormalPlayer = new Morpheus::Texture("Assets/images/ash_n.png");
 	}
 
-	void GameApp::OnFrameStarted(double deltaTime, int currentFrame, int frameRate, entt::registry& registry)
+	void GameApp::OnFrameStarted(entt::registry& registry, double deltaTime, int currentFrame, int frameRate)
 	{
 		static const int tileSize = 40;
-		static const int columns = (this->m_Settings->GetWindowWidth() / tileSize) - 1;
-		static const int rows = (this->m_Settings->GetWindowHeight() / tileSize) - 2;
+		static const int columns = (this->m_InitialWindowWidth / tileSize) - 1;
+		static const int rows = (this->m_InitialWindowHeight / tileSize) - 2;
 		static const int layers = 5;
 		static const int distance = -10;
 		static const int margin = tileSize;
@@ -168,7 +171,7 @@ namespace Game {
 		this->m_SpriteRenderer->Render();
 	}
 
-	void GameApp::FrameListener(double deltaTime, int currentFrame, int frameRate, entt::registry& registry)
+	void GameApp::FrameListener(entt::registry& registry, double deltaTime, int currentFrame, int frameRate)
 	{
 	}
 

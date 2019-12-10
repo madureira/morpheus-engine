@@ -1,8 +1,6 @@
 #pragma once
 
 #include "Engine/App.h"
-#include "Engine/Config/Settings.h"
-#include "Engine/Window/Window.h"
 #include "Engine/Renderer/SpriteRenderer.h"
 #include "Engine/Texture/Texture.h"
 
@@ -11,7 +9,9 @@ namespace Game {
 	class GameApp : public Morpheus::App
 	{
 	private:
-		Morpheus::Settings* m_Settings;
+		int m_InitialWindowWidth;
+		int m_InitialWindowHeight;
+
 		Morpheus::SpriteRenderer* m_SpriteRenderer;
 		Morpheus::Texture* m_Texture;
 		Morpheus::Texture* m_Normal;
@@ -22,9 +22,9 @@ namespace Game {
 	public:
 		GameApp();
 		~GameApp();
-		void Initialize(Morpheus::Settings* pSettings, Morpheus::Window* pWindow, entt::registry& registry) override;
-		void OnFrameStarted(double deltaTime, int currentFrame, int frameRate, entt::registry& registry) override;
-		void FrameListener(double deltaTime, int currentFrame, int frameRate, entt::registry& registry) override;
+		void Initialize(entt::registry& registry) override;
+		void OnFrameStarted(entt::registry& registry, double deltaTime, int currentFrame, int frameRate) override;
+		void FrameListener(entt::registry& registry, double deltaTime, int currentFrame, int frameRate) override;
 
 	private:
 		glm::vec4 getTile(int tileSize, int layer);

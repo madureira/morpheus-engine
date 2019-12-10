@@ -1,21 +1,13 @@
 #include "mepch.h"
 #include "Window.h"
 #include <glad/glad.h>
-#include "Engine/Config/Settings.h"
-#include "Engine/Event/Types/WindowResizeEvent.h"
 
 namespace Morpheus {
 
-	Window::Window(entt::registry& registry, Settings* pSettings)
-		: m_Settings(pSettings),
-		m_Registry(registry),
+	Window::Window(entt::registry& registry)
+		: m_Registry(registry),
 		m_Window(nullptr)
 	{
-		this->m_Title = this->m_Settings->GetWindowTitle();
-		this->m_Width = this->m_Settings->GetWindowWidth();
-		this->m_Height = this->m_Settings->GetWindowHeight();
-		this->m_IsFullScreen = this->m_Settings->IsWindowFullscreen();
-
 		this->Initialize();
 	}
 
@@ -64,7 +56,13 @@ namespace Morpheus {
 			return;
 		}
 
-		const int MONITOR_INDEX = this->m_Settings->IsPrimaryMonitor() ? 0 : 1;
+		auto& settingsEntity = this->m_Registry.ctx<SettingsEntity>();
+		auto& settingsSize = this->m_Registry.get<SettingsComponent>(settingsEntity.id);
+
+		this->m_Width = settingsSize.windowWidth;
+		this->m_Height = settingsSize.windowHeight;
+
+		const int MONITOR_INDEX = settingsSize.isPrimaryMonitor ? 0 : 1;
 		int monitors;
 		GLFWmonitor* pMonitor = glfwGetMonitors(&monitors)[MONITOR_INDEX];
 		const GLFWvidmode* pMode = glfwGetVideoMode(pMonitor);
@@ -81,7 +79,7 @@ namespace Morpheus {
 		glfwWindowHint(GLFW_BLUE_BITS, pMode->blueBits);
 		glfwWindowHint(GLFW_REFRESH_RATE, pMode->refreshRate);
 
-		this->m_Window = glfwCreateWindow(this->m_Width, this->m_Height, this->m_Title.c_str(), this->m_IsFullScreen ? pMonitor : nullptr, nullptr);
+		this->m_Window = glfwCreateWindow(this->m_Width, this->m_Height, settingsSize.windowTitle.c_str(), settingsSize.isWindowFullScreen ? pMonitor : nullptr, nullptr);
 
 		if (!this->m_Window)
 		{
@@ -95,7 +93,7 @@ namespace Morpheus {
 		//glfwSetWindowAspectRatio(this->m_Window, 16, 9);
 		glfwSetWindowPos(this->m_Window, (pMode->width - this->m_Width) / 2, (pMode->height - this->m_Height) / 2);
 		glfwSetWindowSizeLimits(this->m_Window, 800, 600, 3840, 2160);
-		glfwSwapInterval(this->m_Settings->IsVSyncOn() ? 1 : 0);
+		glfwSwapInterval(settingsSize.isVSyncOn ? 1 : 0);
 		glfwFocusWindow(this->m_Window);
 		//glfwSetInputMode(this->m_Window, GLFW_CURSOR, GLFW_CURSOR_HIDDEN);
 

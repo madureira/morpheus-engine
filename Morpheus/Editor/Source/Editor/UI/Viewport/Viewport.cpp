@@ -3,9 +3,13 @@
 
 namespace Editor {
 
-	Viewport::Viewport(Morpheus::Settings* pSettings)
-		: m_Settings(pSettings)
+	Viewport::Viewport(entt::registry& registry)
 	{
+		auto& settingsEntity = registry.ctx<Morpheus::SettingsEntity>();
+		auto& settingsSize = registry.get<Morpheus::SettingsComponent>(settingsEntity.id);
+		this->m_InitialWindowWidth = settingsSize.windowWidth;
+		this->m_InitialWindowHeight = settingsSize.windowHeight;
+
 		// Create Frame Buffer
 		glGenFramebuffers(1, &this->m_FBO);
 
@@ -14,7 +18,7 @@ namespace Editor {
 
 		// Bind the texture used to paint the GL data on the IMGUI window
 		glBindTexture(GL_TEXTURE_2D, this->m_TextureColorBuffer);
-		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, this->m_Settings->GetWindowWidth(), this->m_Settings->GetWindowHeight(), 0, GL_RGB, GL_UNSIGNED_BYTE, NULL);
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, this->m_InitialWindowWidth, this->m_InitialWindowHeight, 0, GL_RGB, GL_UNSIGNED_BYTE, NULL);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 		glBindTexture(GL_TEXTURE_2D, 0);
@@ -61,7 +65,7 @@ namespace Editor {
 
 			this->m_FrameBufferRect = glm::vec4(pos.x, pos.y, size.x, size.y);
 
-			glViewport(0, 0, this->m_Settings->GetWindowWidth(), this->m_Settings->GetWindowHeight());
+			glViewport(0, 0, this->m_InitialWindowWidth, this->m_InitialWindowHeight);
 			glBindFramebuffer(GL_FRAMEBUFFER, this->m_FBO);
 
 			auto& windowEntity = registry.ctx<Morpheus::WindowEntity>();
@@ -81,7 +85,7 @@ namespace Editor {
 
 
 			glBindFramebuffer(GL_FRAMEBUFFER, 0);
-			glViewport(0, 0, this->m_Settings->GetWindowWidth(), this->m_Settings->GetWindowHeight());
+			glViewport(0, 0, this->m_InitialWindowWidth, this->m_InitialWindowHeight);
 
 			// Get FBO texture dimensions
 			float texPosX = this->m_FrameBufferRect.x;

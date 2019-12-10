@@ -6,21 +6,16 @@
 
 namespace Morpheus {
 
-	class Settings;
-
 	class Window
 	{
 	private:
-		Settings* m_Settings;
+		entt::registry& m_Registry;
 		GLFWwindow* m_Window;
-		std::string m_Title;
 		unsigned int m_Width;
 		unsigned int m_Height;
-		bool m_IsFullScreen;
-		entt::registry& m_Registry;
 
 	public:
-		Window(entt::registry& registry, Settings* pSettings);
+		Window(entt::registry& registry);
 		~Window();
 
 		bool IsOpen();

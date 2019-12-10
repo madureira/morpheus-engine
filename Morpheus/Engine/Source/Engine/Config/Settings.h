@@ -6,6 +6,8 @@
 #include <iostream>
 #include <string>
 
+#include "Engine/ECS/ECS.h"
+
 #define c_assert(condition) \
     do { \
         if (! (condition)) { \
@@ -32,7 +34,7 @@ namespace Morpheus {
 		bool m_IsDebug;
 
 	public:
-		Settings()
+		Settings(entt::registry& registry)
 			: m_LuaState(nullptr),
 			m_WindowTitle("Morpheus Engine"),
 			m_IsWindowFullScreen(false),
@@ -48,7 +50,7 @@ namespace Morpheus {
 
 			sol::load_result settingsContent = this->m_LuaState->load_file(SETTINGS_FILE_PATH);
 
-			if (!this->IsSettingsValid(settingsContent))
+			if (!this->IsSettingsValid(settingsContent, registry))
 			{
 				std::cout << "Error: Fail to parse " << SETTINGS_FILE_PATH << std::endl;
 			}
@@ -99,8 +101,22 @@ namespace Morpheus {
 			return this->m_IsDebug;
 		}
 
+		inline SettingsComponent GetSettings() const
+		{
+			return SettingsComponent{
+				this->m_WindowTitle,
+				this->m_IsWindowFullScreen,
+				this->m_IsPrimaryMonitor,
+				this->m_WindowWidth,
+				this->m_WindowHeight,
+				this->m_FPS,
+				this->m_IsVSyncOn,
+				this->m_IsDebug
+			};
+		}
+
 	private:
-		inline bool IsSettingsValid(sol::load_result& scriptSettings)
+		inline bool IsSettingsValid(sol::load_result& scriptSettings, entt::registry& registry)
 		{
 			if (!scriptSettings.valid()) {
 				return false;

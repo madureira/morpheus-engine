@@ -5,24 +5,29 @@
 #include "Engine/Input/Input.h"
 #include "Engine/Debug/Performance.h"
 #include "Engine/App.h"
+#include "Engine/ECS/Components/WindowComponent.h"
 
 namespace Morpheus {
 
 	Engine::Engine() : m_App(nullptr)
 	{
-		this->m_Settings = new Settings();
+		this->m_Settings = new Settings(this->m_Registry);
+
+		Morpheus::SettingsEntity settingsEntity{ this->m_Registry.create() };
+		this->m_Registry.set<Morpheus::SettingsEntity>(settingsEntity);
+		this->m_Registry.assign<Morpheus::SettingsComponent>(settingsEntity.id, this->m_Settings->GetSettings());
+
+		this->m_Window = new Window(this->m_Registry);
 
 		Morpheus::WindowEntity windowEntity{ this->m_Registry.create() };
 		this->m_Registry.set<Morpheus::WindowEntity>(windowEntity);
+		this->m_Registry.assign<Morpheus::WindowComponent>(windowEntity.id, this->m_Window);
 		this->m_Registry.assign<Morpheus::SizeComponent>(windowEntity.id, this->m_Settings->GetWindowWidth(), this->m_Settings->GetWindowHeight());
-
 
 		Morpheus::InputEntity inputEntity{ this->m_Registry.create() };
 		this->m_Registry.set<Morpheus::InputEntity>(inputEntity);
 		this->m_Registry.assign<Morpheus::InputStateComponent>(inputEntity.id);
 
-
-		this->m_Window = new Window(this->m_Registry, this->m_Settings);
 		this->m_Performance = new Performance(this->m_Settings);
 		this->m_Input = new Input(this->m_Registry, this->m_Window->GetNativeWindow());
 	}
@@ -39,7 +44,7 @@ namespace Morpheus {
 	void Engine::Initialize(App* pApp)
 	{
 		this->m_App = pApp;
-		this->m_App->Initialize(this->m_Settings, this->m_Window, this->m_Registry);
+		this->m_App->Initialize(this->m_Registry);
 	}
 
 	void Engine::Start()
@@ -59,7 +64,7 @@ namespace Morpheus {
 
 			this->m_Window->PollEvents();
 			this->m_Input->Update(this->m_Registry);
-			this->m_App->FrameListener(deltaTime, currentFrame, frameRate, this->m_Registry);
+			this->m_App->FrameListener(this->m_Registry, deltaTime, currentFrame, frameRate);
 
 			if (this->m_Settings->IsVSyncOn() || deltaTime >= MS_PER_FRAME)
 			{
@@ -68,7 +73,7 @@ namespace Morpheus {
 				double deltaFrame = currentTime - lastFrameTime;
 
 				this->m_Window->Clear();
-				this->m_App->OnFrameStarted(deltaFrame, currentFrame, frameRate, this->m_Registry);
+				this->m_App->OnFrameStarted(this->m_Registry, deltaFrame, currentFrame, frameRate);
 				this->m_Performance->Show(frameRate, deltaTime);
 
 				if (deltaFrame >= ONE_SECOND)
