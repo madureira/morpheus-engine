@@ -11,12 +11,33 @@ A simple game engine built in C++ and OpenGL.
 
 ![](.github/morpheus-logo.png?raw=true "Morpheus")
 
-## > Platforms
+## Platforms
 
 ![Windows](.github/windows-logo.png?raw=true "windows10")
 ![Linux](.github/linux-logo.png?raw=true "Linux")
 
-## Windows
+## Features
+
+- Support for Windows, Linux;
+- Support for OpenGL;
+- 2D batch rendering;
+- Basic lua scripting support;
+- Normal Map support;
+- Dynamic illumination;
+
+## Third Party
+
+The engine use the following libraries:
+
+- [EnTT:](https://github.com/skypjack/entt) Entity-component system (ECS);
+- [FreeType2:](https://www.freetype.org/) Render fonts;
+- [Glad:](https://glad.dav1d.de/) OpenGL loader;
+- [GLFW:](https://www.glfw.org/) Window and input;
+- [glm:](https://glm.g-truc.net) Math library;
+- [ImGui:](https://github.com/ocornut/imgui) Immediate Mode Graphical User interface;
+- [Lua:](https://www.lua.org/) Script language;
+- [Sol3:](https://github.com/ThePhD/sol2) A C++ library binding to Lua;
+- [stb_image:](https://github.com/nothings/stb) Image loading/decoding from file/memory;
 
 ### Building - Visual Studio IDE 2019
 
