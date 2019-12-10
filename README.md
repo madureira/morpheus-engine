@@ -23,6 +23,7 @@ A simple game engine built in C++ and OpenGL.
 - Normal Map for 2D sprites;
 - 2D Dynamic illumination;
 - Basic Lua scripting support;
+- PS4 controller support;
 
 ## Third Party
 

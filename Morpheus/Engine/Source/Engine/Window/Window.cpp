@@ -107,7 +107,7 @@ namespace Morpheus {
 				Window& window = *(Window*)glfwGetWindowUserPointer(pNativeWindow);
 				window.m_Width = width;
 				window.m_Height = height;
-				//glViewport(0, 0, width, height);
+				glViewport(0, 0, width, height);
 
 				auto& windowEntity = window.m_Registry.ctx<Morpheus::WindowEntity>();
 				auto& windowSize = window.m_Registry.get<Morpheus::SizeComponent>(windowEntity.id);

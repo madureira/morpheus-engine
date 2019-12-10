@@ -40,8 +40,8 @@ namespace Game {
 	void GameApp::OnFrameStarted(entt::registry& registry, double deltaTime, int currentFrame, int frameRate)
 	{
 		static const int tileSize = 40;
-		static const int columns = (this->m_InitialWindowWidth / tileSize) - 1;
-		static const int rows = (this->m_InitialWindowHeight / tileSize) - 2;
+		static const int columns = (3840 / tileSize) - 1;
+		static const int rows = (2160 / tileSize) - 2;
 		static const int layers = 5;
 		static const int distance = -10;
 		static const int margin = tileSize;
