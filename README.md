@@ -13,7 +13,7 @@ A simple game engine built in C++ and OpenGL.
 
 ![](.github/morpheus-logo.png?raw=true "Morpheus")
 
-## [Screenshots](https://github.com/madureira/morpheus-engine/tree/master/.github/screenshots)
+## [Screenshots](https://github.com/madureira/morpheus-engine/tree/master/.github/screenshots) / [Video](https://www.youtube.com/watch?v=8IatRcdtFdQ)
 
 ## Features
 
