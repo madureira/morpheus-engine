@@ -40,8 +40,8 @@ namespace Game {
 	void GameApp::OnFrameStarted(entt::registry& registry, double deltaTime, int currentFrame, int frameRate)
 	{
 		static const int tileSize = 40;
-		static const int columns = (3840 / tileSize) - 1;
-		static const int rows = (2160 / tileSize) - 2;
+		static const int columns = (1280 / tileSize) - 1;
+		static const int rows = (720 / tileSize) - 2;
 		static const int layers = 5;
 		static const int distance = -10;
 		static const int margin = tileSize;
@@ -111,7 +111,7 @@ namespace Game {
 
 		this->m_SpriteRenderer->SetAmbientColor(glm::vec4(1.0f, 1.0f, 1.f, 0.25f));
 
-		this->m_SpriteRenderer->AddLightSource(glm::vec3(600.0, 400.0, 0.01f), glm::vec4(1.0f, 0.8f, 0.6f, 1.0f), glm::vec3(0.4f, 3.0f, 20.0f));
+		this->m_SpriteRenderer->AddSpotLight(glm::vec3(600.0, 400.0, 0.01f), glm::vec4(1.0f, 0.8f, 0.6f, 1.0f), glm::vec3(0.4f, 3.0f, 20.0f));
 
 		this->m_SpriteRenderer->Render();
 		
@@ -166,7 +166,7 @@ namespace Game {
 			spriteFrame
 		);
 
-		this->m_SpriteRenderer->AddLightSource(glm::vec3(600.0, 400.0, 0.01f), glm::vec4(1.0f, 0.8f, 0.6f, 1.0f), glm::vec3(0.1f, 1.0f, 900.0f));
+		this->m_SpriteRenderer->AddSpotLight(glm::vec3(600.0, 400.0, 0.01f), glm::vec4(1.0f, 0.8f, 0.6f, 1.0f), glm::vec3(0.1f, 1.0f, 900.0f));
 
 		this->m_SpriteRenderer->Render();
 	}

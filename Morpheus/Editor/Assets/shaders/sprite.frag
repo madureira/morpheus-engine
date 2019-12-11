@@ -9,7 +9,7 @@ uniform sampler2D u_texture;
 uniform sampler2D u_normals;
 
 //values used for shading algorithm...
-uniform int TotalLightSources;                  // total of defined light sources
+uniform int TotalSpotLights;                    // total of defined light sources
 uniform vec2 Resolution;                        // resolution of screen
 uniform vec3 LightPos[MAX_LIGHT_SOURCES];       // light position, normalized
 uniform vec4 LightColor[MAX_LIGHT_SOURCES];     // light RGBA -- alpha is intensity
@@ -29,7 +29,7 @@ void main()
 
 	vec3 LightsSum = vec3(0.0);
 
-	for(int i = 0; i < TotalLightSources; i++)
+	for(int i = 0; i < TotalSpotLights; i++)
 	{
 		//The delta position of light
 		vec3 LightDir = vec3(LightPos[i].xy - (gl_FragCoord.xy / Resolution.xy), LightPos[i].z);

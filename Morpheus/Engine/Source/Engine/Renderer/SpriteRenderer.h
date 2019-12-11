@@ -23,13 +23,13 @@ namespace Morpheus {
 		}
 	};
 
-	struct LightSource
+	struct SpotLight
 	{
 		glm::vec3 m_Position;
 		glm::vec4 m_Color;
 		glm::vec3 m_Falloff;
 
-		LightSource(glm::vec3 lightPosition, glm::vec4 lightColor, glm::vec3 lightFalloff)
+		SpotLight(glm::vec3 lightPosition, glm::vec4 lightColor, glm::vec3 lightFalloff)
 		{
 			m_Position = lightPosition;
 			m_Color = lightColor;
@@ -43,7 +43,7 @@ namespace Morpheus {
 		unsigned int m_VAO;
 		unsigned int m_VBO;
 		std::vector<Vertex2dUVColor> m_Vertices;
-		std::vector<LightSource> m_LightSources;
+		std::vector<SpotLight> m_SpotLights;
 		Shader* m_Shader;
 		Texture* m_DiffuseMap;
 		Texture* m_NormalMap;
@@ -57,7 +57,7 @@ namespace Morpheus {
 		~SpriteRenderer();
 
 		void Draw(Texture* pDiffuseMap, Texture* pNormalMap, glm::vec4 destRect, glm::vec4 sourceRect, glm::vec4 color = glm::vec4(1, 1, 1, 1));
-		void AddLightSource(glm::vec3 lightPosition, glm::vec4 lightColor, glm::vec3 lightFalloff);
+		void AddSpotLight(glm::vec3 lightPosition, glm::vec4 lightColor, glm::vec3 lightFalloff);
 		void SetAmbientColor(glm::vec4 ambientColor);
 		void SetScreenSize(glm::vec2 screenSize);
 		void SetScale(float scale);

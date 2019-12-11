@@ -1,22 +1,17 @@
 #include "mepch.h"
 #include "Texture.h"
 #include <glad/glad.h>
-#define STB_IMAGE_IMPLEMENTATION
-#include <stb_image.h>
+#include "Engine/Util/ImageLoader.h"
 
 namespace Morpheus {
 
 	Texture::Texture(const char* filePath, bool flipVertically)
 		: m_Texture(0)
 	{
-		int x, y, n;
+		Image image = ImageLoader::Load(filePath, flipVertically);
 
-		stbi_set_flip_vertically_on_load(flipVertically);
-		unsigned char* data = stbi_load(filePath, &x, &y, &n, STBI_rgb_alpha);
-
-		if (!data)
+		if (!image.pixels)
 		{
-			std::cout << "ERROR: Fail to load the texture: " << filePath << std::endl;
 			return;
 		}
 
@@ -29,8 +24,9 @@ namespace Morpheus {
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR_MIPMAP_LINEAR);
 
-		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, x, y, 0, GL_RGBA, GL_UNSIGNED_BYTE, data);
-		stbi_image_free(data);
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, image.width, image.height, 0, GL_RGBA, GL_UNSIGNED_BYTE, image.pixels);
+
+		ImageLoader::FreeImage(image);
 
 		glGenerateMipmap(GL_TEXTURE_2D);
 

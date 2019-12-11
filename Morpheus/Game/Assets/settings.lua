@@ -1,6 +1,6 @@
 config = {
 	window = {
-		title = "Morpheus Engine",
+		title = "Morpheus Game",
 		fullscreen = false,
 		primary_monitor = true,
 		resolution = {
@@ -8,7 +8,7 @@ config = {
 			height = 720
 		}
 	},
-	fps = 60,
+	fps = 120,
 	vsync = true,
 	debug = true
 }

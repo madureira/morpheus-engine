@@ -58,11 +58,11 @@ namespace Morpheus {
 		this->m_Vertices.push_back(Vertex2dUVColor(glm::vec2(destRect.x + destRect.z, destRect.y + destRect.w), glm::vec2(sourceRect.z, sourceRect.w), color));
 	}
 
-	void SpriteRenderer::AddLightSource(glm::vec3 lightPosition, glm::vec4 lightColor, glm::vec3 lightFalloff)
+	void SpriteRenderer::AddSpotLight(glm::vec3 lightPosition, glm::vec4 lightColor, glm::vec3 lightFalloff)
 	{
-		if (this->m_LightSources.size() < MAX_LIGHT_SOURCES)
+		if (this->m_SpotLights.size() < MAX_LIGHT_SOURCES)
 		{
-			this->m_LightSources.push_back(LightSource(lightPosition, lightColor, lightFalloff));
+			this->m_SpotLights.push_back(SpotLight(lightPosition, lightColor, lightFalloff));
 		}
 	}
 
@@ -108,7 +108,7 @@ namespace Morpheus {
 		glm::vec3 lightFalloffs[MAX_LIGHT_SOURCES] = { };
 
 		int index = 0;
-		for (auto light : this->m_LightSources)
+		for (auto light : this->m_SpotLights)
 		{
 			glm::vec3 lightPosition = light.m_Position;
 
@@ -123,10 +123,10 @@ namespace Morpheus {
 			index++;
 		}
 
-		this->m_Shader->SetInt("TotalLightSources", (GLsizei) this->m_LightSources.size());
-		glUniform3fv(this->m_Shader->GetUniformLocation("LightPos"), (GLsizei) this->m_LightSources.size(), (float*) lightPositions);
-		glUniform4fv(this->m_Shader->GetUniformLocation("LightColor"), (GLsizei) this->m_LightSources.size(), (float*) lightColors);
-		glUniform3fv(this->m_Shader->GetUniformLocation("LightFalloff"), (GLsizei) this->m_LightSources.size(), (float*) lightFalloffs);
+		this->m_Shader->SetInt("TotalSpotLights", (GLsizei) this->m_SpotLights.size());
+		glUniform3fv(this->m_Shader->GetUniformLocation("LightPos"), (GLsizei) this->m_SpotLights.size(), (float*) lightPositions);
+		glUniform4fv(this->m_Shader->GetUniformLocation("LightColor"), (GLsizei) this->m_SpotLights.size(), (float*) lightColors);
+		glUniform3fv(this->m_Shader->GetUniformLocation("LightFalloff"), (GLsizei) this->m_SpotLights.size(), (float*) lightFalloffs);
 
 		glBindVertexArray(this->m_VAO);
 
@@ -156,7 +156,7 @@ namespace Morpheus {
 
 		this->m_Shader->Disable();
 		this->m_Vertices.clear();
-		this->m_LightSources.clear();
+		this->m_SpotLights.clear();
 	}
 
 }

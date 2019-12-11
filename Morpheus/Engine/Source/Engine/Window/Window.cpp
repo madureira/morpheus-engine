@@ -1,6 +1,7 @@
 #include "mepch.h"
 #include "Window.h"
 #include <glad/glad.h>
+#include "Engine/Util/ImageLoader.h"
 
 namespace Morpheus {
 
@@ -96,6 +97,18 @@ namespace Morpheus {
 		glfwFocusWindow(this->m_Window);
 		//glfwSetInputMode(this->m_Window, GLFW_CURSOR, GLFW_CURSOR_HIDDEN);
 		//glfwSetWindowAspectRatio(this->m_Window, 16, 9);
+
+		Image image = ImageLoader::Load("Assets/icons/window-icon.png", false);
+		Image smallImage = ImageLoader::Load("Assets/icons/window-small-icon.png", false);
+
+		GLFWimage images[2];
+		images[0] = { image.width, image.height, image.pixels };
+		images[1] = { smallImage.width, smallImage.height, smallImage.pixels };
+
+		glfwSetWindowIcon(this->m_Window, 2, images);
+
+		ImageLoader::FreeImage(image);
+		ImageLoader::FreeImage(smallImage);
 
 		glfwSetErrorCallback([](int error, const char* description)
 			{

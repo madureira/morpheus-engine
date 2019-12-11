@@ -30,13 +30,13 @@ namespace Editor {
 
 		this->m_Vertices[0] = -1.0f;
 		this->m_Vertices[1] = -1.0f;
-		this->m_Vertices[2] = 0.0f;
-		this->m_Vertices[3] = 1.0f;
+		this->m_Vertices[2] =  0.0f;
+		this->m_Vertices[3] =  1.0f;
 		this->m_Vertices[4] = -1.0f;
-		this->m_Vertices[5] = 0.0f;
-		this->m_Vertices[6] = 0.0f;
-		this->m_Vertices[7] = 1.0f;
-		this->m_Vertices[8] = 0.0f;
+		this->m_Vertices[5] =  0.0f;
+		this->m_Vertices[6] =  0.0f;
+		this->m_Vertices[7] =  1.0f;
+		this->m_Vertices[8] =  0.0f;
 
 		glGenVertexArrays(1, &this->m_VAO);
 		glBindVertexArray(this->m_VAO);
@@ -104,9 +104,9 @@ namespace Editor {
 
 			
 			static const int tileSize = 40;
-			static const int columns = (this->m_InitialWindowWidth / tileSize) - 1;
-			static const int rows = (this->m_InitialWindowHeight / tileSize) - 2;
-			static const int layers = 5;
+			static const int columns = (1280 / tileSize) - 1;
+			static const int rows = (720 / tileSize) - 2;
+			static const int layers = 2;
 			static const int distance = -10;
 			static const int margin = tileSize;
 			static const int speed = 1;
@@ -161,7 +161,7 @@ namespace Editor {
 							this->m_Texture,
 							this->m_Normal,
 
-							glm::vec4(margin + x * tileSize + z * distance, margin + y * tileSize + z * distance, tileSize, tileSize),
+							glm::vec4(margin + x * tileSize + z * distance - playerX, margin + y * tileSize + z * distance - playerY, tileSize, tileSize),
 
 							getTile(tileSize, z)
 
@@ -175,7 +175,7 @@ namespace Editor {
 
 			this->m_SpriteRenderer->SetAmbientColor(glm::vec4(1.0f, 1.0f, 1.f, 0.25f));
 
-			this->m_SpriteRenderer->AddLightSource(glm::vec3(600.0, 400.0, 0.01f), glm::vec4(1.0f, 0.8f, 0.6f, 1.0f), glm::vec3(0.4f, 3.0f, 20.0f));
+			this->m_SpriteRenderer->AddSpotLight(glm::vec3(600.0, 400.0, 0.01f), glm::vec4(1.0f, 0.8f, 0.6f, 1.0f), glm::vec3(0.4f, 3.0f, 20.0f));
 
 			this->m_SpriteRenderer->Render();
 
@@ -225,12 +225,13 @@ namespace Editor {
 				this->m_TexturePlayer,
 				this->m_NormalPlayer,
 
-				glm::vec4(playerX, playerY, 64, 64),
+				//glm::vec4(playerX, playerY, 64, 64),
+				glm::vec4(580, 300, 64, 64),
 
 				spriteFrame
 			);
 
-			this->m_SpriteRenderer->AddLightSource(glm::vec3(600.0, 400.0, 0.01f), glm::vec4(1.0f, 0.8f, 0.6f, 1.0f), glm::vec3(0.1f, 1.0f, 900.0f));
+			this->m_SpriteRenderer->AddSpotLight(glm::vec3(600.0, 400.0, 0.01f), glm::vec4(1.0f, 0.8f, 0.6f, 1.0f), glm::vec3(0.1f, 1.0f, 900.0f));
 
 			this->m_SpriteRenderer->Render();
 
@@ -245,10 +246,7 @@ namespace Editor {
 
 
 
-
-
 			glBindFramebuffer(GL_FRAMEBUFFER, 0);
-			glViewport(0, 0, this->m_InitialWindowWidth, this->m_InitialWindowHeight);
 
 			// Get FBO texture dimensions
 			float texPosX = this->m_FrameBufferRect.x;

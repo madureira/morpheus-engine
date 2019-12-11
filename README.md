@@ -33,11 +33,13 @@ The engine use the following libraries:
 - [FreeType2:](https://www.freetype.org/) Render fonts;
 - [Glad:](https://glad.dav1d.de/) OpenGL loader;
 - [GLFW:](https://www.glfw.org/) Window and input;
-- [glm:](https://glm.g-truc.net) Math library;
+- [glm:](https://glm.g-truc.net) OpenGL Mathematics (GLM) is a header only C++ mathematics library;
+- [IconFontCppHeaders:](https://github.com/juliettef/IconFontCppHeaders) C++11, C89 headers and C# classes for icon fonts Font Awesome;
 - [ImGui:](https://github.com/ocornut/imgui) Immediate Mode Graphical User interface;
 - [Lua:](https://www.lua.org/) Script language;
 - [Premake:](https://premake.github.io/index.html) Build configuration;
-- [Sol3:](https://github.com/ThePhD/sol2) A C++ library binding to Lua;
+- [sol3:](https://github.com/ThePhD/sol2) A C++ library binding to Lua;
+- [spdlog:](https://github.com/gabime/spdlog) Very fast, header-only/compiled, C++ logging library;
 - [stb_image:](https://github.com/nothings/stb) Image loading/decoding from file/memory;
 
 ## Platforms
@@ -62,7 +64,7 @@ clean.bat
 
 ![Linux](.github/linux-logo.png?raw=true "Linux")
 
-## Linux
+## Linux (WIP)
 
 Generating Makefile
 
