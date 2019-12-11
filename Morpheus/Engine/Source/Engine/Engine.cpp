@@ -11,6 +11,8 @@ namespace Morpheus {
 
 	Engine::Engine() : m_App(nullptr)
 	{
+		Morpheus::Log::Init();
+
 		this->m_Settings = new Settings(this->m_Registry);
 
 		Morpheus::SettingsEntity settingsEntity{ this->m_Registry.create() };

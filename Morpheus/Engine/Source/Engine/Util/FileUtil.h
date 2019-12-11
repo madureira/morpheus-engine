@@ -1,6 +1,5 @@
 #pragma once
 
-#include <iostream>
 #include <string>
 #include <fstream>
 
@@ -16,7 +15,7 @@ namespace Morpheus {
 
 			if (pFile == NULL)
 			{
-				std::cout << "Cannot open file: " << filePath << std::endl;
+				ME_CORE_ERROR("FileUtil: Cannot open file: {0}", filePath);
 				return "";
 			}
 

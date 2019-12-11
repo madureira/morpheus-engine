@@ -52,7 +52,7 @@ namespace Morpheus {
 	{
 		if (!glfwInit())
 		{
-			std::cout << "Could not initialize GLFW" << std::endl;
+			ME_CORE_ERROR("GLFW ERROR: {0}", "Could not initialize GLFW");
 			this->Shutdown();
 			return;
 		}
@@ -84,7 +84,7 @@ namespace Morpheus {
 
 		if (!this->m_Window)
 		{
-			std::cout << "Could not create GLFWwindow*" << std::endl;
+			ME_CORE_ERROR("GLFW ERROR: {0}", "Could not create GLFWwindow*");
 			this->Shutdown();
 			return;
 		}
@@ -112,7 +112,7 @@ namespace Morpheus {
 
 		glfwSetErrorCallback([](int error, const char* description)
 			{
-				std::cout << "GLFW ERROR: code " << error << " msg: " << description << std::endl;
+				ME_CORE_ERROR("GLFW ERROR: code: {0}, message: {1}", error, description);
 			});
 
 		glfwSetWindowSizeCallback(this->m_Window, [](GLFWwindow* pNativeWindow, int width, int height)
@@ -130,12 +130,12 @@ namespace Morpheus {
 
 		if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
 		{
-			std::cout << "Failed to initialize OpenGL context" << std::endl;
+			ME_CORE_ERROR("OpenGL ERROR: {0}", "Failed to initialize OpenGL context");
 			this->Shutdown();
 			return;
 		}
 
-		std::cout << "OpenGL " << glGetString(GL_VERSION) << std::endl;
+		ME_CORE_INFO("OpenGL {0}", glGetString(GL_VERSION));
 
 		// Set OpenGL options
 		glEnable(GL_BLEND);

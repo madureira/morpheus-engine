@@ -24,6 +24,7 @@ IncludeDir["glm"] = "Libraries/glm"
 IncludeDir["sol3"] = "Libraries/sol3/include"
 IncludeDir["stb_image"] = "Libraries/stb_image/include"
 IncludeDir["entt"] = "Libraries/entt/include"
+IncludeDir["spdlog"] = "Libraries/spdlog/include"
 
 group "Dependencies"
 	include "Libraries/GLFW"
@@ -65,7 +66,8 @@ project "Engine"
 		"%{IncludeDir.glm}",
 		"%{IncludeDir.sol3}",
 		"%{IncludeDir.stb_image}",
-		"%{IncludeDir.entt}"
+		"%{IncludeDir.entt}",
+		"%{IncludeDir.spdlog}"
 	}
 
 	links {
@@ -132,7 +134,8 @@ project "Editor"
 		"%{IncludeDir.glm}",
 		"%{IncludeDir.sol3}",
 		"%{IncludeDir.stb_image}",
-		"%{IncludeDir.entt}"
+		"%{IncludeDir.entt}",
+		"%{IncludeDir.spdlog}"
 	}
 
 	links {
@@ -193,7 +196,8 @@ project "Game"
 		"%{IncludeDir.glm}",
 		"%{IncludeDir.sol3}",
 		"%{IncludeDir.stb_image}",
-		"%{IncludeDir.entt}"
+		"%{IncludeDir.entt}",
+		"%{IncludeDir.spdlog}"
 	}
 
 	links {

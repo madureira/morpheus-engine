@@ -15,7 +15,7 @@ namespace Morpheus {
 
 		if (!image.pixels)
 		{
-			std::cout << "ERROR: Fail to load the image: " << imagePath << std::endl;
+			ME_CORE_ERROR("ImageLoader: Fail to load the image {0}", imagePath);
 		}
 
 		return image;
