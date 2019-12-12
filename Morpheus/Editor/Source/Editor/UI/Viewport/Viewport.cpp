@@ -1,5 +1,6 @@
 #include "Viewport.h"
 #include <glad/glad.h>
+#include "Engine/Log/Log.h"
 
 namespace Editor {
 
@@ -121,31 +122,37 @@ namespace Editor {
 			if (inputState.UP)
 			{
 				playerY += speed;
+				ME_LOG_INFO("UP");
 			}
 
 			if (inputState.DOWN)
 			{
 				playerY -= speed;
+				ME_LOG_ERROR("DOWN");
 			}
 
 			if (inputState.RIGHT)
 			{
 				playerX += speed;
+				ME_LOG_WARN("RIGHT");
 			}
 
 			if (inputState.LEFT)
 			{
 				playerX -= speed;
+				ME_LOG_TRACE("LEFT");
 			}
 
 			if (inputState.W)
 			{
 				zoom += scaleFactor;
+				ME_LOG_CRITICAL("ZOOM IN");
 			}
 
 			if (inputState.S)
 			{
 				zoom -= scaleFactor;
+				ME_LOG_INFO("ZOOM OUT");
 			}
 
 			zoom = zoom < scaleFactor ? scaleFactor : zoom;

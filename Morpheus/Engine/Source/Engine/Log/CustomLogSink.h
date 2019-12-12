@@ -61,6 +61,11 @@ namespace Morpheus {
 
 		void flush_() override
 		{
+			for (auto message = s_MessageBuffer.begin(); message != s_MessageBuffer.end(); message++)
+			{
+				(*message) = CreateRef<LogMessage>();
+			}
+			s_MessageBufferBegin = 0;
 		}
 
 		static LogMessage::LogLevel GetMessageLevel(const spdlog::level::level_enum level)
@@ -111,6 +116,11 @@ namespace Morpheus {
 			{
 				s_MessageBufferSize++;
 			}
+
+			if (s_AllowScrollingToBottom)
+			{
+				s_RequestScrollToBottom = true;
+			}
 		}
 
 	public:
@@ -118,6 +128,8 @@ namespace Morpheus {
 		static uint16_t s_MessageBufferSize;
 		static uint16_t s_MessageBufferBegin;
 		static std::vector<Ref<LogMessage>> s_MessageBuffer;
+		static bool s_AllowScrollingToBottom;
+		static bool s_RequestScrollToBottom;
 	};
 
 }
@@ -132,4 +144,6 @@ namespace Morpheus {
 	uint16_t CustomLogSink_mt::s_MessageBufferSize = 0;
 	uint16_t CustomLogSink_mt::s_MessageBufferBegin = 0;
 	std::vector<Ref<LogMessage>> CustomLogSink_mt::s_MessageBuffer = std::vector<Ref<LogMessage>>(200);
+	bool CustomLogSink_mt::s_AllowScrollingToBottom = true;
+	bool CustomLogSink_mt::s_RequestScrollToBottom = false;
 }
