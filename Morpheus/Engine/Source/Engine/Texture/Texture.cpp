@@ -12,7 +12,7 @@ namespace Morpheus {
 
 		if (!image.pixels)
 		{
-			ME_CORE_ERROR("Texture: Fail to create the texture");
+			ME_LOG_ERROR("Texture: Fail to create the texture");
 			return;
 		}
 

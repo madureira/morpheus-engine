@@ -12,13 +12,13 @@ namespace Morpheus {
 
 		if (FT_Init_FreeType(&ft))
 		{
-			ME_CORE_ERROR("FREETYPE: {0}", "Could not init FreeType Library");
+			ME_LOG_ERROR("FREETYPE: {0}", "Could not init FreeType Library");
 		}
 
 		FT_Face face;
 		if (FT_New_Face(ft, fontPath.c_str(), 0, &face))
 		{
-			ME_CORE_ERROR("FREETYPE: {0}", "Failed to load font");
+			ME_LOG_ERROR("FREETYPE: {0}", "Failed to load font");
 		}
 
 		FT_Set_Pixel_Sizes(face, 0, 48);
@@ -29,7 +29,7 @@ namespace Morpheus {
 		{
 			if (FT_Load_Char(face, c, FT_LOAD_RENDER))
 			{
-				ME_CORE_ERROR("FREETYPE: {0}", "Failed to load Glyph");
+				ME_LOG_ERROR("FREETYPE: {0}", "Failed to load Glyph");
 				continue;
 			}
 

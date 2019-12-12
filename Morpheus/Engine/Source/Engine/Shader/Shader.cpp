@@ -121,7 +121,7 @@ namespace Morpheus {
 
 		if (shaderFile.empty())
 		{
-			ME_CORE_ERROR("Shader: {0} {1}", shaderType.c_str(), "shader is empty!");
+			ME_LOG_ERROR("Shader: {0} {1}", shaderType.c_str(), "shader is empty!");
 			return false;
 		}
 
@@ -141,7 +141,7 @@ namespace Morpheus {
 			glGetShaderiv(shader, GL_INFO_LOG_LENGTH, &length);
 			std::vector<char> error(length);
 			glGetShaderInfoLog(shader, length, &length, &error[0]);
-			ME_CORE_ERROR("Shader: Failed to compile {0} {1} {2}", shaderType.c_str(), "shader! ", &error[0]);
+			ME_LOG_ERROR("Shader: Failed to compile {0} {1} {2}", shaderType.c_str(), "shader! ", &error[0]);
 			glDeleteShader(shader);
 			return false;
 		}

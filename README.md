@@ -25,7 +25,7 @@ A simple game engine built in C++ and OpenGL.
 - Basic Lua scripting support;
 - PS4 controller support;
 
-## Third Party
+## 3rd Party Libraries
 
 The engine use the following libraries:
 

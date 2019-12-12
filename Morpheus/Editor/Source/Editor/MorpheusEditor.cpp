@@ -43,6 +43,8 @@ namespace Editor {
 		icons_config.MergeMode = true;
 		icons_config.PixelSnapH = true;
 
+		//io.Fonts->AddFontDefault();
+
 		ImFont* textFont = io.Fonts->AddFontFromFileTTF("Assets/fonts/roboto-regular.ttf", 16.0f);
 		IM_ASSERT(textFont != NULL);
 

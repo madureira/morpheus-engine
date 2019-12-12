@@ -78,6 +78,7 @@ project "Engine"
 	}
 
 	defines {
+		"MORPHEUS_CORE",
 		"_CRT_SECURE_NO_WARNINGS"
 	}
 
@@ -144,6 +145,8 @@ project "Editor"
 	}
 
 	defines {
+		"MORPHEUS_CORE",
+		"MORPHEUS_EDITOR",
 		"_CRT_SECURE_NO_WARNINGS"
 	}
 
@@ -205,6 +208,7 @@ project "Game"
 	}
 
 	defines {
+		"MORPHEUS_APP",
 		"_CRT_SECURE_NO_WARNINGS"
 	}
 

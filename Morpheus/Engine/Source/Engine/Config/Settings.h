@@ -52,7 +52,7 @@ namespace Morpheus {
 
 			if (!this->IsSettingsValid(settingsContent, registry))
 			{
-				ME_CORE_ERROR("Settings: Fail to parse {0}", SETTINGS_FILE_PATH);
+				ME_LOG_ERROR("Settings: Fail to parse {0}", SETTINGS_FILE_PATH);
 			}
 		}
 

@@ -15,7 +15,7 @@ namespace Morpheus {
 
 		if (!image.pixels)
 		{
-			ME_CORE_ERROR("ImageLoader: Fail to load the image {0}", imagePath);
+			ME_LOG_ERROR("ImageLoader: Fail to load the image {0}", imagePath);
 		}
 
 		return image;

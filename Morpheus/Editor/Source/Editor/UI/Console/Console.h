@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Editor/UI/UIComponent.h"
+#include "Engine/Log/Log.h"
 
 namespace Editor {
 

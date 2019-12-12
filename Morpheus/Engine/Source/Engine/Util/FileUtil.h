@@ -15,7 +15,7 @@ namespace Morpheus {
 
 			if (pFile == NULL)
 			{
-				ME_CORE_ERROR("FileUtil: Cannot open file: {0}", filePath);
+				ME_LOG_ERROR("FileUtil: Cannot open file: {0}", filePath);
 				return "";
 			}
 
