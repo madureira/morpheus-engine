@@ -272,7 +272,9 @@ newaction {
 		os.remove("./Libraries/imgui/Makefile")
 		os.remove("./Libraries/lua/Lua.vcxproj")
 		os.remove("./Libraries/lua/Lua.vcxproj.*")
-		os.remove("./Libraries/lua/Makefile")
+		os.remove("./Libraries/nativefiledialog/nfd.vcxproj")
+		os.remove("./Libraries/nativefiledialog/nfd.vcxproj.*")
+		os.remove("./Libraries/nativefiledialog/Makefile")
 		os.rmdir("./Libraries/freetype2/bin")
 		os.rmdir("./Libraries/freetype2/bin-int")
 		os.rmdir("./Libraries/Glad/bin")
@@ -283,6 +285,8 @@ newaction {
 		os.rmdir("./Libraries/imgui/bin-int")
 		os.rmdir("./Libraries/lua/bin")
 		os.rmdir("./Libraries/lua/bin-int")
+		os.rmdir("./Libraries/nativefiledialog/bin")
+		os.rmdir("./Libraries/nativefiledialog/bin-int")
 		print("Done.")
 	end
 }

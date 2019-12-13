@@ -5,9 +5,8 @@
 [![c++](https://img.shields.io/badge/std-c++17-blue.svg)](https://isocpp.org/)
 [![msvc2019+](https://img.shields.io/badge/MSVC-2019+-ff69b4.svg)](https://visualstudio.microsoft.com/downloads)
 [![platform](https://img.shields.io/badge/platform-Windows10-blue.svg)](https://www.microsoft.com/en-us/windows/)
-[![platform](https://img.shields.io/badge/platform-Ubuntu-orange.svg)](https://www.ubuntu.com)
 
-A simple game engine built in C++ and OpenGL.
+A game engine built in C++ and OpenGL.
 
 > Initial development is in progress, but there has not yet been a stable, usable release suitable for the public.
 
@@ -17,7 +16,6 @@ A simple game engine built in C++ and OpenGL.
 
 ## Features
 
-- Support for Windows and Linux;
 - Modern OpenGL features;
 - 2D batch rendering;
 - Normal Map for 2D sprites;
@@ -64,28 +62,6 @@ Double click on the generated `Morpheus.sln` file.
 clean.bat
 ```
 
-![Linux](.github/linux-logo.png?raw=true "Linux")
-
-## Linux (WIP)
-
-Generating Makefile
-
-```
-./install.sh
-```
-
-### Building
-
-```
-make
-```
-
-### Clean installation files
-
-```
-./clean.sh
-```
-
 ---
 
 ## TODO
@@ -93,3 +69,5 @@ make
 - [ ] Allow creating a new project through the editor;
 - [ ] Allow building the project through the editor;
 - [ ] Generate the game executable through the editor;
+- [ ] Add linux support;
+- [ ] Add MacOS support;
