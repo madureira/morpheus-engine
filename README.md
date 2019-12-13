@@ -36,7 +36,9 @@ The engine use the following libraries:
 - [glm:](https://glm.g-truc.net) OpenGL Mathematics (GLM) is a header only C++ mathematics library;
 - [IconFontCppHeaders:](https://github.com/juliettef/IconFontCppHeaders) C++11, C89 headers and C# classes for icon fonts Font Awesome;
 - [ImGui:](https://github.com/ocornut/imgui) Immediate Mode Graphical User interface;
+- [ImGuiFileDialog:](https://github.com/aiekick/ImGuiFileDialog) File Dialog for ImGui;
 - [Lua:](https://www.lua.org/) Script language;
+- [nativefiledialog:](https://github.com/mlabbe/nativefiledialog) A tiny, neat C library that portably invokes native file open and save dialogs;
 - [Premake:](https://premake.github.io/index.html) Build configuration;
 - [sol3:](https://github.com/ThePhD/sol2) A C++ library binding to Lua;
 - [spdlog:](https://github.com/gabime/spdlog) Very fast, header-only/compiled, C++ logging library;

@@ -25,6 +25,7 @@ IncludeDir["sol3"] = "Libraries/sol3/include"
 IncludeDir["stb_image"] = "Libraries/stb_image/include"
 IncludeDir["entt"] = "Libraries/entt/include"
 IncludeDir["spdlog"] = "Libraries/spdlog/include"
+IncludeDir["nativefiledialog"] = "Libraries/nativefiledialog/src/include"
 
 group "Dependencies"
 	include "Libraries/GLFW"
@@ -32,6 +33,7 @@ group "Dependencies"
 	include "Libraries/lua"
 	include "Libraries/imgui"
 	include "Libraries/freetype2"
+	include "Libraries/nativefiledialog"
 
 group ""
 
@@ -136,12 +138,14 @@ project "Editor"
 		"%{IncludeDir.sol3}",
 		"%{IncludeDir.stb_image}",
 		"%{IncludeDir.entt}",
-		"%{IncludeDir.spdlog}"
+		"%{IncludeDir.spdlog}",
+		"%{IncludeDir.nativefiledialog}"
 	}
 
 	links {
 		"Engine",
-		"ImGui"
+		"ImGui",
+		"nfd"
 	}
 
 	defines {
