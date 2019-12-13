@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Editor/UI/UIComponent.h"
+#include <array>
 
 namespace Editor {
 
@@ -8,8 +9,8 @@ namespace Editor {
 	{
 	private:
 		bool m_IsOpened = true;
-		char m_ProjectName[64] = "";
-		char m_ProjectLocation[64] = "";
+		std::array<char, 256> m_ProjectName;
+		std::array<char, 512> m_ProjectLocation;
 
 	public:
 		void Draw(entt::registry& registry) override;

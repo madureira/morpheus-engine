@@ -6,69 +6,84 @@ namespace Editor {
 
 	void NewProject::Draw(entt::registry& registry)
 	{
-		ImGuiWindowFlags window_flags = ImGuiWindowFlags_NoMove
+		ImGuiWindowFlags windowFlags = ImGuiWindowFlags_NoMove
 			| ImGuiWindowFlags_NoResize
 			| ImGuiWindowFlags_NoCollapse
 			| ImGuiWindowFlags_NoScrollbar;
 
-		float width = 380.0f;
-		float height = 170.0f;
+		float modalWidth = 350.0f;
+		float modalHeight = 170.0f;
 
 		ImGuiIO& io = ImGui::GetIO(); (void)io;
-		float posX = (io.DisplaySize.x - width) / 2;
-		float posY = (io.DisplaySize.y - height) / 2;
+		float posX = (io.DisplaySize.x - modalWidth) / 2;
+		float posY = (io.DisplaySize.y - modalHeight) / 2;
 
 		ImGui::SetNextWindowPos(ImVec2(posX, posY));
-		ImGui::SetNextWindowSize(ImVec2(width, height));
+		ImGui::SetNextWindowSize(ImVec2(modalWidth, modalHeight));
 
 		ImGui::OpenPopup("###new_project");
-		if (ImGui::BeginPopupModal(ICON_FA_FOLDER_PLUS"  New###new_project", NULL, window_flags))
+		if (ImGui::BeginPopupModal(ICON_FA_FOLDER_PLUS"  New###new_project", NULL, windowFlags))
 		{
+			ImGui::Dummy(ImVec2(5.0f, 0.0f));ImGui::SameLine();
 			ImGui::Text("Create a new project");
 			ImGui::Separator();
-			ImGui::Spacing();
-			ImGui::Spacing();
-			ImGui::Spacing();
-			ImGui::Spacing();
-			ImGui::Spacing();
 
-			ImGui::Indent(10);
-			ImGui::Text("Project name:");
-			ImGui::SameLine(110);
-			ImGui::InputText("##projectName", this->m_ProjectName, IM_ARRAYSIZE(this->m_ProjectName));
-			ImGui::Spacing();
-			ImGui::Spacing();
-			ImGui::Spacing();
+			ImGui::Dummy(ImVec2(0.0f, 5.0f));
+			ImGui::Dummy(ImVec2(5.0f, 0.0f)); ImGui::SameLine();
+			ImGui::Text("Project name:"); ImGui::SameLine();
+			ImGui::InputText("##projectName", this->m_ProjectName.data(), this->m_ProjectName.size());
 
-			ImGui::Indent(30);
-			ImGui::Text("Location:");
-			ImGui::SameLine(110);
-			ImGui::InputText("##projectLocation", this->m_ProjectLocation, IM_ARRAYSIZE(this->m_ProjectLocation));
-			ImGui::Spacing();
-			ImGui::Spacing();
-			ImGui::Spacing();
-			ImGui::Spacing();
-			ImGui::Spacing();
-
-			ImGui::Separator();
-			ImGui::Spacing();
-			ImGui::Spacing();
-			ImGui::Spacing();
-			ImGui::Spacing();
-
-			ImGui::Indent(190);
-			if (ImGui::Button("Confirm"))
-			{
-				std::string selectedPath = FileSystemDialog::Open();
-				ME_LOG_INFO("SELECTED FILE: {0}", selectedPath);
-			}
+			ImGui::Dummy(ImVec2(0.0f, 5.0f));
+			ImGui::Dummy(ImVec2(32.0f, 0.0f)); ImGui::SameLine();
+			ImGui::Text("Location:"); ImGui::SameLine();
+			ImGui::PushItemWidth(191);
+			ImGui::PushItemFlag(ImGuiItemFlags_Disabled, true);
+			ImGui::PushStyleVar(ImGuiStyleVar_Alpha, ImGui::GetStyle().Alpha * 0.5f);
+			ImGui::InputText("##projectLocation", this->m_ProjectLocation.data(), this->m_ProjectLocation.size());
+			ImGui::PopItemFlag();
+			ImGui::PopStyleVar();
+			ImGui::PopItemWidth();
 			ImGui::SameLine();
 
-			ImGui::Indent(70);
+			if (ImGui::Button(ICON_FA_FOLDER_OPEN))
+			{
+				std::string selectedPath = FileSystemDialog::OpenFolderSelector();
+				std::copy(selectedPath.begin(), selectedPath.end(), this->m_ProjectLocation.data());
+			}
+
+			ImGui::Dummy(ImVec2(0.0f, 5.0f));
+			ImGui::Separator();
+			ImGui::Dummy(ImVec2(0.0f, 5.0f));
+
+			ImGui::Indent(203);
 			if (ImGui::Button("Cancel"))
 			{
 				this->m_IsOpened = false;
 				ImGui::CloseCurrentPopup();
+			}
+			ImGui::SameLine();
+
+			std::string projectName(this->m_ProjectName.data());
+			std::string projectLocation(this->m_ProjectLocation.data());
+
+			if (projectName.empty() || projectLocation.empty())
+			{
+				ImGui::PushItemFlag(ImGuiItemFlags_Disabled, true);
+				ImGui::PushStyleVar(ImGuiStyleVar_Alpha, ImGui::GetStyle().Alpha * 0.5f);
+			}
+
+			ImGui::Indent(62);
+			if (ImGui::Button("Confirm"))
+			{
+				this->m_IsOpened = false;
+				ME_LOG_INFO("Creating project: {0} into directory: {1}", projectName, projectLocation);
+				ImGui::CloseCurrentPopup();
+			}
+
+			if (projectName.empty() || projectLocation.empty())
+			{
+				ImGui::PopItemFlag();
+				ImGui::PopStyleVar();
 			}
 			ImGui::EndPopup();
 		}

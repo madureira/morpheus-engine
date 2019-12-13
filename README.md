@@ -6,7 +6,7 @@
 [![msvc2019+](https://img.shields.io/badge/MSVC-2019+-ff69b4.svg)](https://visualstudio.microsoft.com/downloads)
 [![platform](https://img.shields.io/badge/platform-Windows10-blue.svg)](https://www.microsoft.com/en-us/windows/)
 
-A game engine built in C++ and OpenGL.
+Game engine built in C++ and OpenGL.
 
 > Initial development is in progress, but there has not yet been a stable, usable release suitable for the public.
 
