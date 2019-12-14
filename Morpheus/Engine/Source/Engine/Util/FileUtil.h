@@ -2,16 +2,19 @@
 
 #include <string>
 #include <fstream>
+#include <filesystem>
 
 namespace Morpheus {
+
+	namespace fs = std::filesystem;
 
 	class FileUtil
 	{
 	public:
-		static std::string ReadFile(const char* filePath)
+		static std::string ReadFile(std::string filePath)
 		{
 			FILE* pFile;
-			fopen_s(&pFile, filePath, "rt");
+			fopen_s(&pFile, filePath.c_str(), "rt");
 
 			if (pFile == NULL)
 			{
@@ -33,6 +36,48 @@ namespace Morpheus {
 
 			return result;
 		}
+
+		static void WriteFile(std::string path, std::string fileName, std::string fileContent)
+		{
+			std::string filePathName(path + PathSeparator() + fileName);
+			std::ofstream newFile(filePathName, std::ios_base::app);
+			newFile << fileContent << "\n";
+			newFile.close();
+		}
+
+		static bool CreateFolder(std::string path, std::string folderName)
+		{
+			std::string newDir(path + PathSeparator() + folderName);
+
+			if (!fs::is_directory(newDir) || !fs::exists(newDir))
+			{
+				fs::create_directory(newDir);
+				return true;
+			}
+
+			return false;
+		}
+
+		static std::string PathSeparator()
+		{
+#ifdef _WIN32
+			return "\\";
+#else
+			return "/";
+#endif
+		}
+
+	private:
+		bool FileExists(const char* fileName)
+		{
+			if (FILE* file = fopen(fileName, "r")) {
+				fclose(file);
+				return true;
+			}
+
+			return false;
+		}
+
 	};
 
 }

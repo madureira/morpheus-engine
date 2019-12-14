@@ -1,6 +1,6 @@
 #include "NewProject.h"
 #include "Editor/UI/FileSystemDialog/FileSystemDialog.h"
-#include "Engine/Log/Log.h"
+#include "Engine/Util/FileUtil.h"
 
 namespace Editor {
 
@@ -75,9 +75,21 @@ namespace Editor {
 			ImGui::Indent(62);
 			if (ImGui::Button("Confirm"))
 			{
-				this->m_IsOpened = false;
 				ME_LOG_INFO("Creating project: {0} into directory: {1}", projectName, projectLocation);
-				ImGui::CloseCurrentPopup();
+
+				if (Morpheus::FileUtil::CreateFolder(projectLocation, projectName))
+				{
+					std::string pathSep = Morpheus::FileUtil::PathSeparator();
+					std::string filePath = projectLocation + pathSep + projectName;
+					Morpheus::FileUtil::WriteFile(filePath, "project.json", "{\n  name: \"" + projectName + "\"\n}");
+					this->m_IsOpened = false;
+					ImGui::CloseCurrentPopup();
+					ME_LOG_INFO("Project create successfully");
+				}
+				else
+				{
+					ME_LOG_ERROR("Fail to create the folder");
+				}
 			}
 
 			if (projectName.empty() || projectLocation.empty())

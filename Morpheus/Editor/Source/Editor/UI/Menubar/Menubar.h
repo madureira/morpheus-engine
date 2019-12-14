@@ -11,6 +11,7 @@ namespace Editor {
 		NewProject* m_NewProject;
 
 	public:
+		~Menubar();
 		void Draw(entt::registry& registry) override;
 	};
 

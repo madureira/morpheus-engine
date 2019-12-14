@@ -4,6 +4,7 @@
 #include <imgui_internal.h>
 #include "Vendors/IconsFontAwesome5.h"
 #include "Engine/ECS/ECS.h"
+#include "Engine/Log/Log.h"
 
 namespace Editor {
 
