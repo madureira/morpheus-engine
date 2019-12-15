@@ -18,8 +18,9 @@ Game engine built in C++ and OpenGL.
 
 - Modern OpenGL features;
 - 2D batch rendering;
-- Normal Map for 2D sprites;
 - 2D Dynamic illumination;
+- Normal Map for 2D sprites;
+- Specular Map for 2D sprites;
 - Basic Lua scripting support;
 - PS4 controller support;
 
