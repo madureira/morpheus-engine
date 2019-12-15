@@ -11,7 +11,8 @@ namespace Editor {
 
 	void Menubar::Draw(entt::registry& registry)
 	{
-		if (ImGui::BeginMainMenuBar()) {
+		if (ImGui::BeginMainMenuBar())
+		{
 			if (ImGui::BeginMenu("File"))
 			{
 				if (ImGui::MenuItem(ICON_FA_FOLDER_PLUS "   New Project..."))
@@ -24,9 +25,12 @@ namespace Editor {
 
 				if (ImGui::MenuItem(ICON_FA_FOLDER_OPEN "  Open Project..."))
 				{
-					std::string selectedProject = FileSystemDialog::OpenFileSelector();
+					std::string selectedProject = FileSystemDialog::OpenFolderSelector();
 					if (!selectedProject.empty())
 					{
+						auto& projectEntity = registry.ctx<Morpheus::ProjectEntity>();
+						auto& projectComponent = registry.get<Morpheus::ProjectComponent>(projectEntity.id);
+						projectComponent.projectPath = selectedProject;
 						ME_LOG_INFO("Project selected: {0}", selectedProject);
 					}
 				}

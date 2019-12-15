@@ -58,6 +58,13 @@ namespace Editor {
 		auto& windowComponent = registry.get<Morpheus::WindowComponent>(windowEntity.id);
 		registry.assign<Morpheus::ColorComponent>(windowEntity.id, 0.0f, 0.0f, 0.0f, 1.0f);
 
+		Morpheus::ProjectComponent projectComponent;
+		projectComponent.projectPath = "";
+
+		Morpheus::ProjectEntity projectEntity{ registry.create() };
+		registry.set<Morpheus::ProjectEntity>(projectEntity);
+		registry.assign<Morpheus::ProjectComponent>(projectEntity.id, projectComponent);
+
 		ImGui_ImplGlfw_InitForOpenGL(static_cast<GLFWwindow*>(windowComponent.GetNativeWindow()), true);
 		ImGui_ImplOpenGL3_Init("#version 430");
 

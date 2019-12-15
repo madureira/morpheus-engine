@@ -1,88 +1,86 @@
 #include "TreeView.h"
+#include "Engine/Util/FileUtil.h"
+
+#include <fstream>
+#include <iostream>
 
 namespace Editor {
 
-	TreeView::TreeView()
+	TreeView::TreeView(std::string& path)
+		: m_JSON(nullptr)
 	{
-		this->m_TreeState[1] = false;
-		this->m_TreeState[2] = false;
+		this->m_JSON = json::parse(Morpheus::FileUtil::ReadDirectoryTreeAsJsonString(path));
 	}
 
 	void TreeView::Draw(entt::registry& registry)
 	{
-		static int nodeClicked = -1;
+		this->DrawFileTree(this->m_JSON);
+	}
 
-		static int node1 = 1;
-		static int node2 = 2;
-
-		bool nodeOpened = this->CreateFolderNode(node1, "Root");
-
-		if (ImGui::IsItemClicked() || ImGui::IsItemFocused())
+	void TreeView::DrawFileTree(json& tree)
+	{
+		if (tree["type"] == "folder")
 		{
-			nodeClicked = node1;
-		}
+			if (this->m_TreeState.find(tree["path"]) == this->m_TreeState.end())
+			{
+				this->m_TreeState[tree["path"]] = false;
+			}
 
-		if (nodeOpened)
-		{
-			this->m_TreeState[node1] = true;
-
-			nodeOpened = this->CreateFolderNode(node2, "Child");
+			this->m_TreeState[tree["path"]] = this->CreateFolderNode(tree["path"], tree["name"]);
 
 			if (ImGui::IsItemClicked() || ImGui::IsItemFocused())
 			{
-				nodeClicked = node2;
+				ME_LOG_INFO("Folder path: {0}", tree["path"]);
 			}
 
-			if (nodeOpened)
+			if (this->m_TreeState[tree["path"]])
 			{
-				this->m_TreeState[node2] = true;
-
-				this->CreateFileNode(3, "File.h");
-				this->CreateFileNode(4, "File.cpp");
-
+				for (auto& node : tree["children"])
+				{
+					this->DrawFileTree(node);
+				}
 				ImGui::TreePop();
 			}
-			else
-			{
-				this->m_TreeState[node2] = false;
-			}
-
-			ImGui::TreePop();
 		}
 		else
 		{
-			this->m_TreeState[1] = false;
+			this->CreateFileNode(tree["path"], tree["name"]);
+
+			if (ImGui::IsItemClicked() || ImGui::IsItemFocused())
+			{
+				ME_LOG_INFO("File size: {0}", tree["size"]);
+			}
 		}
 	}
 
-	bool TreeView::CreateFolderNode(int nodeIndex, std::string nodeTitle)
+	bool TreeView::CreateFolderNode(std::string nodeIndex, std::string nodeTitle)
 	{
 		nodeTitle = this->BuildFolderTitle(nodeTitle, this->m_TreeState[nodeIndex]);
-		return ImGui::TreeNodeEx((void*)(intptr_t)nodeIndex, ImGuiTreeNodeFlags_None, nodeTitle.c_str(), nodeIndex);
+		ImGuiTreeNodeFlags flags = ImGuiTreeNodeFlags_None;
+		return ImGui::TreeNodeEx(nodeTitle.c_str(), flags);
 	}
 
-	void TreeView::CreateFileNode(int nodeIndex, std::string nodeTitle)
+	void TreeView::CreateFileNode(std::string nodeIndex, std::string nodeTitle)
 	{
-		ImGuiTreeNodeFlags nodeFlags = ImGuiTreeNodeFlags_Leaf | ImGuiTreeNodeFlags_NoTreePushOnOpen;
 		nodeTitle = this->BuildFileTitle(nodeTitle);
-		ImGui::TreeNodeEx((void*)(intptr_t)nodeIndex, nodeFlags, nodeTitle.c_str(), nodeIndex);
+		ImGuiTreeNodeFlags flags = ImGuiTreeNodeFlags_Leaf | ImGuiTreeNodeFlags_NoTreePushOnOpen;
+		ImGui::TreeNodeEx(nodeTitle.c_str(), flags);
 	}
 
-	std::string TreeView::BuildFolderTitle(std::string title, bool isOpened)
+	std::string TreeView::BuildFolderTitle(std::string& title, bool isOpened)
 	{
-		std::string nodeTitle = isOpened ? ICON_FA_FOLDER_OPEN : ICON_FA_FOLDER;
+		//std::string nodeTitle = isOpened ? ICON_FA_FOLDER_OPEN : ICON_FA_FOLDER;
+		std::string nodeTitle = ICON_FA_FOLDER;
 		nodeTitle += "  ";
 		nodeTitle += title;
-
 		return nodeTitle;
 	}
 
-	std::string TreeView::BuildFileTitle(std::string title)
+	std::string TreeView::BuildFileTitle(std::string& title)
 	{
 		std::string nodeTitle = ICON_FA_FILE_CODE;
 		nodeTitle += "  ";
 		nodeTitle += title;
-
 		return nodeTitle;
 	}
 

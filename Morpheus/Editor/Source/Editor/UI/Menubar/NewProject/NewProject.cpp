@@ -85,6 +85,10 @@ namespace Editor {
 					this->m_IsOpened = false;
 					ImGui::CloseCurrentPopup();
 					ME_LOG_INFO("Project create successfully");
+
+					auto& projectEntity = registry.ctx<Morpheus::ProjectEntity>();
+					auto& projectComponent = registry.get<Morpheus::ProjectComponent>(projectEntity.id);
+					projectComponent.projectPath = filePath;
 				}
 				else
 				{
