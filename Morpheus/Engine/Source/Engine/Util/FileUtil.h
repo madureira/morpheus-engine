@@ -3,10 +3,12 @@
 #include <string>
 #include <fstream>
 #include <filesystem>
+#include <nlohmann/json.hpp>
 
 namespace Morpheus {
 
 	namespace fs = std::filesystem;
+	using json = nlohmann::json;
 
 	class FileUtil
 	{
@@ -58,6 +60,13 @@ namespace Morpheus {
 			return false;
 		}
 
+		static std::string ReadDirectoryTreeAsJsonString(std::string& path)
+		{
+			json tree;
+			BuildDirectoryTree(path, tree);
+			return tree.dump();
+		}
+
 		static std::string PathSeparator()
 		{
 #ifdef _WIN32
@@ -76,6 +85,48 @@ namespace Morpheus {
 			}
 
 			return false;
+		}
+
+		void static BuildDirectoryTree(const fs::path& pathToScan, json& tree)
+		{
+			for (const auto& entry : fs::directory_iterator(pathToScan)) {
+				if (tree.is_null())
+				{
+					tree["name"] = entry.path().parent_path().filename().string();
+					tree["path"] = entry.path().parent_path().string();
+					tree["type"] = "folder";
+					tree["children"] = json::array();
+				}
+
+				json node = json::object();
+				node["name"] = entry.path().filename().string();
+				node["path"] = entry.path().string();
+
+				if (entry.is_directory())
+				{
+					node["type"] = "folder";
+					node["children"] = json::array();
+
+					if (tree.is_null())
+					{
+						tree = node;
+						BuildDirectoryTree(entry, tree);
+					}
+					else
+					{
+						tree["children"].push_back(node);
+						BuildDirectoryTree(entry, tree["children"].back());
+					}
+				}
+				else if (entry.is_regular_file())
+				{
+					node["type"] = "file";
+					node["extension"] = std::filesystem::path(entry).extension().string();
+					node["size"] = std::to_string(entry.file_size()) + " bytes";
+
+					tree["children"].push_back(node);
+				}
+			}
 		}
 
 	};
