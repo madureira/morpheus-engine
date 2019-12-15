@@ -8,8 +8,11 @@ namespace Morpheus {
 		: m_Shader(nullptr),
 		m_DiffuseMap(nullptr),
 		m_NormalMap(nullptr),
+		m_SpecularMap(nullptr),
 		m_ScreenSize(screenSize),
-		m_AmbientColor(glm::vec4(1.0f, 1.0f, 1.f, 0.25f))
+		m_AmbientColor(glm::vec4(1.0f, 1.0f, 1.f, 0.25f)),
+		m_EnableNormal(true),
+		m_EnableSpecular(true)
 	{
 		this->m_Shader = new Morpheus::Shader("Assets/shaders/sprite.vert", "Assets/shaders/sprite.frag");
 
@@ -30,7 +33,8 @@ namespace Morpheus {
 		this->m_Shader->Enable();
 		this->m_Shader->SetVec2("Resolution", this->m_ScreenSize);
 		glUniform1i(this->m_Shader->GetUniformLocation("u_texture"), 0);
-		glUniform1i(this->m_Shader->GetUniformLocation("u_normals"), 1);
+		glUniform1i(this->m_Shader->GetUniformLocation("u_normal"), 1);
+		glUniform1i(this->m_Shader->GetUniformLocation("u_specular"), 2);
 		this->m_Shader->Disable();
 
 		SetScreenSize(this->m_ScreenSize);
@@ -41,13 +45,14 @@ namespace Morpheus {
 		glDeleteProgram(this->m_Shader->GetProgram());
 	}
 
-	void SpriteRenderer::Draw(Texture* pDiffuseMap, Texture* pNormalMap, glm::vec4 destRect, glm::vec4 sourceRect, glm::vec4 color)
+	void SpriteRenderer::Draw(Texture* pDiffuseMap, Texture* pNormalMap, Texture* pSpecularMap, glm::vec4 destRect, glm::vec4 sourceRect, glm::vec4 color)
 	{
 		if (this->m_DiffuseMap != pDiffuseMap)
 		{
 			this->Render();
 			this->m_DiffuseMap = pDiffuseMap;
 			this->m_NormalMap = pNormalMap;
+			this->m_SpecularMap = pSpecularMap;
 		}
 
 		this->m_Vertices.push_back(Vertex2dUVColor(glm::vec2(destRect.x, destRect.y), glm::vec2(sourceRect.x, sourceRect.y), color));
@@ -103,6 +108,9 @@ namespace Morpheus {
 		this->m_Shader->SetMat3("screenTransform", this->m_ScreenTransform);
 		this->m_Shader->SetFloat("scale", this->m_Scale);
 
+		this->m_Shader->SetBool("u_enableNormal", this->m_EnableNormal);
+		this->m_Shader->SetBool("u_enableSpecular", this->m_EnableSpecular);
+
 		glm::vec3 lightPositions[MAX_LIGHT_SOURCES] = { };
 		glm::vec4 lightColors[MAX_LIGHT_SOURCES] = { };
 		glm::vec3 lightFalloffs[MAX_LIGHT_SOURCES] = { };
@@ -129,6 +137,9 @@ namespace Morpheus {
 		glUniform3fv(this->m_Shader->GetUniformLocation("LightFalloff"), (GLsizei) this->m_SpotLights.size(), (float*) lightFalloffs);
 
 		glBindVertexArray(this->m_VAO);
+
+		glActiveTexture(GL_TEXTURE2);
+		glBindTexture(GL_TEXTURE_2D, this->m_SpecularMap->GetID());
 
 		glActiveTexture(GL_TEXTURE1);
 		glBindTexture(GL_TEXTURE_2D, this->m_NormalMap->GetID());
@@ -157,6 +168,16 @@ namespace Morpheus {
 		this->m_Shader->Disable();
 		this->m_Vertices.clear();
 		this->m_SpotLights.clear();
+	}
+
+	void SpriteRenderer::EnableNormal(bool enable)
+	{
+		this->m_EnableNormal = enable;
+	}
+
+	void SpriteRenderer::EnableSpecular(bool enable)
+	{
+		this->m_EnableSpecular = enable;
 	}
 
 }

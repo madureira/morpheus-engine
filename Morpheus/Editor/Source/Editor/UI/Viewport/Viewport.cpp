@@ -52,9 +52,15 @@ namespace Editor {
 
 		this->m_Texture = new Morpheus::Texture("Assets/images/tileset.png");
 		this->m_Normal = new Morpheus::Texture("Assets/images/tileset_n.png");
+		this->m_Specular = new Morpheus::Texture("Assets/images/tileset_s.png");
 
 		this->m_TexturePlayer = new Morpheus::Texture("Assets/images/ash.png");
 		this->m_NormalPlayer = new Morpheus::Texture("Assets/images/ash_n.png");
+		this->m_SpecularPlayer = new Morpheus::Texture("Assets/images/ash_s.png");
+
+		this->m_TextureHexagon = new Morpheus::Texture("Assets/images/Hexagon/HexagonTile_DIFF.png");
+		this->m_NormalHexagon = new Morpheus::Texture("Assets/images/Hexagon/HexagonTile_NRM.png");
+		this->m_SpecularHexagon = new Morpheus::Texture("Assets/images/Hexagon/HexagonTile_SPEC.png");
 	}
 
 	Viewport::~Viewport()
@@ -110,7 +116,7 @@ namespace Editor {
 			static const int layers = 2;
 			static const int distance = -10;
 			static const int margin = tileSize;
-			static const int speed = 1;
+			static const int speed = 5;
 			static int playerX = 0;
 			static int playerY = 0;
 			static float zoom = 1.0f;
@@ -156,7 +162,39 @@ namespace Editor {
 			}
 
 			zoom = zoom < scaleFactor ? scaleFactor : zoom;
+			this->m_SpriteRenderer->SetScale(zoom);
 
+			//this->m_SpriteRenderer->SetAmbientColor(glm::vec4(0.0f, 0.0f, 0.0f, 0.0f));
+			//this->m_SpriteRenderer->SetAmbientColor(glm::vec4(1.0f, 1.0f, 1.0f, 0.01f));
+			this->m_SpriteRenderer->SetAmbientColor(glm::vec4(1.0f, 1.0f, 1.f, 0.25f));
+
+			this->m_SpriteRenderer->EnableNormal(!inputState.SPACE);
+			this->m_SpriteRenderer->EnableSpecular(!inputState.LEFT_CONTROL);
+
+			// -------- HEAGON -------
+			/*
+
+
+			this->m_SpriteRenderer->Draw(
+				this->m_TextureHexagon,
+				this->m_NormalHexagon,
+				this->m_SpecularHexagon,
+
+				glm::vec4(-playerX, -playerY, 2048, 2048),
+
+				glm::vec4(0, 0, 2048, 2048)
+
+				//,glm::vec4(x / 10.f, y / 10.f, z / 10.f, 1.0f)
+			);
+
+			this->m_SpriteRenderer->AddSpotLight(glm::vec3(600.0, 400.0, 0.01f), glm::vec4(1.0f, 0.8f, 0.6f, 1.0f), glm::vec3(0.0001f, 0.2f, 1.0f));
+			this->m_SpriteRenderer->Render();
+			*/
+			// -------- END HEAGON -------
+
+
+
+			// -------- TILES -------
 
 			for (int z = 0; z < layers; z++)
 			{
@@ -167,6 +205,7 @@ namespace Editor {
 						this->m_SpriteRenderer->Draw(
 							this->m_Texture,
 							this->m_Normal,
+							this->m_Specular,
 
 							glm::vec4(margin + x * tileSize + z * distance - playerX, margin + y * tileSize + z * distance - playerY, tileSize, tileSize),
 
@@ -178,15 +217,16 @@ namespace Editor {
 				}
 			}
 
-			this->m_SpriteRenderer->SetScale(zoom);
-
-			this->m_SpriteRenderer->SetAmbientColor(glm::vec4(1.0f, 1.0f, 1.f, 0.25f));
-
-			this->m_SpriteRenderer->AddSpotLight(glm::vec3(600.0, 400.0, 0.01f), glm::vec4(1.0f, 0.8f, 0.6f, 1.0f), glm::vec3(0.4f, 3.0f, 20.0f));
+			this->m_SpriteRenderer->AddSpotLight(glm::vec3(600.0, 400.0, 0.01f), glm::vec4(1.0f, 0.8f, 0.6f, 1.0f), glm::vec3(0.0001f, 0.2f, 900.0f)); // light floor player
+			this->m_SpriteRenderer->AddSpotLight(glm::vec3(100 - playerX, 100 + playerY, 0.01f), glm::vec4(1.0f, 0.8f, 0.6f, 1.0f), glm::vec3(0.0001f, 0.2f, 100.0f)); // light floor top-left
 
 			this->m_SpriteRenderer->Render();
 
+			// -------- END TILES -------
 
+
+
+			// -------- PLAYER -------
 			static int frameCount = 0;
 			static int frame = 0;
 			static int playerSpeed = 10;
@@ -231,19 +271,20 @@ namespace Editor {
 			this->m_SpriteRenderer->Draw(
 				this->m_TexturePlayer,
 				this->m_NormalPlayer,
+				this->m_SpecularPlayer,
 
 				//glm::vec4(playerX, playerY, 64, 64),
-				glm::vec4(580, 300, 64, 64),
+				glm::vec4(570, 300, 64, 64),
 
 				spriteFrame
 			);
 
-			this->m_SpriteRenderer->AddSpotLight(glm::vec3(600.0, 400.0, 0.01f), glm::vec4(1.0f, 0.8f, 0.6f, 1.0f), glm::vec3(0.1f, 1.0f, 900.0f));
+			this->m_SpriteRenderer->AddSpotLight(glm::vec3(600.0, 400.0, 0.1f), glm::vec4(1.0f, 0.8f, 0.6f, 0.1f), glm::vec3(0.1f, 1.0f, 20.0f)); // light head player
+			this->m_SpriteRenderer->AddSpotLight(glm::vec3(100 - playerX, 100 + playerY, 0.01f), glm::vec4(1.0f, 0.8f, 0.6f, 1.0f), glm::vec3(0.0001f, 0.2f, 100.0f)); // light head top-left
 
 			this->m_SpriteRenderer->Render();
 
-
-
+			// -------- END PLAYER -------
 
 
 

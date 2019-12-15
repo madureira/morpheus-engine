@@ -27,9 +27,15 @@ namespace Editor {
 		Morpheus::SpriteRenderer* m_SpriteRenderer;
 		Morpheus::Texture* m_Texture;
 		Morpheus::Texture* m_Normal;
+		Morpheus::Texture* m_Specular;
 
 		Morpheus::Texture* m_TexturePlayer;
 		Morpheus::Texture* m_NormalPlayer;
+		Morpheus::Texture* m_SpecularPlayer;
+
+		Morpheus::Texture* m_TextureHexagon;
+		Morpheus::Texture* m_NormalHexagon;
+		Morpheus::Texture* m_SpecularHexagon;
 
 	public:
 		Viewport(entt::registry& registry);

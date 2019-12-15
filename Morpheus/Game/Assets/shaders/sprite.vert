@@ -12,6 +12,7 @@ uniform float scale;
 // output variables
 out vec2 vTexCoord;
 out vec4 vColor;
+out float fScale;
 
 void main()
 {
@@ -22,4 +23,5 @@ void main()
 	// pass through uv and color
 	vTexCoord = in_uv;
 	vColor = in_color;
+	fScale = scale;
 }

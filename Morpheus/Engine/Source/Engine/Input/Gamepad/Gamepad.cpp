@@ -41,6 +41,16 @@ namespace Morpheus {
 			{
 				state.W = true;
 			}
+
+			if (this->m_GamepadState.axes[GLFW_GAMEPAD_AXIS_RIGHT_TRIGGER] > ANALOG_SENSIBILITY)
+			{
+				state.SPACE = true;
+			}
+
+			if (this->m_GamepadState.axes[GLFW_GAMEPAD_AXIS_LEFT_TRIGGER] > ANALOG_SENSIBILITY)
+			{
+				state.LEFT_CONTROL = true;
+			}
 		}
 
 		return state;

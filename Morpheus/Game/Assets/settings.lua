@@ -1,7 +1,7 @@
 config = {
 	window = {
 		title = "Morpheus Game",
-		fullscreen = false,
+		fullscreen = true,
 		primary_monitor = true,
 		resolution = {
 			width = 1280,

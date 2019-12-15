@@ -47,21 +47,28 @@ namespace Morpheus {
 		Shader* m_Shader;
 		Texture* m_DiffuseMap;
 		Texture* m_NormalMap;
+		Texture* m_SpecularMap;
 		glm::mat3 m_ScreenTransform;
 		glm::vec2 m_ScreenSize;
 		glm::vec4 m_AmbientColor;
 		float m_Scale;
 
+		bool m_EnableNormal;
+		bool m_EnableSpecular;
+
 	public:
 		SpriteRenderer(glm::vec2 screenSize);
 		~SpriteRenderer();
 
-		void Draw(Texture* pDiffuseMap, Texture* pNormalMap, glm::vec4 destRect, glm::vec4 sourceRect, glm::vec4 color = glm::vec4(1, 1, 1, 1));
+		void Draw(Texture* pDiffuseMap, Texture* pNormalMap, Texture* pSpecularMap, glm::vec4 destRect, glm::vec4 sourceRect, glm::vec4 color = glm::vec4(1, 1, 1, 1));
 		void AddSpotLight(glm::vec3 lightPosition, glm::vec4 lightColor, glm::vec3 lightFalloff);
 		void SetAmbientColor(glm::vec4 ambientColor);
 		void SetScreenSize(glm::vec2 screenSize);
 		void SetScale(float scale);
 		void Render();
+
+		void EnableNormal(bool enable = false);
+		void EnableSpecular(bool enable = false);
 	};
 
 }
