@@ -26,6 +26,7 @@ IncludeDir["stb_image"] = "Libraries/stb_image/include"
 IncludeDir["entt"] = "Libraries/entt/include"
 IncludeDir["spdlog"] = "Libraries/spdlog/include"
 IncludeDir["nativefiledialog"] = "Libraries/nativefiledialog/src/include"
+IncludeDir["nlohmann"] = "Libraries/nlohmann/include"
 
 group "Dependencies"
 	include "Libraries/GLFW"
@@ -69,7 +70,8 @@ project "Engine"
 		"%{IncludeDir.sol3}",
 		"%{IncludeDir.stb_image}",
 		"%{IncludeDir.entt}",
-		"%{IncludeDir.spdlog}"
+		"%{IncludeDir.spdlog}",
+		"%{IncludeDir.nlohmann}"
 	}
 
 	links {
@@ -139,7 +141,8 @@ project "Editor"
 		"%{IncludeDir.stb_image}",
 		"%{IncludeDir.entt}",
 		"%{IncludeDir.spdlog}",
-		"%{IncludeDir.nativefiledialog}"
+		"%{IncludeDir.nativefiledialog}",
+		"%{IncludeDir.nlohmann}"
 	}
 
 	links {
@@ -204,7 +207,8 @@ project "Game"
 		"%{IncludeDir.sol3}",
 		"%{IncludeDir.stb_image}",
 		"%{IncludeDir.entt}",
-		"%{IncludeDir.spdlog}"
+		"%{IncludeDir.spdlog}",
+		"%{IncludeDir.nlohmann}"
 	}
 
 	links {
