@@ -5,24 +5,33 @@
 namespace Editor {
 
 	Viewport::Viewport(entt::registry& registry)
+		: m_TextureColorBuffer(0)
 	{
 		auto& settingsEntity = registry.ctx<Morpheus::SettingsEntity>();
 		auto& settingsSize = registry.get<Morpheus::SettingsComponent>(settingsEntity.id);
 		this->m_InitialWindowWidth = settingsSize.windowWidth;
 		this->m_InitialWindowHeight = settingsSize.windowHeight;
 
-		// Create Frame Buffer
-		glGenFramebuffers(1, &this->m_FBO);
-
 		// Generate render texture
 		glGenTextures(1, &this->m_TextureColorBuffer);
 
 		// Bind the texture used to paint the GL data on the IMGUI window
 		glBindTexture(GL_TEXTURE_2D, this->m_TextureColorBuffer);
-		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, this->m_InitialWindowWidth, this->m_InitialWindowHeight, 0, GL_RGB, GL_UNSIGNED_BYTE, NULL);
+
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, this->m_InitialWindowWidth, this->m_InitialWindowHeight, 0, GL_RGB, GL_UNSIGNED_BYTE, NULL);
+
+		glGenerateMipmap(GL_TEXTURE_2D);
+
 		glBindTexture(GL_TEXTURE_2D, 0);
+
+		// Create Frame Buffer
+		glGenFramebuffers(1, &this->m_FBO);
 		glBindFramebuffer(GL_FRAMEBUFFER, this->m_FBO);
 		glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, this->m_TextureColorBuffer, 0);
 		glBindFramebuffer(GL_FRAMEBUFFER, 0);
@@ -45,8 +54,6 @@ namespace Editor {
 		glGenBuffers(1, &this->m_VBO);
 		glBindBuffer(GL_ARRAY_BUFFER, this->m_VBO);
 		glBufferData(GL_ARRAY_BUFFER, sizeof(this->m_Vertices), this->m_Vertices, GL_STATIC_DRAW);
-
-
 
 		this->m_SpriteRenderer = new Morpheus::SpriteRenderer(glm::vec2(this->m_InitialWindowWidth, this->m_InitialWindowHeight));
 

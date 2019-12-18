@@ -1,15 +1,14 @@
 #include "TreeView.h"
 #include "Engine/Util/FileUtil.h"
 
-#include <fstream>
-#include <iostream>
-
 namespace Editor {
 
-	TreeView::TreeView(std::string& path)
-		: m_JSON(nullptr)
+	TreeView::TreeView(std::string& currentPath, std::function<void(std::string & path)> onFolderSelect, std::function<void(std::string & path)> onFileSelect)
+		: m_JSON(nullptr),
+		m_HandleFolderSelect(onFolderSelect),
+		m_HandleFileSelect(onFileSelect)
 	{
-		this->m_JSON = json::parse(Morpheus::FileUtil::ReadDirectoryTreeAsJsonString(path));
+		this->m_JSON = json::parse(Morpheus::FileUtil::ReadDirectoryTreeAsJsonString(currentPath));
 	}
 
 	void TreeView::Draw(entt::registry& registry)
@@ -30,7 +29,9 @@ namespace Editor {
 
 			if (ImGui::IsItemClicked() || ImGui::IsItemFocused())
 			{
-				ME_LOG_INFO("Folder path: {0}", tree["path"]);
+				std::string folderPath(tree["path"]);
+				this->m_HandleFolderSelect(folderPath);
+				ME_LOG_INFO("Folder path: {0}", folderPath);
 			}
 
 			if (this->m_TreeState[tree["path"]])
@@ -44,10 +45,12 @@ namespace Editor {
 		}
 		else
 		{
-			this->CreateFileNode(tree["path"], tree["name"]);
+			this->CreateFileNode(tree["path"], tree["name"], tree["extension"]);
 
 			if (ImGui::IsItemClicked() || ImGui::IsItemFocused())
 			{
+				std::string filePath(tree["path"]);
+				this->m_HandleFileSelect(filePath);
 				ME_LOG_INFO("File size: {0}", tree["size"]);
 			}
 		}
@@ -60,9 +63,9 @@ namespace Editor {
 		return ImGui::TreeNodeEx(nodeTitle.c_str(), flags);
 	}
 
-	void TreeView::CreateFileNode(std::string nodeIndex, std::string nodeTitle)
+	void TreeView::CreateFileNode(std::string nodeIndex, std::string nodeTitle, std::string fileExtension)
 	{
-		nodeTitle = this->BuildFileTitle(nodeTitle);
+		nodeTitle = this->BuildFileTitle(nodeTitle, fileExtension);
 		ImGuiTreeNodeFlags flags = ImGuiTreeNodeFlags_Leaf | ImGuiTreeNodeFlags_NoTreePushOnOpen;
 		ImGui::TreeNodeEx(nodeTitle.c_str(), flags);
 	}
@@ -76,9 +79,30 @@ namespace Editor {
 		return nodeTitle;
 	}
 
-	std::string TreeView::BuildFileTitle(std::string& title)
+	std::string TreeView::BuildFileTitle(std::string& title, std::string& fileExtension)
 	{
-		std::string nodeTitle = ICON_FA_FILE_CODE;
+		std::string nodeTitle = ICON_FA_FILE;
+
+		if (Morpheus::Extension::IsImage(fileExtension))
+		{
+			nodeTitle = ICON_FA_FILE_IMAGE;
+		}
+
+		if (Morpheus::Extension::IsCode(fileExtension))
+		{
+			nodeTitle = ICON_FA_FILE_CODE;
+		}
+
+		if (Morpheus::Extension::IsData(fileExtension))
+		{
+			nodeTitle = ICON_FA_DATABASE;
+		}
+
+		if (Morpheus::Extension::IsFont(fileExtension))
+		{
+			nodeTitle = ICON_FA_FONT;
+		}
+
 		nodeTitle += "  ";
 		nodeTitle += title;
 		return nodeTitle;

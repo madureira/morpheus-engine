@@ -1,12 +1,17 @@
 #include "Project.h"
-#include <iostream>
+#include <functional>
+#include "Engine/Util/FileUtil.h"
 
 namespace Editor {
 
 	Project::Project(entt::registry& registry)
 		: m_ProjectPath(""),
-		m_TreeView(nullptr)
+		m_TreeView(nullptr),
+		m_Preview(nullptr),
+		m_CurrentFolderSelected(""),
+		m_CurrentFileSelected("")
 	{
+		this->m_Preview = new Preview();
 		this->UpdateProjectPath(registry);
 	}
 
@@ -50,7 +55,9 @@ namespace Editor {
 			ImGui::SameLine();
 
 			ImGui::PushStyleColor(ImGuiCol_ChildBg, { 0.180f, 0.180f , 0.180f , 1.00f });
-			ImGui::BeginChild("FilesPreview", ImVec2(0, 0), true);
+			ImGui::BeginChild("FilesPreview", ImVec2(0, 0), false);
+			this->m_Preview->UpdateSelectedFolder(this->m_CurrentFolderSelected);
+			this->m_Preview->Draw(registry);
 			ImGui::EndChild();
 			ImGui::PopStyleColor();
 
@@ -69,7 +76,18 @@ namespace Editor {
 		{
 			this->m_ProjectPath = projectComponent.projectPath;
 			delete this->m_TreeView;
-			this->m_TreeView = new TreeView(this->m_ProjectPath);
+
+			this->m_CurrentFolderSelected = this->m_ProjectPath;
+			this->m_CurrentFileSelected = "";
+
+			this->m_TreeView = new TreeView(this->m_ProjectPath,
+				[&selectedFolder = this->m_CurrentFolderSelected](std::string selectedFolderByUser) {
+					selectedFolder = selectedFolderByUser;
+				},
+				[&selectedFile = this->m_CurrentFileSelected](std::string selectedFileByUser) {
+					selectedFile = selectedFileByUser;
+				}
+			);
 		}
 	}
 

@@ -1,7 +1,8 @@
 #pragma once
 
 #include "Editor/UI/UIComponent.h"
-#include "Editor/UI/TreeView/TreeView.h"
+#include "TreeView/TreeView.h"
+#include "Preview/Preview.h"
 #include <string>
 
 namespace Editor {
@@ -11,6 +12,9 @@ namespace Editor {
 	private:
 		std::string m_ProjectPath;
 		TreeView* m_TreeView;
+		Preview* m_Preview;
+		std::string m_CurrentFolderSelected;
+		std::string m_CurrentFileSelected;
 
 	public:
 		Project(entt::registry& registry);
