@@ -5,6 +5,7 @@
 #include <nlohmann/json.hpp>
 #include <string>
 #include <map>
+#include <utility>
 
 namespace Editor {
 
@@ -15,8 +16,9 @@ namespace Editor {
 	private:
 		json m_JSON;
 		std::string m_CurrentFolder;
-		std::string m_CurrentFiles;
-		std::map<std::string, Morpheus::Texture*> m_Images;
+		std::string m_CurrentFile;
+		std::string m_SelectedItem;
+		std::map<std::string, std::pair<json, Morpheus::Texture*>> m_Items;
 		Morpheus::Texture* m_FolderIcon;
 		Morpheus::Texture* m_FileIcon;
 		int m_Zoom;
@@ -29,7 +31,7 @@ namespace Editor {
 		void UpdateSelectedFile(std::string& filePath);
 
 	private:
-		void DrawZoomButtons(float areaWidth);
+		void DrawFooter(float areaWidth);
 		std::string TruncateFileName(std::string fileName);
 	};
 
