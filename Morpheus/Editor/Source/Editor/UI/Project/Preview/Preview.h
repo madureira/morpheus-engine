@@ -31,6 +31,7 @@ namespace Editor {
 		void UpdateSelectedFile(std::string& filePath);
 
 	private:
+		void Shutdown();
 		void DrawFooter(float areaWidth);
 		std::string TruncateFileName(std::string fileName);
 	};

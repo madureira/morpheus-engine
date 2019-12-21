@@ -19,10 +19,9 @@ namespace Editor {
 
 	Preview::~Preview()
 	{
-		for (auto image : this->m_Items)
-		{
-			delete image.second.second;
-		}
+		this->Shutdown();
+		delete this->m_FolderIcon;
+		delete this->m_FileIcon;
 	}
 
 	void Preview::Draw(entt::registry& registry)
@@ -105,15 +104,7 @@ namespace Editor {
 			this->m_CurrentFolder = folderPath;
 			this->m_JSON = json::parse(Morpheus::FileUtil::ReadDirectoryAsJsonString(this->m_CurrentFolder));
 
-			for (auto image : this->m_Items)
-			{
-				if (image.second.second != this->m_FolderIcon && image.second.second != this->m_FileIcon)
-				{
-					image.second.first.clear();
-					delete image.second.second;
-				}
-			}
-			this->m_Items.clear();
+			this->Shutdown();
 
 			for (auto node : this->m_JSON)
 			{
@@ -148,6 +139,19 @@ namespace Editor {
 	void Preview::UpdateSelectedFile(std::string& filePath)
 	{
 		this->m_CurrentFile = filePath;
+	}
+
+	void Preview::Shutdown()
+	{
+		for (auto image : this->m_Items)
+		{
+			if (image.second.second != this->m_FileIcon && image.second.second != this->m_FolderIcon)
+			{
+				image.second.first.clear();
+				delete image.second.second;
+			}
+		}
+		this->m_Items.clear();
 	}
 
 	void Preview::DrawFooter(float areaWidth)
