@@ -5,6 +5,7 @@
 #include "Editor/UI/Menubar/Menubar.h"
 #include "Editor/UI/Actionbar/Actionbar.h"
 #include "Editor/UI/Dock/Dock.h"
+#include "Editor/UI/Footer/Footer.h"
 
 namespace Editor {
 
@@ -14,6 +15,7 @@ namespace Editor {
 		Menubar* m_Menubar;
 		Actionbar* m_Actionbar;
 		Dock* m_Dock;
+		Footer* m_Footer;
 
 	public:
 		MorpheusEditor();

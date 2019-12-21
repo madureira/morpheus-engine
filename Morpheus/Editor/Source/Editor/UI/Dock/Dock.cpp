@@ -40,7 +40,7 @@ namespace Editor {
 		ImGuiID dockspaceID = ImGui::GetID("MainDock");
 
 		ImGui::SetNextWindowPos(ImVec2(0.0f, 66.0f));
-		ImGui::SetNextWindowSize(ImVec2(io.DisplaySize.x, io.DisplaySize.y - 66.0f));
+		ImGui::SetNextWindowSize(ImVec2(io.DisplaySize.x, io.DisplaySize.y - 92.0f));
 		ImGui::PushStyleVar(ImGuiStyleVar_WindowRounding, 0.0f);
 
 		ImGui::Begin("Engine", &dockEnabled, dockFlags);

@@ -10,9 +10,10 @@
 namespace Editor {
 
 	MorpheusEditor::MorpheusEditor()
-		: m_Menubar(nullptr),
-		m_Actionbar(nullptr),
-		m_Dock(nullptr)
+		: m_Menubar(nullptr)
+		, m_Actionbar(nullptr)
+		, m_Dock(nullptr)
+		, m_Footer(nullptr)
 	{
 	}
 
@@ -71,6 +72,7 @@ namespace Editor {
 		this->m_Menubar = new Menubar();
 		this->m_Actionbar = new Actionbar();
 		this->m_Dock = new Dock(registry);
+		this->m_Footer = new Footer();
 	}
 
 	void MorpheusEditor::OnFrameStarted(entt::registry& registry, double deltaTime, int currentFrame, int frameRate)
@@ -89,6 +91,7 @@ namespace Editor {
 		this->m_Actionbar->UpdateFrameRate(frameRate);
 		this->m_Actionbar->Draw(registry);
 		this->m_Dock->Draw(registry);
+		this->m_Footer->Draw(registry);
 
 		// Rendering
 		ImGui::Render();
