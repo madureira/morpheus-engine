@@ -35,15 +35,15 @@ namespace Morpheus {
 
 	public:
 		Settings(entt::registry& registry)
-			: m_LuaState(nullptr),
-			m_WindowTitle("Morpheus Engine"),
-			m_IsWindowFullScreen(false),
-			m_IsPrimaryMonitor(false),
-			m_WindowWidth(800),
-			m_WindowHeight(600),
-			m_FPS(30),
-			m_IsVSyncOn(false),
-			m_IsDebug(false)
+			: m_LuaState(nullptr)
+			, m_WindowTitle("Morpheus Engine")
+			, m_IsWindowFullScreen(false)
+			, m_IsPrimaryMonitor(false)
+			, m_WindowWidth(800)
+			, m_WindowHeight(600)
+			, m_FPS(30)
+			, m_IsVSyncOn(false)
+			, m_IsDebug(false)
 		{
 			this->m_LuaState = new sol::state();
 			this->m_LuaState->open_libraries(sol::lib::base);

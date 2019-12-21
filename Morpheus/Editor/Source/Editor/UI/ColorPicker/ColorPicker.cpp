@@ -3,8 +3,8 @@
 namespace Editor {
 
 	ColorPicker::ColorPicker(const char* label, entt::registry& registry, entt::entity& entity)
-		: m_Label(label),
-		m_Entity(entity)
+		: m_Label(label)
+		, m_Entity(entity)
 	{
 		auto& color = registry.get<Morpheus::ColorComponent>(this->m_Entity);
 		this->m_Color.x = color.r;

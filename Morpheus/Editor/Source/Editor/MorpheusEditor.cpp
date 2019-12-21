@@ -22,6 +22,7 @@ namespace Editor {
 		delete this->m_Menubar;
 		delete this->m_Actionbar;
 		delete this->m_Dock;
+		delete this->m_Footer;
 		ImGui_ImplOpenGL3_Shutdown();
 		ImGui_ImplGlfw_Shutdown();
 		ImGui::DestroyContext();

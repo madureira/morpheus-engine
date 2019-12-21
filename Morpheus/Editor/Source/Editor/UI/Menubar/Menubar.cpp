@@ -4,6 +4,11 @@
 
 namespace Editor {
 
+	Menubar::Menubar()
+		: m_NewProject(nullptr)
+	{
+	}
+
 	Menubar::~Menubar()
 	{
 		delete this->m_NewProject;

@@ -6,8 +6,8 @@
 namespace Morpheus {
 
 	Window::Window(entt::registry& registry)
-		: m_Registry(registry),
-		m_Window(nullptr)
+		: m_Registry(registry)
+		, m_Window(nullptr)
 	{
 		this->Initialize();
 	}

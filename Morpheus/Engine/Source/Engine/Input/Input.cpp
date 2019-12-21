@@ -26,6 +26,12 @@ namespace Morpheus {
 		g_is_gamepad_connected = glfwJoystickPresent(GLFW_JOYSTICK_1) == 1;
 	}
 
+	Input::~Input()
+	{
+		delete this->m_Gamepad;
+		delete this->m_Keyboard;
+	}
+
 	void Input::Update(entt::registry& registry)
 	{
 		auto& inputEntity = registry.ctx<Morpheus::InputEntity>();

@@ -9,7 +9,8 @@
 
 namespace Morpheus {
 
-	Engine::Engine() : m_App(nullptr)
+	Engine::Engine()
+		: m_App(nullptr)
 	{
 		Morpheus::Log::Init();
 

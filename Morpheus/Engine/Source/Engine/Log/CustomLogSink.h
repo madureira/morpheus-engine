@@ -25,8 +25,8 @@ namespace Morpheus {
 		};
 
 		LogMessage(const std::string& message = "", LogLevel level = LogLevel::Invalid)
-			: m_Message(message),
-			m_Level(level)
+			: m_Message(message)
+			, m_Level(level)
 		{
 		}
 

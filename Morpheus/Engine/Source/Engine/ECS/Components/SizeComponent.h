@@ -7,7 +7,8 @@ namespace Morpheus {
 		float height = 0.0f;
 
 		SizeComponent(float width_, float height_)
-			: width(width_), height(height_)
+			: width(width_)
+			, height(height_)
 		{
 		}
 	};

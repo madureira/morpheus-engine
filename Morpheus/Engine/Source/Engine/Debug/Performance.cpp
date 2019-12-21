@@ -10,11 +10,11 @@
 namespace Morpheus {
 
 	Performance::Performance(Settings* pSettings)
-		: m_Settings(pSettings),
-		m_TextShader(nullptr),
-		m_TextRenderer(nullptr),
-		m_InitialWindowWidth(0.0f),
-		m_InitialWindowHeight(0.0f)
+		: m_Settings(pSettings)
+		, m_TextShader(nullptr)
+		, m_TextRenderer(nullptr)
+		, m_InitialWindowWidth(0.0f)
+		, m_InitialWindowHeight(0.0f)
 	{
 		if (this->m_Settings->IsDebug())
 		{
@@ -32,8 +32,8 @@ namespace Morpheus {
 
 	Performance::~Performance()
 	{
-		delete this->m_TextRenderer;
 		delete this->m_TextShader;
+		delete this->m_TextRenderer;
 	}
 
 	void Performance::Show(unsigned int frames, double deltaTime)

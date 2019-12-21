@@ -11,12 +11,10 @@ namespace Game {
 	private:
 		int m_InitialWindowWidth;
 		int m_InitialWindowHeight;
-
 		Morpheus::SpriteRenderer* m_SpriteRenderer;
 		Morpheus::Texture* m_Texture;
 		Morpheus::Texture* m_Normal;
 		Morpheus::Texture* m_Specular;
-
 		Morpheus::Texture* m_TexturePlayer;
 		Morpheus::Texture* m_NormalPlayer;
 		Morpheus::Texture* m_SpecularPlayer;

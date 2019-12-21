@@ -6,9 +6,9 @@
 namespace Morpheus {
 
 	Texture::Texture(const char* filePath, bool flipVertically)
-		: m_Texture(0),
-		m_Width(0),
-		m_Height(0)
+		: m_Texture(0)
+		, m_Width(0)
+		, m_Height(0)
 	{
 		Image image = ImageLoader::Load(filePath, flipVertically);
 

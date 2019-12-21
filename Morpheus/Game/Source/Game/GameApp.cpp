@@ -3,11 +3,15 @@
 namespace Game {
 
 	GameApp::GameApp()
-		: m_SpriteRenderer(nullptr),
-		m_Texture(nullptr),
-		m_Normal(nullptr),
-		m_TexturePlayer(nullptr),
-		m_NormalPlayer(nullptr)
+		: m_InitialWindowWidth(800)
+		, m_InitialWindowHeight(600)
+		, m_SpriteRenderer(nullptr)
+		, m_Texture(nullptr)
+		, m_Normal(nullptr)
+		, m_Specular(nullptr)
+		, m_TexturePlayer(nullptr)
+		, m_NormalPlayer(nullptr)
+		, m_SpecularPlayer(nullptr)
 	{
 	}
 
@@ -16,8 +20,10 @@ namespace Game {
 		delete this->m_SpriteRenderer;
 		delete this->m_Texture;
 		delete this->m_Normal;
+		delete this->m_Specular;
 		delete this->m_TexturePlayer;
 		delete this->m_NormalPlayer;
+		delete this->m_SpecularPlayer;
 	}
 
 	void GameApp::Initialize(entt::registry& registry)

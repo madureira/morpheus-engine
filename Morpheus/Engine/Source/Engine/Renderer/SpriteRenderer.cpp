@@ -5,14 +5,17 @@
 namespace Morpheus {
 
 	SpriteRenderer::SpriteRenderer(glm::vec2 screenSize)
-		: m_Shader(nullptr),
-		m_DiffuseMap(nullptr),
-		m_NormalMap(nullptr),
-		m_SpecularMap(nullptr),
-		m_ScreenSize(screenSize),
-		m_AmbientColor(glm::vec4(1.0f, 1.0f, 1.f, 0.25f)),
-		m_EnableNormal(true),
-		m_EnableSpecular(true)
+		: m_VAO(0)
+		, m_VBO(0)
+		, m_Shader(nullptr)
+		, m_DiffuseMap(nullptr)
+		, m_NormalMap(nullptr)
+		, m_SpecularMap(nullptr)
+		, m_ScreenSize(screenSize)
+		, m_AmbientColor(glm::vec4(1.0f, 1.0f, 1.f, 0.25f))
+		, m_Scale(1.0f)
+		, m_EnableNormal(true)
+		, m_EnableSpecular(true)
 	{
 		this->m_Shader = new Morpheus::Shader("Assets/shaders/sprite.vert", "Assets/shaders/sprite.frag");
 
@@ -42,7 +45,7 @@ namespace Morpheus {
 
 	SpriteRenderer::~SpriteRenderer()
 	{
-		glDeleteProgram(this->m_Shader->GetProgram());
+		delete this->m_Shader;
 	}
 
 	void SpriteRenderer::Draw(Texture* pDiffuseMap, Texture* pNormalMap, Texture* pSpecularMap, glm::vec4 destRect, glm::vec4 sourceRect, glm::vec4 color)

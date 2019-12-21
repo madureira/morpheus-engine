@@ -16,9 +16,7 @@ namespace Morpheus {
 		Shader(std::string vertexPath, std::string fragmentPath, std::string geometryPath = "");
 		~Shader();
 
-		inline unsigned int GetProgram() {
-			return m_ShaderID;
-		}
+		inline unsigned int GetProgram() { return m_ShaderID; }
 
 		void Enable() const;
 		void Disable() const;

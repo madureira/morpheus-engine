@@ -52,7 +52,6 @@ namespace Morpheus {
 		glm::vec2 m_ScreenSize;
 		glm::vec4 m_AmbientColor;
 		float m_Scale;
-
 		bool m_EnableNormal;
 		bool m_EnableSpecular;
 

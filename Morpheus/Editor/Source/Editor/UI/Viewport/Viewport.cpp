@@ -73,11 +73,16 @@ namespace Editor {
 	Viewport::~Viewport()
 	{
 		delete this->m_Shader;
-	}
-
-	void Viewport::ChangeColor(glm::vec4& color)
-	{
-		this->m_Color = color;
+		delete this->m_SpriteRenderer;
+		delete this->m_Texture;
+		delete this->m_Normal;
+		delete this->m_Specular;
+		delete this->m_TexturePlayer;
+		delete this->m_NormalPlayer;
+		delete this->m_SpecularPlayer;
+		delete this->m_TextureHexagon;
+		delete this->m_NormalHexagon;
+		delete this->m_SpecularHexagon;
 	}
 
 	void Viewport::Draw(entt::registry& registry)

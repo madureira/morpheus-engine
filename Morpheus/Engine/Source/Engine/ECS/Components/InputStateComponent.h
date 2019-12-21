@@ -14,14 +14,14 @@ namespace Morpheus {
 		bool S;
 
 		InputStateComponent()
-			: UP(false),
-			DOWN(false),
-			LEFT(false),
-			RIGHT(false),
-			SPACE(false),
-			LEFT_CONTROL(false),
-			W(false),
-			S(false)
+			: UP(false)
+			, DOWN(false)
+			, LEFT(false)
+			, RIGHT(false)
+			, SPACE(false)
+			, LEFT_CONTROL(false)
+			, W(false)
+			, S(false)
 		{
 		}
 	};

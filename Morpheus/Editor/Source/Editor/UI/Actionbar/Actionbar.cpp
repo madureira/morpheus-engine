@@ -3,8 +3,8 @@
 namespace Editor {
 
 	Actionbar::Actionbar()
-		: m_IsPlaying(false),
-		m_FrameRate(0)
+		: m_IsPlaying(false)
+		, m_FrameRate(0)
 	{
 	}
 

@@ -16,6 +16,7 @@ namespace Morpheus {
 
 	public:
 		Input(entt::registry& registry, GLFWwindow* pNativeWindow);
+		~Input();
 		void Update(entt::registry& registry);
 	};
 

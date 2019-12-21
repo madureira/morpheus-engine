@@ -6,10 +6,10 @@
 
 namespace Morpheus {
 
-	Shader::Shader(std::string vertexPath, std::string fragmentPath, std::string geometryPath) :
-		m_VertPath(vertexPath),
-		m_FragPath(fragmentPath),
-		m_GeomPath(geometryPath)
+	Shader::Shader(std::string vertexPath, std::string fragmentPath, std::string geometryPath)
+		: m_VertPath(vertexPath)
+		, m_FragPath(fragmentPath)
+		, m_GeomPath(geometryPath)
 	{
 		this->m_ShaderID = this->Load();
 	}

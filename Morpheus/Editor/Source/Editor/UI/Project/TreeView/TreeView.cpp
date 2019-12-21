@@ -4,9 +4,9 @@
 namespace Editor {
 
 	TreeView::TreeView(std::string& currentPath, std::function<void(std::string & path)> onFolderSelect, std::function<void(std::string & path)> onFileSelect)
-		: m_JSON(nullptr),
-		m_HandleFolderSelect(onFolderSelect),
-		m_HandleFileSelect(onFileSelect)
+		: m_JSON(nullptr)
+		, m_HandleFolderSelect(onFolderSelect)
+		, m_HandleFileSelect(onFileSelect)
 	{
 		this->m_JSON = json::parse(Morpheus::FileUtil::ReadDirectoryTreeAsJsonString(currentPath));
 	}

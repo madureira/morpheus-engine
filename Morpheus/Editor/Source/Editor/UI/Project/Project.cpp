@@ -5,14 +5,20 @@
 namespace Editor {
 
 	Project::Project(entt::registry& registry)
-		: m_ProjectPath(""),
-		m_TreeView(nullptr),
-		m_Preview(nullptr),
-		m_CurrentFolderSelected(""),
-		m_CurrentFileSelected("")
+		: m_ProjectPath("")
+		, m_TreeView(nullptr)
+		, m_Preview(nullptr)
+		, m_CurrentFolderSelected("")
+		, m_CurrentFileSelected("")
 	{
 		this->m_Preview = new Preview();
 		this->UpdateProjectPath(registry);
+	}
+
+	Project::~Project()
+	{
+		delete this->m_Preview;
+		delete this->m_TreeView;
 	}
 
 	void Project::Draw(entt::registry& registry)
