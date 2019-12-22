@@ -113,7 +113,7 @@ namespace Editor {
 				currentNode["path"] = node["path"];
 				currentNode["type"] = node["type"];
 
-				std::string nodeName(currentNode["name"]);
+				std::string itemKey(currentNode["name"]);
 				if (currentNode["type"] == "file")
 				{
 					currentNode["extension"] = node["extension"];
@@ -121,16 +121,16 @@ namespace Editor {
 
 					if (Morpheus::Extension::IsImage(currentNode["extension"]))
 					{
-						this->m_Items[nodeName] = std::make_pair(currentNode, new Morpheus::Texture(currentNode["path"].get<std::string>().c_str()));
+						this->m_Items[itemKey] = std::make_pair(currentNode, new Morpheus::Texture(currentNode["path"].get<std::string>().c_str()));
 					}
 					else
 					{
-						this->m_Items[nodeName] = std::make_pair(currentNode, this->m_FileIcon);
+						this->m_Items[itemKey] = std::make_pair(currentNode, this->m_FileIcon);
 					}
 				}
 				else if (currentNode["type"] == "folder")
 				{
-					this->m_Items[nodeName] = std::make_pair(currentNode, this->m_FolderIcon);
+					this->m_Items[itemKey] = std::make_pair(currentNode, this->m_FolderIcon);
 				}
 			}
 		}

@@ -36,17 +36,36 @@ namespace Editor {
 		glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, this->m_TextureColorBuffer, 0);
 		glBindFramebuffer(GL_FRAMEBUFFER, 0);
 
-		this->m_Shader = new Morpheus::Shader("Assets/shaders/viewport.vert", "Assets/shaders/viewport.frag");
+		this->InitializeApp(registry);
+	}
 
+	Viewport::~Viewport()
+	{
+		this->ShutdownApp();
+	}
+
+	void Viewport::Draw(entt::registry& registry)
+	{
+		ImGui::Begin(ICON_FA_VIDEO" Scene###scene");
+		{
+			this->ClearViewport(registry);
+			this->UpdateApp(registry);
+			this->RenderViewport(registry);
+		}
+		ImGui::End();
+	}
+
+	void Viewport::InitializeApp(entt::registry& registry)
+	{
 		this->m_Vertices[0] = -1.0f;
 		this->m_Vertices[1] = -1.0f;
-		this->m_Vertices[2] =  0.0f;
-		this->m_Vertices[3] =  1.0f;
+		this->m_Vertices[2] = 0.0f;
+		this->m_Vertices[3] = 1.0f;
 		this->m_Vertices[4] = -1.0f;
-		this->m_Vertices[5] =  0.0f;
-		this->m_Vertices[6] =  0.0f;
-		this->m_Vertices[7] =  1.0f;
-		this->m_Vertices[8] =  0.0f;
+		this->m_Vertices[5] = 0.0f;
+		this->m_Vertices[6] = 0.0f;
+		this->m_Vertices[7] = 1.0f;
+		this->m_Vertices[8] = 0.0f;
 
 		glGenVertexArrays(1, &this->m_VAO);
 		glBindVertexArray(this->m_VAO);
@@ -54,6 +73,8 @@ namespace Editor {
 		glGenBuffers(1, &this->m_VBO);
 		glBindBuffer(GL_ARRAY_BUFFER, this->m_VBO);
 		glBufferData(GL_ARRAY_BUFFER, sizeof(this->m_Vertices), this->m_Vertices, GL_STATIC_DRAW);
+
+		this->m_Shader = new Morpheus::Shader("Assets/shaders/viewport.vert", "Assets/shaders/viewport.frag");
 
 		this->m_SpriteRenderer = new Morpheus::SpriteRenderer(glm::vec2(this->m_InitialWindowWidth, this->m_InitialWindowHeight));
 
@@ -70,10 +91,199 @@ namespace Editor {
 		this->m_SpecularHexagon = new Morpheus::Texture("Assets/images/Hexagon/HexagonTile_SPEC.png");
 	}
 
-	Viewport::~Viewport()
+	void Viewport::UpdateApp(entt::registry& registry)
 	{
-		delete this->m_Shader;
+		static const int tileSize = 40;
+		static const int columns = (1280 / tileSize) - 1;
+		static const int rows = (720 / tileSize) - 2;
+		static const int layers = 2;
+		static const int distance = -10;
+		static const int margin = tileSize;
+		static const int speed = 5;
+		static int playerX = 0;
+		static int playerY = 0;
+		static float zoom = 1.0f;
+		static const float scaleFactor = 0.025f;
+
+		auto& inputEntity = registry.ctx<Morpheus::InputEntity>();
+		auto& inputState = registry.get<Morpheus::InputStateComponent>(inputEntity.id);
+
+		if (inputState.UP)
+		{
+			playerY += speed;
+			ME_LOG_INFO("UP");
+		}
+
+		if (inputState.DOWN)
+		{
+			playerY -= speed;
+			ME_LOG_ERROR("DOWN");
+		}
+
+		if (inputState.RIGHT)
+		{
+			playerX += speed;
+			ME_LOG_WARN("RIGHT");
+		}
+
+		if (inputState.LEFT)
+		{
+			playerX -= speed;
+			ME_LOG_TRACE("LEFT");
+		}
+
+		if (inputState.W)
+		{
+			zoom += scaleFactor;
+			ME_LOG_CRITICAL("ZOOM IN");
+		}
+
+		if (inputState.S)
+		{
+			zoom -= scaleFactor;
+			ME_LOG_INFO("ZOOM OUT");
+		}
+
+		zoom = zoom < scaleFactor ? scaleFactor : zoom;
+		this->m_SpriteRenderer->SetScale(zoom);
+
+		//this->m_SpriteRenderer->SetAmbientColor(glm::vec4(0.0f, 0.0f, 0.0f, 0.0f));
+		//this->m_SpriteRenderer->SetAmbientColor(glm::vec4(1.0f, 1.0f, 1.0f, 0.01f));
+		this->m_SpriteRenderer->SetAmbientColor(glm::vec4(1.0f, 1.0f, 1.f, 0.25f));
+
+		this->m_SpriteRenderer->EnableNormal(!inputState.SPACE);
+		this->m_SpriteRenderer->EnableSpecular(!inputState.LEFT_CONTROL);
+
+
+		// -------- TILES -------
+
+		for (int z = 0; z < layers; z++)
+		{
+			for (int x = 0; x < columns; x++)
+			{
+				for (int y = 0; y < rows; y++)
+				{
+					this->m_SpriteRenderer->Draw(
+						this->m_Texture,
+						this->m_Normal,
+						this->m_Specular,
+
+						glm::vec4(margin + x * tileSize + z * distance - playerX, margin + y * tileSize + z * distance - playerY, tileSize, tileSize),
+
+						getTile(tileSize, z)
+
+						//,glm::vec4(x / 10.f, y / 10.f, z / 10.f, 1.0f)
+					);
+				}
+			}
+		}
+
+		this->m_SpriteRenderer->AddSpotLight(glm::vec3(600.0, 400.0, 0.01f), glm::vec4(1.0f, 0.8f, 0.6f, 1.0f), glm::vec3(0.0001f, 0.2f, 900.0f)); // light floor player
+		this->m_SpriteRenderer->AddSpotLight(glm::vec3(100 - playerX, 100 + playerY, 0.01f), glm::vec4(1.0f, 0.8f, 0.6f, 1.0f), glm::vec3(0.0001f, 0.2f, 100.0f)); // light floor top-left
+
+		this->m_SpriteRenderer->Render();
+
+		// -------- END TILES -------
+
+
+		// -------- PLAYER -------
+		static int frameCount = 0;
+		static int frame = 0;
+		static int playerSpeed = 10;
+
+		if (frameCount < playerSpeed)
+		{
+			frameCount++;
+		}
+		else {
+			frameCount = 0;
+			frame++;
+		}
+
+		if (frame == 4) {
+			frame = 0;
+		}
+
+		int direction = frame;
+
+		glm::vec4 spriteFrame;
+
+		if (direction == 0)
+		{
+			spriteFrame = glm::vec4(0, 64, 64, 0);
+		}
+
+		if (direction == 1)
+		{
+			spriteFrame = glm::vec4(64, 64, 64 * 2, 0);
+		}
+
+		if (direction == 2)
+		{
+			spriteFrame = glm::vec4(64 * 2, 64, 64 * 3, 0);
+		}
+
+		if (direction == 3)
+		{
+			spriteFrame = glm::vec4(64 * 3, 64, 64 * 4, 0);
+		}
+
+		this->m_SpriteRenderer->Draw(
+			this->m_TexturePlayer,
+			this->m_NormalPlayer,
+			this->m_SpecularPlayer,
+
+			//glm::vec4(playerX, playerY, 64, 64),
+			glm::vec4(570, 300, 64, 64),
+
+			spriteFrame
+		);
+
+		this->m_SpriteRenderer->AddSpotLight(glm::vec3(600.0, 400.0, 0.1f), glm::vec4(1.0f, 0.8f, 0.6f, 0.1f), glm::vec3(0.1f, 1.0f, 20.0f)); // light head player
+		this->m_SpriteRenderer->AddSpotLight(glm::vec3(100 - playerX, 100 + playerY, 0.01f), glm::vec4(1.0f, 0.8f, 0.6f, 1.0f), glm::vec3(0.0001f, 0.2f, 100.0f)); // light head top-left
+
+		this->m_SpriteRenderer->Render();
+
+		// -------- END PLAYER -------
+
+
+		// -------- TRIANGLE -------
+		/*
+			this->m_Shader->Enable();
+			glEnableVertexAttribArray(0);
+			glBindBuffer(GL_ARRAY_BUFFER, this->m_VBO);
+			glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, (void*)0);
+			glDrawArrays(GL_TRIANGLES, 0, 3);
+			glDisableVertexAttribArray(0);
+			this->m_Shader->Disable();
+		*/
+		// -------- END TRIANGLE -------
+
+
+		// -------- HEAGON -------
+		/*
+		this->m_SpriteRenderer->Draw(
+			this->m_TextureHexagon,
+			this->m_NormalHexagon,
+			this->m_SpecularHexagon,
+
+			glm::vec4(-playerX, -playerY, 2048, 2048),
+
+			glm::vec4(0, 0, 2048, 2048)
+
+			//,glm::vec4(x / 10.f, y / 10.f, z / 10.f, 1.0f)
+		);
+
+		this->m_SpriteRenderer->AddSpotLight(glm::vec3(600.0, 400.0, 0.01f), glm::vec4(1.0f, 0.8f, 0.6f, 1.0f), glm::vec3(0.0001f, 0.2f, 1.0f));
+		this->m_SpriteRenderer->Render();
+		*/
+		// -------- END HEAGON -------
+	}
+
+	void Viewport::ShutdownApp()
+	{
 		delete this->m_SpriteRenderer;
+		delete this->m_Shader;
 		delete this->m_Texture;
 		delete this->m_Normal;
 		delete this->m_Specular;
@@ -85,249 +295,46 @@ namespace Editor {
 		delete this->m_SpecularHexagon;
 	}
 
-	void Viewport::Draw(entt::registry& registry)
+	void Viewport::ClearViewport(entt::registry& registry)
 	{
 		auto& windowEntity = registry.ctx<Morpheus::WindowEntity>();
 		auto& bgColor = registry.get<Morpheus::ColorComponent>(windowEntity.id);
 
-		ImGui::Begin(ICON_FA_VIDEO" Scene###scene");
-		{
-			ImVec2 pos = ImGui::GetCursorScreenPos();
-			ImVec2 size = ImGui::GetWindowSize();
+		ImVec2 pos = ImGui::GetCursorScreenPos();
+		ImVec2 size = ImGui::GetWindowSize();
 
-			this->m_FrameBufferRect = glm::vec4(pos.x, pos.y, size.x, size.y);
+		this->m_FrameBufferRect = glm::vec4(pos.x, pos.y, size.x, size.y);
 
-			glViewport(0, 0, this->m_InitialWindowWidth, this->m_InitialWindowHeight);
-			glBindFramebuffer(GL_FRAMEBUFFER, this->m_FBO);
+		glViewport(0, 0, this->m_InitialWindowWidth, this->m_InitialWindowHeight);
+		glBindFramebuffer(GL_FRAMEBUFFER, this->m_FBO);
 
-
-
-			glClearColor(bgColor.r, bgColor.g, bgColor.b, bgColor.a);
-			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
-
-
-			/*
-			this->m_Shader->Enable();
-			glEnableVertexAttribArray(0);
-			glBindBuffer(GL_ARRAY_BUFFER, this->m_VBO);
-			glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, (void*)0);
-			glDrawArrays(GL_TRIANGLES, 0, 3);
-			glDisableVertexAttribArray(0);
-			this->m_Shader->Disable();
-			*/
-
-
-
-
-
-			
-			static const int tileSize = 40;
-			static const int columns = (1280 / tileSize) - 1;
-			static const int rows = (720 / tileSize) - 2;
-			static const int layers = 2;
-			static const int distance = -10;
-			static const int margin = tileSize;
-			static const int speed = 5;
-			static int playerX = 0;
-			static int playerY = 0;
-			static float zoom = 1.0f;
-			static const float scaleFactor = 0.025f;
-
-			auto& inputEntity = registry.ctx<Morpheus::InputEntity>();
-			auto& inputState = registry.get<Morpheus::InputStateComponent>(inputEntity.id);
-
-			if (inputState.UP)
-			{
-				playerY += speed;
-				ME_LOG_INFO("UP");
-			}
-
-			if (inputState.DOWN)
-			{
-				playerY -= speed;
-				ME_LOG_ERROR("DOWN");
-			}
-
-			if (inputState.RIGHT)
-			{
-				playerX += speed;
-				ME_LOG_WARN("RIGHT");
-			}
-
-			if (inputState.LEFT)
-			{
-				playerX -= speed;
-				ME_LOG_TRACE("LEFT");
-			}
-
-			if (inputState.W)
-			{
-				zoom += scaleFactor;
-				ME_LOG_CRITICAL("ZOOM IN");
-			}
-
-			if (inputState.S)
-			{
-				zoom -= scaleFactor;
-				ME_LOG_INFO("ZOOM OUT");
-			}
-
-			zoom = zoom < scaleFactor ? scaleFactor : zoom;
-			this->m_SpriteRenderer->SetScale(zoom);
-
-			//this->m_SpriteRenderer->SetAmbientColor(glm::vec4(0.0f, 0.0f, 0.0f, 0.0f));
-			//this->m_SpriteRenderer->SetAmbientColor(glm::vec4(1.0f, 1.0f, 1.0f, 0.01f));
-			this->m_SpriteRenderer->SetAmbientColor(glm::vec4(1.0f, 1.0f, 1.f, 0.25f));
-
-			this->m_SpriteRenderer->EnableNormal(!inputState.SPACE);
-			this->m_SpriteRenderer->EnableSpecular(!inputState.LEFT_CONTROL);
-
-			// -------- HEAGON -------
-			/*
-
-
-			this->m_SpriteRenderer->Draw(
-				this->m_TextureHexagon,
-				this->m_NormalHexagon,
-				this->m_SpecularHexagon,
-
-				glm::vec4(-playerX, -playerY, 2048, 2048),
-
-				glm::vec4(0, 0, 2048, 2048)
-
-				//,glm::vec4(x / 10.f, y / 10.f, z / 10.f, 1.0f)
-			);
-
-			this->m_SpriteRenderer->AddSpotLight(glm::vec3(600.0, 400.0, 0.01f), glm::vec4(1.0f, 0.8f, 0.6f, 1.0f), glm::vec3(0.0001f, 0.2f, 1.0f));
-			this->m_SpriteRenderer->Render();
-			*/
-			// -------- END HEAGON -------
-
-
-
-			// -------- TILES -------
-
-			for (int z = 0; z < layers; z++)
-			{
-				for (int x = 0; x < columns; x++)
-				{
-					for (int y = 0; y < rows; y++)
-					{
-						this->m_SpriteRenderer->Draw(
-							this->m_Texture,
-							this->m_Normal,
-							this->m_Specular,
-
-							glm::vec4(margin + x * tileSize + z * distance - playerX, margin + y * tileSize + z * distance - playerY, tileSize, tileSize),
-
-							getTile(tileSize, z)
-
-							//,glm::vec4(x / 10.f, y / 10.f, z / 10.f, 1.0f)
-						);
-					}
-				}
-			}
-
-			this->m_SpriteRenderer->AddSpotLight(glm::vec3(600.0, 400.0, 0.01f), glm::vec4(1.0f, 0.8f, 0.6f, 1.0f), glm::vec3(0.0001f, 0.2f, 900.0f)); // light floor player
-			this->m_SpriteRenderer->AddSpotLight(glm::vec3(100 - playerX, 100 + playerY, 0.01f), glm::vec4(1.0f, 0.8f, 0.6f, 1.0f), glm::vec3(0.0001f, 0.2f, 100.0f)); // light floor top-left
-
-			this->m_SpriteRenderer->Render();
-
-			// -------- END TILES -------
-
-
-
-			// -------- PLAYER -------
-			static int frameCount = 0;
-			static int frame = 0;
-			static int playerSpeed = 10;
-
-			if (frameCount < playerSpeed)
-			{
-				frameCount++;
-			}
-			else {
-				frameCount = 0;
-				frame++;
-			}
-
-			if (frame == 4) {
-				frame = 0;
-			}
-
-			int direction = frame;
-
-			glm::vec4 spriteFrame;
-
-			if (direction == 0)
-			{
-				spriteFrame = glm::vec4(0, 64, 64, 0);
-			}
-
-			if (direction == 1)
-			{
-				spriteFrame = glm::vec4(64, 64, 64 * 2, 0);
-			}
-
-			if (direction == 2)
-			{
-				spriteFrame = glm::vec4(64 * 2, 64, 64 * 3, 0);
-			}
-
-			if (direction == 3)
-			{
-				spriteFrame = glm::vec4(64 * 3, 64, 64 * 4, 0);
-			}
-
-			this->m_SpriteRenderer->Draw(
-				this->m_TexturePlayer,
-				this->m_NormalPlayer,
-				this->m_SpecularPlayer,
-
-				//glm::vec4(playerX, playerY, 64, 64),
-				glm::vec4(570, 300, 64, 64),
-
-				spriteFrame
-			);
-
-			this->m_SpriteRenderer->AddSpotLight(glm::vec3(600.0, 400.0, 0.1f), glm::vec4(1.0f, 0.8f, 0.6f, 0.1f), glm::vec3(0.1f, 1.0f, 20.0f)); // light head player
-			this->m_SpriteRenderer->AddSpotLight(glm::vec3(100 - playerX, 100 + playerY, 0.01f), glm::vec4(1.0f, 0.8f, 0.6f, 1.0f), glm::vec3(0.0001f, 0.2f, 100.0f)); // light head top-left
-
-			this->m_SpriteRenderer->Render();
-
-			// -------- END PLAYER -------
-
-
-
-
-
-
-
-
-
-			glBindFramebuffer(GL_FRAMEBUFFER, 0);
-
-			// Get FBO texture dimensions
-			float texPosX = this->m_FrameBufferRect.x;
-			float texPosY = this->m_FrameBufferRect.y;
-			float texSizeW = this->m_FrameBufferRect.z;
-			float texSizeH = this->m_FrameBufferRect.w;
-			int marginLeft = 8;
-			int marginBottom = 32;
-
-			// Add the texture to it's draw list and render at the when ImGui::Render() is called.
-			ImGui::GetWindowDrawList()->AddImage(
-				(void*)this->m_FBO,
-				ImVec2(texPosX, texPosY),
-				ImVec2(texPosX + texSizeW - marginLeft, texPosY + texSizeH - marginBottom),
-				ImVec2(0, 1),
-				ImVec2(1, 0)
-			);
-		}
-		ImGui::End();
+		glClearColor(bgColor.r, bgColor.g, bgColor.b, bgColor.a);
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	}
 
+	void Viewport::RenderViewport(entt::registry& registry)
+	{
+		glBindFramebuffer(GL_FRAMEBUFFER, 0);
+
+		// Get FBO texture dimensions
+		float texPosX = this->m_FrameBufferRect.x;
+		float texPosY = this->m_FrameBufferRect.y;
+		float texSizeW = this->m_FrameBufferRect.z;
+		float texSizeH = this->m_FrameBufferRect.w;
+		int marginLeft = 8;
+		int marginBottom = 32;
+
+		// Add the texture to it's draw list and render at the when ImGui::Render() is called.
+		ImGui::GetWindowDrawList()->AddImage(
+			(void*)this->m_FBO,
+			ImVec2(texPosX, texPosY),
+			ImVec2(texPosX + texSizeW - marginLeft, texPosY + texSizeH - marginBottom),
+			ImVec2(0, 1),
+			ImVec2(1, 0)
+		);
+	}
+
+	// TODO: Remove this function in the future.
 	glm::vec4 Viewport::getTile(int tileSize, int layer)
 	{
 		if (layer == 0 || layer == 5 || layer == 10 || layer == 15)
