@@ -135,8 +135,6 @@ namespace Morpheus {
 			return;
 		}
 
-		ME_LOG_INFO("OpenGL {0}", glGetString(GL_VERSION));
-
 		// Set OpenGL options
 		glEnable(GL_BLEND);
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);

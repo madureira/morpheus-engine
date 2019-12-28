@@ -1,7 +1,7 @@
 #include "Engine/Engine.h"
 #include "Editor/MorpheusEditor.h"
 
-#if defined(_WIN32)
+#ifdef _WIN32
 extern "C"
 {
 	// Forces use of dedicated GPU.

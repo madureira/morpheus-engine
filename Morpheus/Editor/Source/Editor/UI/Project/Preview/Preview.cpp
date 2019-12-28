@@ -1,6 +1,5 @@
 #include "Preview.h"
 #include "Engine/Util/FileUtil.h"
-#include <iostream>
 
 namespace Editor {
 
