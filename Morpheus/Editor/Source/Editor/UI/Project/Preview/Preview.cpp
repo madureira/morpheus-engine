@@ -49,16 +49,16 @@ namespace Editor {
 				ImGui::PushStyleColor(ImGuiCol_ButtonHovered, ImVec4(ImColor(0.25f, 0.25f, 0.25f, 1.00f)));
 				ImGui::PushStyleColor(ImGuiCol_ButtonActive, ImVec4(ImColor(150, 150, 150)));
 				ImGui::PushID(itemId);
-				if (ImGui::ImageButton((void*)item.second.second->GetID(), ImVec2(imageSize * this->m_Zoom, imageSize * this->m_Zoom)))
+				if (ImGui::ImageButton((void*)item->image->GetID(), ImVec2(imageSize * this->m_Zoom, imageSize * this->m_Zoom)))
 				{
-					this->m_SelectedItem = item.second.first["path"].get<std::string>();
+					this->m_SelectedItem = item->data["path"].get<std::string>();
 				}
 				ImGui::PopID();
 				ImGui::PopStyleColor(3);
 				ImGui::Dummy(ImVec2(0, 5));
 				ImGui::Dummy(ImVec2(5, 0));
 				ImGui::SameLine();
-				std::string truncatedText(this->TruncateFileName(item.first));
+				std::string truncatedText(this->TruncateFileName(item->title));
 				ImVec2 textSize = ImGui::CalcTextSize(truncatedText.c_str());
 				ImVec2 pos = ImGui::GetCursorPos();
 				pos.x += (imageSize * this->m_Zoom - textSize.x) * 0.5f;
@@ -69,7 +69,7 @@ namespace Editor {
 				if (ImGui::IsItemHovered())
 				{
 					ImGui::BeginTooltip();
-					ImGui::TextUnformatted(item.first.c_str());
+					ImGui::TextUnformatted(item->title.c_str());
 					ImGui::EndTooltip();
 				}
 			
@@ -121,18 +121,45 @@ namespace Editor {
 
 					if (Morpheus::Extension::IsImage(currentNode["extension"]))
 					{
-						this->m_Items[itemKey] = std::make_pair(currentNode, new Morpheus::Texture(currentNode["path"].get<std::string>().c_str()));
+						this->m_Items.push_back(
+							new PreviewItem(
+								currentNode["name"].get<std::string>(),
+								new Morpheus::Texture(currentNode["path"].get<std::string>().c_str()),
+								currentNode
+							)
+						);
 					}
 					else
 					{
-						this->m_Items[itemKey] = std::make_pair(currentNode, this->m_FileIcon);
+						this->m_Items.push_back(
+							new PreviewItem(
+								currentNode["name"].get<std::string>(),
+								this->m_FileIcon,
+								currentNode
+							)
+						);
 					}
 				}
 				else if (currentNode["type"] == "folder")
 				{
-					this->m_Items[itemKey] = std::make_pair(currentNode, this->m_FolderIcon);
+					this->m_Items.push_back(
+						new PreviewItem(
+							currentNode["name"].get<std::string>(),
+							this->m_FolderIcon,
+							currentNode
+						)
+					);
 				}
 			}
+
+			std::sort(this->m_Items.begin(), this->m_Items.end(), [](const PreviewItem* a, const PreviewItem* b) {
+				if (a->data["type"] == "folder" && b->data["type"] == "folder")
+				{
+					return a->title < b->title;
+				}
+
+				return a->data["type"] == "folder" && b->data["type"] != "folder";
+			});
 		}
 	}
 
@@ -143,13 +170,13 @@ namespace Editor {
 
 	void Preview::Shutdown()
 	{
-		for (auto image : this->m_Items)
+		for (auto item : this->m_Items)
 		{
-			if (image.second.second != this->m_FileIcon && image.second.second != this->m_FolderIcon)
+			if (item->image != this->m_FileIcon && item->image != this->m_FolderIcon)
 			{
-				image.second.first.clear();
-				delete image.second.second;
+				delete item->image;
 			}
+			delete item;
 		}
 		this->m_Items.clear();
 	}

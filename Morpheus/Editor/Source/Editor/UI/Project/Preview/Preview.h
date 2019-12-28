@@ -4,12 +4,26 @@
 #include "Engine/Texture/Texture.h"
 #include <nlohmann/json.hpp>
 #include <string>
-#include <map>
+#include <vector>
 #include <utility>
 
 namespace Editor {
 
 	using json = nlohmann::json;
+
+	struct PreviewItem
+	{
+		std::string title;
+		Morpheus::Texture* image;
+		json data;
+
+		PreviewItem(std::string title_, Morpheus::Texture* image_, json data_)
+			: title(title_)
+			, image(image_)
+			, data(data_)
+		{
+		}
+	};
 
 	class Preview : public UIComponent
 	{
@@ -18,7 +32,7 @@ namespace Editor {
 		std::string m_CurrentFolder;
 		std::string m_CurrentFile;
 		std::string m_SelectedItem;
-		std::map<std::string, std::pair<json, Morpheus::Texture*>> m_Items;
+		std::vector<PreviewItem*> m_Items;
 		Morpheus::Texture* m_FolderIcon;
 		Morpheus::Texture* m_FileIcon;
 		int m_Zoom;

@@ -1,5 +1,6 @@
 #include "TreeView.h"
 #include "Engine/Util/FileUtil.h"
+#include <algorithm>
 
 namespace Editor {
 
@@ -36,6 +37,15 @@ namespace Editor {
 
 			if (this->m_TreeState[tree["path"]])
 			{
+				std::sort(tree["children"].begin(), tree["children"].end(), [](const json& a, const json& b) {
+					if (a["type"] == "folder" && b["type"] == "folder")
+					{
+						return a["name"] < b["name"];
+					}
+
+					return a["type"] == "folder" && b["type"] != "folder";
+				});
+
 				for (auto& node : tree["children"])
 				{
 					this->DrawFileTree(node);

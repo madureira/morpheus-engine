@@ -13,8 +13,8 @@ namespace Editor {
 	class TreeView : public UIComponent
 	{
 	private:
-		std::map<std::string, bool> m_TreeState;
 		json m_JSON;
+		std::map<std::string, bool> m_TreeState;
 		std::function<void(std::string& path)> m_HandleFolderSelect;
 		std::function<void(std::string & path)> m_HandleFileSelect;
 
