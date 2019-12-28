@@ -15,8 +15,8 @@ namespace Editor {
 	private:
 		json m_JSON;
 		std::map<std::string, bool> m_TreeState;
-		std::function<void(std::string& path)> m_HandleFolderSelect;
-		std::function<void(std::string & path)> m_HandleFileSelect;
+		std::function<void(std::string& path)> m_HandleFolderSelection;
+		std::function<void(std::string & path)> m_HandleFileSelection;
 
 	public:
 		TreeView(std::string& currentPath, std::function<void(std::string & path)> onFolderSelect, std::function<void(std::string & path)> onFileSelect);

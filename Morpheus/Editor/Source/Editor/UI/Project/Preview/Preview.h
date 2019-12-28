@@ -3,6 +3,7 @@
 #include "Editor/UI/UIComponent.h"
 #include "Engine/Texture/Texture.h"
 #include <nlohmann/json.hpp>
+#include <functional>
 #include <string>
 #include <vector>
 #include <utility>
@@ -36,9 +37,10 @@ namespace Editor {
 		Morpheus::Texture* m_FolderIcon;
 		Morpheus::Texture* m_FileIcon;
 		int m_Zoom;
+		std::function<void(std::string & path)> m_HandleFolderSelection;
 
 	public:
-		Preview();
+		Preview(std::function<void(std::string & path)> onFolderSelect);
 		~Preview();
 		void Draw(entt::registry& registry) override;
 		void UpdateSelectedFolder(std::string& folderPath);

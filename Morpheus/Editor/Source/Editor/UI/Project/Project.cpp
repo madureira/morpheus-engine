@@ -11,7 +11,9 @@ namespace Editor {
 		, m_CurrentFolderSelected("")
 		, m_CurrentFileSelected("")
 	{
-		this->m_Preview = new Preview();
+		this->m_Preview = new Preview([&selectedFolder = this->m_CurrentFolderSelected](std::string selectedFolderByUser) {
+			selectedFolder = selectedFolderByUser;
+		});
 		this->UpdateProjectPath(registry);
 	}
 

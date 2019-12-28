@@ -6,8 +6,8 @@ namespace Editor {
 
 	TreeView::TreeView(std::string& currentPath, std::function<void(std::string & path)> onFolderSelect, std::function<void(std::string & path)> onFileSelect)
 		: m_JSON(nullptr)
-		, m_HandleFolderSelect(onFolderSelect)
-		, m_HandleFileSelect(onFileSelect)
+		, m_HandleFolderSelection(onFolderSelect)
+		, m_HandleFileSelection(onFileSelect)
 	{
 		this->m_JSON = json::parse(Morpheus::FileUtil::ReadDirectoryTreeAsJsonString(currentPath));
 	}
@@ -31,7 +31,7 @@ namespace Editor {
 			if (ImGui::IsItemClicked() || ImGui::IsItemFocused())
 			{
 				std::string folderPath(tree["path"]);
-				this->m_HandleFolderSelect(folderPath);
+				this->m_HandleFolderSelection(folderPath);
 				ME_LOG_INFO("Folder path: {0}", folderPath);
 			}
 
@@ -60,7 +60,7 @@ namespace Editor {
 			if (ImGui::IsItemClicked() || ImGui::IsItemFocused())
 			{
 				std::string filePath(tree["path"]);
-				this->m_HandleFileSelect(filePath);
+				this->m_HandleFileSelection(filePath);
 				ME_LOG_INFO("File size: {0}", tree["size"]);
 			}
 		}
