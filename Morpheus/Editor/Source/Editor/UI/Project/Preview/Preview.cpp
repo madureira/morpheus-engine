@@ -208,21 +208,21 @@ namespace Editor {
 			ImGui::SameLine();
 			ImGui::Dummy(ImVec2(4, 0));
 			ImGui::SameLine();
-			if (ImGui::Button(ICON_FA_SEARCH_PLUS))
-			{
-				if (this->m_Zoom < 3)
-				{
-					this->m_Zoom++;
-				}
-			}
-			ImGui::SameLine();
-			ImGui::Dummy(ImVec2(3, 0));
-			ImGui::SameLine();
 			if (ImGui::Button(ICON_FA_SEARCH_MINUS))
 			{
 				if (this->m_Zoom > 1)
 				{
 					this->m_Zoom--;
+				}
+			}
+			ImGui::SameLine();
+			ImGui::Dummy(ImVec2(3, 0));
+			ImGui::SameLine();
+			if (ImGui::Button(ICON_FA_SEARCH_PLUS))
+			{
+				if (this->m_Zoom < 3)
+				{
+					this->m_Zoom++;
 				}
 			}
 		}

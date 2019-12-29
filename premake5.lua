@@ -38,6 +38,7 @@ group "Dependencies"
 
 group ""
 
+
 -- ENGINE
 project "Engine"
 	location "Morpheus/Engine"
@@ -164,6 +165,14 @@ project "Editor"
 	filter "system:windows"
 		systemversion "latest"
 		links { "opengl32", "gdi32" }
+		postbuildcommands {
+			"xcopy Assets ..\\..\\Dist\\%{cfg.system}\\%{cfg.buildcfg}\\%{cfg.platform}\\%{prj.name}\\Assets /e /i /s /y"
+		}
+
+	filter "system:not windows"
+		postbuildcommands {
+			"cp -rf Assets ../../Dist/%{cfg.system}/%{cfg.buildcfg}/%{cfg.platform}/%{prj.name}/Assets"
+		}
 
 	filter "configurations:Debug"
 		defines { "DEBUG" }
@@ -227,6 +236,14 @@ project "Game"
 	filter "system:windows"
 		systemversion "latest"
 		links { "opengl32", "gdi32" }
+		postbuildcommands {
+			"xcopy Assets ..\\..\\Dist\\%{cfg.system}\\%{cfg.buildcfg}\\%{cfg.platform}\\%{prj.name}\\Assets /e /i /s /y"
+		}
+
+	filter "system:not windows"
+		postbuildcommands {
+			"cp -rf Assets ../../Dist/%{cfg.system}/%{cfg.buildcfg}/%{cfg.platform}/%{prj.name}/Assets"
+		}
 
 	filter "configurations:Debug"
 		defines { "DEBUG" }
