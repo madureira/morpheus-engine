@@ -2,4 +2,4 @@
 
 set -e
 
-./Tools/linux/premake5 gmake2
+./Tools/linux/premake/premake5 gmake2

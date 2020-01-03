@@ -2,4 +2,4 @@
 
 set -e
 
-./Tools/linux/premake5 clean
+./Tools/linux/premake/premake5 clean

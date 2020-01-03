@@ -1,1 +1,1 @@
-call Tools\windows\premake5.exe clean
+call Tools\windows\premake\premake5.exe clean
