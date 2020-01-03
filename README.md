@@ -38,7 +38,7 @@ The engine use the following libraries:
 - [ImGuiFileDialog:](https://github.com/aiekick/ImGuiFileDialog) File Dialog for ImGui;
 - [Lua:](https://www.lua.org/) Script language;
 - [nativefiledialog:](https://github.com/mlabbe/nativefiledialog) A tiny, neat C library that portably invokes native file open and save dialogs;
-- [nlohmann:](https://github.com/mlabbe/nativefiledialog) JSON for Modern C++;
+- [nlohmann:](https://github.com/nlohmann/json) JSON for Modern C++;
 - [Premake:](https://premake.github.io/index.html) Build configuration;
 - [sol3:](https://github.com/ThePhD/sol2) A C++ library binding to Lua;
 - [spdlog:](https://github.com/gabime/spdlog) Very fast, header-only/compiled, C++ logging library;
@@ -63,13 +63,3 @@ Double click on the generated `Morpheus.sln` file.
 ```
 clean.bat
 ```
-
----
-
-## TODO
-
-- [ ] Allow creating a new project through the editor;
-- [ ] Allow building the project through the editor;
-- [ ] Generate the game executable through the editor;
-- [ ] Add linux support;
-- [ ] Add MacOS support;
