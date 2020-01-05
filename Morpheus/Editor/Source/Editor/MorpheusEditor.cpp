@@ -1,9 +1,9 @@
 #include "MorpheusEditor.h"
 
 #include <imgui.h>
-#include "Vendors/imgui_impl_glfw.h"
-#include "Vendors/imgui_impl_opengl3.h"
-#include "Vendors/IconsFontAwesome5.h"
+#include "Vendors/ImGuiImpl/imgui_impl_glfw.h"
+#include "Vendors/ImGuiImpl/imgui_impl_opengl3.h"
+#include "Vendors/IconsFontAwesome5/IconsFontAwesome5.h"
 #include "Theme.h"
 #include "Engine/ECS/Components/WindowComponent.h"
 

@@ -35,6 +35,7 @@ The engine use the following libraries:
 - [glm:](https://glm.g-truc.net) OpenGL Mathematics (GLM) is a header only C++ mathematics library;
 - [IconFontCppHeaders:](https://github.com/juliettef/IconFontCppHeaders) C++11, C89 headers and C# classes for icon fonts Font Awesome;
 - [ImGui:](https://github.com/ocornut/imgui) Immediate Mode Graphical User interface;
+- [ImGuiColorTextEdit](https://github.com/BalazsJako/ImGuiColorTextEdit) Syntax highlighting text editor for ImGui;
 - [Lua:](https://www.lua.org/) Script language;
 - [nativefiledialog:](https://github.com/mlabbe/nativefiledialog) A tiny, neat C library that portably invokes native file open and save dialogs;
 - [nlohmann:](https://github.com/nlohmann/json) JSON for Modern C++;

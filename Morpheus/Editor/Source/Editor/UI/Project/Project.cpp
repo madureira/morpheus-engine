@@ -1,31 +1,41 @@
 #include "Project.h"
-#include <functional>
 #include "Engine/Util/FileUtil.h"
+#include <functional>
 
 namespace Editor {
 
 	Project::Project(entt::registry& registry)
-		: m_ProjectPath("")
+		: m_Preview(nullptr)
 		, m_TreeView(nullptr)
-		, m_Preview(nullptr)
+		, m_CodeEditor(nullptr)
+		, m_ProjectPath("")
 		, m_CurrentFolderSelected("")
 		, m_CurrentFileSelected("")
 	{
-		this->m_Preview = new Preview([&selectedFolder = this->m_CurrentFolderSelected](std::string selectedFolderByUser) {
-			selectedFolder = selectedFolderByUser;
-		});
-		this->UpdateProjectPath(registry);
+		this->m_Preview = new Preview(
+			[&selectedFolder = this->m_CurrentFolderSelected](std::string selectedFolderByUser) {
+				selectedFolder = selectedFolderByUser;
+			},
+			[&selectedFile = this->m_CurrentFileSelected](std::string selectedFileByUser) {
+				selectedFile = selectedFileByUser;
+			}
+		);
 	}
 
 	Project::~Project()
 	{
 		delete this->m_Preview;
 		delete this->m_TreeView;
+		delete this->m_CodeEditor;
 	}
 
 	void Project::Draw(entt::registry& registry)
 	{
-		this->UpdateProjectPath(registry);
+		auto& projectEntity = registry.ctx<Morpheus::ProjectEntity>();
+		auto& projectComponent = registry.get<Morpheus::ProjectComponent>(projectEntity.id);
+
+		this->UpdateProjectPath(projectComponent);
+		this->OpenCodeEditor(registry);
 
 		ImGui::Begin(ICON_FA_FOLDER" Project###project");
 		{
@@ -74,17 +84,13 @@ namespace Editor {
 		ImGui::End();
 	}
 
-	void Project::UpdateProjectPath(entt::registry& registry)
+	void Project::UpdateProjectPath(Morpheus::ProjectComponent& projectComponent)
 	{
-		auto& projectEntity = registry.ctx<Morpheus::ProjectEntity>();
-		auto& projectComponent = registry.get<Morpheus::ProjectComponent>(projectEntity.id);
-
-		if (this->m_ProjectPath.compare(projectComponent.projectPath) != 0
-			&& !projectComponent.projectPath.empty())
+		if (this->m_ProjectPath != projectComponent.projectPath && !projectComponent.projectPath.empty())
 		{
-			this->m_ProjectPath = projectComponent.projectPath;
 			delete this->m_TreeView;
 
+			this->m_ProjectPath = projectComponent.projectPath;
 			this->m_CurrentFolderSelected = this->m_ProjectPath;
 			this->m_CurrentFileSelected = "";
 
@@ -96,6 +102,24 @@ namespace Editor {
 					selectedFile = selectedFileByUser;
 				}
 			);
+		}
+	}
+
+	void Project::OpenCodeEditor(entt::registry& registry)
+	{
+		static bool showCodeEditor = false;
+		static std::string filePath = "";
+
+		if (!this->m_CurrentFileSelected.empty() && this->m_CurrentFileSelected != filePath)
+		{
+			showCodeEditor = true;
+			filePath = this->m_CurrentFileSelected;
+			this->m_CodeEditor = new CodeEditor(this->m_CurrentFileSelected);
+		}
+
+		if (showCodeEditor)
+		{
+			this->m_CodeEditor->Draw(registry);
 		}
 	}
 

@@ -3,8 +3,9 @@
 
 namespace Editor {
 
-	Preview::Preview(std::function<void(std::string & path)> onFolderSelect)
+	Preview::Preview(std::function<void(std::string& path)> onFolderSelect, std::function<void(std::string& path)> onFileSelect)
 		: m_HandleFolderSelection(onFolderSelect)
+		, m_HandleFileSelection(onFileSelect)
 		, m_JSON(nullptr)
 		, m_CurrentFolder("")
 		, m_CurrentFile("")
@@ -54,9 +55,16 @@ namespace Editor {
 					this->m_SelectedItem = item->data["path"].get<std::string>();
 				}
 
-				if (item->data["type"].get<std::string>() == "folder" && ImGui::IsItemHovered() && ImGui::IsMouseDoubleClicked(0))
+				if (ImGui::IsItemHovered() && ImGui::IsMouseDoubleClicked(0))
 				{
-					this->m_HandleFolderSelection(this->m_SelectedItem);
+					if (item->data["type"].get<std::string>() == "folder")
+					{
+						this->m_HandleFolderSelection(this->m_SelectedItem);
+					}
+					else if (item->data["type"].get<std::string>() == "file")
+					{
+						this->m_HandleFileSelection(this->m_SelectedItem);
+					}
 				}
 
 				ImGui::PopID();

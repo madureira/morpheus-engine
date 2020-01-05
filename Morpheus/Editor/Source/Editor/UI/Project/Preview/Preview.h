@@ -37,10 +37,11 @@ namespace Editor {
 		Morpheus::Texture* m_FolderIcon;
 		Morpheus::Texture* m_FileIcon;
 		int m_Zoom;
-		std::function<void(std::string & path)> m_HandleFolderSelection;
+		std::function<void(std::string& path)> m_HandleFolderSelection;
+		std::function<void(std::string& path)> m_HandleFileSelection;
 
 	public:
-		Preview(std::function<void(std::string & path)> onFolderSelect);
+		Preview(std::function<void(std::string& path)> onFolderSelect, std::function<void(std::string& path)> onFileSelect);
 		~Preview();
 		void Draw(entt::registry& registry) override;
 		void UpdateSelectedFolder(std::string& folderPath);

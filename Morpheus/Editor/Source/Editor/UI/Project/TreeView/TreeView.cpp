@@ -57,11 +57,16 @@ namespace Editor {
 		{
 			this->CreateFileNode(tree["path"], tree["name"], tree["extension"]);
 
+			std::string filePath(tree["path"]);
+
 			if (ImGui::IsItemClicked() || ImGui::IsItemFocused())
 			{
-				std::string filePath(tree["path"]);
-				this->m_HandleFileSelection(filePath);
 				ME_LOG_INFO("File size: {0}", tree["size"]);
+			}
+
+			if (ImGui::IsItemHovered() && ImGui::IsMouseDoubleClicked(0))
+			{
+				this->m_HandleFileSelection(filePath);
 			}
 		}
 	}

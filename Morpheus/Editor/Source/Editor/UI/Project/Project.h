@@ -3,6 +3,7 @@
 #include "Editor/UI/UIComponent.h"
 #include "TreeView/TreeView.h"
 #include "Preview/Preview.h"
+#include "CodeEditor/CodeEditor.h"
 #include <string>
 
 namespace Editor {
@@ -10,9 +11,10 @@ namespace Editor {
 	class Project : public UIComponent
 	{
 	private:
-		std::string m_ProjectPath;
-		TreeView* m_TreeView;
 		Preview* m_Preview;
+		TreeView* m_TreeView;
+		CodeEditor* m_CodeEditor;
+		std::string m_ProjectPath;
 		std::string m_CurrentFolderSelected;
 		std::string m_CurrentFileSelected;
 
@@ -22,7 +24,8 @@ namespace Editor {
 		void Draw(entt::registry& registry) override;
 
 	private:
-		void UpdateProjectPath(entt::registry& registry);
+		void UpdateProjectPath(Morpheus::ProjectComponent& projectComponent);
+		void OpenCodeEditor(entt::registry& registry);
 	};
 
 }
