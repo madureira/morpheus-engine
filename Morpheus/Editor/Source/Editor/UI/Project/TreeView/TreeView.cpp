@@ -103,7 +103,7 @@ namespace Editor {
 			nodeTitle = ICON_FA_FILE_IMAGE;
 		}
 
-		if (Morpheus::Extension::IsCode(fileExtension))
+		if (Morpheus::Extension::IsCode(fileExtension) || Morpheus::Extension::IsShader(fileExtension))
 		{
 			nodeTitle = ICON_FA_FILE_CODE;
 		}

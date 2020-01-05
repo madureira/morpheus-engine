@@ -6,25 +6,30 @@ namespace Editor {
 	CodeEditor::CodeEditor(std::string filePath)
 		: m_FilePath(filePath)
 		, m_TextEditor(nullptr)
+		, m_ShowEditor(false)
 	{
-		this->m_TextEditor = new TextEditor();
+		std::string extension = "." + filePath.substr(filePath.find_last_of(".") + 1);
 
-		std::string extension = filePath.substr(filePath.find_last_of(".") + 1);
+		if (Morpheus::Extension::IsCode(extension) || Morpheus::Extension::IsData(extension) || Morpheus::Extension::IsShader(extension))
+		{
+			this->m_ShowEditor = true;
+			this->m_TextEditor = new TextEditor();
 
-		if (extension == "lua")
-		{
-			this->m_TextEditor->SetLanguageDefinition(TextEditor::LanguageDefinition::Lua());
-		}
-		else if (extension == "vert" || extension == "frag")
-		{
-			this->m_TextEditor->SetLanguageDefinition(TextEditor::LanguageDefinition::GLSL());
-		}
-		else if (extension == "h" || extension == "cpp")
-		{
-			this->m_TextEditor->SetLanguageDefinition(TextEditor::LanguageDefinition::CPlusPlus());
-		}
+			if (Morpheus::Extension::IsShader(extension))
+			{
+				this->m_TextEditor->SetLanguageDefinition(TextEditor::LanguageDefinition::GLSL());
+			}
+			else if (extension == ".lua")
+			{
+				this->m_TextEditor->SetLanguageDefinition(TextEditor::LanguageDefinition::Lua());
+			}
+			else if (extension == ".h" || extension == ".cpp")
+			{
+				this->m_TextEditor->SetLanguageDefinition(TextEditor::LanguageDefinition::CPlusPlus());
+			}
 
-		this->m_TextEditor->SetText(Morpheus::FileUtil::ReadFile(this->m_FilePath));
+			this->m_TextEditor->SetText(Morpheus::FileUtil::ReadFile(this->m_FilePath));
+		}
 	}
 
 	CodeEditor::~CodeEditor()
@@ -34,14 +39,12 @@ namespace Editor {
 
 	void CodeEditor::Draw(entt::registry& registry)
 	{
-		static bool showEditor = true;
-
-		if (showEditor)
+		if (this->m_ShowEditor)
 		{
 			auto cpos = this->m_TextEditor->GetCursorPosition();
 
 			ImGui::SetNextWindowSize(ImVec2(800, 600), ImGuiCond_FirstUseEver);
-			ImGui::Begin(this->m_TextEditor->CanUndo() ? "Code Editor*" : "Code Editor", &showEditor, ImGuiWindowFlags_NoScrollbar);
+			ImGui::Begin(this->m_TextEditor->CanUndo() ? "Code Editor*" : "Code Editor", &this->m_ShowEditor, ImGuiWindowFlags_NoScrollbar);
 			{
 				ImVec2 codeEditorPos = ImGui::GetCursorPos();
 

@@ -18,6 +18,7 @@ namespace Morpheus {
 		inline static const std::string JPG = ".jpg";
 		inline static const std::string JPEG = ".jpeg";
 		inline static const std::string GIF = ".gif";
+		inline static const std::string ICO = ".ico";
 		inline static const std::string H = ".h";
 		inline static const std::string C = ".c";
 		inline static const std::string CPP = ".cpp";
@@ -31,7 +32,7 @@ namespace Morpheus {
 	public:
 		bool static IsImage(std::string extension)
 		{
-			return (extension == PNG || extension == JPG || extension == JPEG || extension == GIF);
+			return (extension == PNG || extension == JPG || extension == JPEG || extension == GIF || extension == ICO);
 		}
 
 		bool static IsCode(std::string extension)

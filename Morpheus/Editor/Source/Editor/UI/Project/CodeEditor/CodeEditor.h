@@ -11,6 +11,7 @@ namespace Editor {
 	private:
 		std::string m_FilePath;
 		TextEditor* m_TextEditor;
+		bool m_ShowEditor;
 
 	public:
 		CodeEditor(std::string filePath);
