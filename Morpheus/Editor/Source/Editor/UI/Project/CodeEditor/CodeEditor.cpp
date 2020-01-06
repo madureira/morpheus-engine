@@ -19,11 +19,11 @@ namespace Editor {
 			{
 				this->m_TextEditor->SetLanguageDefinition(TextEditor::LanguageDefinition::GLSL());
 			}
-			else if (extension == ".lua")
+			else if (extension == Morpheus::Extension::LUA)
 			{
 				this->m_TextEditor->SetLanguageDefinition(TextEditor::LanguageDefinition::Lua());
 			}
-			else if (extension == ".h" || extension == ".cpp")
+			else if (extension == Morpheus::Extension::H || extension == Morpheus::Extension::CPP)
 			{
 				this->m_TextEditor->SetLanguageDefinition(TextEditor::LanguageDefinition::CPlusPlus());
 			}
@@ -61,7 +61,6 @@ namespace Editor {
 					this->m_TextEditor->GetLanguageDefinition().mName.c_str(),
 					this->m_FilePath.c_str());
 			}
-
 			ImGui::End();
 		}
 	}
