@@ -13,7 +13,9 @@ extern "C"
 int main()
 {
 	Morpheus::Engine engine;
-	engine.Initialize(new Game::GameApp);
+	Game::GameApp game;
+
+	engine.Initialize(&game);
 	engine.Start();
 
 	return 0;

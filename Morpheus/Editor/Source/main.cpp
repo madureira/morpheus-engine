@@ -13,7 +13,9 @@ extern "C"
 int main()
 {
 	Morpheus::Engine engine;
-	engine.Initialize(new Editor::MorpheusEditor);
+	Editor::MorpheusEditor editor;
+
+	engine.Initialize(&editor);
 	engine.Start();
 
 	return 0;

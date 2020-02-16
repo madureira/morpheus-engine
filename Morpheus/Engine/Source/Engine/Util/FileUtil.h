@@ -31,7 +31,7 @@ namespace Morpheus {
 
 		bool static IsImage(std::string extension)
 		{
-			return (extension == PNG || extension == JPG || extension == JPEG || extension == GIF || extension == ICO);
+			return (extension == PNG || extension == JPG || extension == JPEG || extension == GIF);
 		}
 
 		bool static IsCode(std::string extension)

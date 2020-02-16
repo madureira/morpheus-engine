@@ -11,7 +11,20 @@ namespace Morpheus {
 		, m_FragPath(fragmentPath)
 		, m_GeomPath(geometryPath)
 	{
-		this->m_ShaderID = this->Load();
+		GLuint program = glCreateProgram();
+
+		this->CompileShader(program, GL_VERTEX_SHADER, "VERTEX", this->m_VertPath);
+		this->CompileShader(program, GL_FRAGMENT_SHADER, "FRAGMENT", this->m_FragPath);
+
+		if (!this->m_GeomPath.empty())
+		{
+			this->CompileShader(program, GL_GEOMETRY_SHADER, "GEOMETRY", this->m_GeomPath);
+		}
+
+		glLinkProgram(program);
+		glValidateProgram(program);
+
+		this->m_ShaderID = program;
 	}
 
 	Shader::~Shader()
@@ -97,24 +110,6 @@ namespace Morpheus {
 		return glGetUniformLocation(this->m_ShaderID, name.c_str());
 	}
 
-	unsigned int Shader::Load()
-	{
-		GLuint program = glCreateProgram();
-
-		this->CompileShader(program, GL_VERTEX_SHADER, "VERTEX", this->m_VertPath);
-		this->CompileShader(program, GL_FRAGMENT_SHADER, "FRAGMENT", this->m_FragPath);
-
-		if (!this->m_GeomPath.empty())
-		{
-			this->CompileShader(program, GL_GEOMETRY_SHADER, "GEOMETRY", this->m_GeomPath);
-		}
-
-		glLinkProgram(program);
-		glValidateProgram(program);
-
-		return program;
-	}
-
 	bool Shader::CompileShader(unsigned int& program, int glShaderType, std::string shaderType, std::string shaderPath)
 	{
 		std::string shaderFile = FileUtil::ReadFile(shaderPath.c_str());
@@ -122,6 +117,7 @@ namespace Morpheus {
 		if (shaderFile.empty())
 		{
 			ME_LOG_ERROR("Shader: {0} {1}", shaderType.c_str(), "shader is empty!");
+
 			return false;
 		}
 
@@ -143,6 +139,7 @@ namespace Morpheus {
 			glGetShaderInfoLog(shader, length, &length, &error[0]);
 			ME_LOG_ERROR("Shader: Failed to compile {0} {1} {2}", shaderType.c_str(), "shader! ", &error[0]);
 			glDeleteShader(shader);
+
 			return false;
 		}
 

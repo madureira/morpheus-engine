@@ -10,12 +10,10 @@ namespace Editor {
 		, m_CurrentFolder("")
 		, m_CurrentFile("")
 		, m_SelectedItem("")
-		, m_FolderIcon(nullptr)
-		, m_FileIcon(nullptr)
+		, m_FolderIcon(new Morpheus::Texture("Assets/icons/black-folder-icon.png"))
+		, m_FileIcon(new Morpheus::Texture("Assets/icons/document-icon.png"))
 		, m_Zoom(1)
 	{
-		this->m_FolderIcon = new Morpheus::Texture("Assets/icons/black-folder-icon.png");
-		this->m_FileIcon = new Morpheus::Texture("Assets/icons/document-icon.png");
 	}
 
 	Preview::~Preview()

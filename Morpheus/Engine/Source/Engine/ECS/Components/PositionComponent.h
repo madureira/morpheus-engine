@@ -3,8 +3,14 @@
 namespace Morpheus {
 
 	struct PositionComponent {
-		float x = 0.0f;
-		float y = 0.0f;
+		float x;
+		float y;
+
+		PositionComponent(float posX, float posY)
+			: x(posX)
+			, y(posY)
+		{
+		}
 	};
 
 }

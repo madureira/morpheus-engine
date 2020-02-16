@@ -9,12 +9,12 @@
 namespace Editor {
 
 	Dock::Dock(entt::registry& registry)
+		: m_Viewport(new Viewport(registry))
+		, m_Console(new Console())
+		, m_Hierarchy(new Hierarchy())
+		, m_Inspector(new Inspector(registry))
+		, m_Project(new Project(registry))
 	{
-		this->m_Viewport = new Viewport(registry);
-		this->m_Console = new Console();
-		this->m_Hierarchy = new Hierarchy();
-		this->m_Inspector = new Inspector(registry);
-		this->m_Project = new Project(registry);
 	}
 
 	Dock::~Dock()

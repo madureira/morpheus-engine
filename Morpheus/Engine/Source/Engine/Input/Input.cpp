@@ -8,10 +8,9 @@ bool g_is_gamepad_connected = false;
 namespace Morpheus {
 
 	Input::Input(entt::registry& registry, GLFWwindow* pNativeWindow)
+		: m_Gamepad(new Gamepad())
+		, m_Keyboard(new Keyboard(pNativeWindow))
 	{
-		this->m_Gamepad = new Gamepad();
-		this->m_Keyboard = new Keyboard(pNativeWindow);
-
 		glfwSetJoystickCallback([](int joystickId, int event) {
 			if (event == GLFW_CONNECTED)
 			{

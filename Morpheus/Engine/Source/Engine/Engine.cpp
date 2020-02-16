@@ -38,7 +38,6 @@ namespace Morpheus {
 
 	Engine::~Engine()
 	{
-		delete this->m_App;
 		delete this->m_Performance;
 		delete this->m_Input;
 		delete this->m_Window;

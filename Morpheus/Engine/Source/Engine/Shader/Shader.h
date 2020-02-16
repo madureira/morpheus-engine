@@ -36,7 +36,6 @@ namespace Morpheus {
 		int GetUniformLocation(const std::string& name) const;
 
 	private:
-		unsigned int Load();
 		bool CompileShader(unsigned int& program, int glShaderType, std::string shaderType, std::string shaderPath);
 	};
 
