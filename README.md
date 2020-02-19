@@ -8,7 +8,7 @@
 
 Game engine built in C++ and OpenGL.
 
-> Initial development is in progress, but there has not yet been a stable, usable release suitable for the public.
+> Initial development is underway, but there is still no stable and usable version, suitable for the public.
 
 ![](.github/morpheus-logo.png?raw=true "Morpheus")
 
