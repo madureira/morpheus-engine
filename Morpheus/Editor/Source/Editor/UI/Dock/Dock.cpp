@@ -45,7 +45,8 @@ namespace Editor {
 
 		ImGui::Begin("Engine", &dockEnabled, dockFlags);
 		{
-			if (!ImGui::DockBuilderGetNode(dockspaceID)) {
+			if (!ImGui::DockBuilderGetNode(dockspaceID))
+			{
 				ImGui::DockBuilderRemoveNode(dockspaceID);
 				ImGui::DockBuilderAddNode(dockspaceID, ImGuiDockNodeFlags_None);
 

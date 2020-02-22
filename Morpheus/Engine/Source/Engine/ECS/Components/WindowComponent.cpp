@@ -9,12 +9,12 @@ namespace Morpheus {
 	{
 	}
 
-	void WindowComponent::Close()
+	void WindowComponent::Close() const
 	{
 		return this->m_WindowInstance->Close();
 	}
 
-	GLFWwindow* WindowComponent::GetNativeWindow()
+	GLFWwindow* WindowComponent::GetNativeWindow() const
 	{
 		return this->m_WindowInstance->GetNativeWindow();
 	}

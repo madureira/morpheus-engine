@@ -14,6 +14,7 @@ namespace Editor {
 	public:
 		Inspector(entt::registry& registry);
 		~Inspector();
+
 		void Draw(entt::registry& registry) override;
 	};
 

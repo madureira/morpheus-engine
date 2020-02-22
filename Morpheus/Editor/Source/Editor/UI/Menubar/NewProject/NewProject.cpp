@@ -105,7 +105,7 @@ namespace Editor {
 		}
 	}
 
-	bool NewProject::IsOpened()
+	bool NewProject::IsOpened() const
 	{
 		return this->m_IsOpened;
 	}

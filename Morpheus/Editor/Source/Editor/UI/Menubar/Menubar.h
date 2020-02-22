@@ -13,6 +13,7 @@ namespace Editor {
 	public:
 		Menubar();
 		~Menubar();
+
 		void Draw(entt::registry& registry) override;
 	};
 

@@ -31,14 +31,13 @@ namespace Morpheus {
 		delete this->m_Keyboard;
 	}
 
-	void Input::Update(entt::registry& registry)
+	void Input::Update(entt::registry& registry) const
 	{
 		auto& inputEntity = registry.ctx<Morpheus::InputEntity>();
 		auto& inputState = registry.get<Morpheus::InputStateComponent>(inputEntity.id);
 
 		if (g_is_gamepad_connected)
 		{
-
 			inputState = this->m_Gamepad->GetState();
 		}
 		else

@@ -14,7 +14,8 @@ namespace Morpheus {
 
 	public:
 		Keyboard(GLFWwindow* pNativeWindow);
-		InputStateComponent GetState();
+
+		InputStateComponent GetState() const;
 	};
 
 }

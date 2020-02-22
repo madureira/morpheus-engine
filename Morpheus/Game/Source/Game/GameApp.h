@@ -22,6 +22,7 @@ namespace Game {
 	public:
 		GameApp();
 		~GameApp();
+
 		void Initialize(entt::registry& registry) override;
 		void OnFrameStarted(entt::registry& registry, double deltaTime, int currentFrame, int frameRate) override;
 		void FrameListener(entt::registry& registry, double deltaTime, int currentFrame, int frameRate) override;

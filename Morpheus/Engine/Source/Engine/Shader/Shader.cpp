@@ -45,6 +45,11 @@ namespace Morpheus {
 		glUseProgram(0);
 	}
 
+	unsigned int Shader::GetProgram() const
+	{
+		return m_ShaderID;
+	}
+
 	void Shader::SetBool(const std::string& name, bool value) const
 	{
 		glUniform1i(this->GetUniformLocation(name.c_str()), (int)value);

@@ -23,6 +23,7 @@ namespace Morpheus {
 	public:
 		Engine();
 		~Engine();
+
 		void Initialize(App* pApp);
 		void Start();
 	};

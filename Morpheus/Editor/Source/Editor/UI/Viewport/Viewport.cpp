@@ -195,12 +195,14 @@ namespace Editor {
 		{
 			frameCount++;
 		}
-		else {
+		else
+		{
 			frameCount = 0;
 			frame++;
 		}
 
-		if (frame == 4) {
+		if (frame == 4)
+		{
 			frame = 0;
 		}
 

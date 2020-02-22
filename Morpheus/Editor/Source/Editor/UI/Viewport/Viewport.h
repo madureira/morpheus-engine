@@ -37,6 +37,7 @@ namespace Editor {
 	public:
 		Viewport(entt::registry& registry);
 		~Viewport();
+
 		void Draw(entt::registry& registry) override;
 
 	private:

@@ -11,6 +11,7 @@ namespace Editor {
 	class UIComponent {
 	public:
 		virtual ~UIComponent() = default;
+
 		virtual void Draw(entt::registry& registry) = 0;
 	};
 

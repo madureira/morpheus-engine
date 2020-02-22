@@ -4,7 +4,8 @@
 
 namespace Morpheus {
 
-	struct Entity {
+	struct Entity
+	{
 		entt::entity id;
 	};
 

@@ -20,6 +20,7 @@ namespace Editor {
 	public:
 		MorpheusEditor();
 		~MorpheusEditor();
+
 		void Initialize(entt::registry& registry) override;
 		void OnFrameStarted(entt::registry& registry, double deltaTime, int currentFrame, int frameRate) override;
 		void FrameListener(entt::registry& registry, double deltaTime, int currentFrame, int frameRate) override;

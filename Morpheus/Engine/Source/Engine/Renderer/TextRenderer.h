@@ -1,6 +1,5 @@
 #pragma once
 
-#include <glad/glad.h>
 #include <map>
 #include <string>
 #include <glad/glad.h>
@@ -17,7 +16,8 @@ namespace Morpheus {
 	private:
 		GLuint m_VAO;
 		GLuint m_VBO;
-		struct Character {
+		struct Character
+		{
 			GLuint TextureID;
 			glm::ivec2 Size;
 			glm::ivec2 Bearing;
@@ -27,6 +27,7 @@ namespace Morpheus {
 
 	public:
 		TextRenderer(std::string fontPath);
+
 		void Render(Shader& shader, std::string text, GLfloat x, GLfloat y, GLfloat scale, glm::vec3 color);
 	};
 

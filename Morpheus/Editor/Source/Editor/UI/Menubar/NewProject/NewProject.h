@@ -14,7 +14,7 @@ namespace Editor {
 
 	public:
 		void Draw(entt::registry& registry) override;
-		bool IsOpened();
+		bool IsOpened() const;
 	};
 
 }

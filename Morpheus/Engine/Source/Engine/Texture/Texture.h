@@ -12,9 +12,10 @@ namespace Morpheus {
 	public:
 		Texture(const char* filePath, bool flipVertically = false);
 		~Texture();
-		unsigned int GetID();
-		inline unsigned int GetWidth() { return m_Width; }
-		inline unsigned int GetHeight() { return m_Height; }
+
+		unsigned int GetID() const;
+		unsigned int GetWidth() const;
+		unsigned int GetHeight() const;
 	};
 
 }

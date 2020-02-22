@@ -18,19 +18,19 @@ namespace Morpheus {
 		Window(entt::registry& registry);
 		~Window();
 
-		bool IsOpen();
-		void PollEvents();
-		void Clear();
-		void SwapBuffers();
-		inline unsigned int GetWidth() const { return this->m_Width; }
-		inline unsigned int GetHeight() const { return this->m_Height; }
-		inline GLFWwindow* GetNativeWindow() const { return this->m_Window; };
-		double GetTime();
-		void Close();
+		bool IsOpen() const;
+		void PollEvents() const;
+		void Clear() const;
+		void SwapBuffers() const;
+		unsigned int GetWidth() const;
+		unsigned int GetHeight() const;
+		double GetTime() const;
+		void Close() const;
+		GLFWwindow* GetNativeWindow() const;
 
 	private:
 		void Initialize();
-		void Shutdown();
+		void Shutdown() const;
 	};
 
 }

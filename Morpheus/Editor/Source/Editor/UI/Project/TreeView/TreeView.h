@@ -20,6 +20,7 @@ namespace Editor {
 
 	public:
 		TreeView(std::string& currentPath, std::function<void(std::string & path)> onFolderSelect, std::function<void(std::string & path)> onFileSelect);
+
 		void Draw(entt::registry& registry) override;
 
 	private:

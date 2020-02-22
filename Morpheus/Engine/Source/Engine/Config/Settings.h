@@ -50,9 +50,13 @@ namespace Morpheus {
 
 			sol::load_result settingsContent = this->m_LuaState->load_file(SETTINGS_FILE_PATH);
 
-			if (!this->IsSettingsValid(settingsContent, registry))
+			if (!this->IsSettingsValid(settingsContent))
 			{
 				ME_LOG_ERROR("Settings: Fail to parse {0}", SETTINGS_FILE_PATH);
+			}
+			else
+			{
+				this->LoadVariables();
 			}
 		}
 
@@ -116,18 +120,20 @@ namespace Morpheus {
 		}
 
 	private:
-		inline bool IsSettingsValid(sol::load_result& scriptSettings, entt::registry& registry)
+		inline bool IsSettingsValid(sol::load_result& scriptSettings)
 		{
-			if (!scriptSettings.valid()) {
+			if (!scriptSettings.valid())
+			{
 				return false;
 			}
 
 			sol::protected_function_result settings = scriptSettings();
 
-			if (!settings.valid()) {
-				return false;
-			}
+			return settings.valid();
+		}
 
+		void LoadVariables()
+		{
 			sol::optional<std::string> windowTitle = (*this->m_LuaState)["config"]["window"]["title"];
 			sol::optional<bool> windowFullScreen = (*this->m_LuaState)["config"]["window"]["fullscreen"];
 			sol::optional<bool> windowPrimaryMonitor = (*this->m_LuaState)["config"]["window"]["primary_monitor"];
@@ -154,8 +160,6 @@ namespace Morpheus {
 			this->m_FPS = fps.value();
 			this->m_IsVSyncOn = vsync.value();
 			this->m_IsDebug = debug.value();
-
-			return true;
 		}
 	};
 

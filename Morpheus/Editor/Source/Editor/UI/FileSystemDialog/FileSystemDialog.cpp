@@ -11,11 +11,13 @@ namespace Editor {
 
 		std::string selectedPath;
 
-		if (result == NFD_OKAY) {
+		if (result == NFD_OKAY)
+		{
 			selectedPath = outPath;
 			free(outPath);
 		}
-		else if (result == NFD_ERROR) {
+		else if (result == NFD_ERROR)
+		{
 			ME_LOG_ERROR("FileSystemDialog: {0}", NFD_GetError());
 		}
 
@@ -29,11 +31,13 @@ namespace Editor {
 
 		std::string selectedPath;
 
-		if (result == NFD_OKAY) {
+		if (result == NFD_OKAY)
+		{
 			selectedPath = outPath;
 			free(outPath);
 		}
-		else if (result == NFD_ERROR) {
+		else if (result == NFD_ERROR)
+		{
 			ME_LOG_ERROR("FileSystemDialog: {0}", NFD_GetError());
 		}
 
@@ -47,11 +51,13 @@ namespace Editor {
 
 		std::string selectedPath;
 
-		if (result == NFD_OKAY) {
+		if (result == NFD_OKAY)
+		{
 			selectedPath = outPath;
 			free(outPath);
 		}
-		else if (result == NFD_ERROR) {
+		else if (result == NFD_ERROR)
+		{
 			ME_LOG_ERROR("FileSystemDialog: {0}", NFD_GetError());
 		}
 

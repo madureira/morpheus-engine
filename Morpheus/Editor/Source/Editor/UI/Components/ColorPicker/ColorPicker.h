@@ -16,6 +16,7 @@ namespace Editor {
 
 	public:
 		ColorPicker(const char* label, entt::registry& registry, entt::entity& entity);
+
 		void Draw(entt::registry& registry) override;
 	};
 

@@ -21,6 +21,7 @@ namespace Editor {
 	public:
 		Project(entt::registry& registry);
 		~Project();
+
 		void Draw(entt::registry& registry) override;
 
 	private:

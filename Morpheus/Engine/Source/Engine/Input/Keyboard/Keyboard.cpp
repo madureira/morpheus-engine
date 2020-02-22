@@ -8,7 +8,7 @@ namespace Morpheus {
 	{
 	}
 
-	InputStateComponent Keyboard::GetState()
+	InputStateComponent Keyboard::GetState() const
 	{
 		InputStateComponent state;
 

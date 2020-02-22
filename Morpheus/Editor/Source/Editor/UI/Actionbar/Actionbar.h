@@ -12,6 +12,7 @@ namespace Editor {
 
 	public:
 		Actionbar();
+
 		void UpdateFrameRate(int frameRate);
 		void Draw(entt::registry& registry) override;
 

@@ -17,36 +17,51 @@ namespace Morpheus {
 		this->Shutdown();
 	}
 
-	bool Window::IsOpen()
+	bool Window::IsOpen() const
 	{
 		return !glfwWindowShouldClose(this->m_Window);
 	}
 
-	void Window::PollEvents()
+	void Window::PollEvents() const
 	{
 		glfwPollEvents();
 	}
 
-	void Window::Clear()
+	void Window::Clear() const
 	{
 		glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT);
 	}
 
-	void Window::SwapBuffers()
+	void Window::SwapBuffers() const
 	{
 		glfwSwapBuffers(this->m_Window);
 	}
 
-	double Window::GetTime()
+	unsigned int Window::GetWidth() const
+	{
+		return this->m_Width;
+	}
+
+	unsigned int Window::GetHeight() const
+	{
+		return this->m_Height;
+	}
+
+	double Window::GetTime() const
 	{
 		return glfwGetTime();
 	}
 
-	void Window::Close()
+	void Window::Close() const
 	{
 		glfwSetWindowShouldClose(this->m_Window, GLFW_TRUE);
 	}
+
+	GLFWwindow* Window::GetNativeWindow() const
+	{
+		return this->m_Window;
+	};
 
 	void Window::Initialize()
 	{
@@ -140,7 +155,7 @@ namespace Morpheus {
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	}
 
-	void Window::Shutdown()
+	void Window::Shutdown() const
 	{
 		glfwDestroyWindow(this->m_Window);
 		glfwTerminate();

@@ -45,9 +45,19 @@ namespace Morpheus {
 		glDeleteTextures(1, &this->m_Texture);
 	}
 
-	unsigned int Texture::GetID()
+	unsigned int Texture::GetID() const
 	{
 		return this->m_Texture;
+	}
+
+	unsigned int Texture::GetWidth() const
+	{
+		return m_Width;
+	}
+
+	unsigned int Texture::GetHeight() const
+	{
+		return m_Height;
 	}
 
 }

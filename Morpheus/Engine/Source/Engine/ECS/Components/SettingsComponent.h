@@ -4,7 +4,8 @@
 
 namespace Morpheus {
 
-	struct SettingsComponent {
+	struct SettingsComponent
+	{
 		std::string windowTitle;
 		bool isWindowFullScreen;
 		bool isPrimaryMonitor;

@@ -65,7 +65,6 @@ namespace Morpheus {
 		void SetScreenSize(glm::vec2 screenSize);
 		void SetScale(float scale);
 		void Render();
-
 		void EnableNormal(bool enable = false);
 		void EnableSpecular(bool enable = false);
 	};

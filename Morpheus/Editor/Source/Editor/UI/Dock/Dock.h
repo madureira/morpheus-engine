@@ -23,6 +23,7 @@ namespace Editor {
 	public:
 		Dock(entt::registry& registry);
 		~Dock();
+
 		void Draw(entt::registry& registry) override;
 	};
 
