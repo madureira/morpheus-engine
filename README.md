@@ -1,3 +1,5 @@
+![](.github/morpheus-logo-text.png?raw=true "Morpheus")
+
 # morpheus-engine
 
 [![Project Status: WIP](https://www.repostatus.org/badges/latest/wip.svg)](https://github.com/madureira/morpheus-engine#todo)
@@ -10,7 +12,6 @@ Game engine built in C++ and OpenGL.
 
 > Initial development is underway, but there is still no stable and usable version, suitable for the public.
 
-![](.github/morpheus-logo-text.png?raw=true "Morpheus")
 
 ## [Screenshots](https://github.com/madureira/morpheus-engine/tree/master/.github/screenshots) / [Video](https://www.youtube.com/watch?v=8IatRcdtFdQ)
 
