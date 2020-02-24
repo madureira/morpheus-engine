@@ -17,6 +17,7 @@ namespace Morpheus {
 		, m_Scale(1.0f)
 		, m_EnableNormal(true)
 		, m_EnableSpecular(true)
+		, m_EnableWireframe(false)
 	{
 		auto& statisticsEntity = registry.ctx<Morpheus::StatisticsEntity>();
 		auto& statistics = registry.get<Morpheus::StatisticsComponent>(statisticsEntity.id);

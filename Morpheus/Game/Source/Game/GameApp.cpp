@@ -122,6 +122,7 @@ namespace Game {
 
 		this->m_SpriteRenderer->EnableNormal(!inputState.SPACE);
 		this->m_SpriteRenderer->EnableSpecular(!inputState.LEFT_CONTROL);
+		this->m_SpriteRenderer->EnableWireframe(inputState.LEFT_SHIFT);
 
 		//this->m_SpriteRenderer->AddSpotLight(glm::vec3(600.0, 400.0, 0.01f), glm::vec4(1.0f, 0.8f, 0.6f, 1.0f), glm::vec3(0.4f, 3.0f, 20.0f));
 		this->m_SpriteRenderer->AddSpotLight(glm::vec3(600.0, 400.0, 0.01f), glm::vec4(1.0f, 0.8f, 0.6f, 1.0f), glm::vec3(0.01f, 1.0f, 20.0f));
