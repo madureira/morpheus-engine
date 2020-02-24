@@ -16,9 +16,12 @@ project "nfd"
 	kind "StaticLib"
 	language "C"
 	staticruntime "On"
-
 	targetdir("bin/" .. outputdir .. "/%{prj.name}")
 	objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
+	warnings "Off"
+	defines {
+		"_CRT_SECURE_NO_WARNINGS"
+	}
 
 	includedirs {
 		"src/include/"

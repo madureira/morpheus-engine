@@ -46,6 +46,7 @@ project "Engine"
 	language "C++"
 	cppdialect "C++17"
 	staticruntime "On"
+	warnings "Off"
 	objdir("Build/" .. outputdir)
 	targetdir("Dist/" .. outputdir)
 
@@ -117,6 +118,7 @@ project "Editor"
 	language "C++"
 	cppdialect "C++17"
 	staticruntime "On"
+	warnings "Off"
 	objdir("Build/" .. outputdir)
 	targetdir("Dist/" .. outputdir)
 
@@ -158,10 +160,6 @@ project "Editor"
 		"_CRT_SECURE_NO_WARNINGS"
 	}
 
-	buildoptions {
-		"/MP"
-	}
-
 	filter "system:windows"
 		systemversion "latest"
 		links { "opengl32", "gdi32" }
@@ -193,6 +191,7 @@ project "Game"
 	language "C++"
 	cppdialect "C++17"
 	staticruntime "On"
+	warnings "Off"
 	objdir("Build/" .. outputdir)
 	targetdir("Dist/" .. outputdir)
 
@@ -227,10 +226,6 @@ project "Game"
 	defines {
 		"MORPHEUS_APP",
 		"_CRT_SECURE_NO_WARNINGS"
-	}
-
-	buildoptions {
-		"/MP"
 	}
 
 	filter "system:windows"
