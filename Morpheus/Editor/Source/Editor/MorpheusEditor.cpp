@@ -89,7 +89,6 @@ namespace Editor {
 		io.DisplaySize = ImVec2((float)windowSize.width, (float)windowSize.height);
 
 		this->m_Menubar->Draw(registry);
-		this->m_Actionbar->UpdateFrameRate(frameRate);
 		this->m_Actionbar->Draw(registry);
 		this->m_Dock->Draw(registry);
 		this->m_Footer->Draw(registry);

@@ -1,9 +1,13 @@
 #include "Footer.h"
+#include "Engine/Util/NumberUtil.h"
 
 namespace Editor {
 
 	void Footer::Draw(entt::registry& registry)
 	{
+		auto& statisticsEntity = registry.ctx<Morpheus::StatisticsEntity>();
+		auto& statistics = registry.get<Morpheus::StatisticsComponent>(statisticsEntity.id);
+
 		ImGuiIO& io = ImGui::GetIO();
 
 		static bool showFooter = true;
@@ -20,8 +24,28 @@ namespace Editor {
 		ImGui::PushStyleVar(ImGuiStyleVar_WindowRounding, 0.0f);
 
 		ImGui::Begin("Footer", &showFooter, windowFlags);
-		ImGui::Text("Status");
+		{
+			ImGui::Text("Status");
+
+			ImGui::SameLine((float)io.DisplaySize.x - 295.0f);
+			ImGui::PushStyleColor(ImGuiCol_Text, ImVec4(0.725f, 0.725f, 0.725f, 1.0f));
+			ImGui::Text("Draw calls: %i", statistics.drawCalls);
+			ImGui::PopStyleColor();
+
+			std::string numberOfVertices = Morpheus::NumberUtil::FormatThousandSeparator(statistics.vertices);
+
+			ImGui::SameLine((float)io.DisplaySize.x - 190.0f);
+			ImGui::PushStyleColor(ImGuiCol_Text, ImVec4(0.235f, 0.588f, 0.686f, 1.0f));
+			ImGui::Text("Vertices: %s", numberOfVertices.c_str());
+			ImGui::PopStyleColor();
+
+			ImGui::SameLine((float)io.DisplaySize.x - 70.0f);
+			ImGui::PushStyleColor(ImGuiCol_Text, ImVec4(0.4f, 0.9f, 0.2f, 1.0f));
+			ImGui::Text("FPS: %i", statistics.frameRate);
+			ImGui::PopStyleColor();
+		}
 		ImGui::End();
+
 		ImGui::PopStyleVar();
 	}
 

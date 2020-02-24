@@ -24,6 +24,7 @@ namespace Morpheus {
 		Engine();
 		~Engine();
 
+		void RegisterECS();
 		void Initialize(App* pApp);
 		void Start();
 	};

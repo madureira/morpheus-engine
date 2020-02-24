@@ -8,12 +8,10 @@ namespace Editor {
 	{
 	private:
 		bool m_IsPlaying;
-		int m_FrameRate;
 
 	public:
 		Actionbar();
 
-		void UpdateFrameRate(int frameRate);
 		void Draw(entt::registry& registry) override;
 
 	private:

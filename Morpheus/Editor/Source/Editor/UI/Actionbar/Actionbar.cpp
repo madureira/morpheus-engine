@@ -4,13 +4,7 @@ namespace Editor {
 
 	Actionbar::Actionbar()
 		: m_IsPlaying(false)
-		, m_FrameRate(0)
 	{
-	}
-
-	void Actionbar::UpdateFrameRate(int frameRate)
-	{
-		this->m_FrameRate = frameRate;
 	}
 
 	void Actionbar::Draw(entt::registry& registry)
@@ -80,12 +74,6 @@ namespace Editor {
 			ImGui::SameLine();
 
 			this->m_IsPlaying = play;
-
-			ImGui::Dummy(ImVec2(io.DisplaySize.x / 2 - 110, 0.0f));
-			ImGui::SameLine();
-			ImGui::PushStyleColor(ImGuiCol_Text, ImVec4(0.4f, 0.9f, 0.2f, 1.0f));
-			ImGui::Text("FPS: %d", this->m_FrameRate);
-			ImGui::PopStyleColor();
 		}
 		ImGui::End();
 		ImGui::PopStyleVar();

@@ -31,9 +31,9 @@ namespace Editor {
 		{
 			ImVec2 areaSize = ImGui::GetContentRegionAvail();
 
-			static int margin = 10;
+			static float margin = 10.0f;
 			static int imageSize = 64;
-			int width = margin;
+			float width = margin;
 
 			ImGui::Dummy(ImVec2(0, margin));
 
@@ -48,7 +48,7 @@ namespace Editor {
 				ImGui::PushStyleColor(ImGuiCol_ButtonHovered, ImVec4(ImColor(0.25f, 0.25f, 0.25f, 1.00f)));
 				ImGui::PushStyleColor(ImGuiCol_ButtonActive, ImVec4(ImColor(150, 150, 150)));
 				ImGui::PushID(itemId);
-				if (ImGui::ImageButton((void*)item->image->GetID(), ImVec2(imageSize * this->m_Zoom, imageSize * this->m_Zoom)))
+				if (ImGui::ImageButton((void*)item->image->GetID(), ImVec2((float)(imageSize * this->m_Zoom), (float)(imageSize * this->m_Zoom))))
 				{
 					this->m_SelectedItem = item->data["path"].get<std::string>();
 				}
@@ -85,7 +85,7 @@ namespace Editor {
 					ImGui::EndTooltip();
 				}
 			
-				int nextSize = width + (margin * 3) + (imageSize * this->m_Zoom);
+				float nextSize = width + (margin * 3.0f) + (imageSize * this->m_Zoom);
 
 				if (areaSize.x > nextSize)
 				{
@@ -94,10 +94,10 @@ namespace Editor {
 				}
 				else
 				{
-					width = 0;
+					width = 0.0f;
 					ImGui::SameLine();
 					ImGui::Dummy(ImVec2(margin, 0));
-					ImGui::Dummy(ImVec2(0, margin+3));
+					ImGui::Dummy(ImVec2(0, margin + 3.0f));
 				}
 
 				itemId++;
