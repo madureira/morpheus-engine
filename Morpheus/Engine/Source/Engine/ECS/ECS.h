@@ -9,9 +9,11 @@
 #include "./Components/ProjectComponent.h"
 #include "./Components/SettingsComponent.h"
 #include "./Components/SizeComponent.h"
+#include "./Components/StatisticsComponent.h"
 
 // Entities
 #include "Entities/InputEntity.h"
 #include "./Entities/ProjectEntity.h"
 #include "./Entities/SettingsEntity.h"
 #include "./Entities/WindowEntity.h"
+#include "./Entities/StatisticsEntity.h"

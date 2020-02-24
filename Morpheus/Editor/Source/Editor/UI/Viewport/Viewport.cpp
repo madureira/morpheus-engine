@@ -74,9 +74,9 @@ namespace Editor {
 		glBindBuffer(GL_ARRAY_BUFFER, this->m_VBO);
 		glBufferData(GL_ARRAY_BUFFER, sizeof(this->m_Vertices), this->m_Vertices, GL_STATIC_DRAW);
 
-		this->m_Shader = new Morpheus::Shader("Assets/shaders/viewport.vert", "Assets/shaders/viewport.frag");
+		this->m_Shader = new Morpheus::Shader("Assets/shaders/viewport.vert", "Assets/shaders/viewport.frag", "Assets/shaders/wireframe.geom");
 
-		this->m_SpriteRenderer = new Morpheus::SpriteRenderer(glm::vec2(this->m_InitialWindowWidth, this->m_InitialWindowHeight));
+		this->m_SpriteRenderer = new Morpheus::SpriteRenderer(registry, glm::vec2(this->m_InitialWindowWidth, this->m_InitialWindowHeight));
 
 		this->m_Texture = new Morpheus::Texture("Assets/images/tileset.png");
 		this->m_Normal = new Morpheus::Texture("Assets/images/tileset_n.png");
@@ -95,8 +95,8 @@ namespace Editor {
 	{
 		static const int tileSize = 40;
 		static const int columns = (1280 / tileSize) - 1;
-		static const int rows = (720 / tileSize) - 2;
-		static const int layers = 2;
+		static const int rows = (768 / tileSize) - 2;
+		static const int layers = 3;
 		static const int distance = -10;
 		static const int margin = tileSize;
 		static const int speed = 5;
@@ -153,6 +153,7 @@ namespace Editor {
 
 		this->m_SpriteRenderer->EnableNormal(!inputState.SPACE);
 		this->m_SpriteRenderer->EnableSpecular(!inputState.LEFT_CONTROL);
+		this->m_SpriteRenderer->EnableWireframe(inputState.LEFT_SHIFT);
 
 
 		// -------- TILES -------
@@ -180,8 +181,6 @@ namespace Editor {
 
 		this->m_SpriteRenderer->AddSpotLight(glm::vec3(600.0, 400.0, 0.01f), glm::vec4(1.0f, 0.8f, 0.6f, 1.0f), glm::vec3(0.0001f, 0.2f, 900.0f)); // light floor player
 		this->m_SpriteRenderer->AddSpotLight(glm::vec3(100 - playerX, 100 + playerY, 0.01f), glm::vec4(1.0f, 0.8f, 0.6f, 1.0f), glm::vec3(0.0001f, 0.2f, 100.0f)); // light floor top-left
-
-		this->m_SpriteRenderer->Render();
 
 		// -------- END TILES -------
 
@@ -244,20 +243,18 @@ namespace Editor {
 		this->m_SpriteRenderer->AddSpotLight(glm::vec3(600.0, 400.0, 0.1f), glm::vec4(1.0f, 0.8f, 0.6f, 0.1f), glm::vec3(0.1f, 1.0f, 20.0f)); // light head player
 		this->m_SpriteRenderer->AddSpotLight(glm::vec3(100 - playerX, 100 + playerY, 0.01f), glm::vec4(1.0f, 0.8f, 0.6f, 1.0f), glm::vec3(0.0001f, 0.2f, 100.0f)); // light head top-left
 
-		this->m_SpriteRenderer->Render();
-
 		// -------- END PLAYER -------
 
 
 		// -------- TRIANGLE -------
 		/*
-			this->m_Shader->Enable();
-			glEnableVertexAttribArray(0);
-			glBindBuffer(GL_ARRAY_BUFFER, this->m_VBO);
-			glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, (void*)0);
-			glDrawArrays(GL_TRIANGLES, 0, 3);
-			glDisableVertexAttribArray(0);
-			this->m_Shader->Disable();
+		this->m_Shader->Enable();
+		glEnableVertexAttribArray(0);
+		glBindBuffer(GL_ARRAY_BUFFER, this->m_VBO);
+		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, (void*)0);
+		glDrawArrays(GL_TRIANGLES, 0, 3);
+		glDisableVertexAttribArray(0);
+		this->m_Shader->Disable();
 		*/
 		// -------- END TRIANGLE -------
 
@@ -277,9 +274,10 @@ namespace Editor {
 		);
 
 		this->m_SpriteRenderer->AddSpotLight(glm::vec3(600.0, 400.0, 0.01f), glm::vec4(1.0f, 0.8f, 0.6f, 1.0f), glm::vec3(0.0001f, 0.2f, 1.0f));
-		this->m_SpriteRenderer->Render();
 		*/
 		// -------- END HEAGON -------
+
+		this->m_SpriteRenderer->Render();
 	}
 
 	void Viewport::ShutdownApp()
@@ -341,27 +339,27 @@ namespace Editor {
 	{
 		if (layer == 0 || layer == 5 || layer == 10 || layer == 15)
 		{
-			return glm::vec4(tileSize, tileSize, tileSize * 2, 0);
+			return glm::vec4(0, tileSize, tileSize, 0);
 		}
 
 		if (layer == 1 || layer == 6 || layer == 11 || layer == 16)
 		{
-			return glm::vec4(0, tileSize, tileSize, 0);
+			return glm::vec4(tileSize * 4, tileSize * 4, tileSize * 5, tileSize * 3);
 		}
 
 		if (layer == 2 || layer == 7 || layer == 12 || layer == 17)
 		{
-			return glm::vec4(tileSize * 4, tileSize, tileSize * 5, 0);
+			return glm::vec4(tileSize, tileSize, tileSize * 2, 0);
 		}
 
 		if (layer == 3 || layer == 8 || layer == 13 || layer == 18)
 		{
-			return glm::vec4(tileSize * 8, tileSize, tileSize * 9, 0);
+			return glm::vec4(tileSize * 4, tileSize, tileSize * 5, 0);
 		}
 
 		if (layer == 4 || layer == 9 || layer == 14 || layer == 19)
 		{
-			return glm::vec4(tileSize * 4, tileSize * 4, tileSize * 5, tileSize * 3);
+			return glm::vec4(tileSize * 8, tileSize, tileSize * 9, 0);
 		}
 
 		return glm::vec4(0, tileSize, tileSize, 0);

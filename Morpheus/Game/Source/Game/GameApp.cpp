@@ -34,7 +34,7 @@ namespace Game {
 		this->m_InitialWindowWidth = settingsSize.windowWidth;
 		this->m_InitialWindowHeight = settingsSize.windowHeight;
 
-		this->m_SpriteRenderer = new Morpheus::SpriteRenderer(glm::vec2(this->m_InitialWindowWidth, this->m_InitialWindowHeight));
+		this->m_SpriteRenderer = new Morpheus::SpriteRenderer(registry, glm::vec2(this->m_InitialWindowWidth, this->m_InitialWindowHeight));
 
 		this->m_Texture = new Morpheus::Texture("Assets/images/tileset.png");
 		this->m_Normal = new Morpheus::Texture("Assets/images/tileset_n.png");

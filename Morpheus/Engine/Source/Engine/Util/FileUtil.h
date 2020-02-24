@@ -28,6 +28,7 @@ namespace Morpheus {
 		inline static const std::string TTF = ".ttf";
 		inline static const std::string VERT = ".vert";
 		inline static const std::string FRAG = ".frag";
+		inline static const std::string GEOM = ".geom";
 
 		bool static IsImage(std::string extension)
 		{
@@ -51,7 +52,7 @@ namespace Morpheus {
 
 		bool static IsShader(std::string extension)
 		{
-			return (extension == VERT || extension == FRAG);
+			return (extension == VERT || extension == FRAG || extension == GEOM);
 		}
 	};
 

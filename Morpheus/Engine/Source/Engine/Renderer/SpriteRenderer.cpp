@@ -4,10 +4,11 @@
 
 namespace Morpheus {
 
-	SpriteRenderer::SpriteRenderer(glm::vec2 screenSize)
+	SpriteRenderer::SpriteRenderer(entt::registry& registry, glm::vec2 screenSize)
 		: m_VAO(0)
 		, m_VBO(0)
 		, m_Shader(nullptr)
+		, m_WireframeShader(nullptr)
 		, m_DiffuseMap(nullptr)
 		, m_NormalMap(nullptr)
 		, m_SpecularMap(nullptr)
@@ -17,7 +18,13 @@ namespace Morpheus {
 		, m_EnableNormal(true)
 		, m_EnableSpecular(true)
 	{
+		auto& statisticsEntity = registry.ctx<Morpheus::StatisticsEntity>();
+		auto& statistics = registry.get<Morpheus::StatisticsComponent>(statisticsEntity.id);
+		this->m_NumberOfVertices = &statistics.vertices;
+		this->m_DrawCalls = &statistics.drawCalls;
+
 		this->m_Shader = new Morpheus::Shader("Assets/shaders/sprite.vert", "Assets/shaders/sprite.frag");
+		this->m_WireframeShader = new Morpheus::Shader("Assets/shaders/wireframe.vert", "Assets/shaders/wireframe.frag", "Assets/shaders/wireframe.geom");
 
 		glGenVertexArrays(1, &this->m_VAO);
 		glBindVertexArray(this->m_VAO);
@@ -105,12 +112,18 @@ namespace Morpheus {
 			return;
 		}
 
-		this->m_Shader->Enable();
+		if (this->m_EnableWireframe)
+		{
+			this->m_WireframeShader->Enable();
+			this->m_WireframeShader->SetMat3("screenTransform", this->m_ScreenTransform);
+			this->m_WireframeShader->SetFloat("scale", this->m_Scale);
+			this->m_WireframeShader->Disable();
+		}
 
+		this->m_Shader->Enable();
 		this->m_Shader->SetVec4("AmbientColor", this->m_AmbientColor);
 		this->m_Shader->SetMat3("screenTransform", this->m_ScreenTransform);
 		this->m_Shader->SetFloat("scale", this->m_Scale);
-
 		this->m_Shader->SetBool("u_enableNormal", this->m_EnableNormal);
 		this->m_Shader->SetBool("u_enableSpecular", this->m_EnableSpecular);
 
@@ -160,6 +173,14 @@ namespace Morpheus {
 		glEnableVertexAttribArray(2);
 
 		glDrawArrays(GL_TRIANGLES, 0, (GLsizei) this->m_Vertices.size());
+		this->m_Shader->Disable();
+
+		if (this->m_EnableWireframe)
+		{
+			this->m_WireframeShader->Enable();
+			glDrawArrays(GL_TRIANGLES, 0, (GLsizei)this->m_Vertices.size());
+			this->m_WireframeShader->Disable();
+		}
 
 		// Disable vertex attribute
 		glDisableVertexAttribArray(0);
@@ -168,7 +189,9 @@ namespace Morpheus {
 
 		glBindVertexArray(0);
 
-		this->m_Shader->Disable();
+		(*this->m_NumberOfVertices) += (int)(this->m_Vertices.size());
+		(*this->m_DrawCalls) += 1;
+
 		this->m_Vertices.clear();
 		this->m_SpotLights.clear();
 	}
@@ -181,6 +204,11 @@ namespace Morpheus {
 	void SpriteRenderer::EnableSpecular(bool enable)
 	{
 		this->m_EnableSpecular = enable;
+	}
+
+	void SpriteRenderer::EnableWireframe(bool enable)
+	{
+		this->m_EnableWireframe = enable;
 	}
 
 }

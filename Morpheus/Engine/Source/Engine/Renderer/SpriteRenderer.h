@@ -4,6 +4,7 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include "Engine/Texture/Texture.h"
 #include "Engine/Shader/Shader.h"
+#include "Engine/ECS/ECS.h"
 
 namespace Morpheus {
 
@@ -45,6 +46,7 @@ namespace Morpheus {
 		std::vector<Vertex2dUVColor> m_Vertices;
 		std::vector<SpotLight> m_SpotLights;
 		Shader* m_Shader;
+		Shader* m_WireframeShader;
 		Texture* m_DiffuseMap;
 		Texture* m_NormalMap;
 		Texture* m_SpecularMap;
@@ -54,9 +56,12 @@ namespace Morpheus {
 		float m_Scale;
 		bool m_EnableNormal;
 		bool m_EnableSpecular;
+		bool m_EnableWireframe;
+		int* m_DrawCalls;
+		int* m_NumberOfVertices;
 
 	public:
-		SpriteRenderer(glm::vec2 screenSize);
+		SpriteRenderer(entt::registry& registry, glm::vec2 screenSize);
 		~SpriteRenderer();
 
 		void Draw(Texture* pDiffuseMap, Texture* pNormalMap, Texture* pSpecularMap, glm::vec4 destRect, glm::vec4 sourceRect, glm::vec4 color = glm::vec4(1, 1, 1, 1));
@@ -67,6 +72,7 @@ namespace Morpheus {
 		void Render();
 		void EnableNormal(bool enable = false);
 		void EnableSpecular(bool enable = false);
+		void EnableWireframe(bool enable = false);
 	};
 
 }

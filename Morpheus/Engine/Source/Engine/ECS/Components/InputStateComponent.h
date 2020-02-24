@@ -10,6 +10,7 @@ namespace Morpheus {
 		bool RIGHT;
 		bool SPACE;
 		bool LEFT_CONTROL;
+		bool LEFT_SHIFT;
 		bool W;
 		bool S;
 
@@ -20,6 +21,7 @@ namespace Morpheus {
 			, RIGHT(false)
 			, SPACE(false)
 			, LEFT_CONTROL(false)
+			, LEFT_SHIFT(false)
 			, W(false)
 			, S(false)
 		{
