@@ -5,6 +5,7 @@ namespace Morpheus {
 	struct StatisticsComponent
 	{
 		int frameRate = 0;
+		double frameDeltaTime = 0.0;
 		int drawCalls = 0;
 		int vertices = 0;
 

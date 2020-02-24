@@ -104,6 +104,7 @@ namespace Morpheus {
 					frameRate = currentFrame;
 					lastFrameTime = currentTime;
 					currentFrame = 0;
+					statistics.frameDeltaTime = deltaTime;
 				}
 
 				lastTime = currentTime;

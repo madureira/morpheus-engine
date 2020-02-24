@@ -95,7 +95,7 @@ namespace Editor {
 	{
 		static const int tileSize = 40;
 		static const int columns = (1280 / tileSize) - 1;
-		static const int rows = (768 / tileSize) - 2;
+		static const int rows = (720 / tileSize) - 2;
 		static const int layers = 3;
 		static const int distance = -10;
 		static const int margin = tileSize;

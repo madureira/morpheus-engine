@@ -27,16 +27,28 @@ namespace Editor {
 		{
 			ImGui::Text("Status");
 
-			ImGui::SameLine((float)io.DisplaySize.x - 295.0f);
+			ImGui::SameLine((float)io.DisplaySize.x - 525.0f);
 			ImGui::PushStyleColor(ImGuiCol_Text, ImVec4(0.725f, 0.725f, 0.725f, 1.0f));
 			ImGui::Text("Draw calls: %i", statistics.drawCalls);
 			ImGui::PopStyleColor();
 
+			std::string numberOfQuads = Morpheus::NumberUtil::FormatThousandSeparator(statistics.vertices / 6);
+
+			ImGui::SameLine((float)io.DisplaySize.x - 425.0f);
+			ImGui::PushStyleColor(ImGuiCol_Text, ImVec4(0.235f, 0.588f, 0.686f, 1.0f));
+			ImGui::Text("Quads: %s", numberOfQuads.c_str());
+			ImGui::PopStyleColor();
+
 			std::string numberOfVertices = Morpheus::NumberUtil::FormatThousandSeparator(statistics.vertices);
 
-			ImGui::SameLine((float)io.DisplaySize.x - 190.0f);
-			ImGui::PushStyleColor(ImGuiCol_Text, ImVec4(0.235f, 0.588f, 0.686f, 1.0f));
+			ImGui::SameLine((float)io.DisplaySize.x - 325.0f);
+			ImGui::PushStyleColor(ImGuiCol_Text, ImVec4(0.800f, 0.408f, 0.160f, 1.0f));
 			ImGui::Text("Vertices: %s", numberOfVertices.c_str());
+			ImGui::PopStyleColor();
+
+			ImGui::SameLine((float)io.DisplaySize.x - 210.0f);
+			ImGui::PushStyleColor(ImGuiCol_Text, ImVec4(0.3f, 0.7f, 0.9f, 1.0f));
+			ImGui::Text("%s ms/frame", std::to_string(statistics.frameDeltaTime));
 			ImGui::PopStyleColor();
 
 			ImGui::SameLine((float)io.DisplaySize.x - 70.0f);
