@@ -18,16 +18,11 @@ namespace Editor {
 		// Bind the texture used to paint the GL data on the IMGUI window
 		glBindTexture(GL_TEXTURE_2D, this->m_TextureColorBuffer);
 
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, this->m_InitialWindowWidth, this->m_InitialWindowHeight, 0, GL_RGB, GL_UNSIGNED_BYTE, NULL);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR_MIPMAP_LINEAR);
-
-		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, this->m_InitialWindowWidth, this->m_InitialWindowHeight, 0, GL_RGB, GL_UNSIGNED_BYTE, NULL);
-
-		glGenerateMipmap(GL_TEXTURE_2D);
-
+		// Unbind the texture
 		glBindTexture(GL_TEXTURE_2D, 0);
 
 		// Create Frame Buffer
