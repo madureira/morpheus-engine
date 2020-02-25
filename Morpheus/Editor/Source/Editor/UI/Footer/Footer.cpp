@@ -48,7 +48,7 @@ namespace Editor {
 
 			ImGui::SameLine((float)io.DisplaySize.x - 210.0f);
 			ImGui::PushStyleColor(ImGuiCol_Text, ImVec4(0.3f, 0.7f, 0.9f, 1.0f));
-			ImGui::Text("%s ms/frame", std::to_string(statistics.frameDeltaTime));
+			ImGui::Text("%s ms/frame", std::to_string(statistics.frameDeltaTime).c_str());
 			ImGui::PopStyleColor();
 
 			ImGui::SameLine((float)io.DisplaySize.x - 70.0f);
