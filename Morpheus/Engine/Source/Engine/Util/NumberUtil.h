@@ -23,7 +23,7 @@ namespace Morpheus {
 	class NumberUtil
 	{
 	public:
-		static std::string FormatThousandSeparator(int number)
+		static std::string FormatThousandSeparator(long long number)
 		{
 			std::locale loc(std::locale(std::locale(), new NumberFormatter));
 			std::stringstream ss;

@@ -50,7 +50,7 @@ namespace Game {
 		static const int tileSize = 40;
 		static const int columns = (1280 / tileSize) - 1;
 		static const int rows = (720 / tileSize) - 2;
-		static const int layers = 2;
+		static const int layers = 5;
 		static const int distance = -10;
 		static const int margin = tileSize;
 		static const int speed = 1;
@@ -197,27 +197,27 @@ namespace Game {
 	{
 		if (layer == 0 || layer == 5 || layer == 10 || layer == 15)
 		{
-			return glm::vec4(tileSize, tileSize, tileSize * 2, 0);
+			return glm::vec4(0, tileSize, tileSize, 0);
 		}
 
 		if (layer == 1 || layer == 6 || layer == 11 || layer == 16)
 		{
-			return glm::vec4(0, tileSize, tileSize, 0);
+			return glm::vec4(tileSize * 4, tileSize * 4, tileSize * 5, tileSize * 3);
 		}
 
 		if (layer == 2 || layer == 7 || layer == 12 || layer == 17)
 		{
-			return glm::vec4(tileSize * 4, tileSize, tileSize * 5, 0);
+			return glm::vec4(tileSize, tileSize, tileSize * 2, 0);
 		}
 
 		if (layer == 3 || layer == 8 || layer == 13 || layer == 18)
 		{
-			return glm::vec4(tileSize * 8, tileSize, tileSize * 9, 0);
+			return glm::vec4(tileSize * 4, tileSize, tileSize * 5, 0);
 		}
 
 		if (layer == 4 || layer == 9 || layer == 14 || layer == 19)
 		{
-			return glm::vec4(tileSize * 4, tileSize * 4, tileSize * 5, tileSize * 3);
+			return glm::vec4(tileSize * 8, tileSize, tileSize * 9, 0);
 		}
 
 		return glm::vec4(0, tileSize, tileSize, 0);

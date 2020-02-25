@@ -7,6 +7,7 @@
 #include "Engine/App.h"
 #include "Engine/ECS/Components/WindowComponent.h"
 #include "Engine/Util/HardwareUtil.h"
+#include "Engine/Util/NumberUtil.h"
 
 namespace Morpheus {
 
@@ -56,8 +57,9 @@ namespace Morpheus {
 
 	void Engine::Initialize(App* pApp)
 	{
+		std::string totalRAM = NumberUtil::FormatThousandSeparator(HardwareUtil::GetTotalRAM());
 		ME_LOG_INFO("CPU available cores: {0}", HardwareUtil::GetCPUNumberOfCores());
-		ME_LOG_INFO("RAM: {0} bytes", HardwareUtil::GetTotalRAM());
+		ME_LOG_INFO("RAM: {0} bytes", totalRAM);
 		ME_LOG_INFO("GPU: {0} - {1}", HardwareUtil::GetGPUModel(), HardwareUtil::GetGPUVendor());
 		ME_LOG_INFO("OpenGL: {0}", HardwareUtil::GetRendererAPI());
 
