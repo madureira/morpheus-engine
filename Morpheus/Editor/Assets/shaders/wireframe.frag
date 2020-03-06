@@ -1,8 +1,8 @@
 #version 330 core
 
-out vec4 color;
-
 noperspective in vec3 gDist;
+
+out vec4 color;
 
 const vec4 wire_color = vec4(0.0, 0.5, 0.0, 1.0);
 const vec4 fill_color = vec4(1, 1, 1, 0);

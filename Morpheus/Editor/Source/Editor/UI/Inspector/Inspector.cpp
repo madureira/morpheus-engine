@@ -16,7 +16,11 @@ namespace Editor {
 
 	void Inspector::Draw(entt::registry& registry)
 	{
-		ImGui::Begin(ICON_FA_INFO_CIRCLE" Inspector###inspector");
+		static bool* show = NULL;
+		ImGuiWindowFlags windowFlags = ImGuiWindowFlags_NoCollapse
+			| ImGuiWindowFlags_NoScrollbar;
+
+		ImGui::Begin(ICON_FA_INFO_CIRCLE" Inspector###inspector", show, windowFlags);
 		this->m_ColorPicker->Draw(registry);
 		ImGui::End();
 	}

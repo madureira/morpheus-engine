@@ -41,7 +41,7 @@ namespace Morpheus {
 			, m_IsPrimaryMonitor(false)
 			, m_WindowWidth(800)
 			, m_WindowHeight(600)
-			, m_FPS(30)
+			, m_FPS(60)
 			, m_IsVSyncOn(false)
 			, m_IsDebug(false)
 		{
@@ -50,13 +50,13 @@ namespace Morpheus {
 
 			sol::load_result settingsContent = this->m_LuaState->load_file(SETTINGS_FILE_PATH);
 
-			if (!this->IsSettingsValid(settingsContent))
+			if (this->IsSettingsValid(settingsContent))
 			{
-				ME_LOG_ERROR("Settings: Fail to parse {0}", SETTINGS_FILE_PATH);
+				this->LoadVariables();
 			}
 			else
 			{
-				this->LoadVariables();
+				ME_LOG_ERROR("Settings: Fail to parse {0}", SETTINGS_FILE_PATH);
 			}
 		}
 
@@ -122,14 +122,14 @@ namespace Morpheus {
 	private:
 		inline bool IsSettingsValid(sol::load_result& scriptSettings)
 		{
-			if (!scriptSettings.valid())
+			if (scriptSettings.valid())
 			{
-				return false;
+				sol::protected_function_result settings = scriptSettings();
+
+				return settings.valid();
 			}
 
-			sol::protected_function_result settings = scriptSettings();
-
-			return settings.valid();
+			return false;
 		}
 
 		void LoadVariables()

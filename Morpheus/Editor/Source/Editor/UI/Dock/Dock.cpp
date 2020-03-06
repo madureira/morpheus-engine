@@ -30,7 +30,7 @@ namespace Editor {
 	{
 		ImGuiIO& io = ImGui::GetIO();
 
-		bool dockEnabled = true;
+		static bool dockEnabled = true;
 		ImGuiWindowFlags dockFlags = ImGuiWindowFlags_NoMove
 			| ImGuiWindowFlags_NoResize
 			| ImGuiWindowFlags_NoTitleBar
@@ -39,8 +39,10 @@ namespace Editor {
 
 		ImGuiID dockspaceID = ImGui::GetID("MainDock");
 
-		ImGui::SetNextWindowPos(ImVec2(0.0f, 66.0f));
-		ImGui::SetNextWindowSize(ImVec2(io.DisplaySize.x, io.DisplaySize.y - 92.0f));
+		ImGuiViewport* viewport = ImGui::GetMainViewport();
+
+		ImGui::SetNextWindowPos(ImVec2(viewport->Pos.x, viewport->Pos.y + 66.0f));
+		ImGui::SetNextWindowSize(ImVec2(viewport->Size.x, viewport->Size.y - 97.0f));
 		ImGui::PushStyleVar(ImGuiStyleVar_WindowRounding, 0.0f);
 
 		ImGui::Begin("Engine", &dockEnabled, dockFlags);
@@ -70,7 +72,7 @@ namespace Editor {
 				| ImGuiDockNodeFlags_NoCloseButton;
 
 			ImGui::DockSpace(dockspaceID, ImVec2(0.0f, 0.0f), dockspaceFlags);
-			
+
 			this->m_Hierarchy->Draw(registry);
 			this->m_Inspector->Draw(registry);
 			this->m_Project->Draw(registry);

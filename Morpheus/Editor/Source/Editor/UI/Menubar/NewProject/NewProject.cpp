@@ -14,9 +14,9 @@ namespace Editor {
 		float modalWidth = 350.0f;
 		float modalHeight = 170.0f;
 
-		ImGuiIO& io = ImGui::GetIO(); (void)io;
-		float posX = (io.DisplaySize.x - modalWidth) / 2;
-		float posY = (io.DisplaySize.y - modalHeight) / 2;
+		ImGuiViewport* viewport = ImGui::GetMainViewport();
+		float posX = (viewport->Pos.x + ((viewport->Size.x - modalWidth) / 2));
+		float posY = (viewport->Pos.y + ((viewport->Size.y - modalHeight) / 2));
 
 		ImGui::SetNextWindowPos(ImVec2(posX, posY));
 		ImGui::SetNextWindowSize(ImVec2(modalWidth, modalHeight));

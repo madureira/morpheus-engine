@@ -48,12 +48,12 @@ namespace Game {
 	void GameApp::OnFrameStarted(entt::registry& registry, double deltaTime, int currentFrame, int frameRate)
 	{
 		static const int tileSize = 40;
-		static const int columns = (1280 / tileSize) - 1;
-		static const int rows = (720 / tileSize) - 2;
-		static const int layers = 5;
+		static const int columns = (1920 / tileSize) - 1;
+		static const int rows = (1080 / tileSize) - 2;
+		static const int layers = 3;
 		static const int distance = -10;
 		static const int margin = tileSize;
-		static const int speed = 1;
+		static const int speed = 5;
 		static int playerX = 0;
 		static int playerY = 0;
 		static float zoom = 1.0f;
@@ -118,7 +118,8 @@ namespace Game {
 
 		this->m_SpriteRenderer->SetScale(zoom);
 
-		this->m_SpriteRenderer->SetAmbientColor(glm::vec4(1.0f, 1.0f, 1.0f, 0.01f));
+		//this->m_SpriteRenderer->SetAmbientColor(glm::vec4(1.0f, 1.0f, 1.0f, 0.01f));
+		this->m_SpriteRenderer->SetAmbientColor(glm::vec4(1.0f, 1.0f, 1.f, 0.25f));
 
 		this->m_SpriteRenderer->EnableNormal(!inputState.SPACE);
 		this->m_SpriteRenderer->EnableSpecular(!inputState.LEFT_CONTROL);
@@ -126,9 +127,6 @@ namespace Game {
 
 		//this->m_SpriteRenderer->AddSpotLight(glm::vec3(600.0, 400.0, 0.01f), glm::vec4(1.0f, 0.8f, 0.6f, 1.0f), glm::vec3(0.4f, 3.0f, 20.0f));
 		this->m_SpriteRenderer->AddSpotLight(glm::vec3(600.0, 400.0, 0.01f), glm::vec4(1.0f, 0.8f, 0.6f, 1.0f), glm::vec3(0.01f, 1.0f, 20.0f));
-
-		this->m_SpriteRenderer->Render();
-		
 
 		static int frameCount = 0;
 		static int frame = 0;
@@ -178,7 +176,7 @@ namespace Game {
 			this->m_NormalPlayer,
 			this->m_SpecularPlayer,
 
-			glm::vec4(560.0, 300.0 - zoom, 64, 64),
+			glm::vec4(750.0, 400.0 - zoom, 64, 64),
 
 			spriteFrame
 		);

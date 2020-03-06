@@ -11,9 +11,8 @@ namespace Morpheus {
 	namespace fs = std::filesystem;
 	using json = nlohmann::json;
 
-	class Extension
+	struct Extension
 	{
-	public:
 		inline static const std::string PNG = ".png";
 		inline static const std::string JPG = ".jpg";
 		inline static const std::string JPEG = ".jpeg";
@@ -97,7 +96,7 @@ namespace Morpheus {
 		{
 			std::string newDir(path + PathSeparator() + folderName);
 
-			if (!fs::is_directory(newDir) || !fs::exists(newDir))
+			if (!fs::exists(newDir) || !fs::is_directory(newDir))
 			{
 				fs::create_directory(newDir);
 				return true;
@@ -149,14 +148,9 @@ namespace Morpheus {
 		}
 
 	private:
-		bool FileExists(const char* fileName)
+		bool FileExists(std::string& path)
 		{
-			if (FILE* file = fopen(fileName, "r")) {
-				fclose(file);
-				return true;
-			}
-
-			return false;
+			return fs::exists(path);
 		}
 
 		void static BuildDirectoryTree(const fs::path& pathToScan, json& tree)

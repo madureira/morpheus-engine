@@ -10,12 +10,13 @@ namespace Morpheus {
 		, m_Width(0)
 		, m_Height(0)
 	{
-		Image image = ImageLoader::Load(filePath, flipVertically);
+		Image image;
+
+		ImageLoader::Load(filePath, flipVertically, image);
 
 		if (!image.pixels)
 		{
 			ME_LOG_ERROR("Texture: Fail to create the texture");
-
 			return;
 		}
 

@@ -11,7 +11,7 @@ namespace Editor {
 	{
 		ImGuiIO& io = ImGui::GetIO();
 
-		bool showActionBar = true;
+		static bool showActionBar = true;
 		ImGuiWindowFlags windowFlags = ImGuiWindowFlags_NoMove
 			| ImGuiWindowFlags_NoResize
 			| ImGuiWindowFlags_NoTitleBar
@@ -20,7 +20,9 @@ namespace Editor {
 			| ImGuiWindowFlags_NoSavedSettings
 			| ImGuiWindowFlags_NoDocking;
 
-		ImGui::SetNextWindowPos(ImVec2(0.0f, 22.0f));
+		ImVec2 mainViewportPos = ImGui::GetMainViewport()->Pos;
+		ImGui::SetNextWindowPos(ImVec2(mainViewportPos.x, mainViewportPos.y + 22));
+
 		ImGui::SetNextWindowSize(ImVec2(io.DisplaySize.x, 44.0f));
 		ImGui::PushStyleVar(ImGuiStyleVar_WindowRounding, 0.0f);
 		ImGui::Begin("Actions", &showActionBar, windowFlags);

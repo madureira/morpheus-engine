@@ -5,10 +5,8 @@
 
 namespace Morpheus {
 
-	Image ImageLoader::Load(const char* imagePath, bool flipVertically)
+	void ImageLoader::Load(const char* imagePath, bool flipVertically, Image& image)
 	{
-		Image image;
-
 		stbi_set_flip_vertically_on_load(flipVertically);
 
 		image.pixels = stbi_load(imagePath, &image.width, &image.height, &image.channels, STBI_rgb_alpha);
@@ -17,8 +15,6 @@ namespace Morpheus {
 		{
 			ME_LOG_ERROR("ImageLoader: Fail to load the image {0}", imagePath);
 		}
-
-		return image;
 	}
 
 	void ImageLoader::FreeImage(Image& image)

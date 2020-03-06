@@ -13,12 +13,14 @@ namespace Morpheus {
 		if (FT_Init_FreeType(&ft))
 		{
 			ME_LOG_ERROR("FREETYPE: {0}", "Could not init FreeType Library");
+			return;
 		}
 
 		FT_Face face;
 		if (FT_New_Face(ft, fontPath.c_str(), 0, &face))
 		{
 			ME_LOG_ERROR("FREETYPE: {0}", "Failed to load font");
+			return;
 		}
 
 		FT_Set_Pixel_Sizes(face, 0, 48);

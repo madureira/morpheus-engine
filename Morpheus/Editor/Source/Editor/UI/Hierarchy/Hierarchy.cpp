@@ -4,7 +4,11 @@ namespace Editor {
 
 	void Hierarchy::Draw(entt::registry& registry)
 	{
-		ImGui::Begin(ICON_FA_STREAM" Hierarchy###hierarchy");
+		static bool* show = NULL;
+		ImGuiWindowFlags windowFlags = ImGuiWindowFlags_NoCollapse
+			| ImGuiWindowFlags_NoScrollbar;
+
+		ImGui::Begin(ICON_FA_STREAM" Hierarchy###hierarchy", show, windowFlags);
 		ImGui::End();
 	}
 

@@ -19,12 +19,15 @@ namespace Editor {
 			| ImGuiWindowFlags_NoSavedSettings
 			| ImGuiWindowFlags_NoDocking;
 
-		ImGui::SetNextWindowPos(ImVec2(0.0f, io.DisplaySize.y - 26.0f));
+		ImGuiViewport* viewport = ImGui::GetMainViewport();
+		ImGui::SetNextWindowPos(ImVec2(viewport->Pos.x, viewport->Pos.y + viewport->Size.y - 32.0f));
+
 		ImGui::SetNextWindowSize(ImVec2(io.DisplaySize.x, 25.f));
 		ImGui::PushStyleVar(ImGuiStyleVar_WindowRounding, 0.0f);
 
 		ImGui::Begin("Footer", &showFooter, windowFlags);
 		{
+			ImGui::Dummy(ImVec2(0.0f, 2.0f));
 			ImGui::Text("Status");
 
 			ImGui::SameLine((float)io.DisplaySize.x - 525.0f);

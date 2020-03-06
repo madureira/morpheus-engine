@@ -43,9 +43,9 @@ namespace Morpheus {
 
 		this->m_Shader->Enable();
 		this->m_Shader->SetVec2("Resolution", this->m_ScreenSize);
-		glUniform1i(this->m_Shader->GetUniformLocation("u_texture"), 0);
-		glUniform1i(this->m_Shader->GetUniformLocation("u_normal"), 1);
-		glUniform1i(this->m_Shader->GetUniformLocation("u_specular"), 2);
+		this->m_Shader->SetInt("u_texture", 0);
+		this->m_Shader->SetInt("u_normal", 1);
+		this->m_Shader->SetInt("u_specular", 2);
 		this->m_Shader->Disable();
 
 		SetScreenSize(this->m_ScreenSize);
@@ -66,6 +66,34 @@ namespace Morpheus {
 			this->m_SpecularMap = pSpecularMap;
 		}
 
+		this->RearrangeVertices(destRect, sourceRect, color);
+	}
+
+	void SpriteRenderer::Draw(Texture* pDiffuseMap, Texture* pNormalMap, glm::vec4 destRect, glm::vec4 sourceRect, glm::vec4 color)
+	{
+		if (this->m_DiffuseMap != pDiffuseMap)
+		{
+			this->Render();
+			this->m_DiffuseMap = pDiffuseMap;
+			this->m_NormalMap = pNormalMap;
+		}
+
+		this->RearrangeVertices(destRect, sourceRect, color);
+	}
+
+	void SpriteRenderer::Draw(Texture* pDiffuseMap, glm::vec4 destRect, glm::vec4 sourceRect, glm::vec4 color)
+	{
+		if (this->m_DiffuseMap != pDiffuseMap)
+		{
+			this->Render();
+			this->m_DiffuseMap = pDiffuseMap;
+		}
+
+		this->RearrangeVertices(destRect, sourceRect, color);
+	}
+
+	void SpriteRenderer::RearrangeVertices(glm::vec4 destRect, glm::vec4 sourceRect, glm::vec4 color)
+	{
 		this->m_Vertices.push_back(Vertex2dUVColor(glm::vec2(destRect.x, destRect.y), glm::vec2(sourceRect.x, sourceRect.y), color));
 		this->m_Vertices.push_back(Vertex2dUVColor(glm::vec2(destRect.x + destRect.z, destRect.y), glm::vec2(sourceRect.z, sourceRect.y), color));
 		this->m_Vertices.push_back(Vertex2dUVColor(glm::vec2(destRect.x, destRect.y + destRect.w), glm::vec2(sourceRect.x, sourceRect.w), color));

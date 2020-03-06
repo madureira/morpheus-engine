@@ -41,7 +41,11 @@ namespace Editor {
 
 	void Viewport::Draw(entt::registry& registry)
 	{
-		ImGui::Begin(ICON_FA_VIDEO" Scene###scene");
+		static bool* show = NULL;
+		ImGuiWindowFlags windowFlags = ImGuiWindowFlags_NoCollapse
+			| ImGuiWindowFlags_NoScrollbar;
+
+		ImGui::Begin(ICON_FA_VIDEO" Scene###scene", show, windowFlags);
 		{
 			this->ClearViewport(registry);
 			this->UpdateApp(registry);

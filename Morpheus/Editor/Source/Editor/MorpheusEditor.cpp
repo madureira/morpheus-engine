@@ -1,8 +1,9 @@
 #include "MorpheusEditor.h"
 
+#define IMGUI_IMPL_OPENGL_LOADER_GLAD
 #include <imgui.h>
-#include "Vendors/ImGuiImpl/imgui_impl_glfw.h"
 #include "Vendors/ImGuiImpl/imgui_impl_opengl3.h"
+#include "Vendors/ImGuiImpl/imgui_impl_glfw.h"
 #include "Vendors/IconsFontAwesome5/IconsFontAwesome5.h"
 #include "Theme.h"
 #include "Engine/ECS/Components/WindowComponent.h"
@@ -32,12 +33,22 @@ namespace Editor {
 	{
 		IMGUI_CHECKVERSION();
 		ImGui::CreateContext();
-		ImGuiIO& io = ImGui::GetIO(); (void)io;
+		ImGuiIO& io = ImGui::GetIO();
 		io.ConfigFlags |= ImGuiConfigFlags_DpiEnableScaleFonts;
 		io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;           // Enable Docking
+		io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;			// Enable Multi-Viewport / Platform Windows
+		io.ConfigViewportsNoDefaultParent = true;
 		io.IniFilename = NULL;                                      // Disable imgui.ini
 		//io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;     // Enable Keyboard Controls
 		//io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;      // Enable Gamepad Controls
+
+		// When viewports are enabled we tweak WindowRounding/WindowBg so platform windows can look identical to regular ones.
+		ImGuiStyle& style = ImGui::GetStyle();
+		if (io.ConfigFlags & ImGuiConfigFlags_ViewportsEnable)
+		{
+			style.WindowRounding = 0.0f;
+			style.Colors[ImGuiCol_WindowBg].w = 1.0f;
+		}
 
 		// Loads editor fonts
 		static const ImWchar icons_ranges[] = { ICON_MIN_FA, ICON_MAX_FA, 0 };
@@ -93,9 +104,16 @@ namespace Editor {
 		this->m_Dock->Draw(registry);
 		this->m_Footer->Draw(registry);
 
-		// Rendering
 		ImGui::Render();
 		ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+
+		if (io.ConfigFlags & ImGuiConfigFlags_ViewportsEnable)
+		{
+			GLFWwindow* backup_current_context = glfwGetCurrentContext();
+			ImGui::UpdatePlatformWindows();
+			ImGui::RenderPlatformWindowsDefault();
+			glfwMakeContextCurrent(backup_current_context);
+		}
 	}
 
 	void MorpheusEditor::FrameListener(entt::registry& registry, double deltaTime, int currentFrame, int frameRate)

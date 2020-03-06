@@ -65,6 +65,8 @@ namespace Morpheus {
 		~SpriteRenderer();
 
 		void Draw(Texture* pDiffuseMap, Texture* pNormalMap, Texture* pSpecularMap, glm::vec4 destRect, glm::vec4 sourceRect, glm::vec4 color = glm::vec4(1, 1, 1, 1));
+		void Draw(Texture* pDiffuseMap, Texture* pNormalMap, glm::vec4 destRect, glm::vec4 sourceRect, glm::vec4 color = glm::vec4(1, 1, 1, 1));
+		void Draw(Texture* pDiffuseMap, glm::vec4 destRect, glm::vec4 sourceRect, glm::vec4 color = glm::vec4(1, 1, 1, 1));
 		void AddSpotLight(glm::vec3 lightPosition, glm::vec4 lightColor, glm::vec3 lightFalloff);
 		void SetAmbientColor(glm::vec4 ambientColor);
 		void SetScreenSize(glm::vec2 screenSize);
@@ -73,6 +75,9 @@ namespace Morpheus {
 		void EnableNormal(bool enable = false);
 		void EnableSpecular(bool enable = false);
 		void EnableWireframe(bool enable = false);
+
+	private:
+		void RearrangeVertices(glm::vec4 destRect, glm::vec4 sourceRect, glm::vec4 color = glm::vec4(1, 1, 1, 1));
 	};
 
 }

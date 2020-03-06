@@ -29,7 +29,6 @@ namespace Morpheus {
 		GLFWwindow* GetNativeWindow() const;
 
 	private:
-		void Initialize();
 		void Shutdown() const;
 	};
 

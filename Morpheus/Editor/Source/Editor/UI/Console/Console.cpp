@@ -4,7 +4,11 @@ namespace Editor {
 
 	void Console::Draw(entt::registry& registry)
 	{
-		ImGui::Begin(ICON_FA_TERMINAL" Console###console");
+		static bool* show = NULL;
+		ImGuiWindowFlags windowFlags = ImGuiWindowFlags_NoCollapse
+			| ImGuiWindowFlags_NoScrollbar;
+
+		ImGui::Begin(ICON_FA_TERMINAL" Console###console", show, windowFlags);
 		{
 			ImGui::PushStyleColor(ImGuiCol_ChildBg, { 0.00f, 0.00f , 0.00f , 1.00f });
 			ImGui::BeginChild("ScrollRegion", ImVec2(0, 0), false, ImGuiWindowFlags_HorizontalScrollbar);
