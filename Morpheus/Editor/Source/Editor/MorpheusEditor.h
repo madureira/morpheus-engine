@@ -2,10 +2,10 @@
 
 #include <Engine/App.h>
 #include <Engine/Window/Window.h>
-#include "Editor/UI/Menubar/Menubar.h"
-#include "Editor/UI/Actionbar/Actionbar.h"
-#include "Editor/UI/Dock/Dock.h"
-#include "Editor/UI/Footer/Footer.h"
+#include "Editor/Containers/Menubar/Menubar.h"
+#include "Editor/Containers/Actionbar/Actionbar.h"
+#include "Editor/Containers/Dock/Dock.h"
+#include "Editor/Containers/Footer/Footer.h"
 
 namespace Editor {
 
