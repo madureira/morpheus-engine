@@ -1,7 +1,7 @@
 #pragma once
 
 #include "Editor/UI/UIComponent.h"
-#include "Engine/Texture/Texture.h"
+#include <Engine/Texture/Texture.h>
 #include <nlohmann/json.hpp>
 #include <functional>
 #include <string>

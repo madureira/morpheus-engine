@@ -1,8 +1,8 @@
 #pragma once
 
-#include "Engine/App.h"
-#include "Engine/Renderer/SpriteRenderer.h"
-#include "Engine/Texture/Texture.h"
+#include <Engine/App.h>
+#include <Engine/Renderer/SpriteRenderer.h>
+#include <Engine/Texture/Texture.h>
 
 namespace Game {
 

@@ -1,11 +1,10 @@
 #pragma once
 
 #include "Editor/UI/UIComponent.h"
-#include "Engine/Shader/Shader.h"
+#include <Engine/Shader/Shader.h>
+#include <Engine/Renderer/SpriteRenderer.h>
+#include <Engine/Texture/Texture.h>
 #include <glm/vec4.hpp>
-
-#include "Engine/Renderer/SpriteRenderer.h"
-#include "Engine/Texture/Texture.h"
 
 namespace Editor {
 

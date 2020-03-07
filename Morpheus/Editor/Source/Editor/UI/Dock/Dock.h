@@ -1,7 +1,7 @@
 #pragma once
 
 #include "Editor/UI/UIComponent.h"
-#include "Engine/ECS/ECS.h"
+#include <Engine/ECS/ECS.h>
 
 namespace Editor {
 

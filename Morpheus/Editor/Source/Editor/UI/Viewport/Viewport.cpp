@@ -1,6 +1,7 @@
 #include "Viewport.h"
 #include <glad/glad.h>
-#include "Engine/Log/Log.h"
+#include <Engine/Log/Log.h>
+#include <Engine/ECS/Components/WindowComponent.h>
 
 namespace Editor {
 

@@ -1,6 +1,6 @@
 #include "NewProject.h"
+#include <Engine/Util/FileUtil.h>
 #include "Editor/UI/FileSystemDialog/FileSystemDialog.h"
-#include "Engine/Util/FileUtil.h"
 
 namespace Editor {
 

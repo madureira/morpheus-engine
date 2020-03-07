@@ -1,5 +1,5 @@
 #include "Menubar.h"
-#include "Engine/ECS/Components/WindowComponent.h"
+#include <Engine/ECS/Components/WindowComponent.h>
 #include "Editor/UI/FileSystemDialog/FileSystemDialog.h"
 
 namespace Editor {

@@ -1,7 +1,7 @@
 #pragma once
 
-#include "Engine/App.h"
-#include "Engine/Window/Window.h"
+#include <Engine/App.h>
+#include <Engine/Window/Window.h>
 #include "Editor/UI/Menubar/Menubar.h"
 #include "Editor/UI/Actionbar/Actionbar.h"
 #include "Editor/UI/Dock/Dock.h"
