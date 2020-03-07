@@ -1,13 +1,13 @@
 #pragma once
 
-#include "Editor/UI/UIComponent.h"
+#include "Editor/UI/UIContainer.h"
 #include <Engine/ECS/ECS.h>
 #include <glm/vec4.hpp>
 #include <string>
 
 namespace Editor {
 
-	class ColorPicker : public UIComponent
+	class ColorPicker : public UIContainer
 	{
 	private:
 		const char* m_Label;

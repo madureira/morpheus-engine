@@ -8,9 +8,9 @@
 
 namespace Editor {
 
-	class UIComponent {
+	class UIContainer {
 	public:
-		virtual ~UIComponent() = default;
+		virtual ~UIContainer() = default;
 
 		virtual void Draw(entt::registry& registry) = 0;
 	};

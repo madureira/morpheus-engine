@@ -1,11 +1,11 @@
 #pragma once
 
-#include "Editor/UI/UIComponent.h"
+#include "Editor/UI/UIContainer.h"
 #include <Engine/Log/Log.h>
 
 namespace Editor {
 
-	class Console : public UIComponent
+	class Console : public UIContainer
 	{
 	public:
 		void Draw(entt::registry& registry) override;

@@ -1,10 +1,10 @@
 #pragma once
 
-#include "Editor/UI/UIComponent.h"
+#include "Editor/UI/UIContainer.h"
 
 namespace Editor {
 
-	class Footer : public UIComponent
+	class Footer : public UIContainer
 	{
 	public:
 		void Draw(entt::registry& registry) override;

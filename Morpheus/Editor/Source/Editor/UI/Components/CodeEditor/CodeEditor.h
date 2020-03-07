@@ -1,12 +1,12 @@
 #pragma once
 
-#include "Editor/UI/UIComponent.h"
+#include "Editor/UI/UIContainer.h"
 #include "Vendors/ImGuiColorTextEdit/TextEditor.h"
 #include <string>
 
 namespace Editor {
 
-	class CodeEditor : public UIComponent
+	class CodeEditor : public UIContainer
 	{
 	private:
 		std::string m_FilePath;

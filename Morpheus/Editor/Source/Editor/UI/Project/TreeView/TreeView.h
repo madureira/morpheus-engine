@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Editor/UI/UIComponent.h"
+#include "Editor/UI/UIContainer.h"
 #include <nlohmann/json.hpp>
 #include <functional>
 #include <string>
@@ -10,7 +10,7 @@ namespace Editor {
 
 	using json = nlohmann::json;
 
-	class TreeView : public UIComponent
+	class TreeView : public UIContainer
 	{
 	private:
 		json m_JSON;

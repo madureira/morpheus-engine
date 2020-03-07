@@ -1,11 +1,11 @@
 #pragma once
 
-#include "Editor/UI/UIComponent.h"
+#include "Editor/UI/UIContainer.h"
 #include <array>
 
 namespace Editor {
 
-	class NewProject : public UIComponent
+	class NewProject : public UIContainer
 	{
 	private:
 		bool m_IsOpened = true;

@@ -1,14 +1,14 @@
 #pragma once
 
-#include "Editor/UI/UIComponent.h"
+#include "Editor/UI/UIContainer.h"
+#include "Editor/UI/Components/CodeEditor/CodeEditor.h"
 #include "TreeView/TreeView.h"
 #include "Preview/Preview.h"
-#include "CodeEditor/CodeEditor.h"
 #include <string>
 
 namespace Editor {
 
-	class Project : public UIComponent
+	class Project : public UIContainer
 	{
 	private:
 		Preview* m_Preview;

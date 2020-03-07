@@ -17,6 +17,7 @@ Game engine built in C++ and OpenGL.
 
 ## Features
 
+- Visual editor (multi-viewport);
 - Modern OpenGL features;
 - 2D batch rendering;
 - 2D Dynamic illumination;

@@ -1,6 +1,6 @@
 #include "Dock.h"
 
-#include "Editor/UI/Viewport/Viewport.h"
+#include "Editor/UI/Scene/Scene.h"
 #include "Editor/UI/Project/Project.h"
 #include "Editor/UI/Console/Console.h"
 #include "Editor/UI/Hierarchy/Hierarchy.h"
@@ -9,7 +9,7 @@
 namespace Editor {
 
 	Dock::Dock(entt::registry& registry)
-		: m_Viewport(new Viewport(registry))
+		: m_Scene(new Scene(registry))
 		, m_Console(new Console())
 		, m_Hierarchy(new Hierarchy())
 		, m_Inspector(new Inspector(registry))
@@ -23,7 +23,7 @@ namespace Editor {
 		delete this->m_Inspector;
 		delete this->m_Hierarchy;
 		delete this->m_Console;
-		delete this->m_Viewport;
+		delete this->m_Scene;
 	}
 
 	void Dock::Draw(entt::registry& registry)
@@ -77,7 +77,7 @@ namespace Editor {
 			this->m_Inspector->Draw(registry);
 			this->m_Project->Draw(registry);
 			this->m_Console->Draw(registry);
-			this->m_Viewport->Draw(registry);
+			this->m_Scene->Draw(registry);
 		}
 		ImGui::End();
 		ImGui::PopStyleVar();

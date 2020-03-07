@@ -1,10 +1,10 @@
 #pragma once
 
-#include "Editor/UI/UIComponent.h"
+#include "Editor/UI/UIContainer.h"
 
 namespace Editor {
 
-	class Actionbar : public UIComponent
+	class Actionbar : public UIContainer
 	{
 	private:
 		bool m_IsPlaying;

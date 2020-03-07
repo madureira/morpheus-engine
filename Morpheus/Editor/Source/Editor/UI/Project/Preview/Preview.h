@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Editor/UI/UIComponent.h"
+#include "Editor/UI/UIContainer.h"
 #include <Engine/Texture/Texture.h>
 #include <nlohmann/json.hpp>
 #include <functional>
@@ -26,7 +26,7 @@ namespace Editor {
 		}
 	};
 
-	class Preview : public UIComponent
+	class Preview : public UIContainer
 	{
 	private:
 		json m_JSON;

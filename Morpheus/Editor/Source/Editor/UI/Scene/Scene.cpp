@@ -1,11 +1,11 @@
-#include "Viewport.h"
+#include "Scene.h"
 #include <glad/glad.h>
 #include <Engine/Log/Log.h>
 #include <Engine/ECS/Components/WindowComponent.h>
 
 namespace Editor {
 
-	Viewport::Viewport(entt::registry& registry)
+	Scene::Scene(entt::registry& registry)
 		: m_TextureColorBuffer(0)
 	{
 		auto& settingsEntity = registry.ctx<Morpheus::SettingsEntity>();
@@ -35,12 +35,12 @@ namespace Editor {
 		this->InitializeApp(registry);
 	}
 
-	Viewport::~Viewport()
+	Scene::~Scene()
 	{
 		this->ShutdownApp();
 	}
 
-	void Viewport::Draw(entt::registry& registry)
+	void Scene::Draw(entt::registry& registry)
 	{
 		static bool* show = NULL;
 		ImGuiWindowFlags windowFlags = ImGuiWindowFlags_NoCollapse
@@ -55,7 +55,7 @@ namespace Editor {
 		ImGui::End();
 	}
 
-	void Viewport::InitializeApp(entt::registry& registry)
+	void Scene::InitializeApp(entt::registry& registry)
 	{
 		this->m_Vertices[0] = -1.0f;
 		this->m_Vertices[1] = -1.0f;
@@ -91,7 +91,7 @@ namespace Editor {
 		this->m_SpecularHexagon = new Morpheus::Texture("Assets/images/Hexagon/HexagonTile_SPEC.png");
 	}
 
-	void Viewport::UpdateApp(entt::registry& registry)
+	void Scene::UpdateApp(entt::registry& registry)
 	{
 		static const int tileSize = 40;
 		static const int columns = (1280 / tileSize) - 1;
@@ -280,7 +280,7 @@ namespace Editor {
 		this->m_SpriteRenderer->Render();
 	}
 
-	void Viewport::ShutdownApp()
+	void Scene::ShutdownApp()
 	{
 		delete this->m_SpriteRenderer;
 		delete this->m_Shader;
@@ -295,7 +295,7 @@ namespace Editor {
 		delete this->m_SpecularHexagon;
 	}
 
-	void Viewport::ClearViewport(entt::registry& registry)
+	void Scene::ClearViewport(entt::registry& registry)
 	{
 		auto& windowEntity = registry.ctx<Morpheus::WindowEntity>();
 		auto& bgColor = registry.get<Morpheus::ColorComponent>(windowEntity.id);
@@ -312,7 +312,7 @@ namespace Editor {
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	}
 
-	void Viewport::RenderViewport(entt::registry& registry)
+	void Scene::RenderViewport(entt::registry& registry)
 	{
 		glBindFramebuffer(GL_FRAMEBUFFER, 0);
 
@@ -335,7 +335,7 @@ namespace Editor {
 	}
 
 	// TODO: Remove this function in the future.
-	glm::vec4 Viewport::getTile(int tileSize, int layer)
+	glm::vec4 Scene::getTile(int tileSize, int layer)
 	{
 		if (layer == 0 || layer == 5 || layer == 10 || layer == 15)
 		{

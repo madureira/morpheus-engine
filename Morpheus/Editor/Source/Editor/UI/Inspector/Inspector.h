@@ -1,12 +1,12 @@
 #pragma once
 
-#include "Editor/UI/UIComponent.h"
+#include "Editor/UI/UIContainer.h"
 
 namespace Editor {
 
 	class ColorPicker;
 
-	class Inspector : public UIComponent
+	class Inspector : public UIContainer
 	{
 	private:
 		ColorPicker* m_ColorPicker;

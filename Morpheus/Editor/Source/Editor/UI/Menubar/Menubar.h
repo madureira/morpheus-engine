@@ -1,11 +1,11 @@
 #pragma once
 
-#include "Editor/UI/UIComponent.h"
+#include "Editor/UI/UIContainer.h"
 #include "./NewProject/NewProject.h"
 
 namespace Editor {
 
-	class Menubar : public UIComponent
+	class Menubar : public UIContainer
 	{
 	private:
 		NewProject* m_NewProject;

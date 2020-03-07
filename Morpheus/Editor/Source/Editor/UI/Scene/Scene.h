@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Editor/UI/UIComponent.h"
+#include "Editor/UI/UIContainer.h"
 #include <Engine/Shader/Shader.h>
 #include <Engine/Renderer/SpriteRenderer.h>
 #include <Engine/Texture/Texture.h>
@@ -8,7 +8,7 @@
 
 namespace Editor {
 
-	class Viewport : public UIComponent
+	class Scene : public UIContainer
 	{
 	private:
 		int m_InitialWindowWidth;
@@ -34,8 +34,8 @@ namespace Editor {
 		Morpheus::Texture* m_SpecularHexagon;
 
 	public:
-		Viewport(entt::registry& registry);
-		~Viewport();
+		Scene(entt::registry& registry);
+		~Scene();
 
 		void Draw(entt::registry& registry) override;
 

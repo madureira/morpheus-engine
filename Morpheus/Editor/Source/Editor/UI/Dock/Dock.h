@@ -1,20 +1,20 @@
 #pragma once
 
-#include "Editor/UI/UIComponent.h"
+#include "Editor/UI/UIContainer.h"
 #include <Engine/ECS/ECS.h>
 
 namespace Editor {
 
-	class Viewport;
+	class Scene;
 	class Project;
 	class Console;
 	class Hierarchy;
 	class Inspector;
 
-	class Dock : public UIComponent
+	class Dock : public UIContainer
 	{
 	private:
-		Viewport* m_Viewport;
+		Scene* m_Scene;
 		Project* m_Project;
 		Console* m_Console;
 		Hierarchy* m_Hierarchy;
