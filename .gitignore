@@ -11,6 +11,7 @@ Dist/
 Makefile
 **/bin/
 **/bin-int/
+*.aps
 
 # Runtime
 Morpheus/Editor/imgui.ini
