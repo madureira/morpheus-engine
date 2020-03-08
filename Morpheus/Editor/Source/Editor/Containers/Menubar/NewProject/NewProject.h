@@ -13,7 +13,7 @@ namespace Editor {
 		std::array<char, 512> m_ProjectLocation;
 
 	public:
-		void Draw(entt::registry& registry) override;
+		void Render(entt::registry& registry) override;
 		bool IsOpened() const;
 	};
 

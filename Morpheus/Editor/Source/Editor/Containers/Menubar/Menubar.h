@@ -14,7 +14,7 @@ namespace Editor {
 		Menubar();
 		~Menubar();
 
-		void Draw(entt::registry& registry) override;
+		void Render(entt::registry& registry) override;
 	};
 
 }

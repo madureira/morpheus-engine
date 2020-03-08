@@ -3,7 +3,7 @@
 
 namespace Editor {
 
-	void Footer::Draw(entt::registry& registry)
+	void Footer::Render(entt::registry& registry)
 	{
 		auto& statisticsEntity = registry.ctx<Morpheus::StatisticsEntity>();
 		auto& statistics = registry.get<Morpheus::StatisticsComponent>(statisticsEntity.id);

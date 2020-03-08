@@ -7,12 +7,12 @@
 
 namespace Editor {
 
-	bool Button::Draw(const char* icon, const char* label, const char* tooltip, bool disabled)
+	bool Button::Render(const char* icon, const char* label, const char* tooltip, bool disabled)
 	{
-		return Button::DrawButton(icon, label, tooltip, disabled);
+		return Button::RenderButton(icon, label, tooltip, disabled);
 	}
 
-	bool Button::DrawButton(const char* icon, const char* label, const char* tooltip, bool disabled)
+	bool Button::RenderButton(const char* icon, const char* label, const char* tooltip, bool disabled)
 	{
 		bool clicked = false;
 

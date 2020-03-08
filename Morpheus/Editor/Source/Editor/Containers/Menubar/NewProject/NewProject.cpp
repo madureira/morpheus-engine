@@ -4,7 +4,7 @@
 
 namespace Editor {
 
-	void NewProject::Draw(entt::registry& registry)
+	void NewProject::Render(entt::registry& registry)
 	{
 		ImGuiWindowFlags windowFlags = ImGuiWindowFlags_NoMove
 			| ImGuiWindowFlags_NoResize

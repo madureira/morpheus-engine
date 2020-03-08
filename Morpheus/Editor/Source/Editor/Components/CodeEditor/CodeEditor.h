@@ -1,12 +1,11 @@
 #pragma once
 
-#include "Editor/Containers/UIContainer.h"
 #include "Vendors/ImGuiColorTextEdit/TextEditor.h"
 #include <string>
 
 namespace Editor {
 
-	class CodeEditor : public UIContainer
+	class CodeEditor
 	{
 	private:
 		std::string m_FilePath;
@@ -17,7 +16,7 @@ namespace Editor {
 		CodeEditor(std::string filePath);
 		~CodeEditor();
 
-		void Draw(entt::registry& registry) override;
+		void Draw();
 	};
 
 }

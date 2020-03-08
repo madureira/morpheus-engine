@@ -14,7 +14,7 @@ namespace Editor {
 		delete this->m_NewProject;
 	}
 
-	void Menubar::Draw(entt::registry& registry)
+	void Menubar::Render(entt::registry& registry)
 	{
 		if (ImGui::BeginMainMenuBar())
 		{
@@ -58,7 +58,7 @@ namespace Editor {
 
 			if (this->m_NewProject != nullptr && this->m_NewProject->IsOpened())
 			{
-				this->m_NewProject->Draw(registry);
+				this->m_NewProject->Render(registry);
 			}
 			else
 			{

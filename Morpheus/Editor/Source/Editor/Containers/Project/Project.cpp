@@ -29,7 +29,7 @@ namespace Editor {
 		delete this->m_CodeEditor;
 	}
 
-	void Project::Draw(entt::registry& registry)
+	void Project::Render(entt::registry& registry)
 	{
 		auto& projectEntity = registry.ctx<Morpheus::ProjectEntity>();
 		auto& projectComponent = registry.get<Morpheus::ProjectComponent>(projectEntity.id);
@@ -53,7 +53,7 @@ namespace Editor {
 
 			if (this->m_TreeView != nullptr)
 			{
-				this->m_TreeView->Draw(registry);
+				this->m_TreeView->Render(registry);
 			}
 
 			ImGui::EndChild();
@@ -79,7 +79,7 @@ namespace Editor {
 			ImGui::PushStyleColor(ImGuiCol_ChildBg, { 0.180f, 0.180f , 0.180f , 1.00f });
 			ImGui::BeginChild("FilesPreview", ImVec2(0, 0), false);
 			this->m_Preview->UpdateSelectedFolder(this->m_CurrentFolderSelected);
-			this->m_Preview->Draw(registry);
+			this->m_Preview->Render(registry);
 			ImGui::EndChild();
 			ImGui::PopStyleColor();
 
@@ -123,7 +123,7 @@ namespace Editor {
 
 		if (showCodeEditor)
 		{
-			this->m_CodeEditor->Draw(registry);
+			this->m_CodeEditor->Draw();
 		}
 	}
 

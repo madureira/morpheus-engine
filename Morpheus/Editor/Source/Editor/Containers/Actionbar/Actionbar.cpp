@@ -7,7 +7,7 @@ namespace Editor {
 	{
 	}
 
-	void Actionbar::Draw(entt::registry& registry)
+	void Actionbar::Render(entt::registry& registry)
 	{
 		ImGuiIO& io = ImGui::GetIO();
 
@@ -63,13 +63,13 @@ namespace Editor {
 
 			static bool play = false;
 
-			if (this->DrawButton(ICON_FA_PLAY, "Play", this->m_IsPlaying))
+			if (this->RenderButton(ICON_FA_PLAY, "Play", this->m_IsPlaying))
 			{
 				play = true;
 			}
 			ImGui::SameLine();
 
-			if (this->DrawButton(ICON_FA_PAUSE, "Pause", !this->m_IsPlaying))
+			if (this->RenderButton(ICON_FA_PAUSE, "Pause", !this->m_IsPlaying))
 			{
 				play = false;
 			}
@@ -81,7 +81,7 @@ namespace Editor {
 		ImGui::PopStyleVar();
 	}
 
-	bool Actionbar::DrawButton(const char* icon, const char* label, bool disabled)
+	bool Actionbar::RenderButton(const char* icon, const char* label, bool disabled)
 	{
 		bool clicked = false;
 

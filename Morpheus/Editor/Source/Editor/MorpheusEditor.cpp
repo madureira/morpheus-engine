@@ -98,10 +98,10 @@ namespace Editor {
 		ImGuiIO& io = ImGui::GetIO();
 		io.DisplaySize = ImVec2((float)windowSize.width, (float)windowSize.height);
 
-		this->m_Menubar->Draw(registry);
-		this->m_Actionbar->Draw(registry);
-		this->m_Dock->Draw(registry);
-		this->m_Footer->Draw(registry);
+		this->m_Menubar->Render(registry);
+		this->m_Actionbar->Render(registry);
+		this->m_Dock->Render(registry);
+		this->m_Footer->Render(registry);
 
 		ImGui::Render();
 		ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());

@@ -3,25 +3,22 @@
 
 namespace Editor {
 
-	Inspector::Inspector(entt::registry& registry)
+	void Inspector::Render(entt::registry& registry)
 	{
 		auto& windowEntity = registry.ctx<Morpheus::WindowEntity>();
-		this->m_ColorPicker = new ColorPicker("Background color", registry, windowEntity.id);
-	}
+		auto& color = registry.get<Morpheus::ColorComponent>(windowEntity.id);
 
-	Inspector::~Inspector()
-	{
-		delete this->m_ColorPicker;
-	}
-
-	void Inspector::Draw(entt::registry& registry)
-	{
 		static bool* show = NULL;
-		ImGuiWindowFlags windowFlags = ImGuiWindowFlags_NoCollapse
-			| ImGuiWindowFlags_NoScrollbar;
-
+		ImGuiWindowFlags windowFlags = ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoScrollbar;
 		ImGui::Begin(ICON_FA_INFO_CIRCLE" Inspector###inspector", show, windowFlags);
-		this->m_ColorPicker->Draw(registry);
+		{
+			ImVec4 bgColor(color.r, color.g, color.b, color.a);
+			ColorPicker::Draw("Background color", bgColor);
+			color.r = bgColor.x;
+			color.g = bgColor.y;
+			color.b = bgColor.z;
+			color.a = bgColor.w;
+		}
 		ImGui::End();
 	}
 

@@ -40,7 +40,7 @@ namespace Editor {
 		this->ShutdownApp();
 	}
 
-	void Scene::Draw(entt::registry& registry)
+	void Scene::Render(entt::registry& registry)
 	{
 		static bool* show = NULL;
 		ImGuiWindowFlags windowFlags = ImGuiWindowFlags_NoCollapse

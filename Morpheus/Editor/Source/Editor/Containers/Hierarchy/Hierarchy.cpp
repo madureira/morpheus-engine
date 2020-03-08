@@ -2,7 +2,7 @@
 
 namespace Editor {
 
-	void Hierarchy::Draw(entt::registry& registry)
+	void Hierarchy::Render(entt::registry& registry)
 	{
 		static bool* show = NULL;
 		ImGuiWindowFlags windowFlags = ImGuiWindowFlags_NoCollapse

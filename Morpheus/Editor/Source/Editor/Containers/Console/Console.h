@@ -8,7 +8,7 @@ namespace Editor {
 	class Console : public UIContainer
 	{
 	public:
-		void Draw(entt::registry& registry) override;
+		void Render(entt::registry& registry) override;
 	};
 
 }

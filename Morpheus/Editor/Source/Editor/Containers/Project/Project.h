@@ -22,7 +22,7 @@ namespace Editor {
 		Project(entt::registry& registry);
 		~Project();
 
-		void Draw(entt::registry& registry) override;
+		void Render(entt::registry& registry) override;
 
 	private:
 		void UpdateProjectPath(Morpheus::ProjectComponent& projectComponent);

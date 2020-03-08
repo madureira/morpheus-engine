@@ -12,10 +12,10 @@ namespace Editor {
 	public:
 		Actionbar();
 
-		void Draw(entt::registry& registry) override;
+		void Render(entt::registry& registry) override;
 
 	private:
-		bool DrawButton(const char* icon, const char* label, bool disabled);
+		bool RenderButton(const char* icon, const char* label, bool disabled);
 	};
 
 }

@@ -44,7 +44,7 @@ namespace Editor {
 		Preview(std::function<void(std::string& path)> onFolderSelect, std::function<void(std::string& path)> onFileSelect);
 		~Preview();
 
-		void Draw(entt::registry& registry) override;
+		void Render(entt::registry& registry) override;
 		void UpdateSelectedFolder(std::string& folderPath);
 		void UpdateSelectedFile(std::string& filePath);
 

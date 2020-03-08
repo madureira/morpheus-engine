@@ -12,7 +12,7 @@ namespace Editor {
 	public:
 		virtual ~UIContainer() = default;
 
-		virtual void Draw(entt::registry& registry) = 0;
+		virtual void Render(entt::registry& registry) = 0;
 	};
 
 }

@@ -2,7 +2,7 @@
 
 namespace Editor {
 
-	void Console::Draw(entt::registry& registry)
+	void Console::Render(entt::registry& registry)
 	{
 		static bool* show = NULL;
 		ImGuiWindowFlags windowFlags = ImGuiWindowFlags_NoCollapse

@@ -12,7 +12,7 @@ namespace Editor {
 		: m_Scene(new Scene(registry))
 		, m_Console(new Console())
 		, m_Hierarchy(new Hierarchy())
-		, m_Inspector(new Inspector(registry))
+		, m_Inspector(new Inspector())
 		, m_Project(new Project(registry))
 	{
 	}
@@ -26,7 +26,7 @@ namespace Editor {
 		delete this->m_Scene;
 	}
 
-	void Dock::Draw(entt::registry& registry)
+	void Dock::Render(entt::registry& registry)
 	{
 		ImGuiIO& io = ImGui::GetIO();
 
@@ -73,11 +73,11 @@ namespace Editor {
 
 			ImGui::DockSpace(dockspaceID, ImVec2(0.0f, 0.0f), dockspaceFlags);
 
-			this->m_Hierarchy->Draw(registry);
-			this->m_Inspector->Draw(registry);
-			this->m_Project->Draw(registry);
-			this->m_Console->Draw(registry);
-			this->m_Scene->Draw(registry);
+			this->m_Hierarchy->Render(registry);
+			this->m_Inspector->Render(registry);
+			this->m_Project->Render(registry);
+			this->m_Console->Render(registry);
+			this->m_Scene->Render(registry);
 		}
 		ImGui::End();
 		ImGui::PopStyleVar();

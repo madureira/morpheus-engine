@@ -24,7 +24,7 @@ namespace Editor {
 		Dock(entt::registry& registry);
 		~Dock();
 
-		void Draw(entt::registry& registry) override;
+		void Render(entt::registry& registry) override;
 	};
 
 }

@@ -4,18 +4,10 @@
 
 namespace Editor {
 
-	class ColorPicker;
-
 	class Inspector : public UIContainer
 	{
-	private:
-		ColorPicker* m_ColorPicker;
-
 	public:
-		Inspector(entt::registry& registry);
-		~Inspector();
-
-		void Draw(entt::registry& registry) override;
+		void Render(entt::registry& registry) override;
 	};
 
 }

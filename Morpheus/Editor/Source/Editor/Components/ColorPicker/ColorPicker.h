@@ -1,23 +1,13 @@
 #pragma once
 
-#include "Editor/Containers/UIContainer.h"
-#include <Engine/ECS/ECS.h>
-#include <glm/vec4.hpp>
-#include <string>
+#include <imgui.h>
 
 namespace Editor {
 
-	class ColorPicker : public UIContainer
+	class ColorPicker
 	{
-	private:
-		const char* m_Label;
-		ImVec4 m_Color;
-		entt::entity m_Entity;
-
 	public:
-		ColorPicker(const char* label, entt::registry& registry, entt::entity& entity);
-
-		void Draw(entt::registry& registry) override;
+		static void Draw(const char* label, ImVec4& color);
 	};
 
 }

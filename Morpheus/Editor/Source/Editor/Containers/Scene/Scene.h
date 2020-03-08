@@ -37,7 +37,7 @@ namespace Editor {
 		Scene(entt::registry& registry);
 		~Scene();
 
-		void Draw(entt::registry& registry) override;
+		void Render(entt::registry& registry) override;
 
 	private:
 		void InitializeApp(entt::registry& registry);

@@ -21,10 +21,10 @@ namespace Editor {
 	public:
 		TreeView(std::string& currentPath, std::function<void(std::string & path)> onFolderSelect, std::function<void(std::string & path)> onFileSelect);
 
-		void Draw(entt::registry& registry) override;
+		void Render(entt::registry& registry) override;
 
 	private:
-		void DrawFileTree(json& tree);
+		void RenderFileTree(json& tree);
 		bool CreateFolderNode(std::string nodeIndex, std::string nodeTitle);
 		void CreateFileNode(std::string nodeIndex, std::string nodeTitle, std::string fileExtension);
 		std::string BuildFolderTitle(std::string& title, bool isOpened);

@@ -23,7 +23,7 @@ namespace Editor {
 		delete this->m_FileIcon;
 	}
 
-	void Preview::Draw(entt::registry& registry)
+	void Preview::Render(entt::registry& registry)
 	{
 		ImVec2 winSize = ImGui::GetContentRegionAvail();
 

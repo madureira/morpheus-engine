@@ -34,10 +34,11 @@ namespace Editor {
 
 	CodeEditor::~CodeEditor()
 	{
+		this->m_FilePath.erase();
 		delete this->m_TextEditor;
 	}
 
-	void CodeEditor::Draw(entt::registry& registry)
+	void CodeEditor::Draw()
 	{
 		if (this->m_ShowEditor)
 		{

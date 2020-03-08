@@ -12,12 +12,12 @@ namespace Editor {
 		this->m_JSON = json::parse(Morpheus::FileUtil::ReadDirectoryTreeAsJsonString(currentPath));
 	}
 
-	void TreeView::Draw(entt::registry& registry)
+	void TreeView::Render(entt::registry& registry)
 	{
-		this->DrawFileTree(this->m_JSON);
+		this->RenderFileTree(this->m_JSON);
 	}
 
-	void TreeView::DrawFileTree(json& tree)
+	void TreeView::RenderFileTree(json& tree)
 	{
 		if (tree["type"] == "folder")
 		{
@@ -48,7 +48,7 @@ namespace Editor {
 
 				for (auto& node : tree["children"])
 				{
-					this->DrawFileTree(node);
+					this->RenderFileTree(node);
 				}
 				ImGui::TreePop();
 			}
