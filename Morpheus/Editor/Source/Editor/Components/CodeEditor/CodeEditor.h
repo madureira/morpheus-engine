@@ -5,7 +5,7 @@
 
 namespace Editor {
 
-	class CodeEditor
+	class CodeEditor final
 	{
 	private:
 		std::string m_FilePath;

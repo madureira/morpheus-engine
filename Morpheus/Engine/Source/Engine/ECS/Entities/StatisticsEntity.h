@@ -4,7 +4,7 @@
 
 namespace Morpheus {
 
-	struct StatisticsEntity : public Entity
+	struct StatisticsEntity final : public Entity
 	{
 	};
 

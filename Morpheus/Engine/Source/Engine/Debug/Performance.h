@@ -6,7 +6,7 @@ namespace Morpheus {
 	class Shader;
 	class TextRenderer;
 
-	class Performance
+	class Performance final
 	{
 	private:
 		Settings* m_Settings;

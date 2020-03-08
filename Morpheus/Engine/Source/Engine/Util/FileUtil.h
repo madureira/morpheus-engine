@@ -12,7 +12,7 @@ namespace Morpheus {
 	namespace fs = std::filesystem;
 	using json = nlohmann::json;
 
-	struct Extension
+	struct Extension final
 	{
 		inline static const std::string PNG = ".png";
 		inline static const std::string JPG = ".jpg";
@@ -56,7 +56,7 @@ namespace Morpheus {
 		}
 	};
 
-	class FileUtil
+	class FileUtil final
 	{
 	public:
 		static std::string ReadFile(std::string filePath)

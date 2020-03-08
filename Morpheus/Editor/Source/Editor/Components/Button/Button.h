@@ -2,7 +2,7 @@
 
 namespace Editor {
 
-	class Button
+	class Button final
 	{
 	public:
 		static bool Render(const char* icon, const char* label, const char* tooltip, bool disabled = false);

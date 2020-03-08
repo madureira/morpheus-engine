@@ -8,7 +8,7 @@ namespace Morpheus {
 	class Gamepad;
 	class Keyboard;
 
-	class Input
+	class Input final
 	{
 	private:
 		Gamepad* m_Gamepad;

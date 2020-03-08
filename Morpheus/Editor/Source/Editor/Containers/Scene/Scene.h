@@ -8,7 +8,7 @@
 
 namespace Editor {
 
-	class Scene : public UIContainer
+	class Scene final : public UIContainer
 	{
 	private:
 		int m_InitialWindowWidth;

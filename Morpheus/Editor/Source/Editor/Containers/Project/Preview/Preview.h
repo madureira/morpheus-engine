@@ -12,7 +12,7 @@ namespace Editor {
 
 	using json = nlohmann::json;
 
-	struct PreviewItem
+	struct PreviewItem final
 	{
 		std::string title;
 		Morpheus::Texture* image;
@@ -26,7 +26,7 @@ namespace Editor {
 		}
 	};
 
-	class Preview : public UIContainer
+	class Preview final : public UIContainer
 	{
 	private:
 		json m_JSON;

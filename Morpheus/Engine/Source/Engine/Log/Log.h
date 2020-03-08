@@ -8,7 +8,7 @@
 
 namespace Morpheus {
 
-	class Log
+	class Log final
 	{
 	private:
 		static Ref<spdlog::logger> s_CoreLogger;

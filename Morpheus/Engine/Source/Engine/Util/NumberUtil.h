@@ -5,7 +5,7 @@
 
 namespace Morpheus {
 
-	struct NumberFormatter : std::numpunct<char>
+	struct NumberFormatter final : std::numpunct<char>
 	{
 		// use . as separator
 		char do_thousands_sep() const
@@ -20,7 +20,7 @@ namespace Morpheus {
 		}
 	};
 
-	class NumberUtil
+	class NumberUtil final
 	{
 	public:
 		static std::string FormatThousandSeparator(long long number)

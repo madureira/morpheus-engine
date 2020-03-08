@@ -4,12 +4,12 @@
 
 namespace Morpheus {
 
-	struct LogColor
+	struct LogColor final
 	{
 		float r, g, b, a;
 	};
 
-	class LogMessage
+	class LogMessage final
 	{
 	public:
 		enum class LogLevel
@@ -49,7 +49,7 @@ namespace Morpheus {
 	};
 
 	template<typename Mutex>
-	class CustomLogSink : public spdlog::sinks::base_sink<Mutex>
+	class CustomLogSink final : public spdlog::sinks::base_sink<Mutex>
 	{
 	protected:
 		void sink_it_(const spdlog::details::log_msg& msg) override

@@ -2,7 +2,7 @@
 
 namespace Morpheus {
 
-	struct SizeComponent
+	struct SizeComponent final
 	{
 		float width = 0.0f;
 		float height = 0.0f;

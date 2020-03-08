@@ -4,7 +4,7 @@
 
 namespace Morpheus {
 
-	struct ProjectComponent
+	struct ProjectComponent final
 	{
 		std::string projectPath;
 	};

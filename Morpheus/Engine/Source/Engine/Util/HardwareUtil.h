@@ -13,7 +13,7 @@
 
 namespace Morpheus {
 
-	class HardwareUtil
+	class HardwareUtil final
 	{
 	public:
 		static int GetCPUNumberOfCores()

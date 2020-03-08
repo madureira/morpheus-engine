@@ -2,7 +2,7 @@
 
 namespace Morpheus {
 
-	struct ColorComponent
+	struct ColorComponent final
 	{
 		float r;
 		float g;

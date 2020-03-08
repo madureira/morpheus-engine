@@ -2,7 +2,7 @@
 
 namespace Morpheus {
 
-	struct Image
+	struct Image final
 	{
 		int width;
 		int height;
@@ -18,7 +18,7 @@ namespace Morpheus {
 		}
 	};
 
-	class ImageLoader
+	class ImageLoader final
 	{
 	public:
 		static void Load(const char* imagePath, bool flipVertically, Image& image);

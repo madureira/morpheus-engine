@@ -2,7 +2,7 @@
 
 namespace Morpheus {
 
-	struct StatisticsComponent
+	struct StatisticsComponent final
 	{
 		int frameRate = 0;
 		double frameDeltaTime = 0.0;

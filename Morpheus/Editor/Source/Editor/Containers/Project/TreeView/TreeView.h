@@ -10,7 +10,7 @@ namespace Editor {
 
 	using json = nlohmann::json;
 
-	class TreeView : public UIContainer
+	class TreeView final : public UIContainer
 	{
 	private:
 		json m_JSON;

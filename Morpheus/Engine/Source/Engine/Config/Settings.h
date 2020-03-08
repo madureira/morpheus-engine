@@ -19,7 +19,7 @@
 
 namespace Morpheus {
 
-	class Settings
+	class Settings final
 	{
 	private:
 		const char* SETTINGS_FILE_PATH = "Assets/settings.lua";

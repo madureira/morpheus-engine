@@ -3,7 +3,7 @@
 
 namespace Editor {
 
-	class FileSystemDialog
+	class FileSystemDialog final
 	{
 	public:
 		static std::string OpenFolderSelector();

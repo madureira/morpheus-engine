@@ -11,7 +11,7 @@ namespace Editor {
 	class Hierarchy;
 	class Inspector;
 
-	class Dock : public UIContainer
+	class Dock final : public UIContainer
 	{
 	private:
 		Scene* m_Scene;

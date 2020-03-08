@@ -4,7 +4,7 @@
 
 namespace Morpheus {
 
-	struct WindowEntity : Entity
+	struct WindowEntity final : Entity
 	{
 	};
 

@@ -7,7 +7,7 @@ namespace Morpheus {
 
 	struct InputState;
 
-	class Keyboard
+	class Keyboard final
 	{
 	private:
 		GLFWwindow* m_NativeWindow;

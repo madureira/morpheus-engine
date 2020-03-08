@@ -5,7 +5,7 @@
 
 namespace Editor {
 
-	class Menubar : public UIContainer
+	class Menubar final : public UIContainer
 	{
 	private:
 		NewProject* m_NewProject;

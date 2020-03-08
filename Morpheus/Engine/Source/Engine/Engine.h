@@ -10,7 +10,7 @@ namespace Morpheus {
 	class Performance;
 	class App;
 
-	class Engine
+	class Engine final
 	{
 	private:
 		Settings* m_Settings;

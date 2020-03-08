@@ -2,7 +2,7 @@
 
 namespace Morpheus {
 
-	struct InputStateComponent
+	struct InputStateComponent final
 	{
 		bool UP;
 		bool DOWN;

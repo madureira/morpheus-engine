@@ -4,7 +4,7 @@
 
 namespace Editor {
 
-	class Actionbar : public UIContainer
+	class Actionbar final : public UIContainer
 	{
 	private:
 		bool m_IsPlaying;

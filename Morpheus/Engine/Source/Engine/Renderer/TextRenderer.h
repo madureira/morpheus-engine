@@ -11,7 +11,7 @@ namespace Morpheus {
 
 	class Shader;
 
-	class TextRenderer
+	class TextRenderer final
 	{
 	private:
 		GLuint m_VAO;

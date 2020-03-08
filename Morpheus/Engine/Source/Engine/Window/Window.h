@@ -6,7 +6,7 @@
 
 namespace Morpheus {
 
-	class Window
+	class Window final
 	{
 	private:
 		entt::registry& m_Registry;

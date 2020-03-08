@@ -5,7 +5,8 @@
 
 namespace Morpheus {
 
-	class Shader {
+	class Shader final
+	{
 	private:
 		unsigned int m_ShaderID;
 		std::string m_VertPath;

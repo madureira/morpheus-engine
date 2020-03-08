@@ -6,7 +6,7 @@
 
 namespace Game {
 
-	class GameApp : public Morpheus::App
+	class GameApp final : public Morpheus::App
 	{
 	private:
 		int m_InitialWindowWidth;

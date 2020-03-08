@@ -9,7 +9,7 @@
 
 namespace Editor {
 
-	class MorpheusEditor : public Morpheus::App
+	class MorpheusEditor final : public Morpheus::App
 	{
 	private:
 		Menubar* m_Menubar;

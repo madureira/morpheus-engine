@@ -2,7 +2,7 @@
 
 namespace Morpheus {
 
-	class Texture
+	class Texture final
 	{
 	private:
 		unsigned int m_Texture;

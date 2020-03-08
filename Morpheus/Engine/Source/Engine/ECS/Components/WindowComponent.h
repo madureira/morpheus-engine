@@ -6,7 +6,7 @@ namespace Morpheus {
 
 	class Window;
 
-	class WindowComponent
+	class WindowComponent final
 	{
 	private:
 		Window* m_WindowInstance;

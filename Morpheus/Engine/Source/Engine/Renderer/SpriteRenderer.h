@@ -10,7 +10,7 @@ namespace Morpheus {
 
 	constexpr auto MAX_LIGHT_SOURCES = 128;
 
-	struct Vertex2dUVColor
+	struct Vertex2dUVColor final
 	{
 		glm::vec2 m_Position;
 		glm::vec2 m_TexCoord;
@@ -24,7 +24,7 @@ namespace Morpheus {
 		}
 	};
 
-	struct SpotLight
+	struct SpotLight final
 	{
 		glm::vec3 m_Position;
 		glm::vec4 m_Color;
@@ -38,7 +38,7 @@ namespace Morpheus {
 		}
 	};
 
-	class SpriteRenderer
+	class SpriteRenderer final
 	{
 	private:
 		unsigned int m_VAO;

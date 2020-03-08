@@ -5,7 +5,7 @@
 
 namespace Editor {
 
-	class Console : public UIContainer
+	class Console final : public UIContainer
 	{
 	public:
 		void Render(entt::registry& registry) override;

@@ -5,7 +5,7 @@
 
 namespace Editor {
 
-	class NewProject : public UIContainer
+	class NewProject final : public UIContainer
 	{
 	private:
 		bool m_IsOpened = true;

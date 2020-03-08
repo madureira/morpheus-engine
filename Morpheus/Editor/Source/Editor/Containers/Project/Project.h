@@ -8,7 +8,7 @@
 
 namespace Editor {
 
-	class Project : public UIContainer
+	class Project final : public UIContainer
 	{
 	private:
 		Preview* m_Preview;

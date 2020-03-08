@@ -4,7 +4,7 @@
 
 namespace Editor {
 
-	class Hierarchy : public UIContainer
+	class Hierarchy final : public UIContainer
 	{
 	public:
 		void Render(entt::registry& registry) override;

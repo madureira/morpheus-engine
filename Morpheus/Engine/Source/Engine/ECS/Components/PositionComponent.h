@@ -2,7 +2,7 @@
 
 namespace Morpheus {
 
-	struct PositionComponent
+	struct PositionComponent final
 	{
 		float x;
 		float y;
