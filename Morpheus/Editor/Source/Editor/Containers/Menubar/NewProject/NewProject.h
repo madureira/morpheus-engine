@@ -9,8 +9,8 @@ namespace Editor {
 	{
 	private:
 		bool m_IsOpened = true;
-		std::array<char, 256> m_ProjectName;
-		std::array<char, 512> m_ProjectLocation;
+		char m_ProjectName[128];
+		char m_ProjectLocation[512];
 
 	public:
 		void Render(entt::registry& registry) override;

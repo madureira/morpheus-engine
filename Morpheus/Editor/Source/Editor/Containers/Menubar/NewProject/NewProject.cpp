@@ -1,6 +1,17 @@
 #include "NewProject.h"
 #include <Engine/Util/FileUtil.h>
 #include "Editor/Components/FileSystemDialog/FileSystemDialog.h"
+#include <iostream>
+
+int InputCallback(ImGuiTextEditCallbackData* data)
+{
+	// Avoid special chars
+	return ((data->EventChar >= 97 && data->EventChar <= 122) // a-z
+		|| (data->EventChar >= 65 && data->EventChar <= 90) // A-Z
+		|| (data->EventChar >= 48 && data->EventChar <= 57) // 0-9
+		|| (data->EventChar == 95 || data->EventChar == 45) // - or _
+	) ? 0 : 1;
+}
 
 namespace Editor {
 
@@ -31,7 +42,8 @@ namespace Editor {
 			ImGui::Dummy(ImVec2(0.0f, 5.0f));
 			ImGui::Dummy(ImVec2(5.0f, 0.0f)); ImGui::SameLine();
 			ImGui::Text("Project name:"); ImGui::SameLine();
-			ImGui::InputText("##projectName", this->m_ProjectName.data(), this->m_ProjectName.size());
+			ImGuiInputTextFlags flags = ImGuiInputTextFlags_CallbackCharFilter;
+			ImGui::InputText("##projectName", this->m_ProjectName, IM_ARRAYSIZE(this->m_ProjectName), flags, InputCallback);
 
 			ImGui::Dummy(ImVec2(0.0f, 5.0f));
 			ImGui::Dummy(ImVec2(32.0f, 0.0f)); ImGui::SameLine();
@@ -39,7 +51,7 @@ namespace Editor {
 			ImGui::PushItemWidth(191);
 			ImGui::PushItemFlag(ImGuiItemFlags_Disabled, true);
 			ImGui::PushStyleVar(ImGuiStyleVar_Alpha, ImGui::GetStyle().Alpha * 0.5f);
-			ImGui::InputText("##projectLocation", this->m_ProjectLocation.data(), this->m_ProjectLocation.size());
+			ImGui::InputText("##projectLocation", this->m_ProjectLocation, IM_ARRAYSIZE(this->m_ProjectLocation));
 			ImGui::PopItemFlag();
 			ImGui::PopStyleVar();
 			ImGui::PopItemWidth();
@@ -48,7 +60,7 @@ namespace Editor {
 			if (ImGui::Button(ICON_FA_FOLDER_OPEN))
 			{
 				std::string selectedPath = FileSystemDialog::OpenFolderSelector();
-				std::copy(selectedPath.begin(), selectedPath.end(), this->m_ProjectLocation.data());
+				std::copy(selectedPath.begin(), selectedPath.end(), this->m_ProjectLocation);
 			}
 
 			ImGui::Dummy(ImVec2(0.0f, 5.0f));
@@ -63,8 +75,8 @@ namespace Editor {
 			}
 			ImGui::SameLine();
 
-			std::string projectName(this->m_ProjectName.data());
-			std::string projectLocation(this->m_ProjectLocation.data());
+			std::string projectName(this->m_ProjectName);
+			std::string projectLocation(this->m_ProjectLocation);
 
 			if (projectName.empty() || projectLocation.empty())
 			{
@@ -81,7 +93,7 @@ namespace Editor {
 				{
 					std::string pathSep = Morpheus::FileUtil::PathSeparator();
 					std::string filePath = projectLocation + pathSep + projectName;
-					Morpheus::FileUtil::WriteFile(filePath, "project.json", "{\n  name: \"" + projectName + "\"\n}");
+					Morpheus::FileUtil::WriteFile(filePath, "project.json", "{\n  \"name\": \"" + projectName + "\",\n  \"type\": \"2D\"\n}");
 					this->m_IsOpened = false;
 					ImGui::CloseCurrentPopup();
 					ME_LOG_INFO("Project create successfully");

@@ -105,7 +105,10 @@ namespace Editor {
 		}
 		ImGui::EndChild();
 
-		this->DrawFooter(winSize.x);
+		if (!this->m_Items.empty())
+		{
+			this->DrawFooter(winSize.x);
+		}
 	}
 
 	void Preview::UpdateSelectedFolder(std::string& folderPath)
