@@ -1,17 +1,9 @@
 #include "NewProject.h"
 #include <Engine/Util/FileUtil.h>
 #include "Editor/Components/FileSystemDialog/FileSystemDialog.h"
-#include <iostream>
+#include <Engine/ECS/Components/WindowComponent.h>
 
-int InputCallback(ImGuiTextEditCallbackData* data)
-{
-	// Avoid special chars
-	return ((data->EventChar >= 97 && data->EventChar <= 122) // a-z
-		|| (data->EventChar >= 65 && data->EventChar <= 90) // A-Z
-		|| (data->EventChar >= 48 && data->EventChar <= 57) // 0-9
-		|| (data->EventChar == 95 || data->EventChar == 45) // - or _
-	) ? 0 : 1;
-}
+int InputCallback(ImGuiTextEditCallbackData* data);
 
 namespace Editor {
 
@@ -94,13 +86,21 @@ namespace Editor {
 					std::string pathSep = Morpheus::FileUtil::PathSeparator();
 					std::string filePath = projectLocation + pathSep + projectName;
 					Morpheus::FileUtil::WriteFile(filePath, "project.json", "{\n  \"name\": \"" + projectName + "\",\n  \"type\": \"2D\"\n}");
-					this->m_IsOpened = false;
-					ImGui::CloseCurrentPopup();
-					ME_LOG_INFO("Project create successfully");
 
 					auto& projectEntity = registry.ctx<Morpheus::ProjectEntity>();
 					auto& projectComponent = registry.get<Morpheus::ProjectComponent>(projectEntity.id);
 					projectComponent.projectPath = filePath;
+					projectComponent.projectName = projectName;
+					projectComponent.projectType = Morpheus::ProjectComponent::ProjectType::TWO_DIMENSIONS;
+
+					auto& windowEntity = registry.ctx<Morpheus::WindowEntity>();
+					auto& windowComponent = registry.get<Morpheus::WindowComponent>(windowEntity.id);
+					GLFWwindow* nativeWindow = windowComponent.GetNativeWindow();
+					glfwSetWindowTitle(nativeWindow, projectName.c_str());
+
+					this->m_IsOpened = false;
+					ImGui::CloseCurrentPopup();
+					ME_LOG_INFO("Project create successfully");
 				}
 				else
 				{
@@ -122,4 +122,14 @@ namespace Editor {
 		return this->m_IsOpened;
 	}
 
+}
+
+int InputCallback(ImGuiTextEditCallbackData* data)
+{
+	// Avoid special chars
+	return ((data->EventChar >= 97 && data->EventChar <= 122) // a-z
+		|| (data->EventChar >= 65 && data->EventChar <= 90) // A-Z
+		|| (data->EventChar >= 48 && data->EventChar <= 57) // 0-9
+		|| (data->EventChar == 95 || data->EventChar == 45) // - or _
+		) ? 0 : 1;
 }

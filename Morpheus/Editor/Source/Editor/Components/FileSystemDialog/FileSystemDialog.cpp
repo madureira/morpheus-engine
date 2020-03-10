@@ -24,10 +24,10 @@ namespace Editor {
 		return selectedPath;
 	}
 
-	std::string FileSystemDialog::OpenFileSelector()
+	std::string FileSystemDialog::OpenFileSelector(std::string filter)
 	{
 		nfdchar_t* outPath = NULL;
-		nfdresult_t result = NFD_OpenDialog(NULL, NULL, &outPath);
+		nfdresult_t result = NFD_OpenDialog((filter.empty() ? NULL : filter.c_str()), NULL, &outPath);
 
 		std::string selectedPath;
 

@@ -7,7 +7,7 @@ namespace Editor {
 	{
 	public:
 		static std::string OpenFolderSelector();
-		static std::string OpenFileSelector();
+		static std::string OpenFileSelector(std::string filter = "");
 		static std::string OpenSaveDialog();
 	};
 
