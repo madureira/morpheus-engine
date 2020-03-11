@@ -2,6 +2,7 @@
 
 #include "Editor/Containers/UIContainer.h"
 #include "./NewProject/NewProject.h"
+#include "./NewScene/NewScene.h"
 
 namespace Editor {
 
@@ -9,6 +10,7 @@ namespace Editor {
 	{
 	private:
 		NewProject* m_NewProject;
+		NewScene* m_NewScene;
 
 	public:
 		Menubar();

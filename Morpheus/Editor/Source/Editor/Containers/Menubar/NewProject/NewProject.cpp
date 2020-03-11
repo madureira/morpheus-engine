@@ -1,9 +1,8 @@
 #include "NewProject.h"
 #include <Engine/Util/FileUtil.h>
-#include "Editor/Components/FileSystemDialog/FileSystemDialog.h"
 #include <Engine/ECS/Components/WindowComponent.h>
-
-int InputCallback(ImGuiTextEditCallbackData* data);
+#include "Editor/Components/FileSystemDialog/FileSystemDialog.h"
+#include "Editor/Utils/InputUtils.h"
 
 namespace Editor {
 
@@ -35,7 +34,7 @@ namespace Editor {
 			ImGui::Dummy(ImVec2(5.0f, 0.0f)); ImGui::SameLine();
 			ImGui::Text("Project name:"); ImGui::SameLine();
 			ImGuiInputTextFlags flags = ImGuiInputTextFlags_CallbackCharFilter;
-			ImGui::InputText("##projectName", this->m_ProjectName, IM_ARRAYSIZE(this->m_ProjectName), flags, InputCallback);
+			ImGui::InputText("##projectName", this->m_ProjectName, IM_ARRAYSIZE(this->m_ProjectName), flags, InputUtils::SanitizeCallback);
 
 			ImGui::Dummy(ImVec2(0.0f, 5.0f));
 			ImGui::Dummy(ImVec2(32.0f, 0.0f)); ImGui::SameLine();
@@ -122,14 +121,4 @@ namespace Editor {
 		return this->m_IsOpened;
 	}
 
-}
-
-int InputCallback(ImGuiTextEditCallbackData* data)
-{
-	// Avoid special chars
-	return ((data->EventChar >= 97 && data->EventChar <= 122) // a-z
-		|| (data->EventChar >= 65 && data->EventChar <= 90) // A-Z
-		|| (data->EventChar >= 48 && data->EventChar <= 57) // 0-9
-		|| (data->EventChar == 95 || data->EventChar == 45) // - or _
-		) ? 0 : 1;
 }

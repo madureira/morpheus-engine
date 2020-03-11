@@ -10,12 +10,14 @@ namespace Editor {
 
 	Menubar::Menubar()
 		: m_NewProject(nullptr)
+		, m_NewScene(nullptr)
 	{
 	}
 
 	Menubar::~Menubar()
 	{
 		delete this->m_NewProject;
+		delete this->m_NewScene;
 	}
 
 	void Menubar::Render(entt::registry& registry)
@@ -42,14 +44,16 @@ namespace Editor {
 
 						if ((project.find("name") != project.end()) && (project.find("type") != project.end()))
 						{
+							std::string projectName = project["name"].get<std::string>();
+
 							auto& windowEntity = registry.ctx<Morpheus::WindowEntity>();
 							auto& windowComponent = registry.get<Morpheus::WindowComponent>(windowEntity.id);
 							GLFWwindow* nativeWindow = windowComponent.GetNativeWindow();
-							std::string projectName = project["name"];
 							glfwSetWindowTitle(nativeWindow, projectName.c_str());
 
 							auto& projectEntity = registry.ctx<Morpheus::ProjectEntity>();
 							auto& projectComponent = registry.get<Morpheus::ProjectComponent>(projectEntity.id);
+							projectComponent.projectName = projectName;
 
 							if (project["type"] == "3D")
 							{
@@ -59,11 +63,13 @@ namespace Editor {
 							{
 								projectComponent.projectType = Morpheus::ProjectComponent::ProjectType::TWO_DIMENSIONS;
 							}
-#ifdef WIN32
-							projectComponent.projectPath = selectedProject.substr(0, selectedProject.find_last_of("\\/"));
-#else
-							projectComponent.projectPath = selectedProject.substr(0, selectedProject.find_last_of("/"));
+
+							std::string pathSep("\\/");
+#ifndef WIN32
+							pathSep = "/";
 #endif
+							projectComponent.projectPath = selectedProject.substr(0, selectedProject.find_last_of(pathSep));
+
 							ME_LOG_INFO("Project selected: {0}", projectComponent.projectPath);
 						}
 						else
@@ -73,8 +79,35 @@ namespace Editor {
 					}
 				}
 
+				ImGui::Separator();
+
+				auto& projectEntity = registry.ctx<Morpheus::ProjectEntity>();
+				auto& projectComponent = registry.get<Morpheus::ProjectComponent>(projectEntity.id);
+				bool projectLoaded = !projectComponent.projectName.empty();
+
+				if (!projectLoaded)
+				{
+					ImGui::PushItemFlag(ImGuiItemFlags_Disabled, true);
+					ImGui::PushStyleVar(ImGuiStyleVar_Alpha, ImGui::GetStyle().Alpha * 0.5f);
+				}
+
+				if (ImGui::MenuItem(ICON_FA_CUBES"   New Scene"))
+				{
+					if (this->m_NewScene == nullptr)
+					{
+						this->m_NewScene = new NewScene();
+					}
+				}
+
 				if (ImGui::MenuItem(ICON_FA_SAVE"   Save"))
 				{
+					ME_LOG_INFO("Current project status saved successfully!");
+				}
+
+				if (!projectLoaded)
+				{
+					ImGui::PopItemFlag();
+					ImGui::PopStyleVar();
 				}
 
 				ImGui::Separator();
@@ -96,6 +129,15 @@ namespace Editor {
 			else
 			{
 				this->m_NewProject = nullptr;
+			}
+
+			if (this->m_NewScene != nullptr && this->m_NewScene->IsOpened())
+			{
+				this->m_NewScene->Render(registry);
+			}
+			else
+			{
+				this->m_NewScene = nullptr;
 			}
 		}
 	}
