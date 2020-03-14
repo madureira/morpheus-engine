@@ -1,8 +1,10 @@
 #include "NewProject.h"
+#include <Engine/GlobalState.h>
+#include <Engine/Util/UUID.h>
 #include <Engine/Util/FileUtil.h>
 #include <Engine/ECS/Components/WindowComponent.h>
 #include "Editor/Components/FileSystemDialog/FileSystemDialog.h"
-#include "Editor/Utils/InputUtils.h"
+#include "Editor/Util/InputUtil.h"
 
 namespace Editor {
 
@@ -34,7 +36,7 @@ namespace Editor {
 			ImGui::Dummy(ImVec2(5.0f, 0.0f)); ImGui::SameLine();
 			ImGui::Text("Project name:"); ImGui::SameLine();
 			ImGuiInputTextFlags flags = ImGuiInputTextFlags_CallbackCharFilter;
-			ImGui::InputText("##projectName", this->m_ProjectName, IM_ARRAYSIZE(this->m_ProjectName), flags, InputUtils::SanitizeCallback);
+			ImGui::InputText("##projectName", this->m_ProjectName, IM_ARRAYSIZE(this->m_ProjectName), flags, InputUtil::SanitizeCallback);
 
 			ImGui::Dummy(ImVec2(0.0f, 5.0f));
 			ImGui::Dummy(ImVec2(32.0f, 0.0f)); ImGui::SameLine();
@@ -82,24 +84,28 @@ namespace Editor {
 
 				if (Morpheus::FileUtil::CreateFolder(projectLocation, projectName))
 				{
-					std::string pathSep = Morpheus::FileUtil::PathSeparator();
-					std::string filePath = projectLocation + pathSep + projectName;
-					Morpheus::FileUtil::WriteFile(filePath, "project.json", "{\n  \"name\": \"" + projectName + "\",\n  \"type\": \"2D\"\n}");
+					static std::string pathSep = Morpheus::FileUtil::PathSeparator();
+					std::string projectPath = projectLocation + pathSep + projectName;
 
 					auto& projectEntity = registry.ctx<Morpheus::ProjectEntity>();
 					auto& projectComponent = registry.get<Morpheus::ProjectComponent>(projectEntity.id);
-					projectComponent.projectPath = filePath;
+					projectComponent.uuid = Morpheus::UUID::Generate();
+					projectComponent.projectPath = projectPath;
 					projectComponent.projectName = projectName;
-					projectComponent.projectType = Morpheus::ProjectComponent::ProjectType::TWO_DIMENSIONS;
+					projectComponent.projectType = Morpheus::ProjectType::TWO_DIMENSIONS;
 
-					auto& windowEntity = registry.ctx<Morpheus::WindowEntity>();
-					auto& windowComponent = registry.get<Morpheus::WindowComponent>(windowEntity.id);
-					GLFWwindow* nativeWindow = windowComponent.GetNativeWindow();
-					glfwSetWindowTitle(nativeWindow, projectName.c_str());
+					for (auto& scene : projectComponent.projectScenes)
+					{
+						registry.destroy(scene.id);
+					}
+					projectComponent.projectScenes.clear();
+
+					Morpheus::FileUtil::CreateFolder(projectPath, "Scenes");
+					Morpheus::FileUtil::CreateFolder(projectPath, "Assets");
+					Morpheus::GlobalState::Save(registry);
 
 					this->m_IsOpened = false;
 					ImGui::CloseCurrentPopup();
-					ME_LOG_INFO("Project create successfully");
 				}
 				else
 				{

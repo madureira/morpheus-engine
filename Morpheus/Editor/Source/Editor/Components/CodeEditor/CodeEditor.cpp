@@ -14,6 +14,7 @@ namespace Editor {
 		{
 			this->m_ShowEditor = true;
 			this->m_TextEditor = new TextEditor();
+			this->m_TextEditor->SetPalette(TextEditor::GetDarkPalette());
 
 			if (Morpheus::Extension::IsShader(extension))
 			{

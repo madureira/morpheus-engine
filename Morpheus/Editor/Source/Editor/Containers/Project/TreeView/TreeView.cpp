@@ -9,7 +9,7 @@ namespace Editor {
 		, m_HandleFolderSelection(onFolderSelect)
 		, m_HandleFileSelection(onFileSelect)
 	{
-		this->m_JSON = json::parse(Morpheus::FileUtil::ReadDirectoryTreeAsJsonString(currentPath));
+		this->m_JSON = Morpheus::JSON::parse(Morpheus::FileUtil::ReadDirectoryTreeAsJsonString(currentPath));
 	}
 
 	void TreeView::Render(entt::registry& registry)
@@ -17,7 +17,7 @@ namespace Editor {
 		this->RenderFileTree(this->m_JSON);
 	}
 
-	void TreeView::RenderFileTree(json& tree)
+	void TreeView::RenderFileTree(Morpheus::JSON& tree)
 	{
 		if (tree["type"] == "folder")
 		{
@@ -37,7 +37,7 @@ namespace Editor {
 
 			if (this->m_TreeState[tree["path"]])
 			{
-				std::sort(tree["children"].begin(), tree["children"].end(), [](const json& a, const json& b) {
+				std::sort(tree["children"].begin(), tree["children"].end(), [](const Morpheus::JSON& a, const Morpheus::JSON& b) {
 					if (a["type"] == "folder" && b["type"] == "folder")
 					{
 						return a["name"] < b["name"];

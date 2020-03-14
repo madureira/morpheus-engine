@@ -1,19 +1,17 @@
 #pragma once
 
 #include "Editor/Containers/UIContainer.h"
-#include <nlohmann/json.hpp>
+#include <Engine/Util/JSON.h>
 #include <functional>
 #include <string>
 #include <map>
 
 namespace Editor {
 
-	using json = nlohmann::json;
-
 	class TreeView final : public UIContainer
 	{
 	private:
-		json m_JSON;
+		Morpheus::JSON m_JSON;
 		std::map<std::string, bool> m_TreeState;
 		std::function<void(std::string& path)> m_HandleFolderSelection;
 		std::function<void(std::string & path)> m_HandleFileSelection;
@@ -24,7 +22,7 @@ namespace Editor {
 		void Render(entt::registry& registry) override;
 
 	private:
-		void RenderFileTree(json& tree);
+		void RenderFileTree(Morpheus::JSON& tree);
 		bool CreateFolderNode(std::string nodeIndex, std::string nodeTitle);
 		void CreateFileNode(std::string nodeIndex, std::string nodeTitle, std::string fileExtension);
 		std::string BuildFolderTitle(std::string& title, bool isOpened);

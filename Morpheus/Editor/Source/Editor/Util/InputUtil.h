@@ -4,7 +4,7 @@
 
 namespace Editor {
 
-	class InputUtils
+	class InputUtil final
 	{
 	public:
 		// Avoid special chars

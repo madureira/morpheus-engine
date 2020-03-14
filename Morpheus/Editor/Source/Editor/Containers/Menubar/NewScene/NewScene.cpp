@@ -1,6 +1,7 @@
 #include "NewScene.h"
-#include <Engine/Util/FileUtil.h>
-#include "Editor/Utils/InputUtils.h"
+#include <Engine/GlobalState.h>
+#include <Engine/Util/UUID.h>
+#include "Editor/Util/InputUtil.h"
 
 namespace Editor {
 
@@ -22,7 +23,7 @@ namespace Editor {
 		ImGui::SetNextWindowSize(ImVec2(modalWidth, modalHeight));
 
 		ImGui::OpenPopup("###new_scene");
-		if (ImGui::BeginPopupModal(ICON_FA_FOLDER_PLUS"  New###new_scene", NULL, windowFlags))
+		if (ImGui::BeginPopupModal(ICON_FA_CUBE"  New###new_scene", NULL, windowFlags))
 		{
 			ImGui::Dummy(ImVec2(5.0f, 0.0f)); ImGui::SameLine();
 			ImGui::Text("Create a new Scene");
@@ -32,7 +33,7 @@ namespace Editor {
 			ImGui::Dummy(ImVec2(5.0f, 0.0f)); ImGui::SameLine();
 			ImGui::Text("Scene name:"); ImGui::SameLine();
 			ImGuiInputTextFlags flags = ImGuiInputTextFlags_CallbackCharFilter;
-			ImGui::InputText("##sceneName", this->m_SceneName, IM_ARRAYSIZE(this->m_SceneName), flags, InputUtils::SanitizeCallback);
+			ImGui::InputText("##sceneName", this->m_SceneName, IM_ARRAYSIZE(this->m_SceneName), flags, InputUtil::SanitizeCallback);
 
 			ImGui::Dummy(ImVec2(0.0f, 5.0f));
 			ImGui::Separator();
@@ -57,9 +58,19 @@ namespace Editor {
 			ImGui::Indent(62);
 			if (ImGui::Button("Confirm"))
 			{
+				Morpheus::SceneEntity sceneEntity{ registry.create() };
+				sceneEntity.uuid = Morpheus::UUID::Generate();
+				sceneEntity.name = sceneName;
+				registry.set<Morpheus::SceneEntity>(sceneEntity);
+
+				auto& projectEntity = registry.ctx<Morpheus::ProjectEntity>();
+				auto& projectComponent = registry.get<Morpheus::ProjectComponent>(projectEntity.id);
+				projectComponent.projectScenes.push_back(sceneEntity);
+
+				Morpheus::GlobalState::Save(registry);
+
 				this->m_IsOpened = false;
 				ImGui::CloseCurrentPopup();
-				ME_LOG_INFO("Creating scene: {0}", sceneName);
 			}
 
 			if (sceneName.empty())

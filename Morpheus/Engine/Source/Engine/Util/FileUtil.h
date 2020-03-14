@@ -4,13 +4,12 @@
 #include <string>
 #include <fstream>
 #include <filesystem>
-#include <nlohmann/json.hpp>
+#include <Engine/Util/JSON.h>
 #include <iostream>
 
 namespace Morpheus {
 
 	namespace fs = std::filesystem;
-	using json = nlohmann::json;
 
 	struct Extension final
 	{
@@ -88,7 +87,7 @@ namespace Morpheus {
 		static void WriteFile(std::string path, std::string fileName, std::string fileContent)
 		{
 			std::string filePathName(path + PathSeparator() + fileName);
-			std::ofstream newFile(filePathName, std::ios_base::app);
+			std::ofstream newFile(filePathName, std::ios_base::trunc);
 			newFile << fileContent << "\n";
 			newFile.close();
 		}
@@ -108,17 +107,17 @@ namespace Morpheus {
 
 		static std::string ReadDirectoryTreeAsJsonString(std::string& path)
 		{
-			json tree;
+			Morpheus::JSON tree;
 			BuildDirectoryTree(path, tree);
 			return tree.dump();
 		}
 
 		static std::string ReadDirectoryAsJsonString(std::string& path)
 		{
-			json items = json::array();
+			Morpheus::JSON items = Morpheus::JSON::array();
 			for (const auto& entry : fs::directory_iterator(path))
 			{
-				json node = json::object();
+				Morpheus::JSON node = Morpheus::JSON::object();
 				node["name"] = entry.path().filename().string();
 				node["path"] = entry.path().string();
 
@@ -154,7 +153,7 @@ namespace Morpheus {
 			return fs::exists(path);
 		}
 
-		void static BuildDirectoryTree(const fs::path& pathToScan, json& tree)
+		void static BuildDirectoryTree(const fs::path& pathToScan, Morpheus::JSON& tree)
 		{
 			for (const auto& entry : fs::directory_iterator(pathToScan))
 			{
@@ -163,17 +162,17 @@ namespace Morpheus {
 					tree["name"] = entry.path().parent_path().filename().string();
 					tree["path"] = entry.path().parent_path().string();
 					tree["type"] = "folder";
-					tree["children"] = json::array();
+					tree["children"] = Morpheus::JSON::array();
 				}
 
-				json node = json::object();
+				Morpheus::JSON node = Morpheus::JSON::object();
 				node["name"] = entry.path().filename().string();
 				node["path"] = entry.path().string();
 
 				if (entry.is_directory())
 				{
 					node["type"] = "folder";
-					node["children"] = json::array();
+					node["children"] = Morpheus::JSON::array();
 
 					if (tree.is_null())
 					{
