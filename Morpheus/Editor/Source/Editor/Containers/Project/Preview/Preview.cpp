@@ -12,6 +12,7 @@ namespace Editor {
 		, m_SelectedItem("")
 		, m_FolderIcon(new Morpheus::Texture("Assets/icons/black-folder-icon.png"))
 		, m_FileIcon(new Morpheus::Texture("Assets/icons/document-icon.png"))
+		, m_SceneIcon(new Morpheus::Texture("Assets/icons/cube-icon.png"))
 		, m_Zoom(1)
 	{
 	}
@@ -21,6 +22,7 @@ namespace Editor {
 		this->Shutdown();
 		delete this->m_FolderIcon;
 		delete this->m_FileIcon;
+		delete this->m_SceneIcon;
 	}
 
 	void Preview::Render(entt::registry& registry)
@@ -117,7 +119,7 @@ namespace Editor {
 		{
 			this->m_SelectedItem = "";
 			this->m_CurrentFolder = folderPath;
-			this->m_JSON = json::parse(Morpheus::FileUtil::ReadDirectoryAsJsonString(this->m_CurrentFolder));
+			this->m_JSON = Morpheus::JSON::parse(Morpheus::FileUtil::ReadDirectoryAsJsonString(this->m_CurrentFolder));
 
 			this->Shutdown();
 
@@ -140,6 +142,16 @@ namespace Editor {
 							new PreviewItem(
 								currentNode["name"].get<std::string>(),
 								new Morpheus::Texture(currentNode["path"].get<std::string>().c_str()),
+								currentNode
+							)
+						);
+					}
+					else if (Morpheus::Extension::IsScene(currentNode["extension"]))
+					{
+						this->m_Items.push_back(
+							new PreviewItem(
+								currentNode["name"].get<std::string>(),
+								this->m_SceneIcon,
 								currentNode
 							)
 						);
@@ -187,7 +199,7 @@ namespace Editor {
 	{
 		for (auto item : this->m_Items)
 		{
-			if (item->image != this->m_FileIcon && item->image != this->m_FolderIcon)
+			if (item->image != this->m_FileIcon && item->image != this->m_FolderIcon && item->image != this->m_SceneIcon)
 			{
 				delete item->image;
 			}

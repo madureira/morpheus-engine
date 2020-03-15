@@ -2,7 +2,7 @@
 
 #include "Editor/Containers/UIContainer.h"
 #include <Engine/Texture/Texture.h>
-#include <nlohmann/json.hpp>
+#include <Engine/Util/JSON.h>
 #include <functional>
 #include <string>
 #include <vector>
@@ -16,9 +16,9 @@ namespace Editor {
 	{
 		std::string title;
 		Morpheus::Texture* image;
-		json data;
+		Morpheus::JSON data;
 
-		PreviewItem(std::string title_, Morpheus::Texture* image_, json data_)
+		PreviewItem(std::string title_, Morpheus::Texture* image_, Morpheus::JSON data_)
 			: title(title_)
 			, image(image_)
 			, data(data_)
@@ -36,6 +36,7 @@ namespace Editor {
 		std::vector<PreviewItem*> m_Items;
 		Morpheus::Texture* m_FolderIcon;
 		Morpheus::Texture* m_FileIcon;
+		Morpheus::Texture* m_SceneIcon;
 		int m_Zoom;
 		std::function<void(std::string& path)> m_HandleFolderSelection;
 		std::function<void(std::string& path)> m_HandleFileSelection;

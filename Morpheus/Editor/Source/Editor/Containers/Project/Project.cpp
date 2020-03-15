@@ -37,8 +37,7 @@ namespace Editor {
 		this->OpenCodeEditor(registry);
 
 		static bool* show = NULL;
-		ImGuiWindowFlags windowFlags = ImGuiWindowFlags_NoCollapse
-			| ImGuiWindowFlags_NoScrollbar;
+		ImGuiWindowFlags windowFlags = ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoScrollbar;
 
 		ImGui::Begin(ICON_FA_FOLDER" Project###project", show, windowFlags);
 		{
@@ -49,17 +48,17 @@ namespace Editor {
 
 			ImGui::PushStyleColor(ImGuiCol_ChildBg, { 0.180f, 0.180f , 0.180f , 1.00f });
 			ImGui::BeginChild("TreeView", ImVec2(s_treeViewWidth, 0), false, ImGuiWindowFlags_HorizontalScrollbar);
-
-			if (this->m_TreeView != nullptr)
 			{
-				this->m_TreeView->Render(registry);
+				if (this->m_TreeView != nullptr)
+				{
+					this->m_TreeView->Render(registry);
+				}
 			}
-
 			ImGui::EndChild();
 			ImGui::PopStyleColor();
-
 			ImGui::SameLine();
-			ImGui::InvisibleButton("vsplitter", ImVec2(5.0f, contentRegionMax.y - 30));
+
+			ImGui::Button("vsplitter", ImVec2(5.0f, contentRegionMax.y - 28));
 			if (ImGui::IsItemHovered())
 			{
 				ImGui::SetMouseCursor(ImGuiMouseCursor_ResizeEW);
@@ -77,8 +76,10 @@ namespace Editor {
 
 			ImGui::PushStyleColor(ImGuiCol_ChildBg, { 0.180f, 0.180f , 0.180f , 1.00f });
 			ImGui::BeginChild("FilesPreview", ImVec2(0, 0), false);
-			this->m_Preview->UpdateSelectedFolder(this->m_CurrentFolderSelected);
-			this->m_Preview->Render(registry);
+			{
+				this->m_Preview->UpdateSelectedFolder(this->m_CurrentFolderSelected);
+				this->m_Preview->Render(registry);
+			}
 			ImGui::EndChild();
 			ImGui::PopStyleColor();
 
@@ -89,8 +90,10 @@ namespace Editor {
 
 	void Project::UpdateProjectPath(Morpheus::ProjectEntity& projectEntity)
 	{
-		if (this->m_ProjectPath != projectEntity.path && !projectEntity.path.empty())
+		if ((this->m_ProjectPath != projectEntity.path && !projectEntity.path.empty()) || projectEntity.reload)
 		{
+			projectEntity.reload = false;
+
 			delete this->m_TreeView;
 
 			this->m_ProjectPath = projectEntity.path;

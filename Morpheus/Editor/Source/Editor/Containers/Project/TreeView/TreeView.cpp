@@ -118,6 +118,11 @@ namespace Editor {
 			nodeTitle = ICON_FA_FONT;
 		}
 
+		if (Morpheus::Extension::IsScene(fileExtension))
+		{
+			nodeTitle = ICON_FA_CUBE;
+		}
+
 		nodeTitle += "  ";
 		nodeTitle += title;
 		return nodeTitle;

@@ -18,6 +18,7 @@ namespace Morpheus {
 		std::string name;
 		std::string type;
 		std::vector<SceneEntity> scenes;
+		bool reload;
 	};
 
 }
