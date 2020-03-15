@@ -1,7 +1,7 @@
 #include "mepch.h"
 #include "Shader.h"
-#include <glad/glad.h>
 #include <vector>
+#include <glad/glad.h>
 #include "Engine/Util/FileUtil.h"
 
 namespace Morpheus {

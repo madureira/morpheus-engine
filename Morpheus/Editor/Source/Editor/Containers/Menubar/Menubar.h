@@ -1,8 +1,8 @@
 #pragma once
 
 #include "Editor/Containers/UIContainer.h"
-#include "./NewProject/NewProject.h"
-#include "./NewScene/NewScene.h"
+#include "NewProject/NewProject.h"
+#include "NewScene/NewScene.h"
 
 namespace Editor {
 

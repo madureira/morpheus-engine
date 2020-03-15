@@ -1,12 +1,12 @@
 #pragma once
 
-#include "Editor/Containers/UIContainer.h"
-#include <Engine/Texture/Texture.h>
-#include <Engine/Util/JSON.h>
-#include <functional>
 #include <string>
 #include <vector>
 #include <utility>
+#include <functional>
+#include <Engine/Util/JSON.h>
+#include <Engine/Texture/Texture.h>
+#include "Editor/Containers/UIContainer.h"
 
 namespace Editor {
 

@@ -1,7 +1,7 @@
 #pragma once
 
-#include "Vendors/ImGuiColorTextEdit/TextEditor.h"
 #include <string>
+#include "Vendors/ImGuiColorTextEdit/TextEditor.h"
 
 namespace Editor {
 

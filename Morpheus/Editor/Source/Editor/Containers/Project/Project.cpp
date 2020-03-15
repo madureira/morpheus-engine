@@ -1,6 +1,6 @@
 #include "Project.h"
-#include <Engine/Util/FileUtil.h>
 #include <functional>
+#include <Engine/Util/FileUtil.h>
 
 namespace Editor {
 

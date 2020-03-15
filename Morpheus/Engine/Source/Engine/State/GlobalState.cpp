@@ -23,9 +23,9 @@ namespace Morpheus {
 			scene["name"] = sceneEntity.name;
 
 			scenesNames.push_back(sceneEntity.name);
-			std::string sceneFile(sceneEntity.name + ".scn");
+			std::string sceneFile(sceneEntity.name + Morpheus::Extension::SCN);
 
-			FileUtil::WriteFile(scenesPath, sceneFile, scene.dump(4));
+			FileUtil::WriteFile(scenesPath, sceneFile, scene.dump(CODE_INDENT));
 		}
 
 		JSON project;
@@ -34,7 +34,7 @@ namespace Morpheus {
 		project["type"] = projectEntity.type;
 		project["scenes"] = scenesNames;
 
-		FileUtil::WriteFile(projectPath, PROJECT_FILE, project.dump(4));
+		FileUtil::WriteFile(projectPath, PROJECT_FILE, project.dump(CODE_INDENT));
 
 		projectEntity.reload = true;
 
@@ -49,7 +49,7 @@ namespace Morpheus {
 
 		JSON project = JSON::parse(Morpheus::FileUtil::ReadFile(projectFilePath));
 
-		if ((project.find("name") != project.end()) && (project.find("type") != project.end()))
+		if ((project.find("uuid") != project.end()) && (project.find("name") != project.end()) && (project.find("type") != project.end()))
 		{
 			static std::string pathSep("\\/");
 #ifndef WIN32
@@ -68,7 +68,8 @@ namespace Morpheus {
 
 			for (auto& sceneName : project["scenes"].get<std::vector<std::string>>())
 			{
-				std::string sceneFilePath(projectEntity.path + PATH_SEP + SCENES_DIR + PATH_SEP + sceneName + ".scn");
+				std::string sceneFilePath(projectEntity.path + PATH_SEP + SCENES_DIR + PATH_SEP + sceneName + Morpheus::Extension::SCN);
+
 				JSON scene = JSON::parse(Morpheus::FileUtil::ReadFile(sceneFilePath));
 
 				Morpheus::SceneEntity sceneEntity{ registry.create() };

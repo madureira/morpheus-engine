@@ -2,9 +2,9 @@
 
 #include <vector>
 #include <glm/gtc/matrix_transform.hpp>
-#include "Engine/Texture/Texture.h"
-#include "Engine/Shader/Shader.h"
 #include "Engine/ECS/ECS.h"
+#include "Engine/Shader/Shader.h"
+#include "Engine/Texture/Texture.h"
 
 namespace Morpheus {
 

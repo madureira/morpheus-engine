@@ -1,7 +1,7 @@
 #include "Menubar.h"
-#include <Engine/GlobalState.h>
+#include <Engine/State/GlobalState.h>
 #include <Engine/ECS/Components/WindowComponent.h>
-#include "Editor/Components/FileSystemDialog/FileSystemDialog.h"
+#include "Editor/UIComponents/FileSystemDialog/FileSystemDialog.h"
 
 namespace Editor {
 

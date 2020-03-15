@@ -1,9 +1,9 @@
 #include "Button.h"
 
+#include <string>
 #include <imgui.h>
 #include <imgui_internal.h>
 #include "Vendors/IconsFontAwesome5/IconsFontAwesome5.h"
-#include <string>
 
 namespace Editor {
 

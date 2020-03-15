@@ -5,9 +5,10 @@
 
 namespace Morpheus {
 
-constexpr auto PROJECT_FILE = "project.json";
-constexpr auto SCENES_DIR = "Scenes";
-constexpr auto ASSETS_DIR = "Assets";
+	constexpr auto PROJECT_FILE = "project.json";
+	constexpr auto SCENES_DIR = "Scenes";
+	constexpr auto ASSETS_DIR = "Assets";
+	constexpr auto CODE_INDENT = 4;
 
 	class GlobalState final
 	{

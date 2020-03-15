@@ -1,8 +1,8 @@
 #pragma once
 
+#include <vector>
 #include "Entity.h"
 #include "SceneEntity.h"
-#include <vector>
 
 namespace Morpheus {
 

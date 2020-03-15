@@ -1,7 +1,7 @@
 #include "mepch.h"
 #include "Input.h"
-#include "./Gamepad/Gamepad.h"
-#include "./Keyboard/Keyboard.h"
+#include "Gamepad/Gamepad.h"
+#include "Keyboard/Keyboard.h"
 
 bool g_is_gamepad_connected = false;
 

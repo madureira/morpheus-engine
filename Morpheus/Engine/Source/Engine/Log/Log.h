@@ -1,9 +1,9 @@
 #pragma once
 
 #include <string>
-#include "Engine/Core.h"
 #include <spdlog/spdlog.h>
 #include <spdlog/fmt/ostr.h>
+#include "Memory.h"
 #include "CustomLogSink.h"
 
 namespace Morpheus {

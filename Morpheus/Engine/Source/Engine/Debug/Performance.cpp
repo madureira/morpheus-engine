@@ -1,10 +1,10 @@
 #include "mepch.h"
 #include "Performance.h"
 #include <glm/glm.hpp>
-#include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
-#include "Engine/Config/Settings.h"
+#include <glm/gtc/matrix_transform.hpp>
 #include "Engine/Shader/Shader.h"
+#include "Engine/Config/Settings.h"
 #include "Engine/Renderer/TextRenderer.h"
 
 namespace Morpheus {

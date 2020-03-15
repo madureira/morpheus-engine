@@ -1,5 +1,5 @@
 #include "NewScene.h"
-#include <Engine/GlobalState.h>
+#include <Engine/State/GlobalState.h>
 #include <Engine/Util/UUID.h>
 #include "Editor/Util/InputUtil.h"
 

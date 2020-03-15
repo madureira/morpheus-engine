@@ -1,10 +1,10 @@
 #pragma once
 
+#include <string>
 #include "Editor/Containers/UIContainer.h"
-#include "Editor/Components/CodeEditor/CodeEditor.h"
+#include "Editor/UIComponents/CodeEditor/CodeEditor.h"
 #include "TreeView/TreeView.h"
 #include "Preview/Preview.h"
-#include <string>
 
 namespace Editor {
 

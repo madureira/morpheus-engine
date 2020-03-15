@@ -1,10 +1,10 @@
 #pragma once
 
-#include "Editor/Containers/UIContainer.h"
-#include <Engine/Util/JSON.h>
-#include <functional>
-#include <string>
 #include <map>
+#include <string>
+#include <functional>
+#include <Engine/Util/JSON.h>
+#include "Editor/Containers/UIContainer.h"
 
 namespace Editor {
 

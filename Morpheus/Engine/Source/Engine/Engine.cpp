@@ -1,13 +1,13 @@
 #include "mepch.h"
 #include "Engine.h"
+#include "Engine/App.h"
 #include "Engine/Config/Settings.h"
 #include "Engine/Window/Window.h"
 #include "Engine/Input/Input.h"
 #include "Engine/Debug/Performance.h"
-#include "Engine/App.h"
-#include "Engine/ECS/Components/WindowComponent.h"
-#include "Engine/Util/HardwareUtil.h"
 #include "Engine/Util/NumberUtil.h"
+#include "Engine/Util/HardwareUtil.h"
+#include "Engine/ECS/Components/WindowComponent.h"
 
 namespace Morpheus {
 

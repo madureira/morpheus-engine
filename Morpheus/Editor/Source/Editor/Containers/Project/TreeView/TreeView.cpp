@@ -1,6 +1,6 @@
 #include "TreeView.h"
-#include <Engine/Util/FileUtil.h>
 #include <algorithm>
+#include <Engine/Util/FileUtil.h>
 
 namespace Editor {
 
