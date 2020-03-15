@@ -32,9 +32,8 @@ namespace Editor {
 	void Project::Render(entt::registry& registry)
 	{
 		auto& projectEntity = registry.ctx<Morpheus::ProjectEntity>();
-		auto& projectComponent = registry.get<Morpheus::ProjectComponent>(projectEntity.id);
 
-		this->UpdateProjectPath(projectComponent);
+		this->UpdateProjectPath(projectEntity);
 		this->OpenCodeEditor(registry);
 
 		static bool* show = NULL;
@@ -88,13 +87,13 @@ namespace Editor {
 		ImGui::End();
 	}
 
-	void Project::UpdateProjectPath(Morpheus::ProjectComponent& projectComponent)
+	void Project::UpdateProjectPath(Morpheus::ProjectEntity& projectEntity)
 	{
-		if (this->m_ProjectPath != projectComponent.projectPath && !projectComponent.projectPath.empty())
+		if (this->m_ProjectPath != projectEntity.path && !projectEntity.path.empty())
 		{
 			delete this->m_TreeView;
 
-			this->m_ProjectPath = projectComponent.projectPath;
+			this->m_ProjectPath = projectEntity.path;
 			this->m_CurrentFolderSelected = this->m_ProjectPath;
 			this->m_CurrentFileSelected = "";
 

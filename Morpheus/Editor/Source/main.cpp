@@ -1,6 +1,7 @@
 #include <Engine/Engine.h>
 #include "Editor/MorpheusEditor.h"
 
+/*
 #ifdef _WIN32
 extern "C"
 {
@@ -9,6 +10,7 @@ extern "C"
 	__declspec(dllexport) int AmdPowerXpressRequestHighPerformance = 1;
 }
 #endif
+*/
 
 int main()
 {

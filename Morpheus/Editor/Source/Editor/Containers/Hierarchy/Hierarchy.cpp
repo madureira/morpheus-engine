@@ -11,9 +11,8 @@ namespace Editor {
 		ImGui::Begin(ICON_FA_STREAM" Hierarchy###hierarchy", show, windowFlags);
 		{
 			auto& projectEntity = registry.ctx<Morpheus::ProjectEntity>();
-			auto& projectComponent = registry.get<Morpheus::ProjectComponent>(projectEntity.id);
 
-			for (auto& sceneEntity : projectComponent.projectScenes)
+			for (auto& sceneEntity : projectEntity.scenes)
 			{
 				std::string nodeTitle = ICON_FA_CUBE;
 				nodeTitle += "  ";

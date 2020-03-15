@@ -9,7 +9,7 @@ constexpr auto PROJECT_FILE = "project.json";
 constexpr auto SCENES_DIR = "Scenes";
 constexpr auto ASSETS_DIR = "Assets";
 
-	class GlobalState
+	class GlobalState final
 	{
 	public:
 		static void Save(entt::registry& registry);

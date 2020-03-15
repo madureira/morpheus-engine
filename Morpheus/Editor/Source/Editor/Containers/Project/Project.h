@@ -25,7 +25,7 @@ namespace Editor {
 		void Render(entt::registry& registry) override;
 
 	private:
-		void UpdateProjectPath(Morpheus::ProjectComponent& projectComponent);
+		void UpdateProjectPath(Morpheus::ProjectEntity& projectEntity);
 		void OpenCodeEditor(entt::registry& registry);
 	};
 

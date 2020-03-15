@@ -32,7 +32,6 @@ namespace Editor {
 				}
 
 				auto& projectEntity = registry.ctx<Morpheus::ProjectEntity>();
-				auto& projectComponent = registry.get<Morpheus::ProjectComponent>(projectEntity.id);
 
 				if (ImGui::MenuItem(ICON_FA_FOLDER_OPEN "  Open Project..."))
 				{
@@ -45,7 +44,7 @@ namespace Editor {
 
 				ImGui::Separator();
 
-				bool projectLoaded = !projectComponent.projectName.empty();
+				bool projectLoaded = !projectEntity.name.empty();
 
 				if (!projectLoaded)
 				{

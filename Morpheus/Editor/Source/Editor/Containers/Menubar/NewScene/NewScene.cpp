@@ -64,8 +64,7 @@ namespace Editor {
 				registry.set<Morpheus::SceneEntity>(sceneEntity);
 
 				auto& projectEntity = registry.ctx<Morpheus::ProjectEntity>();
-				auto& projectComponent = registry.get<Morpheus::ProjectComponent>(projectEntity.id);
-				projectComponent.projectScenes.push_back(sceneEntity);
+				projectEntity.scenes.push_back(sceneEntity);
 
 				Morpheus::GlobalState::Save(registry);
 

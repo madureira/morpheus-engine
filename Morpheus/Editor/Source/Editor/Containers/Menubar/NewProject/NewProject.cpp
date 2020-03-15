@@ -88,17 +88,16 @@ namespace Editor {
 					std::string projectPath = projectLocation + pathSep + projectName;
 
 					auto& projectEntity = registry.ctx<Morpheus::ProjectEntity>();
-					auto& projectComponent = registry.get<Morpheus::ProjectComponent>(projectEntity.id);
-					projectComponent.uuid = Morpheus::UUID::Generate();
-					projectComponent.projectPath = projectPath;
-					projectComponent.projectName = projectName;
-					projectComponent.projectType = Morpheus::ProjectType::TWO_DIMENSIONS;
+					projectEntity.uuid = Morpheus::UUID::Generate();
+					projectEntity.path = projectPath;
+					projectEntity.name = projectName;
+					projectEntity.type = Morpheus::ProjectType::TWO_DIMENSIONS;
 
-					for (auto& scene : projectComponent.projectScenes)
+					for (auto& scene : projectEntity.scenes)
 					{
 						registry.destroy(scene.id);
 					}
-					projectComponent.projectScenes.clear();
+					projectEntity.scenes.clear();
 
 					Morpheus::FileUtil::CreateFolder(projectPath, "Scenes");
 					Morpheus::FileUtil::CreateFolder(projectPath, "Assets");
