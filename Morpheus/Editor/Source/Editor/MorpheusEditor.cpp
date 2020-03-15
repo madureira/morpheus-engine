@@ -2,6 +2,8 @@
 
 #define IMGUI_IMPL_OPENGL_LOADER_GLAD
 #include <imgui.h>
+#include <Engine/Util/NumberUtil.h>
+#include <Engine/Util/HardwareUtil.h>
 #include <Engine/ECS/Components/WindowComponent.h>
 #include "Vendors/ImGuiImpl/imgui_impl_opengl3.h"
 #include "Vendors/ImGuiImpl/imgui_impl_glfw.h"
@@ -31,6 +33,12 @@ namespace Editor {
 
 	void MorpheusEditor::Initialize(entt::registry& registry)
 	{
+		ME_LOG_INFO("CPU info: {0}", Morpheus::HardwareUtil::GetCPUInfo());
+		ME_LOG_INFO("CPU available cores: {0}", Morpheus::HardwareUtil::GetCPUNumberOfCores());
+		ME_LOG_INFO("RAM: {0} bytes", Morpheus::NumberUtil::FormatThousandSeparator(Morpheus::HardwareUtil::GetTotalRAM()));
+		ME_LOG_INFO("GPU: {0} - {1}", Morpheus::HardwareUtil::GetGPUModel(), Morpheus::HardwareUtil::GetGPUVendor());
+		ME_LOG_INFO("OpenGL: {0}", Morpheus::HardwareUtil::GetRendererAPI());
+
 		IMGUI_CHECKVERSION();
 		ImGui::CreateContext();
 		ImGuiIO& io = ImGui::GetIO();

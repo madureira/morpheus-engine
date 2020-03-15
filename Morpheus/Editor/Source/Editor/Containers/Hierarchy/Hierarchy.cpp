@@ -26,11 +26,6 @@ namespace Editor {
 					ImGui::Unindent();
 					ImGui::TreePop();
 				}
-
-				if (ImGui::IsItemClicked() || ImGui::IsItemFocused())
-				{
-					ME_LOG_INFO("Scene {0} clicked", sceneEntity.name);
-				}
 			}
 		}
 		ImGui::End();
