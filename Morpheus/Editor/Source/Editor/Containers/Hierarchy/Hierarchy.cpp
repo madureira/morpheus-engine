@@ -5,8 +5,7 @@ namespace Editor {
 	void Hierarchy::Render(entt::registry& registry)
 	{
 		static bool* show = NULL;
-		ImGuiWindowFlags windowFlags = ImGuiWindowFlags_NoCollapse
-			| ImGuiWindowFlags_NoScrollbar;
+		static ImGuiWindowFlags windowFlags = ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoScrollbar;
 
 		ImGui::Begin(ICON_FA_STREAM" Hierarchy###hierarchy", show, windowFlags);
 		{
@@ -14,16 +13,13 @@ namespace Editor {
 
 			for (auto& sceneEntity : projectEntity.scenes)
 			{
-				std::string nodeTitle = ICON_FA_CUBE;
-				nodeTitle += "  ";
-				nodeTitle += sceneEntity.name;
-
-				ImGuiTreeNodeFlags flags = ImGuiTreeNodeFlags_None;
-				if (ImGui::TreeNodeEx(nodeTitle.c_str(), flags))
+				static ImGuiTreeNodeFlags folderFlags = ImGuiTreeNodeFlags_None;
+				std::string folderTitle(ICON_FA_CUBE"  " + sceneEntity.name);
+				if (ImGui::TreeNodeEx(folderTitle.c_str(), folderFlags))
 				{
-					ImGui::Indent();
-					ImGui::Text(ICON_FA_VIDEO "  Camera");
-					ImGui::Unindent();
+					static ImGuiTreeNodeFlags fileFlags = ImGuiTreeNodeFlags_Leaf | ImGuiTreeNodeFlags_NoTreePushOnOpen;
+					ImGui::TreeNodeEx(ICON_FA_VIDEO"  Camera", fileFlags);
+					ImGui::TreeNodeEx(ICON_FA_LIGHTBULB"    Light", fileFlags);
 					ImGui::TreePop();
 				}
 			}
