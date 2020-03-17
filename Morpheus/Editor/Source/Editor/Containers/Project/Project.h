@@ -15,8 +15,8 @@ namespace Editor {
 		TreeView* m_TreeView;
 		CodeEditor* m_CodeEditor;
 		std::string m_ProjectPath;
-		std::string m_CurrentFolderSelected;
-		std::string m_CurrentFileSelected;
+		std::string m_CurrentSelectedFolder;
+		std::string m_CurrentSelectedFile;
 
 	public:
 		Project(entt::registry& registry);

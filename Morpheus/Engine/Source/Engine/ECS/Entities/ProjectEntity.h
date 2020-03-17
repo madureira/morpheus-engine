@@ -19,6 +19,7 @@ namespace Morpheus {
 		std::string type;
 		std::vector<SceneEntity> scenes;
 		bool reload;
+		bool resetTreeViewOnly;
 	};
 
 }

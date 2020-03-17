@@ -43,6 +43,7 @@ namespace Morpheus {
 		this->m_Registry.set<Morpheus::WindowEntity>(windowEntity);
 		this->m_Registry.assign<Morpheus::WindowComponent>(windowEntity.id, this->m_Window);
 		this->m_Registry.assign<Morpheus::SizeComponent>(windowEntity.id, this->m_Settings->GetWindowWidth(), this->m_Settings->GetWindowHeight());
+		this->m_Registry.assign<Morpheus::DropFilesComponent>(windowEntity.id, std::vector<std::string>());
 
 		Morpheus::InputEntity inputEntity{ this->m_Registry.create() };
 		this->m_Registry.set<Morpheus::InputEntity>(inputEntity);

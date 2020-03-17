@@ -144,6 +144,21 @@ namespace Morpheus {
 			return items.dump();
 		}
 
+		static void CopyFile(std::string& origin, std::string& target)
+		{
+			fs::copy(origin, target, fs::copy_options::overwrite_existing);
+		}
+
+		static std::string GetFileNameFromPath(std::string& filePath)
+		{
+			return fs::path(filePath).filename().string();
+		}
+
+		static bool IsFile(std::string& filePath)
+		{
+			return fs::is_regular_file(filePath);
+		}
+
 		static std::string PathSeparator()
 		{
 #ifdef _WIN32

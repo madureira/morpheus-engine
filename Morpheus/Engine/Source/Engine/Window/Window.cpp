@@ -2,6 +2,7 @@
 #include "Window.h"
 #include <glad/glad.h>
 #include "Engine/Util/ImageLoader.h"
+#include "Engine/Util/FileUtil.h"
 
 namespace Morpheus {
 
@@ -85,6 +86,27 @@ namespace Morpheus {
 				auto& windowSize = window.m_Registry.get<Morpheus::SizeComponent>(windowEntity.id);
 				windowSize.width = (float)width;
 				windowSize.height = (float)height;
+			});
+
+		glfwSetDropCallback(this->m_Window, [](GLFWwindow* pNativeWindow, int count, const char** paths)
+			{
+				Window& window = *(Window*)glfwGetWindowUserPointer(pNativeWindow);
+				auto& windowEntity = window.m_Registry.ctx<Morpheus::WindowEntity>();
+				auto& dropFilesComponent = window.m_Registry.get<Morpheus::DropFilesComponent>(windowEntity.id);
+
+				int validFiles = 0;
+				for (int i = 0; i < count; i++)
+				{
+					if (FileUtil::IsFile(std::string(paths[i]))) validFiles++;
+				}
+
+				if (count == validFiles)
+				{
+					for (int i = 0; i < count; i++)
+					{
+						dropFilesComponent.filesPath.push_back(paths[i]);
+					}
+				}
 			});
 
 		if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))

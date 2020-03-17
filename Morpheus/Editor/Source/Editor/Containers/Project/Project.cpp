@@ -9,14 +9,14 @@ namespace Editor {
 		, m_TreeView(nullptr)
 		, m_CodeEditor(nullptr)
 		, m_ProjectPath("")
-		, m_CurrentFolderSelected("")
-		, m_CurrentFileSelected("")
+		, m_CurrentSelectedFolder("")
+		, m_CurrentSelectedFile("")
 	{
 		this->m_Preview = new Preview(
-			[&selectedFolder = this->m_CurrentFolderSelected](std::string selectedFolderByUser) {
+			[&selectedFolder = this->m_CurrentSelectedFolder](std::string selectedFolderByUser) {
 				selectedFolder = selectedFolderByUser;
 			},
-			[&selectedFile = this->m_CurrentFileSelected](std::string selectedFileByUser) {
+			[&selectedFile = this->m_CurrentSelectedFile](std::string selectedFileByUser) {
 				selectedFile = selectedFileByUser;
 			}
 		);
@@ -77,7 +77,7 @@ namespace Editor {
 			ImGui::PushStyleColor(ImGuiCol_ChildBg, { 0.180f, 0.180f , 0.180f , 1.00f });
 			ImGui::BeginChild("FilesPreview", ImVec2(0, 0), false);
 			{
-				this->m_Preview->UpdateSelectedFolder(this->m_CurrentFolderSelected);
+				this->m_Preview->UpdateSelectedFolder(this->m_CurrentSelectedFolder);
 				this->m_Preview->Render(registry);
 			}
 			ImGui::EndChild();
@@ -90,21 +90,32 @@ namespace Editor {
 
 	void Project::UpdateProjectPath(Morpheus::ProjectEntity& projectEntity)
 	{
-		if ((this->m_ProjectPath != projectEntity.path && !projectEntity.path.empty()) || projectEntity.reload)
+		if (projectEntity.resetTreeViewOnly)
 		{
-			projectEntity.reload = false;
-
+			projectEntity.resetTreeViewOnly = false;
 			delete this->m_TreeView;
-
-			this->m_ProjectPath = projectEntity.path;
-			this->m_CurrentFolderSelected = this->m_ProjectPath;
-			this->m_CurrentFileSelected = "";
-
 			this->m_TreeView = new TreeView(this->m_ProjectPath,
-				[&selectedFolder = this->m_CurrentFolderSelected](std::string selectedFolderByUser) {
+				[&selectedFolder = this->m_CurrentSelectedFolder](std::string selectedFolderByUser) {
 					selectedFolder = selectedFolderByUser;
 				},
-				[&selectedFile = this->m_CurrentFileSelected](std::string selectedFileByUser) {
+				[&selectedFile = this->m_CurrentSelectedFile](std::string selectedFileByUser) {
+					selectedFile = selectedFileByUser;
+				}
+			);
+		}
+		else if (projectEntity.reload || (this->m_ProjectPath != projectEntity.path && !projectEntity.path.empty()))
+		{
+			projectEntity.reload = false;
+			this->m_CurrentSelectedFolder = this->m_ProjectPath;
+			this->m_ProjectPath = projectEntity.path;
+			this->m_CurrentSelectedFile = "";
+
+			delete this->m_TreeView;
+			this->m_TreeView = new TreeView(this->m_ProjectPath,
+				[&selectedFolder = this->m_CurrentSelectedFolder](std::string selectedFolderByUser) {
+					selectedFolder = selectedFolderByUser;
+				},
+				[&selectedFile = this->m_CurrentSelectedFile](std::string selectedFileByUser) {
 					selectedFile = selectedFileByUser;
 				}
 			);
@@ -116,11 +127,11 @@ namespace Editor {
 		static bool showCodeEditor = false;
 		static std::string filePath = "";
 
-		if (!this->m_CurrentFileSelected.empty() && this->m_CurrentFileSelected != filePath)
+		if (!this->m_CurrentSelectedFile.empty() && this->m_CurrentSelectedFile != filePath)
 		{
 			showCodeEditor = true;
-			filePath = this->m_CurrentFileSelected;
-			this->m_CodeEditor = new CodeEditor(this->m_CurrentFileSelected);
+			filePath = this->m_CurrentSelectedFile;
+			this->m_CodeEditor = new CodeEditor(this->m_CurrentSelectedFile);
 		}
 
 		if (showCodeEditor)
