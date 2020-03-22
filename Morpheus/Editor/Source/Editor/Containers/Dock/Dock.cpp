@@ -35,7 +35,8 @@ namespace Editor {
 			| ImGuiWindowFlags_NoResize
 			| ImGuiWindowFlags_NoTitleBar
 			| ImGuiWindowFlags_NoCollapse
-			| ImGuiWindowFlags_NoScrollbar;
+			| ImGuiWindowFlags_NoScrollbar
+			| ImGuiWindowFlags_NoBringToFrontOnFocus;
 
 		ImGuiID dockspaceID = ImGui::GetID("MainDock");
 

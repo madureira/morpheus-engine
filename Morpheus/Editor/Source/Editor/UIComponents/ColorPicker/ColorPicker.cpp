@@ -17,7 +17,7 @@ namespace Editor {
 			}
 		}
 
-		bool open_popup = ImGui::ColorButton("MyColor##3b", color, ImGuiColorEditFlags_AlphaPreview);
+		bool open_popup = ImGui::ColorButton("Current color##3b", color, ImGuiColorEditFlags_AlphaPreview);
 		ImGui::SameLine();
 
 		open_popup |= ImGui::Button(label);
