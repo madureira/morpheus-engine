@@ -1,4 +1,5 @@
 #include "ColorPicker.h"
+#include "Vendors/IconsFontAwesome5/IconsFontAwesome5.h"
 
 namespace Editor {
 
@@ -18,6 +19,7 @@ namespace Editor {
 
 		bool open_popup = ImGui::ColorButton("MyColor##3b", color, ImGuiColorEditFlags_AlphaPreview);
 		ImGui::SameLine();
+
 		open_popup |= ImGui::Button(label);
 
 		if (open_popup)
@@ -28,7 +30,7 @@ namespace Editor {
 
 		if (ImGui::BeginPopup("mypicker"))
 		{
-			ImGui::Text("Color picker");
+			ImGui::Text(ICON_FA_PALETTE"  Color picker");
 			ImGui::Separator();
 			ImGui::ColorPicker4("##picker", (float*)&color, ImGuiColorEditFlags_NoSidePreview | ImGuiColorEditFlags_AlphaBar | ImGuiColorEditFlags_NoSmallPreview);
 			ImGui::SameLine();

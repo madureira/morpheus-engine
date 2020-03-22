@@ -73,24 +73,20 @@ namespace Editor {
 
 	bool TreeView::CreateFolderNode(std::string nodeIndex, std::string nodeTitle)
 	{
-		nodeTitle = this->BuildFolderTitle(nodeTitle, this->m_TreeState[nodeIndex]);
 		ImGuiTreeNodeFlags flags = ImGuiTreeNodeFlags_None;
-		return ImGui::TreeNodeEx(nodeTitle.c_str(), flags);
+		return ImGui::TreeNodeEx(this->BuildFolderTitle(nodeTitle, this->m_TreeState[nodeIndex]).c_str(), flags);
 	}
 
 	void TreeView::CreateFileNode(std::string nodeIndex, std::string nodeTitle, std::string fileExtension)
 	{
-		nodeTitle = this->BuildFileTitle(nodeTitle, fileExtension);
 		ImGuiTreeNodeFlags flags = ImGuiTreeNodeFlags_Leaf | ImGuiTreeNodeFlags_NoTreePushOnOpen;
-		ImGui::TreeNodeEx(nodeTitle.c_str(), flags);
+		ImGui::TreeNodeEx(this->BuildFileTitle(nodeTitle, fileExtension).c_str(), flags);
 	}
 
 	std::string TreeView::BuildFolderTitle(std::string& title, bool isOpened)
 	{
-		//std::string nodeTitle = isOpened ? ICON_FA_FOLDER_OPEN : ICON_FA_FOLDER;
-		std::string nodeTitle = ICON_FA_FOLDER;
-		nodeTitle += "  ";
-		nodeTitle += title;
+		std::string nodeTitle(isOpened ? ICON_FA_FOLDER_OPEN : ICON_FA_FOLDER);
+		nodeTitle += "  " + title + "###" + title;
 		return nodeTitle;
 	}
 
