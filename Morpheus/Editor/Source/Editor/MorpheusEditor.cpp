@@ -35,7 +35,7 @@ namespace Editor {
 	{
 		ME_LOG_INFO("CPU info: {0}", Morpheus::HardwareUtil::GetCPUInfo());
 		ME_LOG_INFO("CPU available cores: {0}", Morpheus::HardwareUtil::GetCPUNumberOfCores());
-		ME_LOG_INFO("RAM: {0} bytes", Morpheus::NumberUtil::FormatThousandSeparator(Morpheus::HardwareUtil::GetTotalRAM()));
+		ME_LOG_INFO("RAM: {0}GB", Morpheus::HardwareUtil::BytesToGiga(Morpheus::HardwareUtil::GetTotalRAM()));
 		ME_LOG_INFO("GPU: {0} - {1}", Morpheus::HardwareUtil::GetGPUModel(), Morpheus::HardwareUtil::GetGPUVendor());
 		ME_LOG_INFO("OpenGL: {0}", Morpheus::HardwareUtil::GetRendererAPI());
 
@@ -47,8 +47,6 @@ namespace Editor {
 		io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;
 		io.ConfigFlags |= ImGuiDockNodeFlags_PassthruCentralNode;
 		io.IniFilename = NULL;                                      // Disable imgui.ini
-		//io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;     // Enable Keyboard Controls
-		//io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;      // Enable Gamepad Controls
 
 		ImGuiStyle& style = ImGui::GetStyle();
 		if (io.ConfigFlags & ImGuiConfigFlags_ViewportsEnable)
@@ -62,8 +60,6 @@ namespace Editor {
 		ImFontConfig icons_config;
 		icons_config.MergeMode = true;
 		icons_config.PixelSnapH = true;
-
-		//io.Fonts->AddFontDefault();
 
 		ImFont* textFont = io.Fonts->AddFontFromFileTTF("Assets/fonts/roboto-regular.ttf", 16.0f);
 		IM_ASSERT(textFont != NULL);

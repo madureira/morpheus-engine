@@ -105,30 +105,34 @@ namespace Editor {
 				itemId++;
 			}
 
-			auto& windowEntity = registry.ctx<Morpheus::WindowEntity>();
-			auto& dropFilesComponent = registry.get<Morpheus::DropFilesComponent>(windowEntity.id);
-			if (!dropFilesComponent.filesPath.empty())
+			if (!this->m_CurrentFolder.empty())
 			{
-				if (ImGui::IsWindowHovered())
-				{
-					int copiedFiles = 0;
-					static std::string pathSep = Morpheus::FileUtil::PathSeparator();
-					for (auto& fileOrigin : dropFilesComponent.filesPath)
-					{
-						ME_LOG_WARN("Uploading file: {0}", fileOrigin);
-						std::string targetFile(this->m_CurrentFolder + pathSep + Morpheus::FileUtil::GetFileNameFromPath(fileOrigin));
-						Morpheus::FileUtil::CopyFile(fileOrigin, targetFile);
-						copiedFiles++;
-					}
+				auto& windowEntity = registry.ctx<Morpheus::WindowEntity>();
+				auto& dropFilesComponent = registry.get<Morpheus::DropFilesComponent>(windowEntity.id);
 
-					if (copiedFiles == dropFilesComponent.filesPath.size())
+				if (!dropFilesComponent.filesPath.empty())
+				{
+					if (ImGui::IsWindowHovered())
 					{
-						auto& projectEntity = registry.ctx<Morpheus::ProjectEntity>();
-						projectEntity.resetTreeViewOnly = true;
-						this->m_CurrentFolder = "";
+						int copiedFiles = 0;
+						static std::string pathSep = Morpheus::FileUtil::PathSeparator();
+						for (auto& fileOrigin : dropFilesComponent.filesPath)
+						{
+							ME_LOG_WARN("Uploading file: {0}", fileOrigin);
+							std::string targetFile(this->m_CurrentFolder + pathSep + Morpheus::FileUtil::GetFileNameFromPath(fileOrigin));
+							Morpheus::FileUtil::CopyFile(fileOrigin, targetFile);
+							copiedFiles++;
+						}
+
+						if (copiedFiles == dropFilesComponent.filesPath.size())
+						{
+							auto& projectEntity = registry.ctx<Morpheus::ProjectEntity>();
+							projectEntity.resetTreeViewOnly = true;
+							this->m_CurrentFolder = "";
+						}
 					}
+					dropFilesComponent.filesPath.clear();
 				}
-				dropFilesComponent.filesPath.clear();
 			}
 		}
 		ImGui::EndChild();

@@ -139,6 +139,11 @@ namespace Morpheus {
 			std::string gpuVendor = reinterpret_cast<char const*>(glGetString(GL_VENDOR));
 			return gpuVendor;
 		}
+
+		static double BytesToGiga(unsigned long long bytes)
+		{
+			return static_cast<double>(bytes / 1073741824);
+		}
 	};
 
 }
