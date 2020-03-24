@@ -1,5 +1,5 @@
 #include "Inspector.h"
-#include "Editor/UIComponents/ColorPicker/ColorPicker.h"
+#include "Editor/Widgets/ColorPicker/ColorPicker.h"
 
 namespace Editor {
 

@@ -3,7 +3,7 @@
 #include <Engine/Util/UUID.h>
 #include <Engine/Util/FileUtil.h>
 #include <Engine/ECS/Components/WindowComponent.h>
-#include "Editor/UIComponents/FileSystemDialog/FileSystemDialog.h"
+#include "Editor/Widgets/FileSystemDialog/FileSystemDialog.h"
 #include "Editor/Util/InputUtil.h"
 
 namespace Editor {

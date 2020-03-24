@@ -2,7 +2,7 @@
 
 #include <string>
 #include "Editor/Containers/UIContainer.h"
-#include "Editor/UIComponents/CodeEditor/CodeEditor.h"
+#include "Editor/Widgets/CodeEditor/CodeEditor.h"
 #include "TreeView/TreeView.h"
 #include "Preview/Preview.h"
 
