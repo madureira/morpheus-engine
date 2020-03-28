@@ -1,5 +1,6 @@
 #include "CodeEditor.h"
 #include <Engine/Util/FileUtil.h>
+#include "Vendors/IconsFontAwesome5/IconsFontAwesome5.h"
 
 namespace Editor {
 
@@ -45,8 +46,13 @@ namespace Editor {
 		{
 			auto cpos = this->m_TextEditor->GetCursorPosition();
 
+			static ImGuiWindowFlags flags = ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoCollapse;
 			ImGui::SetNextWindowSize(ImVec2(800, 600), ImGuiCond_FirstUseEver);
-			ImGui::Begin(this->m_TextEditor->CanUndo() ? "Code Editor*" : "Code Editor", &this->m_ShowEditor, ImGuiWindowFlags_NoScrollbar);
+			std::string title(ICON_FA_CODE);
+			title += "  ";
+			title += this->m_TextEditor->CanUndo() ? "Code Editor*" : "Code Editor";
+
+			ImGui::Begin(title.c_str(), &this->m_ShowEditor, flags);
 			{
 				ImVec2 codeEditorPos = ImGui::GetCursorPos();
 

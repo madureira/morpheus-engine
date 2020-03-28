@@ -41,7 +41,7 @@ namespace Editor {
 			ImGui::Dummy(ImVec2(0.0f, 5.0f));
 			ImGui::Dummy(ImVec2(32.0f, 0.0f)); ImGui::SameLine();
 			ImGui::Text("Location:"); ImGui::SameLine();
-			ImGui::PushItemWidth(191);
+			ImGui::PushItemWidth(193);
 			ImGui::PushItemFlag(ImGuiItemFlags_Disabled, true);
 			ImGui::PushStyleVar(ImGuiStyleVar_Alpha, ImGui::GetStyle().Alpha * 0.5f);
 			ImGui::InputText("##projectLocation", this->m_ProjectLocation, IM_ARRAYSIZE(this->m_ProjectLocation));

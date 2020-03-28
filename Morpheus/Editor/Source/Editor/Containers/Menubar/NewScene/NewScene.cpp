@@ -25,15 +25,19 @@ namespace Editor {
 		ImGui::OpenPopup("###new_scene");
 		if (ImGui::BeginPopupModal(ICON_FA_CUBE"  New###new_scene", NULL, windowFlags))
 		{
-			ImGui::Dummy(ImVec2(5.0f, 0.0f)); ImGui::SameLine();
+			ImGui::Dummy(ImVec2(5.0f, 0.0f));
+			ImGui::SameLine();
 			ImGui::Text("Create a new Scene");
 			ImGui::Separator();
 
 			ImGui::Dummy(ImVec2(0.0f, 5.0f));
-			ImGui::Dummy(ImVec2(5.0f, 0.0f)); ImGui::SameLine();
+			ImGui::Dummy(ImVec2(5.0f, 0.0f));
+			ImGui::SameLine();
 			ImGui::Text("Scene name:"); ImGui::SameLine();
 			ImGuiInputTextFlags flags = ImGuiInputTextFlags_CallbackCharFilter;
+			ImGui::PushItemWidth(230);
 			ImGui::InputText("##sceneName", this->m_SceneName, IM_ARRAYSIZE(this->m_SceneName), flags, InputUtil::SanitizeCallback);
+			ImGui::PopItemWidth();
 
 			ImGui::Dummy(ImVec2(0.0f, 5.0f));
 			ImGui::Separator();
