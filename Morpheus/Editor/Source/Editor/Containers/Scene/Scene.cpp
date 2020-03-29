@@ -95,7 +95,7 @@ namespace Editor {
 		static int playerX = 0;
 		static int playerY = 0;
 		static float zoom = 1.0f;
-		static const float scaleFactor = 0.025f;
+		static const float scaleFactor = 0.25f;
 
 		auto& inputEntity = registry.ctx<Morpheus::InputEntity>();
 		auto& inputState = registry.get<Morpheus::InputStateComponent>(inputEntity.id);
@@ -125,12 +125,12 @@ namespace Editor {
 		{
 			if (io.MouseWheel < 0)
 			{
-				zoom += scaleFactor;
+				zoom -= scaleFactor;
 			}
 
 			if (io.MouseWheel > 0)
 			{
-				zoom -= scaleFactor;
+				zoom += scaleFactor;
 			}
 		}
 
