@@ -4,6 +4,7 @@
 #include "Engine/Config/Settings.h"
 #include "Engine/Window/Window.h"
 #include "Engine/Input/Input.h"
+#include "Engine/Input/Mouse.h"
 #include "Engine/Debug/Performance.h"
 #include "Engine/ECS/Components/WindowComponent.h"
 
@@ -26,6 +27,7 @@ namespace Morpheus {
 		this->RegisterECS();
 
 		this->m_Performance = new Performance(this->m_Settings);
+		this->m_Mouse = new Mouse(this->m_Registry, this->m_Window->GetNativeWindow());
 		this->m_Input = new Input(this->m_Registry, this->m_Window->GetNativeWindow());
 	}
 
@@ -33,6 +35,7 @@ namespace Morpheus {
 	{
 		delete this->m_Performance;
 		delete this->m_Input;
+		delete this->m_Mouse;
 		delete this->m_Window;
 		delete this->m_Settings;
 	}
@@ -44,6 +47,10 @@ namespace Morpheus {
 		this->m_Registry.assign<Morpheus::WindowComponent>(windowEntity.id, this->m_Window);
 		this->m_Registry.assign<Morpheus::SizeComponent>(windowEntity.id, this->m_Settings->GetWindowWidth(), this->m_Settings->GetWindowHeight());
 		this->m_Registry.assign<Morpheus::DropFilesComponent>(windowEntity.id, std::vector<std::string>());
+
+		Morpheus::MouseEntity mouseEntity{ this->m_Registry.create() };
+		this->m_Registry.set<Morpheus::MouseEntity>(mouseEntity);
+		this->m_Registry.assign<Morpheus::MouseStateComponent>(mouseEntity.id);
 
 		Morpheus::InputEntity inputEntity{ this->m_Registry.create() };
 		this->m_Registry.set<Morpheus::InputEntity>(inputEntity);
@@ -79,6 +86,7 @@ namespace Morpheus {
 			double deltaTime = currentTime - lastTime;
 
 			this->m_Window->PollEvents();
+			this->m_Mouse->Update(this->m_Registry);
 			this->m_Input->Update(this->m_Registry);
 			this->m_App->FrameListener(this->m_Registry, deltaTime, currentFrame, frameRate);
 

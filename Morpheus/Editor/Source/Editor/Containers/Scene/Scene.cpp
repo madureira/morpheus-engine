@@ -358,6 +358,27 @@ namespace Editor {
 				ImVec2(0, 1),
 				ImVec2(1, 0)
 			);
+
+			int x = 0;
+			int y = 0;
+
+			if (ImGui::IsWindowHovered())
+			{
+				ImVec2& mousePos = ImGui::GetMousePos();
+				x = static_cast<int>(mousePos.x - texPosX);
+				y = static_cast<int>(mousePos.y - texPosY);
+
+				if (x < 0) {
+					x = 0;
+				}
+
+				if (y < 0) {
+					y = 0;
+				}
+			}
+
+			ImGui::Text(" x: %d", x);
+			ImGui::Text(" y: %d", y);
 		}
 	}
 

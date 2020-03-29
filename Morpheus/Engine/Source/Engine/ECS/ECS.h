@@ -4,6 +4,7 @@
 
 // Entities
 #include "Entities/InputEntity.h"
+#include "Entities/MouseEntity.h"
 #include "Entities/ProjectEntity.h"
 #include "Entities/SettingsEntity.h"
 #include "Entities/WindowEntity.h"
@@ -13,6 +14,7 @@
 // Components
 #include "Components/ColorComponent.h"
 #include "Components/InputStateComponent.h"
+#include "Components/MouseStateComponent.h"
 #include "Components/PositionComponent.h"
 #include "Components/SettingsComponent.h"
 #include "Components/SizeComponent.h"
