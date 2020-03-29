@@ -46,7 +46,7 @@ namespace Editor {
 		ImGuiWindowFlags windowFlags = ImGuiWindowFlags_NoCollapse
 			| ImGuiWindowFlags_NoScrollbar;
 
-		ImGui::Begin(ICON_FA_VIDEO" Scene###scene", show, windowFlags);
+		ImGui::Begin(ICON_FA_CUBE"  Scene###scene", show, windowFlags);
 		{
 			this->ClearViewport(registry);
 			this->UpdateApp(registry);

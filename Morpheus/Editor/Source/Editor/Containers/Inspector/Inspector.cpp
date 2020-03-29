@@ -7,7 +7,7 @@ namespace Editor {
 	{
 		static bool* show = NULL;
 		ImGuiWindowFlags windowFlags = ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoScrollbar;
-		ImGui::Begin(ICON_FA_INFO_CIRCLE" Inspector###inspector", show, windowFlags);
+		ImGui::Begin(ICON_FA_INFO_CIRCLE"  Inspector###inspector", show, windowFlags);
 		{
 			auto& projectEntity = registry.ctx<Morpheus::ProjectEntity>();
 

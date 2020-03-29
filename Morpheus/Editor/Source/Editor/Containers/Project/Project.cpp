@@ -39,7 +39,7 @@ namespace Editor {
 		static bool* show = NULL;
 		ImGuiWindowFlags windowFlags = ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoScrollbar;
 
-		ImGui::Begin(ICON_FA_FOLDER" Project###project", show, windowFlags);
+		ImGui::Begin(ICON_FA_FOLDER"  Project###project", show, windowFlags);
 		{
 			static float s_treeViewWidth = 200.0f;
 			ImVec2 contentRegionMax = ImGui::GetWindowContentRegionMax();

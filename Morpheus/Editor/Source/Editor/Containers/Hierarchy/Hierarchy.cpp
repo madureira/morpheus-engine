@@ -7,7 +7,7 @@ namespace Editor {
 		static bool* show = NULL;
 		static ImGuiWindowFlags windowFlags = ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoScrollbar;
 
-		ImGui::Begin(ICON_FA_STREAM" Hierarchy###hierarchy", show, windowFlags);
+		ImGui::Begin(ICON_FA_STREAM"  Hierarchy###hierarchy", show, windowFlags);
 		{
 			auto& projectEntity = registry.ctx<Morpheus::ProjectEntity>();
 
