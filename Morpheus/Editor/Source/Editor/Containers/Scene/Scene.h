@@ -8,9 +8,7 @@
 
 namespace Editor {
 
-	constexpr int CHECKERBOARD_WIDTH = 800;
-	constexpr int CHECKERBOARD_HEIGHT = 600;
-	constexpr int CHECKERBOARD_INTENSITY = 120;
+	constexpr int CHECKERBOARD_INTENSITY = 140;
 
 	class Scene final : public UIContainer
 	{
@@ -51,6 +49,7 @@ namespace Editor {
 		void ClearViewport(entt::registry& registry);
 		void RenderViewport(entt::registry& registry);
 		void GenerateCheckerboardImage();
+		void GenerateTextureBuffer();
 		glm::vec4 getTile(int tileSize, int layer);
 	};
 

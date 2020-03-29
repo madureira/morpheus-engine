@@ -5,7 +5,8 @@
 
 namespace Editor {
 
-	static GLubyte s_CheckerboardImage[CHECKERBOARD_HEIGHT][CHECKERBOARD_WIDTH][4];
+	static int POS_X = 0;
+	static int POS_Y = 0;
 
 	Scene::Scene(entt::registry& registry)
 		: m_TextureColorBuffer(0)
@@ -15,37 +16,8 @@ namespace Editor {
 		this->m_InitialWindowWidth = settingsSize.windowWidth;
 		this->m_InitialWindowHeight = settingsSize.windowHeight;
 
-		// Generate render texture
-		glGenTextures(1, &this->m_TextureColorBuffer);
-
-		// Bind the texture used to paint the GL data on the IMGUI window
-		glBindTexture(GL_TEXTURE_2D, this->m_TextureColorBuffer);
-
-		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, this->m_InitialWindowWidth, this->m_InitialWindowHeight, 0, GL_RGB, GL_UNSIGNED_BYTE, NULL);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-		glBindTexture(GL_TEXTURE_2D, 0);
-
+		this->GenerateTextureBuffer();
 		this->GenerateCheckerboardImage();
-
-		// Bind the texture used to paint the checkerboard pattern on the IMGUI background window
-		glGenTextures(1, &this->m_CheckerboardTextureID);
-		glBindTexture(GL_TEXTURE_2D, this->m_CheckerboardTextureID);
-
-		glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, CHECKERBOARD_WIDTH, CHECKERBOARD_HEIGHT, 0, GL_RGBA, GL_UNSIGNED_BYTE, s_CheckerboardImage);
-		glBindTexture(GL_TEXTURE_2D, 0);
-
-		// Create Frame Buffer
-		glGenFramebuffers(1, &this->m_FBO);
-		glBindFramebuffer(GL_FRAMEBUFFER, this->m_FBO);
-		glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, this->m_TextureColorBuffer, 0);
-		glBindFramebuffer(GL_FRAMEBUFFER, 0);
-
 		this->InitializeApp(registry);
 	}
 
@@ -57,8 +29,7 @@ namespace Editor {
 	void Scene::Render(entt::registry& registry)
 	{
 		static bool* show = NULL;
-		ImGuiWindowFlags windowFlags = ImGuiWindowFlags_NoCollapse
-			| ImGuiWindowFlags_NoScrollbar;
+		ImGuiWindowFlags windowFlags = ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoScrollbar;
 
 		ImGui::Begin(ICON_FA_CUBE"  Scene###scene", show, windowFlags);
 		{
@@ -149,14 +120,18 @@ namespace Editor {
 			playerX -= speed;
 		}
 
-		if (inputState.W)
+		ImGuiIO& io = ImGui::GetIO();
+		if (io.MouseWheel != 0.0f)
 		{
-			zoom += scaleFactor;
-		}
+			if (io.MouseWheel < 0)
+			{
+				zoom += scaleFactor;
+			}
 
-		if (inputState.S)
-		{
-			zoom -= scaleFactor;
+			if (io.MouseWheel > 0)
+			{
+				zoom -= scaleFactor;
+			}
 		}
 
 		zoom = zoom < scaleFactor ? scaleFactor : zoom;
@@ -184,7 +159,7 @@ namespace Editor {
 						this->m_Normal,
 						this->m_Specular,
 
-						glm::vec4(margin + x * tileSize + z * distance - playerX, margin + y * tileSize + z * distance - playerY, tileSize, tileSize),
+						glm::vec4(margin + x * tileSize + z * distance, margin + y * tileSize + z * distance, tileSize, tileSize),
 
 						getTile(tileSize, z)
 
@@ -195,7 +170,7 @@ namespace Editor {
 		}
 
 		this->m_SpriteRenderer->AddSpotLight(glm::vec3(600.0, 400.0, 0.01f), glm::vec4(1.0f, 0.8f, 0.6f, 1.0f), glm::vec3(0.0001f, 0.2f, 900.0f)); // light floor player
-		this->m_SpriteRenderer->AddSpotLight(glm::vec3(100 - playerX, 100 + playerY, 0.01f), glm::vec4(1.0f, 0.8f, 0.6f, 1.0f), glm::vec3(0.0001f, 0.2f, 100.0f)); // light floor top-left
+		this->m_SpriteRenderer->AddSpotLight(glm::vec3(POS_X, POS_Y, 0.01f), glm::vec4(1.0f, 0.8f, 0.6f, 1.0f), glm::vec3(0.0001f, 0.2f, 100.0f)); // light floor top-left
 
 		// -------- END TILES -------
 
@@ -250,13 +225,13 @@ namespace Editor {
 			this->m_SpecularPlayer,
 
 			//glm::vec4(playerX, playerY, 64, 64),
-			glm::vec4(570, 300, 64, 64),
+			glm::vec4(playerX, playerY, 64, 64),
 
 			spriteFrame
 		);
 
 		this->m_SpriteRenderer->AddSpotLight(glm::vec3(600.0, 400.0, 0.1f), glm::vec4(1.0f, 0.8f, 0.6f, 0.1f), glm::vec3(0.1f, 1.0f, 20.0f)); // light head player
-		this->m_SpriteRenderer->AddSpotLight(glm::vec3(100 - playerX, 100 + playerY, 0.01f), glm::vec4(1.0f, 0.8f, 0.6f, 1.0f), glm::vec3(0.0001f, 0.2f, 100.0f)); // light head top-left
+		this->m_SpriteRenderer->AddSpotLight(glm::vec3(POS_X, POS_Y, 0.01f), glm::vec4(1.0f, 0.8f, 0.6f, 1.0f), glm::vec3(0.0001f, 0.2f, 100.0f)); // light head top-left
 
 		// -------- END PLAYER -------
 
@@ -318,11 +293,19 @@ namespace Editor {
 		ImVec2 pos = ImGui::GetCursorScreenPos();
 		ImVec2 size = ImGui::GetWindowSize();
 
+		if ((size.x != this->m_InitialWindowWidth) || (size.y != this->m_InitialWindowHeight))
+		{
+			this->m_InitialWindowWidth = size.x;
+			this->m_InitialWindowHeight = size.y;
+			this->m_SpriteRenderer->SetScreenSize(glm::vec2(size.x, size.y));
+			this->GenerateCheckerboardImage();
+			this->GenerateTextureBuffer();
+		}
+
 		this->m_FrameBufferRect = glm::vec4(pos.x, pos.y, size.x, size.y);
 
-		glViewport(0, 0, this->m_InitialWindowWidth, this->m_InitialWindowHeight);
 		glBindFramebuffer(GL_FRAMEBUFFER, this->m_FBO);
-
+		glViewport(0, 0, this->m_InitialWindowWidth, this->m_InitialWindowHeight);
 		glClearColor(bgColor.r, bgColor.g, bgColor.b, bgColor.a);
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	}
@@ -359,46 +342,104 @@ namespace Editor {
 				ImVec2(1, 0)
 			);
 
-			int x = 0;
-			int y = 0;
-
 			if (ImGui::IsWindowHovered())
 			{
-				ImVec2& mousePos = ImGui::GetMousePos();
-				x = static_cast<int>(mousePos.x - texPosX);
-				y = static_cast<int>(mousePos.y - texPosY);
+				auto& mouseEntity = registry.ctx<Morpheus::MouseEntity>();
+				auto& mouseState = registry.get<Morpheus::MouseStateComponent>(mouseEntity.id);
 
-				if (x < 0) {
-					x = 0;
+				ImVec2& mousePos = ImGui::GetMousePos();
+				POS_X = static_cast<int>(mousePos.x - texPosX);
+				POS_Y = static_cast<int>(mousePos.y - texPosY);
+
+				if (POS_X < 0) {
+					POS_X = 0;
 				}
 
-				if (y < 0) {
-					y = 0;
+				if (POS_Y < 0) {
+					POS_Y = 0;
 				}
 			}
 
-			ImGui::Text(" x: %d", x);
-			ImGui::Text(" y: %d", y);
+			ImGui::Text(" x: %d", POS_X);
+			ImGui::Text(" y: %d", POS_Y);
 		}
 	}
 
 	void Scene::GenerateCheckerboardImage()
 	{
-		int row;
-		int column;
-		int color;
+		glDeleteTextures(1, &this->m_CheckerboardTextureID);
 
-		for (column = 0; column < CHECKERBOARD_HEIGHT; column++)
+		int rows = this->m_InitialWindowWidth;
+		int columns = this->m_InitialWindowHeight;
+		int pixelRGBA = 4;
+
+		GLubyte* image = new GLubyte[rows * columns * pixelRGBA];
+
+		for (int i = 0; i < columns; i++)
 		{
-			for (row = 0; row < CHECKERBOARD_WIDTH; row++)
+			for (int j = 0; j < rows; j++)
 			{
-				color = (((column & 0x8) == 0) ^ ((row & 0x8) == 0)) * CHECKERBOARD_INTENSITY;
-				s_CheckerboardImage[column][row][0] = (GLubyte)color;
-				s_CheckerboardImage[column][row][1] = (GLubyte)color;
-				s_CheckerboardImage[column][row][2] = (GLubyte)color;
-				s_CheckerboardImage[column][row][3] = (GLubyte)CHECKERBOARD_INTENSITY;
+				for (int k = 0; k < pixelRGBA; k++)
+				{
+					*(image + i * rows * pixelRGBA + j * pixelRGBA + k) = 0;
+				}
 			}
 		}
+
+		for (int i = 0; i < columns; i++)
+		{
+			for (int j = 0; j < rows; j++)
+			{
+				for (int k = 0; k < pixelRGBA; k++)
+				{
+					if (k < 3)
+					{
+						int color = (((i & 0x8) == 0) ^ ((j & 0x8) == 0)) * CHECKERBOARD_INTENSITY;
+						*(image + i * rows * pixelRGBA + j * pixelRGBA + k) = (GLubyte)color;
+					}
+					else
+					{
+						*(image + i * rows * pixelRGBA + j * pixelRGBA + k) = (GLubyte)CHECKERBOARD_INTENSITY;
+					}
+				}
+			}
+		}
+
+		// Bind the texture used to paint the checkerboard pattern on the IMGUI background window
+		glGenTextures(1, &this->m_CheckerboardTextureID);
+		glBindTexture(GL_TEXTURE_2D, this->m_CheckerboardTextureID);
+
+		glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, rows, columns, 0, GL_RGBA, GL_UNSIGNED_BYTE, image);
+		glBindTexture(GL_TEXTURE_2D, 0);
+
+		delete[] image;
+	}
+
+	void Scene::GenerateTextureBuffer()
+	{
+		glDeleteTextures(1, &this->m_TextureColorBuffer);
+		glDeleteFramebuffers(1, &this->m_FBO);
+
+		// Generate render texture
+		glGenTextures(1, &this->m_TextureColorBuffer);
+
+		// Bind the texture used to paint the GL data on the IMGUI window
+		glBindTexture(GL_TEXTURE_2D, this->m_TextureColorBuffer);
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, this->m_InitialWindowWidth, this->m_InitialWindowHeight, 0, GL_RGB, GL_UNSIGNED_BYTE, NULL);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+		glBindTexture(GL_TEXTURE_2D, 0);
+
+		// Create Frame Buffer
+		glGenFramebuffers(1, &this->m_FBO);
+		glBindFramebuffer(GL_FRAMEBUFFER, this->m_FBO);
+		glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, this->m_TextureColorBuffer, 0);
+		glBindFramebuffer(GL_FRAMEBUFFER, 0);
 	}
 
 	// TODO: Remove this function in the future.
