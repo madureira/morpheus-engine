@@ -72,7 +72,7 @@ namespace Editor {
 
 		auto& windowEntity = registry.ctx<Morpheus::WindowEntity>();
 		auto& windowComponent = registry.get<Morpheus::WindowComponent>(windowEntity.id);
-		registry.assign<Morpheus::ColorComponent>(windowEntity.id, 0.0f, 0.0f, 0.0f, 1.0f);
+		registry.assign<Morpheus::ColorComponent>(windowEntity.id, 0.0f, 0.0f, 0.0f, 0.5f);
 
 		Morpheus::ProjectEntity projectEntity{ registry.create() };
 		projectEntity.path = "";

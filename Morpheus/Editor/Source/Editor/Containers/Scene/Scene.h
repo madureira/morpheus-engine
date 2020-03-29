@@ -8,6 +8,10 @@
 
 namespace Editor {
 
+	constexpr int CHECKERBOARD_WIDTH = 800;
+	constexpr int CHECKERBOARD_HEIGHT = 600;
+	constexpr int CHECKERBOARD_INTENSITY = 120;
+
 	class Scene final : public UIContainer
 	{
 	private:
@@ -15,6 +19,7 @@ namespace Editor {
 		int m_InitialWindowHeight;
 		unsigned int m_FBO;
 		unsigned int m_TextureColorBuffer;
+		unsigned int m_CheckerboardTextureID;
 		glm::vec4 m_FrameBufferRect;
 
 		// App member variables
@@ -33,8 +38,6 @@ namespace Editor {
 		Morpheus::Texture* m_NormalHexagon;
 		Morpheus::Texture* m_SpecularHexagon;
 
-
-
 	public:
 		Scene(entt::registry& registry);
 		~Scene();
@@ -47,6 +50,7 @@ namespace Editor {
 		void ShutdownApp();
 		void ClearViewport(entt::registry& registry);
 		void RenderViewport(entt::registry& registry);
+		void GenerateCheckerboardImage();
 		glm::vec4 getTile(int tileSize, int layer);
 	};
 

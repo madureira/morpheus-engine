@@ -5,6 +5,8 @@
 
 namespace Editor {
 
+	static GLubyte s_CheckerboardImage[CHECKERBOARD_HEIGHT][CHECKERBOARD_WIDTH][4];
+
 	Scene::Scene(entt::registry& registry)
 		: m_TextureColorBuffer(0)
 	{
@@ -19,11 +21,23 @@ namespace Editor {
 		// Bind the texture used to paint the GL data on the IMGUI window
 		glBindTexture(GL_TEXTURE_2D, this->m_TextureColorBuffer);
 
-		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, this->m_InitialWindowWidth, this->m_InitialWindowHeight, 0, GL_RGB, GL_UNSIGNED_BYTE, NULL);
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, this->m_InitialWindowWidth, this->m_InitialWindowHeight, 0, GL_RGB, GL_UNSIGNED_BYTE, NULL);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+		glBindTexture(GL_TEXTURE_2D, 0);
 
-		// Unbind the texture
+		this->GenerateCheckerboardImage();
+
+		// Bind the texture used to paint the checkerboard pattern on the IMGUI background window
+		glGenTextures(1, &this->m_CheckerboardTextureID);
+		glBindTexture(GL_TEXTURE_2D, this->m_CheckerboardTextureID);
+
+		glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, CHECKERBOARD_WIDTH, CHECKERBOARD_HEIGHT, 0, GL_RGBA, GL_UNSIGNED_BYTE, s_CheckerboardImage);
 		glBindTexture(GL_TEXTURE_2D, 0);
 
 		// Create Frame Buffer
@@ -74,7 +88,7 @@ namespace Editor {
 		glBindBuffer(GL_ARRAY_BUFFER, this->m_VBO);
 		glBufferData(GL_ARRAY_BUFFER, sizeof(this->m_Vertices), this->m_Vertices, GL_STATIC_DRAW);
 
-		this->m_Shader = new Morpheus::Shader("Assets/shaders/viewport.vert", "Assets/shaders/viewport.frag", "Assets/shaders/wireframe.geom");
+		this->m_Shader = new Morpheus::Shader("Assets/shaders/wireframe.vert", "Assets/shaders/wireframe.frag", "Assets/shaders/wireframe.geom");
 
 		this->m_SpriteRenderer = new Morpheus::SpriteRenderer(registry, glm::vec2(this->m_InitialWindowWidth, this->m_InitialWindowHeight));
 
@@ -325,14 +339,45 @@ namespace Editor {
 		int marginLeft = 8;
 		int marginBottom = 32;
 
-		// Add the texture to it's draw list and render at the when ImGui::Render() is called.
-		ImGui::GetWindowDrawList()->AddImage(
-			(void*)this->m_FBO,
-			ImVec2(texPosX, texPosY),
-			ImVec2(texPosX + texSizeW - marginLeft, texPosY + texSizeH - marginBottom),
-			ImVec2(0, 1),
-			ImVec2(1, 0)
-		);
+		auto& projectEntity = registry.ctx<Morpheus::ProjectEntity>();
+
+		if (!projectEntity.scenes.empty())
+		{
+			ImGui::GetWindowDrawList()->AddImage(
+				(void*)this->m_CheckerboardTextureID,
+				ImVec2(texPosX, texPosY),
+				ImVec2(texPosX + texSizeW - marginLeft, texPosY + texSizeH - marginBottom),
+				ImVec2(0, 1),
+				ImVec2(1, 0)
+			);
+
+			ImGui::GetWindowDrawList()->AddImage(
+				(void*)this->m_FBO,
+				ImVec2(texPosX, texPosY),
+				ImVec2(texPosX + texSizeW - marginLeft, texPosY + texSizeH - marginBottom),
+				ImVec2(0, 1),
+				ImVec2(1, 0)
+			);
+		}
+	}
+
+	void Scene::GenerateCheckerboardImage()
+	{
+		int row;
+		int column;
+		int color;
+
+		for (column = 0; column < CHECKERBOARD_HEIGHT; column++)
+		{
+			for (row = 0; row < CHECKERBOARD_WIDTH; row++)
+			{
+				color = (((column & 0x8) == 0) ^ ((row & 0x8) == 0)) * CHECKERBOARD_INTENSITY;
+				s_CheckerboardImage[column][row][0] = (GLubyte)color;
+				s_CheckerboardImage[column][row][1] = (GLubyte)color;
+				s_CheckerboardImage[column][row][2] = (GLubyte)color;
+				s_CheckerboardImage[column][row][3] = (GLubyte)CHECKERBOARD_INTENSITY;
+			}
+		}
 	}
 
 	// TODO: Remove this function in the future.
