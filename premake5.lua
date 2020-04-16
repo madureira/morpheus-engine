@@ -103,7 +103,7 @@ project "Engine"
 	filter "configurations:Debug"
 		defines { "DEBUG" }
 		symbols "On"
-		optimize "On"
+		optimize "Debug"
 
 	filter "configurations:Release"
 		defines { "NDEBUG" }
@@ -175,7 +175,7 @@ project "Editor"
 	filter "configurations:Debug"
 		defines { "DEBUG" }
 		symbols "On"
-		optimize "On"
+		optimize "Debug"
 
 	filter "configurations:Release"
 		defines { "NDEBUG" }
@@ -243,7 +243,7 @@ project "Game"
 	filter "configurations:Debug"
 		defines { "DEBUG" }
 		symbols "On"
-		optimize "On"
+		optimize "Debug"
 
 	filter "configurations:Release"
 		defines { "NDEBUG" }
