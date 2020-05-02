@@ -27,6 +27,7 @@ IncludeDir["entt"] = "Libraries/entt/include"
 IncludeDir["spdlog"] = "Libraries/spdlog/include"
 IncludeDir["nativefiledialog"] = "Libraries/nativefiledialog/src/include"
 IncludeDir["nlohmann"] = "Libraries/nlohmann/include"
+IncludeDir["TiledParser"] = "Libraries/TiledParser/include"
 
 group "Dependencies"
 	include "Libraries/GLFW"
@@ -35,6 +36,7 @@ group "Dependencies"
 	include "Libraries/imgui"
 	include "Libraries/freetype2"
 	include "Libraries/nativefiledialog"
+	include "Libraries/TiledParser"
 
 group ""
 
@@ -73,14 +75,16 @@ project "Engine"
 		"%{IncludeDir.stb_image}",
 		"%{IncludeDir.entt}",
 		"%{IncludeDir.spdlog}",
-		"%{IncludeDir.nlohmann}"
+		"%{IncludeDir.nlohmann}",
+		"%{IncludeDir.TiledParser}"
 	}
 
 	links {
 		"GLFW",
 		"Glad",
 		"Lua",
-		"FreeType2"
+		"FreeType2",
+		"TiledParser"
 	}
 
 	defines {
@@ -145,7 +149,8 @@ project "Editor"
 		"%{IncludeDir.entt}",
 		"%{IncludeDir.spdlog}",
 		"%{IncludeDir.nativefiledialog}",
-		"%{IncludeDir.nlohmann}"
+		"%{IncludeDir.nlohmann}",
+		"%{IncludeDir.TiledParser}"
 	}
 
 	links {
@@ -216,7 +221,8 @@ project "Game"
 		"%{IncludeDir.stb_image}",
 		"%{IncludeDir.entt}",
 		"%{IncludeDir.spdlog}",
-		"%{IncludeDir.nlohmann}"
+		"%{IncludeDir.nlohmann}",
+		"%{IncludeDir.TiledParser}"
 	}
 
 	links {
@@ -291,6 +297,9 @@ newaction {
 		os.remove("./Libraries/nativefiledialog/nfd.vcxproj")
 		os.remove("./Libraries/nativefiledialog/nfd.vcxproj.*")
 		os.remove("./Libraries/nativefiledialog/Makefile")
+		os.remove("./Libraries/TiledParser/TiledParser.vcxproj")
+		os.remove("./Libraries/TiledParser/TiledParser.vcxproj.*")
+		os.remove("./Libraries/TiledParser/Makefile")
 		os.rmdir("./Libraries/freetype2/bin")
 		os.rmdir("./Libraries/freetype2/bin-int")
 		os.rmdir("./Libraries/Glad/bin")
@@ -303,6 +312,8 @@ newaction {
 		os.rmdir("./Libraries/lua/bin-int")
 		os.rmdir("./Libraries/nativefiledialog/bin")
 		os.rmdir("./Libraries/nativefiledialog/bin-int")
+		os.rmdir("./Libraries/TiledParser/bin")
+		os.rmdir("./Libraries/TiledParser/bin-int")
 		print("Done.")
 	end
 }

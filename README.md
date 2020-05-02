@@ -45,6 +45,7 @@ The engine use the following libraries:
 - [sol3:](https://github.com/ThePhD/sol2) A C++ library binding to Lua;
 - [spdlog:](https://github.com/gabime/spdlog) Very fast, header-only/compiled, C++ logging library;
 - [stb_image:](https://github.com/nothings/stb) Image loading/decoding from file/memory;
+- [TiledParser:](https://github.com/madureira/TiledParser) Tiled parser;
 
 ## Platforms
 
