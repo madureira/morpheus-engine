@@ -1,8 +1,10 @@
 #pragma once
 
+#include <vector>
 #include <glm/vec4.hpp>
 #include <Engine/Shader/Shader.h>
 #include <Engine/Texture/Texture.h>
+#include <Engine/Util/MapLoader.h>
 #include <Engine/Renderer/SpriteRenderer.h>
 #include "Editor/Containers/UIContainer.h"
 
@@ -32,9 +34,7 @@ namespace Editor {
 		Morpheus::Texture* m_TexturePlayer;
 		Morpheus::Texture* m_NormalPlayer;
 		Morpheus::Texture* m_SpecularPlayer;
-		Morpheus::Texture* m_TextureHexagon;
-		Morpheus::Texture* m_NormalHexagon;
-		Morpheus::Texture* m_SpecularHexagon;
+		std::vector<Morpheus::Tile*> m_Tiles;
 
 	public:
 		Scene(entt::registry& registry);
@@ -50,7 +50,6 @@ namespace Editor {
 		void RenderViewport(entt::registry& registry);
 		void GenerateCheckerboardImage();
 		void GenerateTextureBuffer();
-		glm::vec4 getTile(int tileSize, int layer);
 	};
 
 }

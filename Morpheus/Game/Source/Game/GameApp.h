@@ -3,6 +3,8 @@
 #include <Engine/App.h>
 #include <Engine/Renderer/SpriteRenderer.h>
 #include <Engine/Texture/Texture.h>
+#include <Engine/Util/MapLoader.h>
+#include <vector>
 
 namespace Game {
 
@@ -18,6 +20,7 @@ namespace Game {
 		Morpheus::Texture* m_TexturePlayer;
 		Morpheus::Texture* m_NormalPlayer;
 		Morpheus::Texture* m_SpecularPlayer;
+		std::vector<Morpheus::Tile*> m_Tiles;
 
 	public:
 		GameApp();
@@ -26,9 +29,6 @@ namespace Game {
 		void Initialize(entt::registry& registry) override;
 		void OnFrameStarted(entt::registry& registry, double deltaTime, int currentFrame, int frameRate) override;
 		void FrameListener(entt::registry& registry, double deltaTime, int currentFrame, int frameRate) override;
-
-	private:
-		glm::vec4 getTile(int tileSize, int layer);
 	};
 
 }

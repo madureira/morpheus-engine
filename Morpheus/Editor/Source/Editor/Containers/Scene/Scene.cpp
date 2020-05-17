@@ -7,6 +7,9 @@ namespace Editor {
 
 	static int POS_X = 0;
 	static int POS_Y = 0;
+	static int OLD_POS_X = 0;
+	static int OLD_POS_Y = 0;
+	static bool IS_DRAGGING = false;
 
 	Scene::Scene(entt::registry& registry)
 		: m_TextureColorBuffer(0)
@@ -59,9 +62,9 @@ namespace Editor {
 		glBindBuffer(GL_ARRAY_BUFFER, this->m_VBO);
 		glBufferData(GL_ARRAY_BUFFER, sizeof(this->m_Vertices), this->m_Vertices, GL_STATIC_DRAW);
 
-		this->m_Shader = new Morpheus::Shader("Assets/shaders/wireframe.vert", "Assets/shaders/wireframe.frag", "Assets/shaders/wireframe.geom");
-
 		this->m_SpriteRenderer = new Morpheus::SpriteRenderer(registry, glm::vec2(this->m_InitialWindowWidth, this->m_InitialWindowHeight));
+
+		this->m_Shader = new Morpheus::Shader("Assets/shaders/wireframe.vert", "Assets/shaders/wireframe.frag", "Assets/shaders/wireframe.geom");
 
 		this->m_Texture = new Morpheus::Texture("Assets/images/tileset.png");
 		this->m_Normal = new Morpheus::Texture("Assets/images/tileset_n.png");
@@ -71,9 +74,7 @@ namespace Editor {
 		this->m_NormalPlayer = new Morpheus::Texture("Assets/images/ash_n.png");
 		this->m_SpecularPlayer = new Morpheus::Texture("Assets/images/ash_s.png");
 
-		this->m_TextureHexagon = new Morpheus::Texture("Assets/images/Hexagon/HexagonTile_DIFF.png");
-		this->m_NormalHexagon = new Morpheus::Texture("Assets/images/Hexagon/HexagonTile_NRM.png");
-		this->m_SpecularHexagon = new Morpheus::Texture("Assets/images/Hexagon/HexagonTile_SPEC.png");
+		this->m_Tiles = Morpheus::MapLoader::load("Assets/maps/level_1/map_3.json");
 	}
 
 	void Scene::UpdateApp(entt::registry& registry)
@@ -134,11 +135,34 @@ namespace Editor {
 			}
 		}
 
+		bool isMouseWheelPressed = io.MouseDown[2];
+
+		if (isMouseWheelPressed)
+		{
+			glm::vec2 lookingAt = this->m_SpriteRenderer->LookingAt();
+
+			if (!IS_DRAGGING)
+			{
+				IS_DRAGGING = true;
+				OLD_POS_X = POS_X;
+				OLD_POS_Y = POS_Y;
+			}
+			else
+			{
+				lookingAt.x += (OLD_POS_X - POS_X);
+				lookingAt.y += (OLD_POS_Y - POS_Y);
+				this->m_SpriteRenderer->LookAt(lookingAt.x, lookingAt.y);
+			}
+		}
+		else
+		{
+			IS_DRAGGING = false;
+			OLD_POS_X = 0;
+			OLD_POS_Y = 0;
+		}
+
 		zoom = zoom < scaleFactor ? scaleFactor : zoom;
 		this->m_SpriteRenderer->SetScale(zoom);
-
-		//this->m_SpriteRenderer->SetAmbientColor(glm::vec4(0.0f, 0.0f, 0.0f, 0.0f));
-		//this->m_SpriteRenderer->SetAmbientColor(glm::vec4(1.0f, 1.0f, 1.0f, 0.01f));
 		this->m_SpriteRenderer->SetAmbientColor(glm::vec4(1.0f, 1.0f, 1.f, 0.25f));
 
 		this->m_SpriteRenderer->EnableNormal(!inputState.SPACE);
@@ -147,31 +171,12 @@ namespace Editor {
 
 
 		// -------- TILES -------
-
-		for (int z = 0; z < layers; z++)
+		for (const auto& tile : this->m_Tiles)
 		{
-			for (int x = 0; x < columns; x++)
-			{
-				for (int y = 0; y < rows; y++)
-				{
-					this->m_SpriteRenderer->Draw(
-						this->m_Texture,
-						this->m_Normal,
-						this->m_Specular,
-
-						glm::vec4(margin + x * tileSize + z * distance, margin + y * tileSize + z * distance, tileSize, tileSize),
-
-						getTile(tileSize, z)
-
-						//,glm::vec4(x / 10.f, y / 10.f, z / 10.f, 1.0f)
-					);
-				}
-			}
+			this->m_SpriteRenderer->Draw(this->m_Texture, this->m_Normal, this->m_Specular, tile->destRect, tile->sourceRect);
 		}
-
 		this->m_SpriteRenderer->AddSpotLight(glm::vec3(600.0, 400.0, 0.01f), glm::vec4(1.0f, 0.8f, 0.6f, 1.0f), glm::vec3(0.0001f, 0.2f, 900.0f)); // light floor player
 		this->m_SpriteRenderer->AddSpotLight(glm::vec3(POS_X, POS_Y, 0.01f), glm::vec4(1.0f, 0.8f, 0.6f, 1.0f), glm::vec3(0.0001f, 0.2f, 100.0f)); // light floor top-left
-
 		// -------- END TILES -------
 
 
@@ -223,49 +228,13 @@ namespace Editor {
 			this->m_TexturePlayer,
 			this->m_NormalPlayer,
 			this->m_SpecularPlayer,
-
-			//glm::vec4(playerX, playerY, 64, 64),
 			glm::vec4(playerX, playerY, 64, 64),
-
 			spriteFrame
 		);
 
 		this->m_SpriteRenderer->AddSpotLight(glm::vec3(600.0, 400.0, 0.1f), glm::vec4(1.0f, 0.8f, 0.6f, 0.1f), glm::vec3(0.1f, 1.0f, 20.0f)); // light head player
 		this->m_SpriteRenderer->AddSpotLight(glm::vec3(POS_X, POS_Y, 0.01f), glm::vec4(1.0f, 0.8f, 0.6f, 1.0f), glm::vec3(0.0001f, 0.2f, 100.0f)); // light head top-left
-
 		// -------- END PLAYER -------
-
-
-		// -------- TRIANGLE -------
-		/*
-		this->m_Shader->Enable();
-		glEnableVertexAttribArray(0);
-		glBindBuffer(GL_ARRAY_BUFFER, this->m_VBO);
-		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, (void*)0);
-		glDrawArrays(GL_TRIANGLES, 0, 3);
-		glDisableVertexAttribArray(0);
-		this->m_Shader->Disable();
-		*/
-		// -------- END TRIANGLE -------
-
-
-		// -------- HEAGON -------
-		/*
-		this->m_SpriteRenderer->Draw(
-			this->m_TextureHexagon,
-			this->m_NormalHexagon,
-			this->m_SpecularHexagon,
-
-			glm::vec4(-playerX, -playerY, 2048, 2048),
-
-			glm::vec4(0, 0, 2048, 2048)
-
-			//,glm::vec4(x / 10.f, y / 10.f, z / 10.f, 1.0f)
-		);
-
-		this->m_SpriteRenderer->AddSpotLight(glm::vec3(600.0, 400.0, 0.01f), glm::vec4(1.0f, 0.8f, 0.6f, 1.0f), glm::vec3(0.0001f, 0.2f, 1.0f));
-		*/
-		// -------- END HEAGON -------
 
 		this->m_SpriteRenderer->Render();
 	}
@@ -280,9 +249,11 @@ namespace Editor {
 		delete this->m_TexturePlayer;
 		delete this->m_NormalPlayer;
 		delete this->m_SpecularPlayer;
-		delete this->m_TextureHexagon;
-		delete this->m_NormalHexagon;
-		delete this->m_SpecularHexagon;
+		for (auto pTile : this->m_Tiles)
+		{
+			delete pTile;
+		}
+		this->m_Tiles.clear();
 	}
 
 	void Scene::ClearViewport(entt::registry& registry)
@@ -342,15 +313,15 @@ namespace Editor {
 				ImVec2(1, 0)
 			);
 
-			if (ImGui::IsWindowHovered())
-			{
+			//if (ImGui::IsWindowHovered())
+			//{
 				auto& mouseEntity = registry.ctx<Morpheus::MouseEntity>();
 				auto& mouseState = registry.get<Morpheus::MouseStateComponent>(mouseEntity.id);
 
 				ImVec2& mousePos = ImGui::GetMousePos();
 				POS_X = static_cast<int>(mousePos.x - texPosX);
 				POS_Y = static_cast<int>(mousePos.y - texPosY);
-
+				/*
 				if (POS_X < 0) {
 					POS_X = 0;
 				}
@@ -358,7 +329,8 @@ namespace Editor {
 				if (POS_Y < 0) {
 					POS_Y = 0;
 				}
-			}
+				*/
+			//}
 
 			ImGui::Text(" x: %d", POS_X);
 			ImGui::Text(" y: %d", POS_Y);
@@ -440,37 +412,6 @@ namespace Editor {
 		glBindFramebuffer(GL_FRAMEBUFFER, this->m_FBO);
 		glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, this->m_TextureColorBuffer, 0);
 		glBindFramebuffer(GL_FRAMEBUFFER, 0);
-	}
-
-	// TODO: Remove this function in the future.
-	glm::vec4 Scene::getTile(int tileSize, int layer)
-	{
-		if (layer == 0 || layer == 5 || layer == 10 || layer == 15)
-		{
-			return glm::vec4(0, tileSize, tileSize, 0);
-		}
-
-		if (layer == 1 || layer == 6 || layer == 11 || layer == 16)
-		{
-			return glm::vec4(tileSize * 4, tileSize * 4, tileSize * 5, tileSize * 3);
-		}
-
-		if (layer == 2 || layer == 7 || layer == 12 || layer == 17)
-		{
-			return glm::vec4(tileSize, tileSize, tileSize * 2, 0);
-		}
-
-		if (layer == 3 || layer == 8 || layer == 13 || layer == 18)
-		{
-			return glm::vec4(tileSize * 4, tileSize, tileSize * 5, 0);
-		}
-
-		if (layer == 4 || layer == 9 || layer == 14 || layer == 19)
-		{
-			return glm::vec4(tileSize * 8, tileSize, tileSize * 9, 0);
-		}
-
-		return glm::vec4(0, tileSize, tileSize, 0);
 	}
 
 }

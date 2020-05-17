@@ -43,6 +43,8 @@ namespace Game {
 		this->m_TexturePlayer = new Morpheus::Texture("Assets/images/ash.png");
 		this->m_NormalPlayer = new Morpheus::Texture("Assets/images/ash_n.png");
 		this->m_SpecularPlayer = new Morpheus::Texture("Assets/images/ash_s.png");
+
+		this->m_Tiles = Morpheus::MapLoader::load("Assets/maps/level_1/map_3.json");
 	}
 
 	void GameApp::OnFrameStarted(entt::registry& registry, double deltaTime, int currentFrame, int frameRate)
@@ -58,6 +60,7 @@ namespace Game {
 		static int playerY = 0;
 		static float zoom = 1.0f;
 		static const float scaleFactor = 0.025f;
+		static glm::vec4 ambienteColor(1.0f, 1.0f, 1.f, 0.25f);
 
 		auto& inputEntity = registry.ctx<Morpheus::InputEntity>();
 		auto& inputState = registry.get<Morpheus::InputStateComponent>(inputEntity.id);
@@ -94,39 +97,25 @@ namespace Game {
 
 		zoom = zoom < scaleFactor ? scaleFactor : zoom;
 
-		
-		for (int z = 0; z < layers; z++)
+		for (const auto& tile : this->m_Tiles)
 		{
-			for (int x = 0; x < columns; x++)
-			{
-				for (int y = 0; y < rows; y++)
-				{
-					this->m_SpriteRenderer->Draw(
-						this->m_Texture,
-						this->m_Normal,
-						this->m_Specular,
-
-						glm::vec4(margin + x * tileSize + z * distance - playerX, margin + y * tileSize + z * distance - playerY, tileSize, tileSize),
-
-						getTile(tileSize, z)
-
-						//,glm::vec4(x / 10.f, y / 10.f, z / 10.f, 1.0f)
-					);
-				}
-			}
+			this->m_SpriteRenderer->Draw(this->m_Texture, this->m_Normal, this->m_Specular, tile->destRect, tile->sourceRect);
 		}
+		
 
 		this->m_SpriteRenderer->SetScale(zoom);
 
 		//this->m_SpriteRenderer->SetAmbientColor(glm::vec4(1.0f, 1.0f, 1.0f, 0.01f));
-		this->m_SpriteRenderer->SetAmbientColor(glm::vec4(1.0f, 1.0f, 1.f, 0.25f));
-
+		
+		this->m_SpriteRenderer->SetAmbientColor(ambienteColor);
 		this->m_SpriteRenderer->EnableNormal(!inputState.SPACE);
 		this->m_SpriteRenderer->EnableSpecular(!inputState.LEFT_CONTROL);
 		this->m_SpriteRenderer->EnableWireframe(inputState.LEFT_SHIFT);
 
 		//this->m_SpriteRenderer->AddSpotLight(glm::vec3(600.0, 400.0, 0.01f), glm::vec4(1.0f, 0.8f, 0.6f, 1.0f), glm::vec3(0.4f, 3.0f, 20.0f));
 		this->m_SpriteRenderer->AddSpotLight(glm::vec3(600.0, 400.0, 0.01f), glm::vec4(1.0f, 0.8f, 0.6f, 1.0f), glm::vec3(0.01f, 1.0f, 20.0f));
+
+		this->m_SpriteRenderer->Render();
 
 		static int frameCount = 0;
 		static int frame = 0;
@@ -171,13 +160,13 @@ namespace Game {
 			spriteFrame = glm::vec4(64 * 3, 64, 64 * 4, 0);
 		}
 
+		glm::vec4 destPlayerPos(750.0, 400.0 - zoom, 64, 64);
+
 		this->m_SpriteRenderer->Draw(
 			this->m_TexturePlayer,
 			this->m_NormalPlayer,
 			this->m_SpecularPlayer,
-
-			glm::vec4(750.0, 400.0 - zoom, 64, 64),
-
+			destPlayerPos,
 			spriteFrame
 		);
 
@@ -189,36 +178,6 @@ namespace Game {
 
 	void GameApp::FrameListener(entt::registry& registry, double deltaTime, int currentFrame, int frameRate)
 	{
-	}
-
-	glm::vec4 GameApp::getTile(int tileSize, int layer)
-	{
-		if (layer == 0 || layer == 5 || layer == 10 || layer == 15)
-		{
-			return glm::vec4(0, tileSize, tileSize, 0);
-		}
-
-		if (layer == 1 || layer == 6 || layer == 11 || layer == 16)
-		{
-			return glm::vec4(tileSize * 4, tileSize * 4, tileSize * 5, tileSize * 3);
-		}
-
-		if (layer == 2 || layer == 7 || layer == 12 || layer == 17)
-		{
-			return glm::vec4(tileSize, tileSize, tileSize * 2, 0);
-		}
-
-		if (layer == 3 || layer == 8 || layer == 13 || layer == 18)
-		{
-			return glm::vec4(tileSize * 4, tileSize, tileSize * 5, 0);
-		}
-
-		if (layer == 4 || layer == 9 || layer == 14 || layer == 19)
-		{
-			return glm::vec4(tileSize * 8, tileSize, tileSize * 9, 0);
-		}
-
-		return glm::vec4(0, tileSize, tileSize, 0);
 	}
 
 }

@@ -56,7 +56,7 @@ namespace Morpheus {
 		delete this->m_Shader;
 	}
 
-	void SpriteRenderer::Draw(Texture* pDiffuseMap, Texture* pNormalMap, Texture* pSpecularMap, glm::vec4 destRect, glm::vec4 sourceRect, glm::vec4 color)
+	void SpriteRenderer::Draw(Texture* pDiffuseMap, Texture* pNormalMap, Texture* pSpecularMap, glm::vec4& destRect, glm::vec4& sourceRect, glm::vec4& color)
 	{
 		if (this->m_DiffuseMap != pDiffuseMap)
 		{
@@ -69,7 +69,7 @@ namespace Morpheus {
 		this->RearrangeVertices(destRect, sourceRect, color);
 	}
 
-	void SpriteRenderer::Draw(Texture* pDiffuseMap, Texture* pNormalMap, glm::vec4 destRect, glm::vec4 sourceRect, glm::vec4 color)
+	void SpriteRenderer::Draw(Texture* pDiffuseMap, Texture* pNormalMap, glm::vec4& destRect, glm::vec4& sourceRect, glm::vec4& color)
 	{
 		if (this->m_DiffuseMap != pDiffuseMap)
 		{
@@ -81,7 +81,7 @@ namespace Morpheus {
 		this->RearrangeVertices(destRect, sourceRect, color);
 	}
 
-	void SpriteRenderer::Draw(Texture* pDiffuseMap, glm::vec4 destRect, glm::vec4 sourceRect, glm::vec4 color)
+	void SpriteRenderer::Draw(Texture* pDiffuseMap, glm::vec4& destRect, glm::vec4& sourceRect, glm::vec4& color)
 	{
 		if (this->m_DiffuseMap != pDiffuseMap)
 		{
@@ -92,7 +92,7 @@ namespace Morpheus {
 		this->RearrangeVertices(destRect, sourceRect, color);
 	}
 
-	void SpriteRenderer::RearrangeVertices(glm::vec4 destRect, glm::vec4 sourceRect, glm::vec4 color)
+	void SpriteRenderer::RearrangeVertices(glm::vec4& destRect, glm::vec4& sourceRect, glm::vec4& color)
 	{
 		this->m_Vertices.push_back(Vertex2dUVColor(glm::vec2(destRect.x, destRect.y), glm::vec2(sourceRect.x, sourceRect.y), color));
 		this->m_Vertices.push_back(Vertex2dUVColor(glm::vec2(destRect.x + destRect.z, destRect.y), glm::vec2(sourceRect.z, sourceRect.y), color));
@@ -102,7 +102,7 @@ namespace Morpheus {
 		this->m_Vertices.push_back(Vertex2dUVColor(glm::vec2(destRect.x + destRect.z, destRect.y + destRect.w), glm::vec2(sourceRect.z, sourceRect.w), color));
 	}
 
-	void SpriteRenderer::AddSpotLight(glm::vec3 lightPosition, glm::vec4 lightColor, glm::vec3 lightFalloff)
+	void SpriteRenderer::AddSpotLight(glm::vec3& lightPosition, glm::vec4& lightColor, glm::vec3& lightFalloff)
 	{
 		if (this->m_SpotLights.size() < MAX_LIGHT_SOURCES)
 		{
@@ -110,23 +110,37 @@ namespace Morpheus {
 		}
 	}
 
-	void SpriteRenderer::SetAmbientColor(glm::vec4 ambientColor)
+	void SpriteRenderer::SetAmbientColor(glm::vec4& ambientColor)
 	{
 		this->m_AmbientColor = ambientColor;
 	}
 
-	void SpriteRenderer::SetScreenSize(glm::vec2 screenSize)
+	void SpriteRenderer::SetScreenSize(glm::vec2& screenSize)
 	{
 		this->m_ScreenSize = screenSize;
 
 		this->m_ScreenTransform[0][0] = 2 / this->m_ScreenSize.x;
 		this->m_ScreenTransform[1][1] = 2 / this->m_ScreenSize.y;
-		this->m_ScreenTransform[2][0] = -1;
-		this->m_ScreenTransform[2][1] = -1;
+		this->m_ScreenTransform[2][0] = 0;
+		this->m_ScreenTransform[2][1] = 0;
 
 		this->m_Shader->Enable();
 		this->m_Shader->SetVec2("Resolution", this->m_ScreenSize);
 		this->m_Shader->Disable();
+	}
+
+	void SpriteRenderer::LookAt(int x, int y)
+	{
+		if (x != this->m_ScreenTransform[2][0] || y != this->m_ScreenTransform[2][1])
+		{
+			this->m_ScreenTransform[2][0] = (-1 + (2 / this->m_ScreenSize.x * x) * (1 / this->m_Scale));
+			this->m_ScreenTransform[2][1] = -(-1 + (2 / this->m_ScreenSize.y * y) * (1 / this->m_Scale));
+		}
+	}
+
+	glm::vec2 SpriteRenderer::LookingAt()
+	{
+		return glm::vec2(this->m_ScreenTransform[2][0], this->m_ScreenTransform[2][1]);
 	}
 
 	void SpriteRenderer::SetScale(float scale)
@@ -161,7 +175,7 @@ namespace Morpheus {
 		glm::vec3 lightFalloffs[MAX_LIGHT_SOURCES] = { };
 
 		int index = 0;
-		for (auto light : this->m_SpotLights)
+		for (const auto& light : this->m_SpotLights)
 		{
 			glm::vec3 lightPosition = light.m_Position;
 
@@ -176,10 +190,13 @@ namespace Morpheus {
 			index++;
 		}
 
-		this->m_Shader->SetInt("TotalSpotLights", (GLsizei) this->m_SpotLights.size());
-		glUniform3fv(this->m_Shader->GetUniformLocation("LightPos"), (GLsizei) this->m_SpotLights.size(), (float*) lightPositions);
-		glUniform4fv(this->m_Shader->GetUniformLocation("LightColor"), (GLsizei) this->m_SpotLights.size(), (float*) lightColors);
-		glUniform3fv(this->m_Shader->GetUniformLocation("LightFalloff"), (GLsizei) this->m_SpotLights.size(), (float*) lightFalloffs);
+		GLsizei spotLightsSize = (GLsizei)this->m_SpotLights.size();
+		GLsizei verticesSize = (GLsizei)this->m_Vertices.size();
+
+		this->m_Shader->SetInt("TotalSpotLights", spotLightsSize);
+		glUniform3fv(this->m_Shader->GetUniformLocation("LightPos"), spotLightsSize, (float*) lightPositions);
+		glUniform4fv(this->m_Shader->GetUniformLocation("LightColor"), spotLightsSize, (float*) lightColors);
+		glUniform3fv(this->m_Shader->GetUniformLocation("LightFalloff"), spotLightsSize, (float*) lightFalloffs);
 
 		glBindVertexArray(this->m_VAO);
 
@@ -193,7 +210,7 @@ namespace Morpheus {
 		glBindTexture(GL_TEXTURE_2D, this->m_DiffuseMap->GetID());
 
 		glBindBuffer(GL_ARRAY_BUFFER, this->m_VBO);
-		glBufferData(GL_ARRAY_BUFFER, sizeof(Vertex2dUVColor) * this->m_Vertices.size(), &this->m_Vertices[0], GL_STATIC_DRAW);
+		glBufferData(GL_ARRAY_BUFFER, sizeof(Vertex2dUVColor) * verticesSize, &this->m_Vertices[0], GL_STATIC_DRAW);
 		glBindBuffer(GL_ARRAY_BUFFER, 0);
 
 		// Enable vertex attributes for position, uv, and color
@@ -201,13 +218,13 @@ namespace Morpheus {
 		glEnableVertexAttribArray(1);
 		glEnableVertexAttribArray(2);
 
-		glDrawArrays(GL_TRIANGLES, 0, (GLsizei) this->m_Vertices.size());
+		glDrawArrays(GL_TRIANGLES, 0, verticesSize);
 		this->m_Shader->Disable();
 
 		if (this->m_EnableWireframe)
 		{
 			this->m_WireframeShader->Enable();
-			glDrawArrays(GL_TRIANGLES, 0, (GLsizei)this->m_Vertices.size());
+			glDrawArrays(GL_TRIANGLES, 0, verticesSize);
 			this->m_WireframeShader->Disable();
 		}
 
@@ -218,7 +235,7 @@ namespace Morpheus {
 
 		glBindVertexArray(0);
 
-		(*this->m_NumberOfVertices) += (int)(this->m_Vertices.size());
+		(*this->m_NumberOfVertices) += (int)(verticesSize);
 		(*this->m_DrawCalls) += 1;
 
 		this->m_Vertices.clear();

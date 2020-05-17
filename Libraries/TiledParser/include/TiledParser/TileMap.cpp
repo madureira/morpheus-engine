@@ -162,10 +162,7 @@ namespace TiledParser {
 
 				while (tileIndex < dataSize)
 				{
-					if (decodedData[tileIndex])
-					{
-						tileIds.push_back((int32_t)decodedData[tileIndex]);
-					}
+					tileIds.push_back((int32_t)decodedData[tileIndex]);
 					tileIndex += 4;
 				}
 
