@@ -2,6 +2,7 @@ project "Lua"
 	kind "StaticLib"
 	language "C"
 	staticruntime "On"
+	warnings "Off"
 
 	targetdir ("bin/" .. outputdir .. "/%{prj.name}")
 	objdir ("bin-int/" .. outputdir .. "/%{prj.name}")

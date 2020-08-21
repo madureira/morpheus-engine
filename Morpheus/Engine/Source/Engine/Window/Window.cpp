@@ -97,7 +97,8 @@ namespace Morpheus {
 				int validFiles = 0;
 				for (int i = 0; i < count; i++)
 				{
-					if (FileUtil::IsFile(std::string(paths[i]))) validFiles++;
+					std::string filePath(paths[i]);
+					if (FileUtil::IsFile(filePath)) validFiles++;
 				}
 
 				if (count == validFiles)

@@ -56,7 +56,7 @@ namespace Morpheus {
 		delete this->m_Shader;
 	}
 
-	void SpriteRenderer::Draw(Texture* pDiffuseMap, Texture* pNormalMap, Texture* pSpecularMap, glm::vec4& destRect, glm::vec4& sourceRect, glm::vec4& color)
+	void SpriteRenderer::Draw(Texture* pDiffuseMap, Texture* pNormalMap, Texture* pSpecularMap, glm::vec4 destRect, glm::vec4 sourceRect, glm::vec4 color)
 	{
 		if (this->m_DiffuseMap != pDiffuseMap)
 		{
@@ -69,7 +69,7 @@ namespace Morpheus {
 		this->RearrangeVertices(destRect, sourceRect, color);
 	}
 
-	void SpriteRenderer::Draw(Texture* pDiffuseMap, Texture* pNormalMap, glm::vec4& destRect, glm::vec4& sourceRect, glm::vec4& color)
+	void SpriteRenderer::Draw(Texture* pDiffuseMap, Texture* pNormalMap, glm::vec4 destRect, glm::vec4 sourceRect, glm::vec4 color)
 	{
 		if (this->m_DiffuseMap != pDiffuseMap)
 		{
@@ -81,7 +81,7 @@ namespace Morpheus {
 		this->RearrangeVertices(destRect, sourceRect, color);
 	}
 
-	void SpriteRenderer::Draw(Texture* pDiffuseMap, glm::vec4& destRect, glm::vec4& sourceRect, glm::vec4& color)
+	void SpriteRenderer::Draw(Texture* pDiffuseMap, glm::vec4 destRect, glm::vec4 sourceRect, glm::vec4 color)
 	{
 		if (this->m_DiffuseMap != pDiffuseMap)
 		{
@@ -92,7 +92,7 @@ namespace Morpheus {
 		this->RearrangeVertices(destRect, sourceRect, color);
 	}
 
-	void SpriteRenderer::RearrangeVertices(glm::vec4& destRect, glm::vec4& sourceRect, glm::vec4& color)
+	void SpriteRenderer::RearrangeVertices(glm::vec4 destRect, glm::vec4 sourceRect, glm::vec4 color)
 	{
 		this->m_Vertices.push_back(Vertex2dUVColor(glm::vec2(destRect.x, destRect.y), glm::vec2(sourceRect.x, sourceRect.y), color));
 		this->m_Vertices.push_back(Vertex2dUVColor(glm::vec2(destRect.x + destRect.z, destRect.y), glm::vec2(sourceRect.z, sourceRect.y), color));
@@ -102,7 +102,7 @@ namespace Morpheus {
 		this->m_Vertices.push_back(Vertex2dUVColor(glm::vec2(destRect.x + destRect.z, destRect.y + destRect.w), glm::vec2(sourceRect.z, sourceRect.w), color));
 	}
 
-	void SpriteRenderer::AddSpotLight(glm::vec3& lightPosition, glm::vec4& lightColor, glm::vec3& lightFalloff)
+	void SpriteRenderer::AddSpotLight(glm::vec3 lightPosition, glm::vec4 lightColor, glm::vec3 lightFalloff)
 	{
 		if (this->m_SpotLights.size() < MAX_LIGHT_SOURCES)
 		{
@@ -110,12 +110,12 @@ namespace Morpheus {
 		}
 	}
 
-	void SpriteRenderer::SetAmbientColor(glm::vec4& ambientColor)
+	void SpriteRenderer::SetAmbientColor(glm::vec4 ambientColor)
 	{
 		this->m_AmbientColor = ambientColor;
 	}
 
-	void SpriteRenderer::SetScreenSize(glm::vec2& screenSize)
+	void SpriteRenderer::SetScreenSize(glm::vec2 screenSize)
 	{
 		this->m_ScreenSize = screenSize;
 

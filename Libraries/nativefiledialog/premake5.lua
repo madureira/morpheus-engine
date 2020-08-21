@@ -34,8 +34,6 @@ project "nfd"
 		"src/nfd_common.c",
 	}
 
-	warnings "extra"
-
 	-- system build filters
 	filter "system:windows"
 		language "C++"

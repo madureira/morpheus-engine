@@ -1,6 +1,9 @@
 #pragma once
 
 #include <spdlog/sinks/base_sink.h>
+#include <spdlog/sinks/stdout_color_sinks.h>
+#include <spdlog/details/null_mutex.h>
+#include <mutex>
 
 namespace Morpheus {
 
@@ -55,7 +58,7 @@ namespace Morpheus {
 		void sink_it_(const spdlog::details::log_msg& msg) override
 		{
 			spdlog::memory_buf_t formatted;
-			base_sink<Mutex>::formatter_->format(msg, formatted);
+			spdlog::sinks::base_sink<Mutex>::formatter_->format(msg, formatted);
 			AddMessage(CreateRef<LogMessage>(fmt::to_string(formatted), GetMessageLevel(msg.level)));
 		}
 
@@ -132,18 +135,14 @@ namespace Morpheus {
 		static bool s_RequestScrollToBottom;
 	};
 
-}
-
-#include <spdlog/details/null_mutex.h>
-#include <mutex>
-namespace Morpheus {
 	using CustomLogSink_mt = CustomLogSink<std::mutex>;
 	using CustomLogSink_st = CustomLogSink<spdlog::details::null_mutex>;
 
-	uint16_t CustomLogSink_mt::s_MessageBufferCapacity = 200;
-	uint16_t CustomLogSink_mt::s_MessageBufferSize = 0;
-	uint16_t CustomLogSink_mt::s_MessageBufferBegin = 0;
-	std::vector<Ref<LogMessage>> CustomLogSink_mt::s_MessageBuffer = std::vector<Ref<LogMessage>>(200);
-	bool CustomLogSink_mt::s_AllowScrollingToBottom = true;
-	bool CustomLogSink_mt::s_RequestScrollToBottom = false;
+	template<> uint16_t CustomLogSink_mt::s_MessageBufferCapacity = 200;
+	template<> uint16_t CustomLogSink_mt::s_MessageBufferSize = 0;
+	template<> uint16_t CustomLogSink_mt::s_MessageBufferBegin = 0;
+	template<> std::vector<Ref<LogMessage>> CustomLogSink_mt::s_MessageBuffer = std::vector<Ref<LogMessage>>(200);
+	template<> bool CustomLogSink_mt::s_AllowScrollingToBottom = true;
+	template<> bool CustomLogSink_mt::s_RequestScrollToBottom = false;
+
 }

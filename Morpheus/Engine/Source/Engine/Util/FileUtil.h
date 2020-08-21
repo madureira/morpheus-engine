@@ -66,28 +66,17 @@ namespace Morpheus {
 	public:
 		static std::string ReadFile(std::string filePath)
 		{
-			FILE* pFile;
-			fopen_s(&pFile, filePath.c_str(), "rt");
+			std::ifstream fileStream(filePath.c_str());
 
-			if (pFile == NULL)
+			if (fileStream.is_open())
 			{
-				ME_LOG_ERROR("FileUtil: Cannot open file: {0}", filePath);
-				return "";
+				std::string result((std::istreambuf_iterator<char>(fileStream)), std::istreambuf_iterator<char>());
+				fileStream.close();
+				return result;
 			}
 
-			fseek(pFile, 0, SEEK_END);
-			unsigned long length = ftell(pFile);
-			unsigned long wideLength = length + 1;
-			char* data = new char[wideLength];
-			memset(data, 0, wideLength);
-			fseek(pFile, 0, SEEK_SET);
-			fread(data, 1, length, pFile);
-			fclose(pFile);
-
-			std::string result(data);
-			delete[] data;
-
-			return result;
+			ME_LOG_ERROR("FileUtil: Cannot open file: {0}", filePath);
+			return "";
 		}
 
 		static void WriteFile(std::string path, std::string fileName, std::string fileContent)

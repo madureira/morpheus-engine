@@ -103,6 +103,8 @@ project "Engine"
 
 	filter "system:not windows"
 		links { "GL" }
+		links { "X11", "pthread", "dl", "atomic", "stdc++fs"}
+		linkoptions { "-Wl,--allow-multiple-definition" }
 
 	filter "configurations:Debug"
 		defines { "DEBUG" }
@@ -173,6 +175,25 @@ project "Editor"
 		}
 
 	filter "system:not windows"
+		links {
+			"GL",
+			"GLFW",
+			"Glad",
+			"Lua",
+			"FreeType2",
+			"TiledParser"
+		}
+		links {
+			"X11",
+			"pthread",
+			"dl",
+			"atomic",
+			"stdc++fs",
+			"gtk-3",
+			"gobject-2.0",
+			"glib-2.0"
+		}
+		linkoptions { "-Wl,--allow-multiple-definition", "`pkg-config --libs gtk+-3.0`" }
 		postbuildcommands {
 			"cp -rf Assets ../../Dist/%{cfg.system}/%{cfg.buildcfg}/%{cfg.platform}/%{prj.name}/Assets"
 		}
@@ -242,6 +263,16 @@ project "Game"
 		}
 
 	filter "system:not windows"
+		links {
+			"GL",
+			"GLFW",
+			"Glad",
+			"Lua",
+			"FreeType2",
+			"TiledParser"
+		}
+		links { "X11", "pthread", "dl", "atomic", "stdc++fs"}
+		linkoptions { "-Wl,--allow-multiple-definition" }
 		postbuildcommands {
 			"cp -rf Assets ../../Dist/%{cfg.system}/%{cfg.buildcfg}/%{cfg.platform}/%{prj.name}/Assets"
 		}

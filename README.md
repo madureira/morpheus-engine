@@ -6,7 +6,7 @@
 [![language](https://img.shields.io/badge/language-c++-blue.svg)](https://github.com/madureira/morpheus-engine)
 [![c++](https://img.shields.io/badge/std-c++17-blue.svg)](https://isocpp.org/)
 [![msvc2019+](https://img.shields.io/badge/MSVC-2019+-ff69b4.svg)](https://visualstudio.microsoft.com/downloads)
-[![platform](https://img.shields.io/badge/platform-Windows10-blue.svg)](https://www.microsoft.com/en-us/windows/)
+[![platforms](https://img.shields.io/badge/platforms-Windows%20%7C%20Linux-orange.svg)](https://github.com/madureira/morpheus-engine/tree/linux-build#platforms)
 
 Game engine built in C++ and OpenGL.
 
@@ -49,9 +49,7 @@ The engine use the following libraries:
 
 ## Platforms
 
-![Windows](.github/windows-logo.png?raw=true "windows10")
-
-## Windows
+![Windows](.github/windows-logo.png "windows")
 
 ### Building for Visual Studio IDE 2019
 
@@ -65,4 +63,34 @@ Double click on the generated `Morpheus.sln` file.
 
 ```
 clean.bat
+```
+
+---
+
+![Linux](.github/linux-logo.png "Linux")
+
+```
+sudo apt-get install -y build-essential xorg-dev libgtk-3-dev mingw-w64
+```
+
+### Building Makefiles
+
+```
+./install.sh
+```
+
+### Building the Engine
+
+```
+make
+```
+
+The engine executable will be placed at: `Dist/linux/Debug/x64/Editor/` (depending on your machine architecture).
+
+> You need to enter in the above directory to run the executable file.
+
+### Clean installation files
+
+```
+./clean.sh
 ```
