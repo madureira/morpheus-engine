@@ -26,27 +26,6 @@ Game engine built in C++ and OpenGL.
 - Basic Lua scripting support;
 - PS4 controller support;
 
-## 3rd Party Libraries
-
-The engine use the following libraries:
-
-- [EnTT:](https://github.com/skypjack/entt) Entity-component system (ECS);
-- [FreeType2:](https://www.freetype.org/) Render fonts;
-- [Glad:](https://glad.dav1d.de/) OpenGL loader;
-- [GLFW:](https://www.glfw.org/) Window and input;
-- [glm:](https://glm.g-truc.net) OpenGL Mathematics (GLM) is a header only C++ mathematics library;
-- [IconFontCppHeaders:](https://github.com/juliettef/IconFontCppHeaders) C++11, C89 headers and C# classes for icon fonts Font Awesome;
-- [ImGui:](https://github.com/ocornut/imgui) Immediate Mode Graphical User interface;
-- [ImGuiColorTextEdit:](https://github.com/BalazsJako/ImGuiColorTextEdit) Syntax highlighting text editor for ImGui;
-- [Lua:](https://www.lua.org/) Script language;
-- [nativefiledialog:](https://github.com/mlabbe/nativefiledialog) A tiny, neat C library that portably invokes native file open and save dialogs;
-- [nlohmann:](https://github.com/nlohmann/json) JSON for Modern C++;
-- [Premake:](https://premake.github.io/index.html) Build configuration;
-- [sol3:](https://github.com/ThePhD/sol2) A C++ library binding to Lua;
-- [spdlog:](https://github.com/gabime/spdlog) Very fast, header-only/compiled, C++ logging library;
-- [stb_image:](https://github.com/nothings/stb) Image loading/decoding from file/memory;
-- [TiledParser:](https://github.com/madureira/TiledParser) Tiled parser;
-
 ## Platforms
 
 ![Windows](.github/windows-logo.png "windows")
@@ -65,9 +44,9 @@ Double click on the generated `Morpheus.sln` file.
 clean.bat
 ```
 
----
-
 ![Linux](.github/linux-logo.png "Linux")
+
+### Install build dependencies
 
 ```
 sudo apt-get install -y build-essential xorg-dev libgtk-3-dev mingw-w64
@@ -94,3 +73,24 @@ The engine executable will be placed at: `Dist/linux/Debug/x64/Editor/` (dependi
 ```
 ./clean.sh
 ```
+
+## 3rd Party Libraries
+
+The engine use the following libraries:
+
+- [EnTT:](https://github.com/skypjack/entt) Entity-component system (ECS);
+- [FreeType2:](https://www.freetype.org/) Render fonts;
+- [Glad:](https://glad.dav1d.de/) OpenGL loader;
+- [GLFW:](https://www.glfw.org/) Window and input;
+- [glm:](https://glm.g-truc.net) OpenGL Mathematics (GLM) is a header only C++ mathematics library;
+- [IconFontCppHeaders:](https://github.com/juliettef/IconFontCppHeaders) C++11, C89 headers and C# classes for icon fonts Font Awesome;
+- [ImGui:](https://github.com/ocornut/imgui) Immediate Mode Graphical User interface;
+- [ImGuiColorTextEdit:](https://github.com/BalazsJako/ImGuiColorTextEdit) Syntax highlighting text editor for ImGui;
+- [Lua:](https://www.lua.org/) Script language;
+- [nativefiledialog:](https://github.com/mlabbe/nativefiledialog) A tiny, neat C library that portably invokes native file open and save dialogs;
+- [nlohmann:](https://github.com/nlohmann/json) JSON for Modern C++;
+- [Premake:](https://premake.github.io/index.html) Build configuration;
+- [sol3:](https://github.com/ThePhD/sol2) A C++ library binding to Lua;
+- [spdlog:](https://github.com/gabime/spdlog) Very fast, header-only/compiled, C++ logging library;
+- [stb_image:](https://github.com/nothings/stb) Image loading/decoding from file/memory;
+- [TiledParser:](https://github.com/madureira/TiledParser) Tiled parser;
