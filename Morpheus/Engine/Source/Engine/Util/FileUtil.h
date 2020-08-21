@@ -66,6 +66,7 @@ namespace Morpheus {
 	public:
 		static std::string ReadFile(std::string filePath)
 		{
+			/*
 			FILE* pFile;
 			fopen_s(&pFile, filePath.c_str(), "rt");
 
@@ -86,6 +87,11 @@ namespace Morpheus {
 
 			std::string result(data);
 			delete[] data;
+
+			return result;
+			*/
+			std::ifstream t(filePath.c_str());
+			std::string result ((std::istreambuf_iterator<char>(t)), std::istreambuf_iterator<char>());
 
 			return result;
 		}

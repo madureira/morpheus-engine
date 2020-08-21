@@ -103,6 +103,8 @@ project "Engine"
 
 	filter "system:not windows"
 		links { "GL" }
+		links { "X11", "pthread", "dl", "atomic", "stdc++fs"}
+		linkoptions { "-Wl,--allow-multiple-definition" }
 
 	filter "configurations:Debug"
 		defines { "DEBUG" }
@@ -125,6 +127,7 @@ project "Editor"
 	warnings "Off"
 	objdir("Build/" .. outputdir)
 	targetdir("Dist/" .. outputdir)
+	dependson {"nfd"}
 
 	makesettings { "CC = gcc" }
 
@@ -173,6 +176,25 @@ project "Editor"
 		}
 
 	filter "system:not windows"
+		links {
+			"GL",
+			"GLFW",
+			"Glad",
+			"Lua",
+			"FreeType2",
+			"TiledParser"
+		}
+		links {
+			"X11",
+			"pthread",
+			"dl",
+			"atomic",
+			"stdc++fs",
+			"gtk-3",
+			"gobject-2.0",
+			"glib-2.0"
+		}
+		linkoptions { "-Wl,--allow-multiple-definition", "`pkg-config --libs gtk+-3.0`" }
 		postbuildcommands {
 			"cp -rf Assets ../../Dist/%{cfg.system}/%{cfg.buildcfg}/%{cfg.platform}/%{prj.name}/Assets"
 		}
@@ -242,6 +264,16 @@ project "Game"
 		}
 
 	filter "system:not windows"
+		links {
+			"GL",
+			"GLFW",
+			"Glad",
+			"Lua",
+			"FreeType2",
+			"TiledParser"
+		}
+		links { "X11", "pthread", "dl", "atomic", "stdc++fs"}
+		linkoptions { "-Wl,--allow-multiple-definition" }
 		postbuildcommands {
 			"cp -rf Assets ../../Dist/%{cfg.system}/%{cfg.buildcfg}/%{cfg.platform}/%{prj.name}/Assets"
 		}
@@ -294,8 +326,8 @@ newaction {
 		os.remove("./Libraries/imgui/Makefile")
 		os.remove("./Libraries/lua/Lua.vcxproj")
 		os.remove("./Libraries/lua/Lua.vcxproj.*")
-		os.remove("./Libraries/nativefiledialog/nfd.vcxproj")
-		os.remove("./Libraries/nativefiledialog/nfd.vcxproj.*")
+		os.remove("./Libraries/nativefiledialog/nativefiledialog.vcxproj")
+		os.remove("./Libraries/nativefiledialog/nativefiledialog.vcxproj.*")
 		os.remove("./Libraries/nativefiledialog/Makefile")
 		os.remove("./Libraries/TiledParser/TiledParser.vcxproj")
 		os.remove("./Libraries/TiledParser/TiledParser.vcxproj.*")

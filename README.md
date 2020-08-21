@@ -66,3 +66,25 @@ Double click on the generated `Morpheus.sln` file.
 ```
 clean.bat
 ```
+
+## Linux
+
+```
+sudo apt-get install -y xorg-dev libgtk-3-dev mingw-w64
+```
+
+### Building Makefiles
+
+```
+./install.sh
+```
+
+```
+make
+```
+
+### Clean installation files
+
+```
+./clean.sh
+```

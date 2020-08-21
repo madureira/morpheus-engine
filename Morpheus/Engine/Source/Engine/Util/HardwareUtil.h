@@ -1,6 +1,7 @@
 #pragma once
 
 #include <string>
+#include <glad/glad.h>
 #ifdef _WIN32
 #include <windows.h>
 #include <intrin.h>

@@ -162,18 +162,20 @@ namespace Editor {
 		}
 
 		zoom = zoom < scaleFactor ? scaleFactor : zoom;
+		glm::vec4 ambientColor(1.0f, 1.0f, 1.f, 0.25f);
 		this->m_SpriteRenderer->SetScale(zoom);
-		this->m_SpriteRenderer->SetAmbientColor(glm::vec4(1.0f, 1.0f, 1.f, 0.25f));
+		this->m_SpriteRenderer->SetAmbientColor(ambientColor);
 
 		this->m_SpriteRenderer->EnableNormal(!inputState.SPACE);
 		this->m_SpriteRenderer->EnableSpecular(!inputState.LEFT_CONTROL);
 		this->m_SpriteRenderer->EnableWireframe(inputState.LEFT_SHIFT);
 
 
+		glm::vec4 defaultColor(1, 1, 1, 1);
 		// -------- TILES -------
 		for (const auto& tile : this->m_Tiles)
 		{
-			this->m_SpriteRenderer->Draw(this->m_Texture, this->m_Normal, this->m_Specular, tile->destRect, tile->sourceRect);
+			this->m_SpriteRenderer->Draw(this->m_Texture, this->m_Normal, this->m_Specular, tile->destRect, tile->sourceRect, defaultColor);
 		}
 		this->m_SpriteRenderer->AddSpotLight(glm::vec3(600.0, 400.0, 0.01f), glm::vec4(1.0f, 0.8f, 0.6f, 1.0f), glm::vec3(0.0001f, 0.2f, 900.0f)); // light floor player
 		this->m_SpriteRenderer->AddSpotLight(glm::vec3(POS_X, POS_Y, 0.01f), glm::vec4(1.0f, 0.8f, 0.6f, 1.0f), glm::vec3(0.0001f, 0.2f, 100.0f)); // light floor top-left
@@ -229,7 +231,8 @@ namespace Editor {
 			this->m_NormalPlayer,
 			this->m_SpecularPlayer,
 			glm::vec4(playerX, playerY, 64, 64),
-			spriteFrame
+			spriteFrame,
+			defaultColor
 		);
 
 		this->m_SpriteRenderer->AddSpotLight(glm::vec3(600.0, 400.0, 0.1f), glm::vec4(1.0f, 0.8f, 0.6f, 0.1f), glm::vec3(0.1f, 1.0f, 20.0f)); // light head player
@@ -318,7 +321,7 @@ namespace Editor {
 				auto& mouseEntity = registry.ctx<Morpheus::MouseEntity>();
 				auto& mouseState = registry.get<Morpheus::MouseStateComponent>(mouseEntity.id);
 
-				ImVec2& mousePos = ImGui::GetMousePos();
+				ImVec2 mousePos = ImGui::GetMousePos();
 				POS_X = static_cast<int>(mousePos.x - texPosX);
 				POS_Y = static_cast<int>(mousePos.y - texPosY);
 				/*

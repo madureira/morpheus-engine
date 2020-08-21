@@ -99,14 +99,14 @@ namespace Game {
 
 		for (const auto& tile : this->m_Tiles)
 		{
-			this->m_SpriteRenderer->Draw(this->m_Texture, this->m_Normal, this->m_Specular, tile->destRect, tile->sourceRect);
+			this->m_SpriteRenderer->Draw(this->m_Texture, this->m_Normal, this->m_Specular, tile->destRect, tile->sourceRect, glm::vec4(1, 1, 1, 1));
 		}
-		
+
 
 		this->m_SpriteRenderer->SetScale(zoom);
 
 		//this->m_SpriteRenderer->SetAmbientColor(glm::vec4(1.0f, 1.0f, 1.0f, 0.01f));
-		
+
 		this->m_SpriteRenderer->SetAmbientColor(ambienteColor);
 		this->m_SpriteRenderer->EnableNormal(!inputState.SPACE);
 		this->m_SpriteRenderer->EnableSpecular(!inputState.LEFT_CONTROL);
@@ -167,7 +167,8 @@ namespace Game {
 			this->m_NormalPlayer,
 			this->m_SpecularPlayer,
 			destPlayerPos,
-			spriteFrame
+			spriteFrame,
+			glm::vec4(1, 1, 1, 1)
 		);
 
 		//this->m_SpriteRenderer->AddSpotLight(glm::vec3(600.0, 400.0, 0.01f), glm::vec4(1.0f, 0.8f, 0.6f, 1.0f), glm::vec3(0.1f, 1.0f, 900.0f));

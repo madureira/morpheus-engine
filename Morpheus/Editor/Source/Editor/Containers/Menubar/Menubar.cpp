@@ -35,7 +35,7 @@ namespace Editor {
 
 				if (ImGui::MenuItem(ICON_FA_FOLDER_OPEN "  Open Project..."))
 				{
-					std::string& selectedProject = FileSystemDialog::OpenFileSelector("json");
+					std::string selectedProject = FileSystemDialog::OpenFileSelector("json");
 					if (!selectedProject.empty())
 					{
 						Morpheus::GlobalState::Load(registry, selectedProject);

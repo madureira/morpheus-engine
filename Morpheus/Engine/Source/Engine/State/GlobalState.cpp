@@ -11,7 +11,7 @@ namespace Morpheus {
 	{
 		auto& projectEntity = registry.ctx<Morpheus::ProjectEntity>();
 
-		static std::string& PATH_SEP(FileUtil::PathSeparator());
+		static std::string PATH_SEP(FileUtil::PathSeparator());
 		std::string projectPath(projectEntity.path);
 		std::string scenesPath(projectPath + PATH_SEP + SCENES_DIR);
 
@@ -43,7 +43,7 @@ namespace Morpheus {
 
 	void GlobalState::Load(entt::registry& registry, std::string& projectFilePath)
 	{
-		static std::string& PATH_SEP(FileUtil::PathSeparator());
+		static std::string PATH_SEP(FileUtil::PathSeparator());
 
 		auto& projectEntity = registry.ctx<Morpheus::ProjectEntity>();
 
@@ -53,7 +53,7 @@ namespace Morpheus {
 		{
 			static std::string pathSep("\\/");
 #ifndef WIN32
-			static std::string pathSep("/");
+			pathSep = "/";
 #endif
 			projectEntity.uuid = project["uuid"].get<std::string>();
 			projectEntity.name = project["name"].get<std::string>();
