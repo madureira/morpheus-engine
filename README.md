@@ -6,7 +6,7 @@
 [![language](https://img.shields.io/badge/language-c++-blue.svg)](https://github.com/madureira/morpheus-engine)
 [![c++](https://img.shields.io/badge/std-c++17-blue.svg)](https://isocpp.org/)
 [![msvc2019+](https://img.shields.io/badge/MSVC-2019+-ff69b4.svg)](https://visualstudio.microsoft.com/downloads)
-[![platforms](https://img.shields.io/badge/platforms-Windows10%20%7C%20Linux-lightgray.svg)]()
+[![platforms](https://img.shields.io/badge/platforms-Windows10%20%7C%20Linux-lightgray.svg)](https://github.com/madureira/morpheus-engine/tree/linux-build#platforms)
 
 Game engine built in C++ and OpenGL.
 
