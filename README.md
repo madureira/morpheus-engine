@@ -8,7 +8,7 @@
 [![msvc2019+](https://img.shields.io/badge/MSVC-2019+-ff69b4.svg)](https://visualstudio.microsoft.com/downloads)
 [![platforms](https://img.shields.io/badge/platforms-Windows%20%7C%20Linux-orange.svg)](https://github.com/madureira/morpheus-engine#platforms)
 
-Game engine built in C++ and OpenGL.
+Game Engine built in C++ and OpenGL.
 
 > Initial development is underway, but there is still no stable and usable version, suitable for the public.
 
@@ -76,7 +76,7 @@ The engine executable will be placed at: `Dist/linux/Debug/x64/Editor/` (dependi
 
 ## 3rd Party Libraries
 
-The engine use the following libraries:
+The Engine uses the following libraries:
 
 - [EnTT:](https://github.com/skypjack/entt) Entity-component system (ECS);
 - [FreeType2:](https://www.freetype.org/) Render fonts;
