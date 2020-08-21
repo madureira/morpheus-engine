@@ -102,7 +102,6 @@ namespace Game {
 			this->m_SpriteRenderer->Draw(this->m_Texture, this->m_Normal, this->m_Specular, tile->destRect, tile->sourceRect, glm::vec4(1, 1, 1, 1));
 		}
 
-
 		this->m_SpriteRenderer->SetScale(zoom);
 
 		//this->m_SpriteRenderer->SetAmbientColor(glm::vec4(1.0f, 1.0f, 1.0f, 0.01f));

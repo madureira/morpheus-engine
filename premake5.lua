@@ -127,7 +127,6 @@ project "Editor"
 	warnings "Off"
 	objdir("Build/" .. outputdir)
 	targetdir("Dist/" .. outputdir)
-	dependson {"nfd"}
 
 	makesettings { "CC = gcc" }
 
@@ -326,8 +325,8 @@ newaction {
 		os.remove("./Libraries/imgui/Makefile")
 		os.remove("./Libraries/lua/Lua.vcxproj")
 		os.remove("./Libraries/lua/Lua.vcxproj.*")
-		os.remove("./Libraries/nativefiledialog/nativefiledialog.vcxproj")
-		os.remove("./Libraries/nativefiledialog/nativefiledialog.vcxproj.*")
+		os.remove("./Libraries/nativefiledialog/nfd.vcxproj")
+		os.remove("./Libraries/nativefiledialog/nfd.vcxproj.*")
 		os.remove("./Libraries/nativefiledialog/Makefile")
 		os.remove("./Libraries/TiledParser/TiledParser.vcxproj")
 		os.remove("./Libraries/TiledParser/TiledParser.vcxproj.*")

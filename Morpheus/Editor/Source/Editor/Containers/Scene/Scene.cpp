@@ -162,7 +162,7 @@ namespace Editor {
 		}
 
 		zoom = zoom < scaleFactor ? scaleFactor : zoom;
-		glm::vec4 ambientColor(1.0f, 1.0f, 1.f, 0.25f);
+		static const glm::vec4 ambientColor(1.0f, 1.0f, 1.f, 0.25f);
 		this->m_SpriteRenderer->SetScale(zoom);
 		this->m_SpriteRenderer->SetAmbientColor(ambientColor);
 
@@ -171,7 +171,7 @@ namespace Editor {
 		this->m_SpriteRenderer->EnableWireframe(inputState.LEFT_SHIFT);
 
 
-		glm::vec4 defaultColor(1, 1, 1, 1);
+		static const glm::vec4 defaultColor(1, 1, 1, 1);
 		// -------- TILES -------
 		for (const auto& tile : this->m_Tiles)
 		{
