@@ -4,8 +4,8 @@
 
 namespace Morpheus {
 
-	struct SettingsEntity final : public Entity
-	{
-	};
+    struct SettingsEntity final : public Entity
+    {
+    };
 
 }

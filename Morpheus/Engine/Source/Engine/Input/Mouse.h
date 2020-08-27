@@ -5,16 +5,16 @@
 
 namespace Morpheus {
 
-	class Mouse final
-	{
-	private:
-		GLFWwindow* m_Window;
+    class Mouse final
+    {
+    private:
+        GLFWwindow* m_Window;
 
-	public:
-		Mouse(entt::registry& registry, GLFWwindow* pNativeWindow);
-		~Mouse();
+    public:
+        Mouse(entt::registry& registry, GLFWwindow* pNativeWindow);
+        ~Mouse();
 
-		void Update(entt::registry& registry) const;
-	};
+        void Update(entt::registry& registry) const;
+    };
 
 }

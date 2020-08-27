@@ -9,8 +9,8 @@ const vec4 fill_color = vec4(1, 1, 1, 0);
 
 void main()
 {
-	float d = min(gDist[0], min(gDist[1], gDist[2]));
-	float i = exp2(-2 * d * d);
+    float d = min(gDist[0], min(gDist[1], gDist[2]));
+    float i = exp2(-2 * d * d);
 
-	color = i * wire_color + (1.0 - i) * fill_color;
+    color = i * wire_color + (1.0 - i) * fill_color;
 }

@@ -4,17 +4,17 @@
 
 namespace Morpheus {
 
-	class Window;
+    class Window;
 
-	class WindowComponent final
-	{
-	private:
-		Window* m_WindowInstance;
+    class WindowComponent final
+    {
+    private:
+        Window* m_WindowInstance;
 
-	public:
-		WindowComponent(Window* windowInstance);
-		void Close() const;
-		GLFWwindow* GetNativeWindow() const;
-	};
+    public:
+        WindowComponent(Window* windowInstance);
+        void Close() const;
+        GLFWwindow* GetNativeWindow() const;
+    };
 
 }

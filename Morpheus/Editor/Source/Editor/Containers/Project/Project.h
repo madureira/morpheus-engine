@@ -8,25 +8,25 @@
 
 namespace Editor {
 
-	class Project final : public UIContainer
-	{
-	private:
-		Preview* m_Preview;
-		TreeView* m_TreeView;
-		CodeEditor* m_CodeEditor;
-		std::string m_ProjectPath;
-		std::string m_CurrentSelectedFolder;
-		std::string m_CurrentSelectedFile;
+    class Project final : public UIContainer
+    {
+    private:
+        Preview* m_Preview;
+        TreeView* m_TreeView;
+        CodeEditor* m_CodeEditor;
+        std::string m_ProjectPath;
+        std::string m_CurrentSelectedFolder;
+        std::string m_CurrentSelectedFile;
 
-	public:
-		Project(entt::registry& registry);
-		~Project();
+    public:
+        Project(entt::registry& registry);
+        ~Project();
 
-		void Render(entt::registry& registry) override;
+        void Render(entt::registry& registry) override;
 
-	private:
-		void UpdateProjectPath(Morpheus::ProjectEntity& projectEntity);
-		void OpenCodeEditor(entt::registry& registry);
-	};
+    private:
+        void UpdateProjectPath(Morpheus::ProjectEntity& projectEntity);
+        void OpenCodeEditor(entt::registry& registry);
+    };
 
 }

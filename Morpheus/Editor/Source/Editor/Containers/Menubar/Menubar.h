@@ -6,17 +6,17 @@
 
 namespace Editor {
 
-	class Menubar final : public UIContainer
-	{
-	private:
-		NewProject* m_NewProject;
-		NewScene* m_NewScene;
+    class Menubar final : public UIContainer
+    {
+    private:
+        NewProject* m_NewProject;
+        NewScene* m_NewScene;
 
-	public:
-		Menubar();
-		~Menubar();
+    public:
+        Menubar();
+        ~Menubar();
 
-		void Render(entt::registry& registry) override;
-	};
+        void Render(entt::registry& registry) override;
+    };
 
 }

@@ -5,10 +5,10 @@
 
 namespace Morpheus {
 
-	struct Entity
-	{
-		entt::entity id;
-		std::string uuid;
-	};
+    struct Entity
+    {
+        entt::entity id;
+        std::string uuid;
+    };
 
 }

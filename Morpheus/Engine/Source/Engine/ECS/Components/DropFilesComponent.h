@@ -5,9 +5,9 @@
 
 namespace Morpheus {
 
-	struct DropFilesComponent final
-	{
-		std::vector<std::string> filesPath;
-	};
+    struct DropFilesComponent final
+    {
+        std::vector<std::string> filesPath;
+    };
 
 }

@@ -4,8 +4,8 @@
 
 namespace Morpheus {
 
-	struct MouseEntity final : public Entity
-	{
-	};
+    struct MouseEntity final : public Entity
+    {
+    };
 
 }

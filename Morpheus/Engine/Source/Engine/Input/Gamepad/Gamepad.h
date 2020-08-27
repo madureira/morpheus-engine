@@ -5,15 +5,15 @@
 
 namespace Morpheus {
 
-	constexpr float ANALOG_SENSIBILITY = 0.25f;
+    constexpr float ANALOG_SENSIBILITY = 0.25f;
 
-	class Gamepad final
-	{
-	private:
-		GLFWgamepadstate m_GamepadState;
+    class Gamepad final
+    {
+    private:
+        GLFWgamepadstate m_GamepadState;
 
-	public:
-		InputStateComponent GetState();
-	};
+    public:
+        InputStateComponent GetState();
+    };
 
 }

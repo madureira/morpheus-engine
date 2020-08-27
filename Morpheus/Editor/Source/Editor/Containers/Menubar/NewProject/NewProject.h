@@ -4,16 +4,16 @@
 
 namespace Editor {
 
-	class NewProject final : public UIContainer
-	{
-	private:
-		bool m_IsOpened = true;
-		char m_ProjectName[128];
-		char m_ProjectLocation[512];
+    class NewProject final : public UIContainer
+    {
+    private:
+        bool m_IsOpened = true;
+        char m_ProjectName[128];
+        char m_ProjectLocation[512];
 
-	public:
-		void Render(entt::registry& registry) override;
-		bool IsOpened() const;
-	};
+    public:
+        void Render(entt::registry& registry) override;
+        bool IsOpened() const;
+    };
 
 }

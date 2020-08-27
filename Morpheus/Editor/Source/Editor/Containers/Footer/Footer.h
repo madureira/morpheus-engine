@@ -4,10 +4,10 @@
 
 namespace Editor {
 
-	class Footer final : public UIContainer
-	{
-	public:
-		void Render(entt::registry& registry) override;
-	};
+    class Footer final : public UIContainer
+    {
+    public:
+        void Render(entt::registry& registry) override;
+    };
 
 }

@@ -7,30 +7,30 @@
 
 namespace Morpheus {
 
-	class Window final
-	{
-	private:
-		entt::registry& m_Registry;
-		GLFWwindow* m_Window;
-		unsigned int m_Width;
-		unsigned int m_Height;
+    class Window final
+    {
+    private:
+        entt::registry& m_Registry;
+        GLFWwindow* m_Window;
+        unsigned int m_Width;
+        unsigned int m_Height;
 
-	public:
-		Window(entt::registry& registry);
-		~Window();
+    public:
+        Window(entt::registry& registry);
+        ~Window();
 
-		bool IsOpen() const;
-		void PollEvents() const;
-		void Clear() const;
-		void SwapBuffers() const;
-		unsigned int GetWidth() const;
-		unsigned int GetHeight() const;
-		double GetTime() const;
-		void Close() const;
-		GLFWwindow* GetNativeWindow() const;
+        bool IsOpen() const;
+        void PollEvents() const;
+        void Clear() const;
+        void SwapBuffers() const;
+        unsigned int GetWidth() const;
+        unsigned int GetHeight() const;
+        double GetTime() const;
+        void Close() const;
+        GLFWwindow* GetNativeWindow() const;
 
-	private:
-		void Shutdown() const;
-	};
+    private:
+        void Shutdown() const;
+    };
 
 }
