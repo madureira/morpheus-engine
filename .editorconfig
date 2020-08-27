@@ -8,17 +8,7 @@ insert_final_newline = true
 trim_trailing_whitespace = true
 max_line_length = 120
 
-# Matches multiple files with brace expansion notation
-# Set default charset
-[*.{h,cpp,lua}]
+[*.{h,cpp,lua,json,tmx,xml,vert,frag,geom}]
 charset = utf-8
-
-# 4 space indentation
-[*.{h,cpp,lua}]
-indent_style = tab
-indent_size = 4
-
-# 4 space indentation
-[*.{lua}]
 indent_style = space
 indent_size = 4

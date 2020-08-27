@@ -4,10 +4,10 @@
 
 namespace Editor {
 
-	class Inspector final : public UIContainer
-	{
-	public:
-		void Render(entt::registry& registry) override;
-	};
+    class Inspector final : public UIContainer
+    {
+    public:
+        void Render(entt::registry& registry) override;
+    };
 
 }

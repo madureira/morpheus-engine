@@ -8,11 +8,11 @@
 
 namespace Editor {
 
-	class UIContainer {
-	public:
-		virtual ~UIContainer() = default;
+    class UIContainer {
+    public:
+        virtual ~UIContainer() = default;
 
-		virtual void Render(entt::registry& registry) = 0;
-	};
+        virtual void Render(entt::registry& registry) = 0;
+    };
 
 }

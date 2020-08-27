@@ -5,9 +5,9 @@
 
 namespace Morpheus {
 
-	struct SceneEntity final : public Entity
-	{
-		std::string name;
-	};
+    struct SceneEntity final : public Entity
+    {
+        std::string name;
+    };
 
 }

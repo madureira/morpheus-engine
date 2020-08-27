@@ -9,26 +9,26 @@
 
 namespace Morpheus {
 
-	class Shader;
+    class Shader;
 
-	class TextRenderer final
-	{
-	private:
-		GLuint m_VAO;
-		GLuint m_VBO;
-		struct Character
-		{
-			GLuint TextureID;
-			glm::ivec2 Size;
-			glm::ivec2 Bearing;
-			GLuint Advance;
-		};
-		std::map<GLchar, Character> m_Characters;
+    class TextRenderer final
+    {
+    private:
+        GLuint m_VAO;
+        GLuint m_VBO;
+        struct Character
+        {
+            GLuint TextureID;
+            glm::ivec2 Size;
+            glm::ivec2 Bearing;
+            GLuint Advance;
+        };
+        std::map<GLchar, Character> m_Characters;
 
-	public:
-		TextRenderer(std::string fontPath);
+    public:
+        TextRenderer(std::string fontPath);
 
-		void Render(Shader& shader, std::string text, GLfloat x, GLfloat y, GLfloat scale, glm::vec3 color);
-	};
+        void Render(Shader& shader, std::string text, GLfloat x, GLfloat y, GLfloat scale, glm::vec3 color);
+    };
 
 }

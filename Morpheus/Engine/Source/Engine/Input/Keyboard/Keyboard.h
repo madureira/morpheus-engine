@@ -5,17 +5,17 @@
 
 namespace Morpheus {
 
-	struct InputState;
+    struct InputState;
 
-	class Keyboard final
-	{
-	private:
-		GLFWwindow* m_NativeWindow;
+    class Keyboard final
+    {
+    private:
+        GLFWwindow* m_NativeWindow;
 
-	public:
-		Keyboard(GLFWwindow* pNativeWindow);
+    public:
+        Keyboard(GLFWwindow* pNativeWindow);
 
-		InputStateComponent GetState() const;
-	};
+        InputStateComponent GetState() const;
+    };
 
 }

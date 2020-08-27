@@ -4,15 +4,15 @@
 
 namespace Editor {
 
-	class NewScene final : public UIContainer
-	{
-	private:
-		char m_SceneName[128];
-		bool m_IsOpened = true;
+    class NewScene final : public UIContainer
+    {
+    private:
+        char m_SceneName[128];
+        bool m_IsOpened = true;
 
-	public:
-		void Render(entt::registry& registry) override;
-		bool IsOpened() const;
-	};
+    public:
+        void Render(entt::registry& registry) override;
+        bool IsOpened() const;
+    };
 
 }

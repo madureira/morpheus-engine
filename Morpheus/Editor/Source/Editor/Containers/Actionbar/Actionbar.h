@@ -4,18 +4,18 @@
 
 namespace Editor {
 
-	class Actionbar final : public UIContainer
-	{
-	private:
-		bool m_IsPlaying;
+    class Actionbar final : public UIContainer
+    {
+    private:
+        bool m_IsPlaying;
 
-	public:
-		Actionbar();
+    public:
+        Actionbar();
 
-		void Render(entt::registry& registry) override;
+        void Render(entt::registry &registry) override;
 
-	private:
-		bool RenderButton(const char* icon, const char* label, bool disabled);
-	};
+    private:
+        bool RenderButton(const char *icon, const char *label, bool disabled);
+    };
 
-}
+} // namespace Editor

@@ -8,19 +8,19 @@
 
 namespace Morpheus {
 
-	class Log final
-	{
-	private:
-		static Ref<spdlog::logger> s_CoreLogger;
-		static Ref<spdlog::logger> s_ClientLogger;
+    class Log final
+    {
+    private:
+        static Ref<spdlog::logger> s_CoreLogger;
+        static Ref<spdlog::logger> s_ClientLogger;
 
-	public:
-		~Log();
+    public:
+        ~Log();
 
-		static void Init();
-		inline static Ref<spdlog::logger>& GetCoreLogger() { return s_CoreLogger; }
-		inline static Ref<spdlog::logger>& GetClientLogger() { return s_ClientLogger; }
-	};
+        static void Init();
+        inline static Ref<spdlog::logger>& GetCoreLogger() { return s_CoreLogger; }
+        inline static Ref<spdlog::logger>& GetClientLogger() { return s_ClientLogger; }
+    };
 
 }
 
@@ -40,14 +40,14 @@ namespace Morpheus {
 
 #ifdef MORPHEUS_APP
 #define ME_LOG_TRACE    ME_LOG_CLIENT_TRACE
-#define ME_LOG_INFO	    ME_LOG_CLIENT_INFO
-#define ME_LOG_WARN	    ME_LOG_CLIENT_WARN
+#define ME_LOG_INFO     ME_LOG_CLIENT_INFO
+#define ME_LOG_WARN     ME_LOG_CLIENT_WARN
 #define ME_LOG_ERROR    ME_LOG_CLIENT_ERROR
 #define ME_LOG_CRITICAL ME_LOG_CLIENT_CRITICAL
 #else
 #define ME_LOG_TRACE    ME_LOG_CORE_TRACE
-#define ME_LOG_INFO	    ME_LOG_CORE_INFO
-#define ME_LOG_WARN	    ME_LOG_CORE_WARN
+#define ME_LOG_INFO     ME_LOG_CORE_INFO
+#define ME_LOG_WARN     ME_LOG_CORE_WARN
 #define ME_LOG_ERROR    ME_LOG_CORE_ERROR
 #define ME_LOG_CRITICAL ME_LOG_CORE_CRITICAL
 #endif

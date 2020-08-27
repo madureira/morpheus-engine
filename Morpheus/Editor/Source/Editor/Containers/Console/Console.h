@@ -5,10 +5,10 @@
 
 namespace Editor {
 
-	class Console final : public UIContainer
-	{
-	public:
-		void Render(entt::registry& registry) override;
-	};
+    class Console final : public UIContainer
+    {
+    public:
+        void Render(entt::registry& registry) override;
+    };
 
 }

@@ -7,43 +7,43 @@ bool g_is_gamepad_connected = false;
 
 namespace Morpheus {
 
-	Input::Input(entt::registry& registry, GLFWwindow* pNativeWindow)
-		: m_Gamepad(new Gamepad())
-		, m_Keyboard(new Keyboard(pNativeWindow))
-	{
-		glfwSetJoystickCallback([](int joystickId, int event) {
-			if (event == GLFW_CONNECTED)
-			{
-				g_is_gamepad_connected = true;
-			}
-			else if (event == GLFW_DISCONNECTED)
-			{
-				g_is_gamepad_connected = false;
-			}
-			});
+    Input::Input(entt::registry& registry, GLFWwindow* pNativeWindow)
+        : m_Gamepad(new Gamepad())
+        , m_Keyboard(new Keyboard(pNativeWindow))
+    {
+        glfwSetJoystickCallback([](int joystickId, int event) {
+            if (event == GLFW_CONNECTED)
+            {
+                g_is_gamepad_connected = true;
+            }
+            else if (event == GLFW_DISCONNECTED)
+            {
+                g_is_gamepad_connected = false;
+            }
+            });
 
-		g_is_gamepad_connected = (glfwJoystickPresent(GLFW_JOYSTICK_1) == 1);
-	}
+        g_is_gamepad_connected = (glfwJoystickPresent(GLFW_JOYSTICK_1) == 1);
+    }
 
-	Input::~Input()
-	{
-		delete this->m_Gamepad;
-		delete this->m_Keyboard;
-	}
+    Input::~Input()
+    {
+        delete this->m_Gamepad;
+        delete this->m_Keyboard;
+    }
 
-	void Input::Update(entt::registry& registry) const
-	{
-		auto& inputEntity = registry.ctx<Morpheus::InputEntity>();
-		auto& inputState = registry.get<Morpheus::InputStateComponent>(inputEntity.id);
+    void Input::Update(entt::registry& registry) const
+    {
+        auto& inputEntity = registry.ctx<Morpheus::InputEntity>();
+        auto& inputState = registry.get<Morpheus::InputStateComponent>(inputEntity.id);
 
-		if (g_is_gamepad_connected)
-		{
-			inputState = this->m_Gamepad->GetState();
-		}
-		else
-		{
-			inputState = this->m_Keyboard->GetState();
-		}
-	}
+        if (g_is_gamepad_connected)
+        {
+            inputState = this->m_Gamepad->GetState();
+        }
+        else
+        {
+            inputState = this->m_Keyboard->GetState();
+        }
+    }
 
 }
