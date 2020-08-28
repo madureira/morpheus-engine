@@ -46,7 +46,7 @@ namespace Editor {
         io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;
         io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;
         io.ConfigFlags |= ImGuiDockNodeFlags_PassthruCentralNode;
-        io.IniFilename = NULL;                                      // Disable imgui.ini
+        io.IniFilename = NULL; // Disable imgui.ini
 
         ImGuiStyle& style = ImGui::GetStyle();
         if (io.ConfigFlags & ImGuiConfigFlags_ViewportsEnable)

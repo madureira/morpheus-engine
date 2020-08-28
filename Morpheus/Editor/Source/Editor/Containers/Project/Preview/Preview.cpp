@@ -112,7 +112,7 @@ namespace Editor {
 
                 if (!dropFilesComponent.filesPath.empty())
                 {
-                    if (ImGui::IsWindowHovered())
+                    if (ImGui::IsWindowFocused(ImGuiFocusedFlags_RootAndChildWindows))
                     {
                         int copiedFiles = 0;
                         static std::string pathSep = Morpheus::FileUtil::PathSeparator();
