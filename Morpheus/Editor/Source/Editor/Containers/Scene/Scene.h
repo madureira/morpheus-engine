@@ -18,7 +18,7 @@ namespace Editor {
         int m_InitialWindowWidth;
         int m_InitialWindowHeight;
         unsigned int m_FBO;
-        unsigned int m_TextureColorBuffer;
+        unsigned int m_TextureFrameBuffer;
         unsigned int m_CheckerboardTextureID;
         glm::vec4 m_FrameBufferRect;
 

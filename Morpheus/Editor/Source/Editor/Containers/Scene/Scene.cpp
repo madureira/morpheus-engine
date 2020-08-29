@@ -12,7 +12,7 @@ namespace Editor {
     static bool IS_DRAGGING = false;
 
     Scene::Scene(entt::registry& registry)
-        : m_TextureColorBuffer(0)
+        : m_TextureFrameBuffer(0)
     {
         auto& settingsEntity = registry.ctx<Morpheus::SettingsEntity>();
         auto& settingsSize = registry.get<Morpheus::SettingsComponent>(settingsEntity.id);
@@ -309,7 +309,7 @@ namespace Editor {
             );
 
             ImGui::GetWindowDrawList()->AddImage(
-                (void*)this->m_FBO,
+                (void*)this->m_TextureFrameBuffer,
                 ImVec2(texPosX, texPosY),
                 ImVec2(texPosX + texSizeW - marginLeft, texPosY + texSizeH - marginBottom),
                 ImVec2(0, 1),
@@ -397,14 +397,14 @@ namespace Editor {
 
     void Scene::GenerateTextureBuffer()
     {
-        glDeleteTextures(1, &this->m_TextureColorBuffer);
+        glDeleteTextures(1, &this->m_TextureFrameBuffer);
         glDeleteFramebuffers(1, &this->m_FBO);
 
         // Generate render texture
-        glGenTextures(1, &this->m_TextureColorBuffer);
+        glGenTextures(1, &this->m_TextureFrameBuffer);
 
         // Bind the texture used to paint the GL data on the IMGUI window
-        glBindTexture(GL_TEXTURE_2D, this->m_TextureColorBuffer);
+        glBindTexture(GL_TEXTURE_2D, this->m_TextureFrameBuffer);
         glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, this->m_InitialWindowWidth, this->m_InitialWindowHeight, 0, GL_RGB, GL_UNSIGNED_BYTE, NULL);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
@@ -413,7 +413,7 @@ namespace Editor {
         // Create Frame Buffer
         glGenFramebuffers(1, &this->m_FBO);
         glBindFramebuffer(GL_FRAMEBUFFER, this->m_FBO);
-        glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, this->m_TextureColorBuffer, 0);
+        glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, this->m_TextureFrameBuffer, 0);
         glBindFramebuffer(GL_FRAMEBUFFER, 0);
     }
 
