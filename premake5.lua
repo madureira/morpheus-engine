@@ -1,15 +1,15 @@
 workspace "Morpheus"
-	architecture "x64"
-	startproject "Editor"
-	configurations { "Debug", "Release" }
-	platforms { "x64", "x32" }
-	files {
-		".editorconfig"
-	}
+    architecture "x64"
+    startproject "Editor"
+    configurations { "Debug", "Release" }
+    platforms { "x64", "x32" }
+    files {
+        ".editorconfig"
+    }
 
-	flags {
-		"MultiProcessorCompile"
-	}
+    flags {
+        "MultiProcessorCompile"
+    }
 
 outputdir = "%{cfg.system}/%{cfg.buildcfg}/%{cfg.platform}/%{prj.name}"
 
@@ -30,321 +30,321 @@ IncludeDir["nlohmann"] = "Libraries/nlohmann/include"
 IncludeDir["TiledParser"] = "Libraries/TiledParser/include"
 
 group "Dependencies"
-	include "Libraries/GLFW"
-	include "Libraries/Glad"
-	include "Libraries/lua"
-	include "Libraries/imgui"
-	include "Libraries/freetype2"
-	include "Libraries/nativefiledialog"
-	include "Libraries/TiledParser"
+    include "Libraries/GLFW"
+    include "Libraries/Glad"
+    include "Libraries/lua"
+    include "Libraries/imgui"
+    include "Libraries/freetype2"
+    include "Libraries/nativefiledialog"
+    include "Libraries/TiledParser"
 
 group ""
 
 
 -- ENGINE
 project "Engine"
-	location "Morpheus/Engine"
-	kind "StaticLib"
-	language "C++"
-	cppdialect "C++17"
-	staticruntime "On"
-	warnings "Off"
-	objdir("Build/" .. outputdir)
-	targetdir("Dist/" .. outputdir)
+    location "Morpheus/Engine"
+    kind "StaticLib"
+    language "C++"
+    cppdialect "C++17"
+    staticruntime "On"
+    warnings "Off"
+    objdir("Build/" .. outputdir)
+    targetdir("Dist/" .. outputdir)
 
-	pchheader "mepch.h"
-	pchsource "Morpheus/%{prj.name}/Source/mepch.cpp"
+    pchheader "mepch.h"
+    pchsource "Morpheus/%{prj.name}/Source/mepch.cpp"
 
-	makesettings { "CC = gcc" }
+    makesettings { "CC = gcc" }
 
-	files {
-		"Morpheus/%{prj.name}/Source/**.h",
-		"Morpheus/%{prj.name}/Source/**.cpp",
-		"Morpheus/%{prj.name}/Source/**.lua",
-		"Morpheus/%{prj.name}/Assets/**"
-	}
+    files {
+        "Morpheus/%{prj.name}/Source/**.h",
+        "Morpheus/%{prj.name}/Source/**.cpp",
+        "Morpheus/%{prj.name}/Source/**.lua",
+        "Morpheus/%{prj.name}/Assets/**"
+    }
 
-	includedirs {
-		"Morpheus/%{prj.name}/Source",
-		"%{IncludeDir.GLFW}",
-		"%{IncludeDir.Glad}",
-		"%{IncludeDir.Lua}",
-		"%{IncludeDir.FreeType2}",
-		"%{IncludeDir.glm}",
-		"%{IncludeDir.sol3}",
-		"%{IncludeDir.stb_image}",
-		"%{IncludeDir.entt}",
-		"%{IncludeDir.spdlog}",
-		"%{IncludeDir.nlohmann}",
-		"%{IncludeDir.TiledParser}"
-	}
+    includedirs {
+        "Morpheus/%{prj.name}/Source",
+        "%{IncludeDir.GLFW}",
+        "%{IncludeDir.Glad}",
+        "%{IncludeDir.Lua}",
+        "%{IncludeDir.FreeType2}",
+        "%{IncludeDir.glm}",
+        "%{IncludeDir.sol3}",
+        "%{IncludeDir.stb_image}",
+        "%{IncludeDir.entt}",
+        "%{IncludeDir.spdlog}",
+        "%{IncludeDir.nlohmann}",
+        "%{IncludeDir.TiledParser}"
+    }
 
-	links {
-		"GLFW",
-		"Glad",
-		"Lua",
-		"FreeType2",
-		"TiledParser"
-	}
+    links {
+        "GLFW",
+        "Glad",
+        "Lua",
+        "FreeType2",
+        "TiledParser"
+    }
 
-	defines {
-		"MORPHEUS_CORE",
-		"_CRT_SECURE_NO_WARNINGS"
-	}
+    defines {
+        "MORPHEUS_CORE",
+        "_CRT_SECURE_NO_WARNINGS"
+    }
 
-	filter { "system:windows" }
-		systemversion "latest"
-		links { "opengl32", "gdi32" }
+    filter { "system:windows" }
+        systemversion "latest"
+        links { "opengl32", "gdi32" }
 
-		defines {
-			"ME_BUILD_DLL",
-			"GLFW_INCLUDE_NONE"
-		}
+        defines {
+            "ME_BUILD_DLL",
+            "GLFW_INCLUDE_NONE"
+        }
 
-	filter "system:not windows"
-		links { "GL" }
-		links { "X11", "pthread", "dl", "atomic", "stdc++fs"}
-		linkoptions { "-Wl,--allow-multiple-definition" }
+    filter "system:not windows"
+        links { "GL" }
+        links { "X11", "pthread", "dl", "atomic", "stdc++fs"}
+        linkoptions { "-Wl,--allow-multiple-definition" }
 
-	filter "configurations:Debug"
-		defines { "DEBUG" }
-		symbols "On"
-		optimize "Debug"
+    filter "configurations:Debug"
+        defines { "DEBUG" }
+        symbols "On"
+        optimize "Debug"
 
-	filter "configurations:Release"
-		defines { "NDEBUG" }
-		symbols "On"
-		optimize "Speed"
+    filter "configurations:Release"
+        defines { "NDEBUG" }
+        symbols "On"
+        optimize "Speed"
 
 
 -- EDITOR
 project "Editor"
-	location "Morpheus/Editor"
-	kind "ConsoleApp"
-	language "C++"
-	cppdialect "C++17"
-	staticruntime "On"
-	warnings "Off"
-	objdir("Build/" .. outputdir)
-	targetdir("Dist/" .. outputdir)
+    location "Morpheus/Editor"
+    kind "ConsoleApp"
+    language "C++"
+    cppdialect "C++17"
+    staticruntime "On"
+    warnings "Off"
+    objdir("Build/" .. outputdir)
+    targetdir("Dist/" .. outputdir)
 
-	makesettings { "CC = gcc" }
+    makesettings { "CC = gcc" }
 
-	files {
-		"Morpheus/%{prj.name}/Source/**.h",
-		"Morpheus/%{prj.name}/Source/**.cpp",
-		"Morpheus/%{prj.name}/Source/**.lua",
-		"Morpheus/%{prj.name}/Assets/**"
-	}
+    files {
+        "Morpheus/%{prj.name}/Source/**.h",
+        "Morpheus/%{prj.name}/Source/**.cpp",
+        "Morpheus/%{prj.name}/Source/**.lua",
+        "Morpheus/%{prj.name}/Assets/**"
+    }
 
-	includedirs {
-		"Morpheus/%{prj.name}/Source",
-		"Morpheus/Engine/Source",
-		"%{IncludeDir.GLFW}",
-		"%{IncludeDir.Glad}",
-		"%{IncludeDir.Lua}",
-		"%{IncludeDir.ImGui}",
-		"%{IncludeDir.FreeType2}",
-		"%{IncludeDir.glm}",
-		"%{IncludeDir.sol3}",
-		"%{IncludeDir.stb_image}",
-		"%{IncludeDir.entt}",
-		"%{IncludeDir.spdlog}",
-		"%{IncludeDir.nativefiledialog}",
-		"%{IncludeDir.nlohmann}",
-		"%{IncludeDir.TiledParser}"
-	}
+    includedirs {
+        "Morpheus/%{prj.name}/Source",
+        "Morpheus/Engine/Source",
+        "%{IncludeDir.GLFW}",
+        "%{IncludeDir.Glad}",
+        "%{IncludeDir.Lua}",
+        "%{IncludeDir.ImGui}",
+        "%{IncludeDir.FreeType2}",
+        "%{IncludeDir.glm}",
+        "%{IncludeDir.sol3}",
+        "%{IncludeDir.stb_image}",
+        "%{IncludeDir.entt}",
+        "%{IncludeDir.spdlog}",
+        "%{IncludeDir.nativefiledialog}",
+        "%{IncludeDir.nlohmann}",
+        "%{IncludeDir.TiledParser}"
+    }
 
-	links {
-		"Engine",
-		"ImGui",
-		"nfd"
-	}
+    links {
+        "Engine",
+        "ImGui",
+        "nfd"
+    }
 
-	defines {
-		"MORPHEUS_CORE",
-		"MORPHEUS_EDITOR",
-		"_CRT_SECURE_NO_WARNINGS"
-	}
+    defines {
+        "MORPHEUS_CORE",
+        "MORPHEUS_EDITOR",
+        "_CRT_SECURE_NO_WARNINGS"
+    }
 
-	filter "system:windows"
-		systemversion "latest"
-		links { "opengl32", "gdi32" }
-		postbuildcommands {
-			"xcopy Assets ..\\..\\Dist\\%{cfg.system}\\%{cfg.buildcfg}\\%{cfg.platform}\\%{prj.name}\\Assets /e /i /s /y"
-		}
+    filter "system:windows"
+        systemversion "latest"
+        links { "opengl32", "gdi32" }
+        postbuildcommands {
+            "xcopy Assets ..\\..\\Dist\\%{cfg.system}\\%{cfg.buildcfg}\\%{cfg.platform}\\%{prj.name}\\Assets /e /i /s /y"
+        }
 
-	filter "system:not windows"
-		links {
-			"GL",
-			"GLFW",
-			"Glad",
-			"Lua",
-			"FreeType2",
-			"TiledParser"
-		}
-		links {
-			"X11",
-			"pthread",
-			"dl",
-			"atomic",
-			"stdc++fs",
-			"gtk-3",
-			"gobject-2.0",
-			"glib-2.0"
-		}
-		linkoptions { "-Wl,--allow-multiple-definition", "`pkg-config --libs gtk+-3.0`" }
-		postbuildcommands {
-			"cp -rf Assets ../../Dist/%{cfg.system}/%{cfg.buildcfg}/%{cfg.platform}/%{prj.name}/Assets"
-		}
+    filter "system:not windows"
+        links {
+            "GL",
+            "GLFW",
+            "Glad",
+            "Lua",
+            "FreeType2",
+            "TiledParser"
+        }
+        links {
+            "X11",
+            "pthread",
+            "dl",
+            "atomic",
+            "stdc++fs",
+            "gtk-3",
+            "gobject-2.0",
+            "glib-2.0"
+        }
+        linkoptions { "-Wl,--allow-multiple-definition", "`pkg-config --libs gtk+-3.0`" }
+        postbuildcommands {
+            "cp -rf Assets ../../Dist/%{cfg.system}/%{cfg.buildcfg}/%{cfg.platform}/%{prj.name}/Assets"
+        }
 
-	filter "configurations:Debug"
-		defines { "DEBUG" }
-		symbols "On"
-		optimize "Debug"
+    filter "configurations:Debug"
+        defines { "DEBUG" }
+        symbols "On"
+        optimize "Debug"
 
-	filter "configurations:Release"
-		defines { "NDEBUG" }
-		kind "WindowedApp"
-		flags { entrypoint "mainCRTStartup" }
-		optimize "Speed"
+    filter "configurations:Release"
+        defines { "NDEBUG" }
+        kind "WindowedApp"
+        flags { entrypoint "mainCRTStartup" }
+        optimize "Speed"
 
 
 -- GAME
 project "Game"
-	location "Morpheus/Game"
-	kind "ConsoleApp"
-	language "C++"
-	cppdialect "C++17"
-	staticruntime "On"
-	warnings "Off"
-	objdir("Build/" .. outputdir)
-	targetdir("Dist/" .. outputdir)
+    location "Morpheus/Game"
+    kind "ConsoleApp"
+    language "C++"
+    cppdialect "C++17"
+    staticruntime "On"
+    warnings "Off"
+    objdir("Build/" .. outputdir)
+    targetdir("Dist/" .. outputdir)
 
-	makesettings { "CC = gcc" }
+    makesettings { "CC = gcc" }
 
-	files {
-		"Morpheus/%{prj.name}/Source/**.h",
-		"Morpheus/%{prj.name}/Source/**.cpp",
-		"Morpheus/%{prj.name}/Source/**.lua",
-		"Morpheus/%{prj.name}/Assets/**"
-	}
+    files {
+        "Morpheus/%{prj.name}/Source/**.h",
+        "Morpheus/%{prj.name}/Source/**.cpp",
+        "Morpheus/%{prj.name}/Source/**.lua",
+        "Morpheus/%{prj.name}/Assets/**"
+    }
 
-	includedirs {
-		"Morpheus/%{prj.name}/Source",
-		"Morpheus/Engine/Source",
-		"%{IncludeDir.GLFW}",
-		"%{IncludeDir.Glad}",
-		"%{IncludeDir.Lua}",
-		"%{IncludeDir.FreeType2}",
-		"%{IncludeDir.glm}",
-		"%{IncludeDir.sol3}",
-		"%{IncludeDir.stb_image}",
-		"%{IncludeDir.entt}",
-		"%{IncludeDir.spdlog}",
-		"%{IncludeDir.nlohmann}",
-		"%{IncludeDir.TiledParser}"
-	}
+    includedirs {
+        "Morpheus/%{prj.name}/Source",
+        "Morpheus/Engine/Source",
+        "%{IncludeDir.GLFW}",
+        "%{IncludeDir.Glad}",
+        "%{IncludeDir.Lua}",
+        "%{IncludeDir.FreeType2}",
+        "%{IncludeDir.glm}",
+        "%{IncludeDir.sol3}",
+        "%{IncludeDir.stb_image}",
+        "%{IncludeDir.entt}",
+        "%{IncludeDir.spdlog}",
+        "%{IncludeDir.nlohmann}",
+        "%{IncludeDir.TiledParser}"
+    }
 
-	links {
-		"Engine"
-	}
+    links {
+        "Engine"
+    }
 
-	defines {
-		"MORPHEUS_APP",
-		"_CRT_SECURE_NO_WARNINGS"
-	}
+    defines {
+        "MORPHEUS_APP",
+        "_CRT_SECURE_NO_WARNINGS"
+    }
 
-	filter "system:windows"
-		systemversion "latest"
-		links { "opengl32", "gdi32" }
-		postbuildcommands {
-			"xcopy Assets ..\\..\\Dist\\%{cfg.system}\\%{cfg.buildcfg}\\%{cfg.platform}\\%{prj.name}\\Assets /e /i /s /y"
-		}
+    filter "system:windows"
+        systemversion "latest"
+        links { "opengl32", "gdi32" }
+        postbuildcommands {
+            "xcopy Assets ..\\..\\Dist\\%{cfg.system}\\%{cfg.buildcfg}\\%{cfg.platform}\\%{prj.name}\\Assets /e /i /s /y"
+        }
 
-	filter "system:not windows"
-		links {
-			"GL",
-			"GLFW",
-			"Glad",
-			"Lua",
-			"FreeType2",
-			"TiledParser"
-		}
-		links { "X11", "pthread", "dl", "atomic", "stdc++fs"}
-		linkoptions { "-Wl,--allow-multiple-definition" }
-		postbuildcommands {
-			"cp -rf Assets ../../Dist/%{cfg.system}/%{cfg.buildcfg}/%{cfg.platform}/%{prj.name}/Assets"
-		}
+    filter "system:not windows"
+        links {
+            "GL",
+            "GLFW",
+            "Glad",
+            "Lua",
+            "FreeType2",
+            "TiledParser"
+        }
+        links { "X11", "pthread", "dl", "atomic", "stdc++fs"}
+        linkoptions { "-Wl,--allow-multiple-definition" }
+        postbuildcommands {
+            "cp -rf Assets ../../Dist/%{cfg.system}/%{cfg.buildcfg}/%{cfg.platform}/%{prj.name}/Assets"
+        }
 
-	filter "configurations:Debug"
-		defines { "DEBUG" }
-		symbols "On"
-		optimize "Debug"
+    filter "configurations:Debug"
+        defines { "DEBUG" }
+        symbols "On"
+        optimize "Debug"
 
-	filter "configurations:Release"
-		defines { "NDEBUG" }
-		kind "WindowedApp"
-		flags { entrypoint "mainCRTStartup" }
-		optimize "Speed"
+    filter "configurations:Release"
+        defines { "NDEBUG" }
+        kind "WindowedApp"
+        flags { entrypoint "mainCRTStartup" }
+        optimize "Speed"
 
 
 -- Clean Function --
 newaction {
-	trigger = "clean",
-	description = "clean the build",
-	execute = function()
-		print("Cleanning the build...")
-		os.rmdir("./.vs")
-		os.rmdir("./Build")
-		os.rmdir("./Dist")
-		os.rmdir("./Generated")
-		os.remove("./Makefile")
-		os.remove("./Morpheus.sln")
-		os.remove("./Makefile")
-		os.remove("./Morpheus/Editor/Editor.vcxproj")
-		os.remove("./Morpheus/Editor/Editor.vcxproj.*")
-		os.remove("./Morpheus/Editor/Makefile")
-		os.remove("./Morpheus/Engine/Engine.vcxproj")
-		os.remove("./Morpheus/Engine/Engine.vcxproj.*")
-		os.remove("./Morpheus/Engine/Makefile")
-		os.remove("./Morpheus/Game/Game.vcxproj")
-		os.remove("./Morpheus/Game/Game.vcxproj.*")
-		os.remove("./Morpheus/Game/Makefile")
-		os.remove("./Libraries/freetype2/FreeType2.vcxproj")
-		os.remove("./Libraries/freetype2/FreeType2.vcxproj.*")
-		os.remove("./Libraries/freetype2/Makefile")
-		os.remove("./Libraries/Glad/Glad.vcxproj")
-		os.remove("./Libraries/Glad/Glad.vcxproj.*")
-		os.remove("./Libraries/Glad/Makefile")
-		os.remove("./Libraries/GLFW/GLFW.vcxproj")
-		os.remove("./Libraries/GLFW/GLFW.vcxproj.*")
-		os.remove("./Libraries/GLFW/Makefile")
-		os.remove("./Libraries/imgui/ImGui.vcxproj")
-		os.remove("./Libraries/imgui/ImGui.vcxproj.*")
-		os.remove("./Libraries/imgui/Makefile")
-		os.remove("./Libraries/lua/Lua.vcxproj")
-		os.remove("./Libraries/lua/Lua.vcxproj.*")
-		os.remove("./Libraries/nativefiledialog/nfd.vcxproj")
-		os.remove("./Libraries/nativefiledialog/nfd.vcxproj.*")
-		os.remove("./Libraries/nativefiledialog/Makefile")
-		os.remove("./Libraries/TiledParser/TiledParser.vcxproj")
-		os.remove("./Libraries/TiledParser/TiledParser.vcxproj.*")
-		os.remove("./Libraries/TiledParser/Makefile")
-		os.rmdir("./Libraries/freetype2/bin")
-		os.rmdir("./Libraries/freetype2/bin-int")
-		os.rmdir("./Libraries/Glad/bin")
-		os.rmdir("./Libraries/Glad/bin-int")
-		os.rmdir("./Libraries/GLFW/bin")
-		os.rmdir("./Libraries/GLFW/bin-int")
-		os.rmdir("./Libraries/imgui/bin")
-		os.rmdir("./Libraries/imgui/bin-int")
-		os.rmdir("./Libraries/lua/bin")
-		os.rmdir("./Libraries/lua/bin-int")
-		os.rmdir("./Libraries/nativefiledialog/bin")
-		os.rmdir("./Libraries/nativefiledialog/bin-int")
-		os.rmdir("./Libraries/TiledParser/bin")
-		os.rmdir("./Libraries/TiledParser/bin-int")
-		print("Done.")
-	end
+    trigger = "clean",
+    description = "clean the build",
+    execute = function()
+        print("Cleanning the build...")
+        os.rmdir("./.vs")
+        os.rmdir("./Build")
+        os.rmdir("./Dist")
+        os.rmdir("./Generated")
+        os.remove("./Makefile")
+        os.remove("./Morpheus.sln")
+        os.remove("./Makefile")
+        os.remove("./Morpheus/Editor/Editor.vcxproj")
+        os.remove("./Morpheus/Editor/Editor.vcxproj.*")
+        os.remove("./Morpheus/Editor/Makefile")
+        os.remove("./Morpheus/Engine/Engine.vcxproj")
+        os.remove("./Morpheus/Engine/Engine.vcxproj.*")
+        os.remove("./Morpheus/Engine/Makefile")
+        os.remove("./Morpheus/Game/Game.vcxproj")
+        os.remove("./Morpheus/Game/Game.vcxproj.*")
+        os.remove("./Morpheus/Game/Makefile")
+        os.remove("./Libraries/freetype2/FreeType2.vcxproj")
+        os.remove("./Libraries/freetype2/FreeType2.vcxproj.*")
+        os.remove("./Libraries/freetype2/Makefile")
+        os.remove("./Libraries/Glad/Glad.vcxproj")
+        os.remove("./Libraries/Glad/Glad.vcxproj.*")
+        os.remove("./Libraries/Glad/Makefile")
+        os.remove("./Libraries/GLFW/GLFW.vcxproj")
+        os.remove("./Libraries/GLFW/GLFW.vcxproj.*")
+        os.remove("./Libraries/GLFW/Makefile")
+        os.remove("./Libraries/imgui/ImGui.vcxproj")
+        os.remove("./Libraries/imgui/ImGui.vcxproj.*")
+        os.remove("./Libraries/imgui/Makefile")
+        os.remove("./Libraries/lua/Lua.vcxproj")
+        os.remove("./Libraries/lua/Lua.vcxproj.*")
+        os.remove("./Libraries/nativefiledialog/nfd.vcxproj")
+        os.remove("./Libraries/nativefiledialog/nfd.vcxproj.*")
+        os.remove("./Libraries/nativefiledialog/Makefile")
+        os.remove("./Libraries/TiledParser/TiledParser.vcxproj")
+        os.remove("./Libraries/TiledParser/TiledParser.vcxproj.*")
+        os.remove("./Libraries/TiledParser/Makefile")
+        os.rmdir("./Libraries/freetype2/bin")
+        os.rmdir("./Libraries/freetype2/bin-int")
+        os.rmdir("./Libraries/Glad/bin")
+        os.rmdir("./Libraries/Glad/bin-int")
+        os.rmdir("./Libraries/GLFW/bin")
+        os.rmdir("./Libraries/GLFW/bin-int")
+        os.rmdir("./Libraries/imgui/bin")
+        os.rmdir("./Libraries/imgui/bin-int")
+        os.rmdir("./Libraries/lua/bin")
+        os.rmdir("./Libraries/lua/bin-int")
+        os.rmdir("./Libraries/nativefiledialog/bin")
+        os.rmdir("./Libraries/nativefiledialog/bin-int")
+        os.rmdir("./Libraries/TiledParser/bin")
+        os.rmdir("./Libraries/TiledParser/bin-int")
+        print("Done.")
+    end
 }
