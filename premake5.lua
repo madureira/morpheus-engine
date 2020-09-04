@@ -14,7 +14,6 @@ workspace "Morpheus"
 
 outputdir = "%{cfg.system}/%{cfg.buildcfg}/%{cfg.platform}/%{prj.name}"
 
--- Include directories relative to root folder (solution directory)
 IncludeDir = {}
 IncludeDir["GLFW"] = "Libraries/GLFW/include"
 IncludeDir["Glad"] = "Libraries/Glad/include"
@@ -38,7 +37,6 @@ group "Dependencies"
     include "Libraries/freetype2"
     include "Libraries/nativefiledialog"
     include "Libraries/TiledParser"
-
 group ""
 
 
