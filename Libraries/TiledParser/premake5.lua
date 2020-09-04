@@ -3,16 +3,9 @@ project "TiledParser"
     language "C++"
     cppdialect "C++17"
     staticruntime "On"
-
     targetdir ("bin/" .. outputdir .. "/%{prj.name}")
     objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
-
     makesettings { "CC = gcc" }
-
-    includedirs {
-        "../nlohmann/include",
-        "./include"
-    }
 
     files {
         "./include/TiledParser/Base64.h",
@@ -30,14 +23,21 @@ project "TiledParser"
         "./include/TiledParser/TileMap.cpp"
     }
 
+    includedirs {
+        "../nlohmann/include",
+        "./include"
+    }
+
     filter "system:windows"
         systemversion "latest"
 
     filter "configurations:Debug"
-        defines { "DEBUG" }
+        runtime "Debug"
         symbols "On"
         optimize "Debug"
+        defines { "DEBUG" }
 
     filter "configurations:Release"
-        defines { "NDEBUG" }
+        runtime "Release"
         optimize "Speed"
+        defines { "NDEBUG" }

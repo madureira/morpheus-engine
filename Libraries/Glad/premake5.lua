@@ -2,10 +2,8 @@ project "Glad"
     kind "StaticLib"
     language "C"
     staticruntime "On"
-
     targetdir ("bin/" .. outputdir .. "/%{prj.name}")
     objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
-
     makesettings { "CC = gcc" }
 
     files {
@@ -14,9 +12,7 @@ project "Glad"
         "src/glad.c"
     }
 
-    includedirs {
-        "include"
-    }
+    includedirs { "include" }
 
     filter "system:windows"
         systemversion "latest"
@@ -24,7 +20,10 @@ project "Glad"
     filter "configurations:Debug"
         runtime "Debug"
         symbols "On"
+        optimize "Debug"
+        defines { "DEBUG" }
 
     filter "configurations:Release"
         runtime "Release"
-        optimize "On"
+        optimize "Speed"
+        defines { "NDEBUG" }

@@ -12,7 +12,13 @@ namespace Editor {
         ImGuiIO &io = ImGui::GetIO();
 
         static bool showActionBar = true;
-        ImGuiWindowFlags windowFlags = ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoSavedSettings | ImGuiWindowFlags_NoDocking;
+        ImGuiWindowFlags windowFlags = ImGuiWindowFlags_NoMove
+            | ImGuiWindowFlags_NoResize
+            | ImGuiWindowFlags_NoTitleBar
+            | ImGuiWindowFlags_NoCollapse
+            | ImGuiWindowFlags_NoScrollbar
+            | ImGuiWindowFlags_NoSavedSettings
+            | ImGuiWindowFlags_NoDocking;
 
         ImVec2 mainViewportPos = ImGui::GetMainViewport()->Pos;
         ImGui::SetNextWindowPos(ImVec2(mainViewportPos.x, mainViewportPos.y + 22));

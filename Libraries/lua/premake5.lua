@@ -3,20 +3,16 @@ project "Lua"
     language "C"
     staticruntime "On"
     warnings "Off"
-
     targetdir ("bin/" .. outputdir .. "/%{prj.name}")
     objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
-
     makesettings { "CC = gcc" }
-
-    includedirs {
-        "src"
-    }
 
     files {
         "src/*.h",
         "src/*.c"
     }
+
+    includedirs { "src" }
 
     filter "system:windows"
         systemversion "latest"
@@ -24,7 +20,10 @@ project "Lua"
     filter "configurations:Debug"
         runtime "Debug"
         symbols "On"
+        optimize "Debug"
+        defines { "DEBUG" }
 
     filter "configurations:Release"
         runtime "Release"
-        optimize "On"
+        optimize "Speed"
+        defines { "NDEBUG" }

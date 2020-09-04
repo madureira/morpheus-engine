@@ -1,17 +1,3 @@
-newoption {
-   trigger     = "linux_backend",
-   value       = "B",
-   description = "Choose a dialog backend for linux",
-   allowed = {
-      { "gtk3", "GTK 3 - link to gtk3 directly" },
-      { "zenity", "Zenity - generate dialogs on the end users machine with zenity" }
-   }
-}
-
-if not _OPTIONS["linux_backend"] then
-   _OPTIONS["linux_backend"] = "gtk3"
-end
-
 project "nfd"
     kind "StaticLib"
     language "C"
@@ -19,38 +5,39 @@ project "nfd"
     targetdir("bin/" .. outputdir .. "/%{prj.name}")
     objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
     warnings "Off"
-    defines {
-        "_CRT_SECURE_NO_WARNINGS"
-    }
+    defines { "_CRT_SECURE_NO_WARNINGS" }
 
-    includedirs {
-        "src/include/"
-    }
-
-    -- common files
     files {
         "src/*.h",
         "src/include/*.h",
         "src/nfd_common.c",
     }
 
-    -- system build filters
+    includedirs { "src/include/" }
+
     filter "system:windows"
         language "C++"
-        files {"src/nfd_win.cpp"}
+        files { "src/nfd_win.cpp" }
 
-    filter {"action:gmake or action:xcode4"}
-        buildoptions {"-fno-exceptions"}
+    filter "action:gmake or action:xcode4"
+        buildoptions { "-fno-exceptions" }
 
     filter "system:macosx"
         language "C"
-        files {"src/nfd_cocoa.m"}
+        files { "src/nfd_cocoa.m" }
 
-    filter {"system:linux", "options:linux_backend=gtk3"}
+    filter { "system:linux" }
         language "C"
-        files {"src/nfd_gtk.c"}
-        buildoptions {"`pkg-config --cflags gtk+-3.0`"}
+        files { "src/nfd_gtk.c" }
+        buildoptions { "`pkg-config --cflags gtk+-3.0`" }
 
-    filter {"system:linux", "options:linux_backend=zenity"}
-        language "C"
-        files {"src/nfd_zenity.c"}
+    filter "configurations:Debug"
+        runtime "Debug"
+        symbols "On"
+        optimize "Debug"
+        defines { "DEBUG" }
+
+    filter "configurations:Release"
+        runtime "Release"
+        optimize "Speed"
+        defines { "NDEBUG" }

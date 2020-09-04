@@ -4,12 +4,13 @@
 # Explicitly declare text files you want to always be normalized and converted
 # to native line endings on checkout.
 *.c text
-*.cpp text
 *.h text
-*.fsh text
-*.vsh text
+*.m text
+*.cpp text
+*.hpp text
 *.vert text
 *.frag text
+*.geom text
 *.txt text
 *.html text
 *.md text
@@ -17,7 +18,10 @@
 *.py text
 *.json text
 *.xml text
+*.tmx text
 *.lua text
+*.bat text
+*.rc text
 
 # Declare files that will always have CRLF line endings on checkout.
 *.sln text eol=crlf
@@ -34,3 +38,4 @@
 *.dll binary
 *.exe binary
 *.ttf binary
+*.ico binary

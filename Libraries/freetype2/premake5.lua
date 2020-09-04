@@ -7,15 +7,9 @@ project "FreeType2"
         "FT2_BUILD_LIBRARY",
         "_CRT_SECURE_NO_WARNINGS"
     }
-
     targetdir ("bin/" .. outputdir .. "/%{prj.name}")
     objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
-
     makesettings { "CC = gcc" }
-
-    includedirs {
-        "include"
-    }
 
     files {
         "src/autofit/autofit.c",
@@ -55,13 +49,17 @@ project "FreeType2"
         "src/winfonts/winfnt.c"
     }
 
+    includedirs { "include" }
+
     filter "system:windows"
         systemversion "latest"
 
     filter "configurations:Debug"
         runtime "Debug"
         symbols "On"
+        optimize "Debug"
 
     filter "configurations:Release"
         runtime "Release"
-        optimize "On"
+        optimize "Speed"
+        defines { "NDEBUG" }

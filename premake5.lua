@@ -1,15 +1,16 @@
 workspace "Morpheus"
     architecture "x64"
     startproject "Editor"
-    configurations { "Debug", "Release" }
-    platforms { "x64", "x32" }
-    files {
-        ".editorconfig"
+    configurations {
+        "Debug",
+        "Release"
     }
-
-    flags {
-        "MultiProcessorCompile"
+    platforms {
+        "x64",
+        "x32"
     }
+    files { ".editorconfig" }
+    flags { "MultiProcessorCompile" }
 
 outputdir = "%{cfg.system}/%{cfg.buildcfg}/%{cfg.platform}/%{prj.name}"
 
@@ -51,10 +52,8 @@ project "Engine"
     warnings "Off"
     objdir("Build/" .. outputdir)
     targetdir("Dist/" .. outputdir)
-
     pchheader "mepch.h"
     pchsource "Morpheus/%{prj.name}/Source/mepch.cpp"
-
     makesettings { "CC = gcc" }
 
     files {
@@ -92,29 +91,38 @@ project "Engine"
         "_CRT_SECURE_NO_WARNINGS"
     }
 
-    filter { "system:windows" }
+    filter "system:windows"
         systemversion "latest"
-        links { "opengl32", "gdi32" }
-
+        links {
+            "opengl32",
+            "gdi32"
+        }
         defines {
             "ME_BUILD_DLL",
             "GLFW_INCLUDE_NONE"
         }
 
     filter "system:not windows"
-        links { "GL" }
-        links { "X11", "pthread", "dl", "atomic", "stdc++fs"}
+        links {
+            "GL",
+            "X11",
+            "pthread",
+            "dl",
+            "atomic",
+            "stdc++fs"
+        }
         linkoptions { "-Wl,--allow-multiple-definition" }
 
     filter "configurations:Debug"
-        defines { "DEBUG" }
+        runtime "Debug"
         symbols "On"
         optimize "Debug"
+        defines { "DEBUG" }
 
     filter "configurations:Release"
-        defines { "NDEBUG" }
-        symbols "On"
+        runtime "Release"
         optimize "Speed"
+        defines { "NDEBUG" }
 
 
 -- EDITOR
@@ -127,7 +135,6 @@ project "Editor"
     warnings "Off"
     objdir("Build/" .. outputdir)
     targetdir("Dist/" .. outputdir)
-
     makesettings { "CC = gcc" }
 
     files {
@@ -169,7 +176,10 @@ project "Editor"
 
     filter "system:windows"
         systemversion "latest"
-        links { "opengl32", "gdi32" }
+        links {
+            "opengl32",
+            "gdi32"
+        }
         postbuildcommands {
             "xcopy Assets ..\\..\\Dist\\%{cfg.system}\\%{cfg.buildcfg}\\%{cfg.platform}\\%{prj.name}\\Assets /e /i /s /y"
         }
@@ -181,9 +191,7 @@ project "Editor"
             "Glad",
             "Lua",
             "FreeType2",
-            "TiledParser"
-        }
-        links {
+            "TiledParser",
             "X11",
             "pthread",
             "dl",
@@ -193,21 +201,26 @@ project "Editor"
             "gobject-2.0",
             "glib-2.0"
         }
-        linkoptions { "-Wl,--allow-multiple-definition", "`pkg-config --libs gtk+-3.0`" }
+        linkoptions {
+            "-Wl,--allow-multiple-definition",
+            "`pkg-config --libs gtk+-3.0`"
+        }
         postbuildcommands {
             "cp -rf Assets ../../Dist/%{cfg.system}/%{cfg.buildcfg}/%{cfg.platform}/%{prj.name}/Assets"
         }
 
     filter "configurations:Debug"
-        defines { "DEBUG" }
+        runtime "Debug"
         symbols "On"
         optimize "Debug"
+        defines { "DEBUG" }
 
     filter "configurations:Release"
-        defines { "NDEBUG" }
         kind "WindowedApp"
-        flags { entrypoint "mainCRTStartup" }
+        runtime "Release"
         optimize "Speed"
+        defines { "NDEBUG" }
+        flags { entrypoint "mainCRTStartup" }
 
 
 -- GAME
@@ -220,7 +233,6 @@ project "Game"
     warnings "Off"
     objdir("Build/" .. outputdir)
     targetdir("Dist/" .. outputdir)
-
     makesettings { "CC = gcc" }
 
     files {
@@ -257,7 +269,10 @@ project "Game"
 
     filter "system:windows"
         systemversion "latest"
-        links { "opengl32", "gdi32" }
+        links {
+            "opengl32",
+            "gdi32"
+        }
         postbuildcommands {
             "xcopy Assets ..\\..\\Dist\\%{cfg.system}\\%{cfg.buildcfg}\\%{cfg.platform}\\%{prj.name}\\Assets /e /i /s /y"
         }
@@ -269,68 +284,45 @@ project "Game"
             "Glad",
             "Lua",
             "FreeType2",
-            "TiledParser"
+            "TiledParser",
+            "X11",
+            "pthread",
+            "dl",
+            "atomic",
+            "stdc++fs"
         }
-        links { "X11", "pthread", "dl", "atomic", "stdc++fs"}
         linkoptions { "-Wl,--allow-multiple-definition" }
         postbuildcommands {
             "cp -rf Assets ../../Dist/%{cfg.system}/%{cfg.buildcfg}/%{cfg.platform}/%{prj.name}/Assets"
         }
 
     filter "configurations:Debug"
-        defines { "DEBUG" }
+        runtime "Debug"
         symbols "On"
         optimize "Debug"
+        defines { "DEBUG" }
 
     filter "configurations:Release"
-        defines { "NDEBUG" }
         kind "WindowedApp"
-        flags { entrypoint "mainCRTStartup" }
+        runtime "Release"
         optimize "Speed"
+        defines { "NDEBUG" }
+        flags { entrypoint "mainCRTStartup" }
 
-
--- Clean Function --
 newaction {
     trigger = "clean",
     description = "clean the build",
     execute = function()
         print("Cleanning the build...")
+        os.remove("**/Makefile")
+        os.remove("**/*.vcxproj*")
+        os.remove("./Morpheus.sln")
+        os.remove("./Makefile")
+        os.remove("./*.vcxproj*")
         os.rmdir("./.vs")
         os.rmdir("./Build")
         os.rmdir("./Dist")
         os.rmdir("./Generated")
-        os.remove("./Makefile")
-        os.remove("./Morpheus.sln")
-        os.remove("./Makefile")
-        os.remove("./Morpheus/Editor/Editor.vcxproj")
-        os.remove("./Morpheus/Editor/Editor.vcxproj.*")
-        os.remove("./Morpheus/Editor/Makefile")
-        os.remove("./Morpheus/Engine/Engine.vcxproj")
-        os.remove("./Morpheus/Engine/Engine.vcxproj.*")
-        os.remove("./Morpheus/Engine/Makefile")
-        os.remove("./Morpheus/Game/Game.vcxproj")
-        os.remove("./Morpheus/Game/Game.vcxproj.*")
-        os.remove("./Morpheus/Game/Makefile")
-        os.remove("./Libraries/freetype2/FreeType2.vcxproj")
-        os.remove("./Libraries/freetype2/FreeType2.vcxproj.*")
-        os.remove("./Libraries/freetype2/Makefile")
-        os.remove("./Libraries/Glad/Glad.vcxproj")
-        os.remove("./Libraries/Glad/Glad.vcxproj.*")
-        os.remove("./Libraries/Glad/Makefile")
-        os.remove("./Libraries/GLFW/GLFW.vcxproj")
-        os.remove("./Libraries/GLFW/GLFW.vcxproj.*")
-        os.remove("./Libraries/GLFW/Makefile")
-        os.remove("./Libraries/imgui/ImGui.vcxproj")
-        os.remove("./Libraries/imgui/ImGui.vcxproj.*")
-        os.remove("./Libraries/imgui/Makefile")
-        os.remove("./Libraries/lua/Lua.vcxproj")
-        os.remove("./Libraries/lua/Lua.vcxproj.*")
-        os.remove("./Libraries/nativefiledialog/nfd.vcxproj")
-        os.remove("./Libraries/nativefiledialog/nfd.vcxproj.*")
-        os.remove("./Libraries/nativefiledialog/Makefile")
-        os.remove("./Libraries/TiledParser/TiledParser.vcxproj")
-        os.remove("./Libraries/TiledParser/TiledParser.vcxproj.*")
-        os.remove("./Libraries/TiledParser/Makefile")
         os.rmdir("./Libraries/freetype2/bin")
         os.rmdir("./Libraries/freetype2/bin-int")
         os.rmdir("./Libraries/Glad/bin")
