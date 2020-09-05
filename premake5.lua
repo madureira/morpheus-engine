@@ -1,3 +1,5 @@
+include "./Tools/windows/premake/solution_items.lua"
+
 workspace "Morpheus"
     architecture "x64"
     startproject "Editor"
@@ -9,8 +11,8 @@ workspace "Morpheus"
         "x64",
         "x32"
     }
-    files { ".editorconfig" }
     flags { "MultiProcessorCompile" }
+    solution_items { ".editorconfig" }
 
 outputdir = "%{cfg.system}/%{cfg.buildcfg}/%{cfg.platform}/%{prj.name}"
 
