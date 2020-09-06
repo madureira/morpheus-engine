@@ -20,6 +20,7 @@ namespace Morpheus {
         std::vector<SceneEntity> scenes;
         bool reload;
         bool resetTreeViewOnly;
+        bool playing;
     };
 
 }

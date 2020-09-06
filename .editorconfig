@@ -8,7 +8,7 @@ insert_final_newline = true
 trim_trailing_whitespace = true
 max_line_length = 120
 
-[*.{h,cpp,lua,json,tmx,xml,vert,frag,geom}]
+[*.{h,c,cpp,lua,json,tmx,xml,vert,frag,geom}]
 charset = utf-8
 indent_style = space
 indent_size = 4

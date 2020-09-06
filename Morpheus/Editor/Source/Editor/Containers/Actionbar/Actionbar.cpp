@@ -10,6 +10,8 @@ namespace Editor {
 
     void Actionbar::Render(entt::registry &registry)
     {
+        auto& projectEntity = registry.ctx<Morpheus::ProjectEntity>();
+
         ImGuiIO &io = ImGui::GetIO();
 
         static bool showActionBar = true;
@@ -59,6 +61,8 @@ namespace Editor {
             ImGui::SameLine();
 
             this->m_IsPlaying = play;
+
+            projectEntity.playing = this->m_IsPlaying;
         }
         ImGui::End();
         ImGui::PopStyleVar();

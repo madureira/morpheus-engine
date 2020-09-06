@@ -101,26 +101,6 @@ namespace Editor {
         auto& inputEntity = registry.ctx<Morpheus::InputEntity>();
         auto& inputState = registry.get<Morpheus::InputStateComponent>(inputEntity.id);
 
-        if (inputState.UP)
-        {
-            playerY += speed;
-        }
-
-        if (inputState.DOWN)
-        {
-            playerY -= speed;
-        }
-
-        if (inputState.RIGHT)
-        {
-            playerX += speed;
-        }
-
-        if (inputState.LEFT)
-        {
-            playerX -= speed;
-        }
-
         ImGuiIO& io = ImGui::GetIO();
         if (io.MouseWheel != 0.0f)
         {
@@ -187,19 +167,42 @@ namespace Editor {
         static int frame = 0;
         static int playerSpeed = 10;
 
-        if (frameCount < playerSpeed)
+        if (projectEntity.playing)
         {
-            frameCount++;
-        }
-        else
-        {
-            frameCount = 0;
-            frame++;
-        }
+            if (inputState.UP)
+            {
+                playerY += speed;
+            }
 
-        if (frame == 4)
-        {
-            frame = 0;
+            if (inputState.DOWN)
+            {
+                playerY -= speed;
+            }
+
+            if (inputState.RIGHT)
+            {
+                playerX += speed;
+            }
+
+            if (inputState.LEFT)
+            {
+                playerX -= speed;
+            }
+
+            if (frameCount < playerSpeed)
+            {
+                frameCount++;
+            }
+            else
+            {
+                frameCount = 0;
+                frame++;
+            }
+
+            if (frame == 4)
+            {
+                frame = 0;
+            }
         }
 
         int direction = frame;

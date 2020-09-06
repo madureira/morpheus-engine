@@ -10,7 +10,7 @@
 
 namespace Editor {
 
-    constexpr int CHECKERBOARD_INTENSITY = 140;
+    constexpr int CHECKERBOARD_INTENSITY = 80;
 
     class Scene final : public UIContainer
     {
