@@ -5,6 +5,10 @@
 #include <Engine/Util/NumberUtil.h>
 #include <Engine/Util/HardwareUtil.h>
 #include <Engine/ECS/Components/WindowComponent.h>
+#include "Editor/Containers/Dock/Dock.h"
+#include "Editor/Containers/Footer/Footer.h"
+#include "Editor/Containers/Menubar/Menubar.h"
+#include "Editor/Containers/Actionbar/Actionbar.h"
 #include "Vendors/ImGuiImpl/imgui_impl_opengl3.h"
 #include "Vendors/ImGuiImpl/imgui_impl_glfw.h"
 #include "Vendors/IconsFontAwesome5/IconsFontAwesome5.h"

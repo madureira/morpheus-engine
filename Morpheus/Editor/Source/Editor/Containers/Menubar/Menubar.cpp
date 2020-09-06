@@ -2,6 +2,8 @@
 #include <Engine/State/GlobalState.h>
 #include <Engine/ECS/Components/WindowComponent.h>
 #include "Editor/Widgets/FileSystemDialog/FileSystemDialog.h"
+#include "./NewProject/NewProject.h"
+#include "./NewScene/NewScene.h"
 
 namespace Editor {
 

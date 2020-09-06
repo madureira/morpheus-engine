@@ -2,12 +2,13 @@
 
 #include <Engine/App.h>
 #include <Engine/Window/Window.h>
-#include "Editor/Containers/Dock/Dock.h"
-#include "Editor/Containers/Footer/Footer.h"
-#include "Editor/Containers/Menubar/Menubar.h"
-#include "Editor/Containers/Actionbar/Actionbar.h"
 
 namespace Editor {
+
+    class Menubar;
+    class Actionbar;
+    class Dock;
+    class Footer;
 
     class MorpheusEditor final : public Morpheus::App
     {

@@ -2,11 +2,12 @@
 
 #include <string>
 #include "Editor/Containers/UIContainer.h"
-#include "Editor/Widgets/CodeEditor/CodeEditor.h"
-#include "TreeView/TreeView.h"
-#include "Preview/Preview.h"
 
 namespace Editor {
+
+    class Preview;
+    class TreeView;
+    class CodeEditor;
 
     class Project final : public UIContainer
     {
