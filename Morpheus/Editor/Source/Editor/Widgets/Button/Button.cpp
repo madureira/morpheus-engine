@@ -7,12 +7,12 @@
 
 namespace Editor {
 
-    bool Button::Render(const char* icon, const char* label, const char* tooltip, bool disabled)
+    bool Button::Render(const char* label, const char* icon, const char* tooltip, bool disabled)
     {
-        return Button::RenderButton(icon, label, tooltip, disabled);
+        return Button::RenderButton(label, icon, tooltip, disabled);
     }
 
-    bool Button::RenderButton(const char* icon, const char* label, const char* tooltip, bool disabled)
+    bool Button::RenderButton(const char* label, const char* icon, const char* tooltip, bool disabled)
     {
         bool clicked = false;
 
@@ -38,7 +38,7 @@ namespace Editor {
         }
         else
         {
-            textButton = "no text";
+            textButton = "no label";
         }
 
         if (ImGui::Button(textButton.c_str()))
@@ -52,7 +52,7 @@ namespace Editor {
             ImGui::PopStyleVar();
         }
 
-        if (!disabled && ImGui::IsItemHovered())
+        if (!disabled && tooltip && ImGui::IsItemHovered())
         {
             ImGui::BeginTooltip();
             ImGui::TextUnformatted(tooltip);

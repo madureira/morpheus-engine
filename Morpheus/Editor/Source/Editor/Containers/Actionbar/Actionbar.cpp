@@ -1,4 +1,5 @@
 #include "Actionbar.h"
+#include "Editor/Widgets/Button/Button.h"
 
 namespace Editor {
 
@@ -31,31 +32,13 @@ namespace Editor {
             ImGui::Dummy(ImVec2(2.0f, 0.0f));
             ImGui::SameLine();
 
-            ImGui::Button(ICON_FA_ARROWS_ALT);
-            if (ImGui::IsItemHovered())
-            {
-                ImGui::BeginTooltip();
-                ImGui::TextUnformatted("Move");
-                ImGui::EndTooltip();
-            }
+            Button::Render(nullptr, ICON_FA_ARROWS_ALT, "Move");
             ImGui::SameLine();
 
-            ImGui::Button(ICON_FA_SYNC_ALT);
-            if (ImGui::IsItemHovered())
-            {
-                ImGui::BeginTooltip();
-                ImGui::TextUnformatted("Rotate");
-                ImGui::EndTooltip();
-            }
+            Button::Render(nullptr, ICON_FA_SYNC_ALT, "Rotate");
             ImGui::SameLine();
 
-            ImGui::Button(ICON_FA_EXPAND_ARROWS_ALT);
-            if (ImGui::IsItemHovered())
-            {
-                ImGui::BeginTooltip();
-                ImGui::TextUnformatted("Scale");
-                ImGui::EndTooltip();
-            }
+            Button::Render(nullptr, ICON_FA_EXPAND_ARROWS_ALT, "Scale");
             ImGui::SameLine();
 
             ImGui::Dummy(ImVec2(io.DisplaySize.x / 2 - 140.f, 0.0f));
@@ -63,13 +46,13 @@ namespace Editor {
 
             static bool play = false;
 
-            if (this->RenderButton(ICON_FA_PLAY, "Play", this->m_IsPlaying))
+            if (Button::Render(nullptr, ICON_FA_PLAY, "Play", this->m_IsPlaying))
             {
                 play = true;
             }
             ImGui::SameLine();
 
-            if (this->RenderButton(ICON_FA_PAUSE, "Pause", !this->m_IsPlaying))
+            if (Button::Render(nullptr, ICON_FA_PAUSE, "Pause", !this->m_IsPlaying))
             {
                 play = false;
             }
@@ -81,35 +64,4 @@ namespace Editor {
         ImGui::PopStyleVar();
     }
 
-    bool Actionbar::RenderButton(const char *icon, const char *label, bool disabled)
-    {
-        bool clicked = false;
-
-        if (disabled)
-        {
-            ImGui::PushItemFlag(ImGuiItemFlags_Disabled, true);
-            ImGui::PushStyleVar(ImGuiStyleVar_Alpha, ImGui::GetStyle().Alpha * 0.5f);
-        }
-
-        if (ImGui::Button(icon))
-        {
-            clicked = true;
-        }
-
-        if (disabled)
-        {
-            ImGui::PopItemFlag();
-            ImGui::PopStyleVar();
-        }
-
-        if (!disabled && ImGui::IsItemHovered())
-        {
-            ImGui::BeginTooltip();
-            ImGui::TextUnformatted(label);
-            ImGui::EndTooltip();
-        }
-
-        return clicked;
-    }
-
-} // namespace Editor
+}

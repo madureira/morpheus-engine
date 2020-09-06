@@ -13,9 +13,6 @@ namespace Editor {
         Actionbar();
 
         void Render(entt::registry &registry) override;
-
-    private:
-        bool RenderButton(const char *icon, const char *label, bool disabled);
     };
 
-} // namespace Editor
+}

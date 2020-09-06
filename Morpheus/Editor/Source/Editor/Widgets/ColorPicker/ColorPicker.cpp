@@ -1,5 +1,6 @@
 #include "ColorPicker.h"
 #include "Vendors/IconsFontAwesome5/IconsFontAwesome5.h"
+#include "Editor/Widgets/Button/Button.h"
 
 namespace Editor {
 
@@ -20,7 +21,7 @@ namespace Editor {
         bool open_popup = ImGui::ColorButton("Current color##3b", color, ImGuiColorEditFlags_AlphaPreview);
         ImGui::SameLine();
 
-        open_popup |= ImGui::Button(label);
+        open_popup |= Button::Render(label);
 
         if (open_popup)
         {

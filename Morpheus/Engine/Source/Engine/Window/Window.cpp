@@ -170,7 +170,7 @@ namespace Morpheus {
     GLFWwindow* Window::GetNativeWindow() const
     {
         return this->m_Window;
-    };
+    }
 
     void Window::Shutdown() const
     {

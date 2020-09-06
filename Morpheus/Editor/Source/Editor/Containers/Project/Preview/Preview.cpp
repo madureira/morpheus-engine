@@ -1,5 +1,6 @@
 #include "Preview.h"
 #include <Engine/Util/FileUtil.h>
+#include "Editor/Widgets/Button/Button.h"
 
 namespace Editor {
 
@@ -259,7 +260,7 @@ namespace Editor {
             ImGui::SameLine();
             ImGui::Dummy(ImVec2(4, 0));
             ImGui::SameLine();
-            if (ImGui::Button(ICON_FA_SEARCH_MINUS))
+            if (Button::Render(ICON_FA_SEARCH_MINUS))
             {
                 if (this->m_Zoom > 1)
                 {
@@ -269,7 +270,7 @@ namespace Editor {
             ImGui::SameLine();
             ImGui::Dummy(ImVec2(3, 0));
             ImGui::SameLine();
-            if (ImGui::Button(ICON_FA_SEARCH_PLUS))
+            if (Button::Render(ICON_FA_SEARCH_PLUS))
             {
                 if (this->m_Zoom < 3)
                 {

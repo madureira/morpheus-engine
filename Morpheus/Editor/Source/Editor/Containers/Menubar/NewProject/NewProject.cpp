@@ -4,6 +4,7 @@
 #include <Engine/Util/FileUtil.h>
 #include <Engine/ECS/Components/WindowComponent.h>
 #include "Editor/Widgets/FileSystemDialog/FileSystemDialog.h"
+#include "Editor/Widgets/Button/Button.h"
 #include "Editor/Util/InputUtil.h"
 
 namespace Editor {
@@ -50,7 +51,7 @@ namespace Editor {
             ImGui::PopItemWidth();
             ImGui::SameLine();
 
-            if (ImGui::Button(ICON_FA_FOLDER_OPEN))
+            if (Button::Render(ICON_FA_FOLDER_OPEN))
             {
                 std::string selectedPath = FileSystemDialog::OpenFolderSelector();
                 std::copy(selectedPath.begin(), selectedPath.end(), this->m_ProjectLocation);
@@ -61,7 +62,7 @@ namespace Editor {
             ImGui::Dummy(ImVec2(0.0f, 5.0f));
 
             ImGui::Indent(203);
-            if (ImGui::Button("Cancel"))
+            if (Button::Render("Cancel"))
             {
                 this->m_IsOpened = false;
                 ImGui::CloseCurrentPopup();
@@ -78,7 +79,7 @@ namespace Editor {
             }
 
             ImGui::Indent(62);
-            if (ImGui::Button("Confirm"))
+            if (Button::Render("Confirm"))
             {
                 ME_LOG_INFO("Creating project: {0} into directory: {1}", projectName, projectLocation);
 
