@@ -20,7 +20,7 @@ namespace Morpheus {
         // The SettingsEntity needs to be registered before everything
         Morpheus::SettingsEntity settingsEntity{ this->m_Registry.create() };
         this->m_Registry.set<Morpheus::SettingsEntity>(settingsEntity);
-        this->m_Registry.assign<Morpheus::SettingsComponent>(settingsEntity.id, this->m_Settings->GetSettings());
+        this->m_Registry.emplace<Morpheus::SettingsComponent>(settingsEntity.id, this->m_Settings->GetSettings());
 
         this->m_Window = new Window(this->m_Registry);
 
@@ -44,21 +44,21 @@ namespace Morpheus {
     {
         Morpheus::WindowEntity windowEntity{ this->m_Registry.create() };
         this->m_Registry.set<Morpheus::WindowEntity>(windowEntity);
-        this->m_Registry.assign<Morpheus::WindowComponent>(windowEntity.id, this->m_Window);
-        this->m_Registry.assign<Morpheus::SizeComponent>(windowEntity.id, this->m_Settings->GetWindowWidth(), this->m_Settings->GetWindowHeight());
-        this->m_Registry.assign<Morpheus::DropFilesComponent>(windowEntity.id, std::vector<std::string>());
+        this->m_Registry.emplace<Morpheus::WindowComponent>(windowEntity.id, this->m_Window);
+        this->m_Registry.emplace<Morpheus::SizeComponent>(windowEntity.id, this->m_Settings->GetWindowWidth(), this->m_Settings->GetWindowHeight());
+        this->m_Registry.emplace<Morpheus::DropFilesComponent>(windowEntity.id, std::vector<std::string>());
 
         Morpheus::MouseEntity mouseEntity{ this->m_Registry.create() };
         this->m_Registry.set<Morpheus::MouseEntity>(mouseEntity);
-        this->m_Registry.assign<Morpheus::MouseStateComponent>(mouseEntity.id);
+        this->m_Registry.emplace<Morpheus::MouseStateComponent>(mouseEntity.id);
 
         Morpheus::InputEntity inputEntity{ this->m_Registry.create() };
         this->m_Registry.set<Morpheus::InputEntity>(inputEntity);
-        this->m_Registry.assign<Morpheus::InputStateComponent>(inputEntity.id);
+        this->m_Registry.emplace<Morpheus::InputStateComponent>(inputEntity.id);
 
         Morpheus::StatisticsEntity statisticsEntity{ this->m_Registry.create() };
         this->m_Registry.set<Morpheus::StatisticsEntity>(statisticsEntity);
-        this->m_Registry.assign<Morpheus::StatisticsComponent>(statisticsEntity.id);
+        this->m_Registry.emplace<Morpheus::StatisticsComponent>(statisticsEntity.id);
     }
 
     void Engine::Initialize(App* pApp)
