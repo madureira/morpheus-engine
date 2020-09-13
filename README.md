@@ -1,17 +1,28 @@
-![](.github/morpheus-logo-text.png?raw=true "Morpheus")
+<p align="center">
+    <img src=".github/morpheus-logo-text.png?raw=true"/>
+    <br/>
+    <a aria-label="Project Status" href="https://github.com/madureira/morpheus-engine">
+        <img src="https://www.repostatus.org/badges/latest/wip.svg"/>
+    </a>
+    <a aria-label="language" href="https://github.com/madureira/morpheus-engine">
+        <img src="https://img.shields.io/badge/language-c++-blue.svg"/>
+    </a>
+    <a aria-label="c++" href="https://github.com/madureira/morpheus-engine">
+        <img src="https://img.shields.io/badge/std-c++17-blue.svg"/>
+    </a>
+    <a aria-label="msvc2019+" href="https://visualstudio.microsoft.com/downloads">
+        <img src="https://img.shields.io/badge/MSVC-2019+-ff69b4.svg"/>
+    </a>
+    <a aria-label="platforms" href="https://github.com/madureira/morpheus-engine#Platforms">
+        <img src="https://img.shields.io/badge/platforms-Windows%20%7C%20Linux-orange.svg"/>
+    </a>
+</p>
 
-# morpheus-engine
+<p align="center">Game Engine built in C++ and OpenGL.</p>
 
-[![Project Status: WIP](https://www.repostatus.org/badges/latest/wip.svg)](https://github.com/madureira/morpheus-engine#todo)
-[![language](https://img.shields.io/badge/language-c++-blue.svg)](https://github.com/madureira/morpheus-engine)
-[![c++](https://img.shields.io/badge/std-c++17-blue.svg)](https://isocpp.org/)
-[![msvc2019+](https://img.shields.io/badge/MSVC-2019+-ff69b4.svg)](https://visualstudio.microsoft.com/downloads)
-[![platforms](https://img.shields.io/badge/platforms-Windows%20%7C%20Linux-orange.svg)](https://github.com/madureira/morpheus-engine#platforms)
-
-Game Engine built in C++ and OpenGL.
+<br/>
 
 > Initial development is underway, but there is still no stable and usable version, suitable for the public.
-
 
 ## [Screenshots](https://github.com/madureira/morpheus-engine/tree/master/.github/screenshots) / [Video](https://www.youtube.com/watch?v=8IatRcdtFdQ)
 
@@ -30,7 +41,7 @@ Game Engine built in C++ and OpenGL.
 
 ![Windows](.github/windows-logo.png "windows")
 
-### Building for Visual Studio IDE 2019
+### Building for [Visual Studio IDE 2019](https://visualstudio.microsoft.com/downloads)
 
 ```
 install.bat
