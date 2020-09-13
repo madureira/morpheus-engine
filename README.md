@@ -27,12 +27,14 @@
 
 ## Features
 
+- Cross platform (Windows and Linux);
 - Visual editor (multi-viewport);
 - Modern OpenGL features;
 - 2D batch rendering;
 - 2D Dynamic illumination;
 - Normal Map for 2D sprites;
 - Specular Map for 2D sprites;
+- Multiple file uploading (Drag and Drop);
 - Basic Lua scripting support;
 - PS4 controller support;
 
