@@ -22,9 +22,8 @@
 
 <br/>
 
-> Initial development is underway, but there is still no stable and usable version, suitable for the public.
 
-## [Screenshots](https://github.com/madureira/morpheus-engine/tree/master/.github/screenshots) / [Video](https://www.youtube.com/watch?v=8IatRcdtFdQ)
+> Initial development is underway, but there is still no stable and usable version, suitable for the public.
 
 ## Features
 
@@ -86,6 +85,14 @@ cd Dist/linux/Release/x64/Editor/ && ./Editor
 ```
 ./clean.sh
 ```
+
+<br/>
+
+## :camera: [Screenshots](https://github.com/madureira/morpheus-engine/tree/master/.github/screenshots) / :movie_camera: [Video](https://www.youtube.com/watch?v=8IatRcdtFdQ)
+
+<p align="center">
+    <img src=".github/screenshots/main_screenshot.png?raw=true"/>
+</p>
 
 ## 3rd Party Libraries
 
