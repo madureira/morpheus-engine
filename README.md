@@ -61,12 +61,14 @@ sudo apt-get install -y build-essential xorg-dev libgtk-3-dev mingw-w64
 ### Building the Engine
 
 ```
-make
+make config=release_x64
 ```
 
-The engine executable will be placed at: `Dist/linux/Debug/x64/Editor/` (depending on your machine architecture).
+### Running the Engine
 
-> You need to enter in the above directory to run the executable file.
+```
+cd Dist/linux/Release/x64/Editor/ && ./Editor
+```
 
 ### Clean installation files
 
