@@ -27,7 +27,7 @@
 
 ## Features
 
-- Cross platform (Windows and Linux);
+- Cross platform (Windows, Linux and MacOS);
 - Visual editor (multi-viewport);
 - Modern OpenGL features;
 - 2D batch rendering;
