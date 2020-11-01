@@ -14,7 +14,7 @@
         <img src="https://img.shields.io/badge/MSVC-2019+-ff69b4.svg"/>
     </a>
     <a aria-label="platforms" href="https://github.com/madureira/morpheus-engine#Platforms">
-        <img src="https://img.shields.io/badge/platforms-Windows%20%7C%20Linux-orange.svg"/>
+        <img src="https://img.shields.io/badge/platforms-Windows%20%7C%20Linux%20%7C%20MacOSX-orange.svg"/>
     </a>
 </p>
 
