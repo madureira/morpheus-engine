@@ -83,7 +83,7 @@ namespace Editor {
         registry.set<Morpheus::ProjectEntity>(projectEntity);
 
         ImGui_ImplGlfw_InitForOpenGL(static_cast<GLFWwindow*>(windowComponent.GetNativeWindow()), true);
-        ImGui_ImplOpenGL3_Init("#version 430");
+        ImGui_ImplOpenGL3_Init("#version 330");
 
         this->m_Menubar = new Menubar();
         this->m_Actionbar = new Actionbar();

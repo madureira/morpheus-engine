@@ -6,6 +6,10 @@ project "GLFW"
     objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
     makesettings { "CC = gcc" }
 
+    includedirs {
+        "include"
+    }
+
     files {
         "include/GLFW/glfw3.h",
         "include/GLFW/glfw3native.h",
@@ -51,6 +55,31 @@ project "GLFW"
         defines {
             "_GLFW_WIN32",
             "_CRT_SECURE_NO_WARNINGS"
+        }
+
+    filter "system:macosx"
+        systemversion "latest"
+        pic "On"
+        files {
+            "src/cocoa_platform.h",
+            "src/cocoa_joystick.h",
+            "src/nsgl_context.h",
+            "src/cocoa_init.m",
+            "src/cocoa_joystick.m",
+            "src/cocoa_monitor.m",
+            "src/cocoa_window.m",
+            "src/cocoa_time.c",
+            "src/nsgl_context.m",
+            "src/posix_thread.h",
+            "src/posix_thread.c",
+            "src/egl_context.h",
+            "src/egl_context.c",
+            "src/osmesa_context.h",
+            "src/osmesa_context.c"
+        }
+        defines {
+            "_GLFW_COCOA",
+            "_GLFW_USE_RETINA"
         }
 
     filter "configurations:Debug"
