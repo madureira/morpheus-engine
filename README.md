@@ -88,6 +88,32 @@ cd Dist/linux/Release/x64/Editor/ && ./Editor
 ./clean.sh
 ```
 
+![MacOSX](.github/macosx-logo.png "MacOSX")
+
+### Building Makefiles
+
+```
+./install.sh
+```
+
+### Building the Engine
+
+```
+make config=release_x64
+```
+
+### Running the Engine
+
+```
+cd Dist/macosx/Release/x64/Editor/ && ./Editor
+```
+
+### Clean installation files
+
+```
+./clean.sh
+```
+
 <br/>
 
 ## :camera: [Screenshots](https://github.com/madureira/morpheus-engine/tree/master/.github/screenshots) / :movie_camera: [Video](https://www.youtube.com/watch?v=8IatRcdtFdQ)
