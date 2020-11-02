@@ -1,5 +1,6 @@
 # IDE
 .vs/
+**.DS_Store
 **.sln
 **.vcxproj
 **.vcxproj.filters

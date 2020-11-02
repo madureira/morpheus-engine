@@ -140,8 +140,7 @@ project "Editor"
     files {
         "Morpheus/%{prj.name}/Source/**.h",
         "Morpheus/%{prj.name}/Source/**.cpp",
-        "Morpheus/%{prj.name}/Source/**.lua",
-        "Morpheus/%{prj.name}/Assets/**"
+        "Morpheus/%{prj.name}/Source/**.lua"
     }
 
     includedirs {
@@ -184,7 +183,7 @@ project "Editor"
             "xcopy Assets ..\\..\\Dist\\%{cfg.system}\\%{cfg.buildcfg}\\%{cfg.platform}\\%{prj.name}\\Assets /e /i /s /y"
         }
 
-    filter "system:not windows"
+    filter "system:linux"
         links {
             "GL",
             "GLFW",
@@ -205,6 +204,29 @@ project "Editor"
             "-Wl,--allow-multiple-definition",
             "`pkg-config --libs gtk+-3.0`"
         }
+
+    filter "system:macosx"
+        links {
+            "OpenGL.framework",
+            "Cocoa.framework",
+            "IOKit.framework",
+            "GLFW",
+            "Glad",
+            "Lua",
+            "FreeType2",
+            "TiledParser",
+            "pthread",
+            "dl",
+            "gobject-2.0",
+            "glib-2.0"
+        }
+        buildoptions {"-F /Library/Frameworks"}
+        linkoptions {
+            "-Wl",
+            "-F /Library/Frameworks"
+        }
+
+    filter "system:not windows"
         postbuildcommands {
             "cp -rf Assets ../../Dist/%{cfg.system}/%{cfg.buildcfg}/%{cfg.platform}/%{prj.name}/Assets"
         }
@@ -238,8 +260,7 @@ project "Game"
     files {
         "Morpheus/%{prj.name}/Source/**.h",
         "Morpheus/%{prj.name}/Source/**.cpp",
-        "Morpheus/%{prj.name}/Source/**.lua",
-        "Morpheus/%{prj.name}/Assets/**"
+        "Morpheus/%{prj.name}/Source/**.lua"
     }
 
     includedirs {
@@ -277,7 +298,7 @@ project "Game"
             "xcopy Assets ..\\..\\Dist\\%{cfg.system}\\%{cfg.buildcfg}\\%{cfg.platform}\\%{prj.name}\\Assets /e /i /s /y"
         }
 
-    filter "system:not windows"
+    filter "system:linux"
         links {
             "GL",
             "GLFW",
@@ -289,9 +310,38 @@ project "Game"
             "pthread",
             "dl",
             "atomic",
-            "stdc++fs"
+            "stdc++fs",
+            "gtk-3",
+            "gobject-2.0",
+            "glib-2.0"
         }
-        linkoptions { "-Wl,--allow-multiple-definition" }
+        linkoptions {
+            "-Wl,--allow-multiple-definition",
+            "`pkg-config --libs gtk+-3.0`"
+        }
+
+    filter "system:macosx"
+        links {
+            "OpenGL.framework",
+            "Cocoa.framework",
+            "IOKit.framework",
+            "GLFW",
+            "Glad",
+            "Lua",
+            "FreeType2",
+            "TiledParser",
+            "pthread",
+            "dl",
+            "gobject-2.0",
+            "glib-2.0"
+        }
+        buildoptions {"-F /Library/Frameworks"}
+        linkoptions {
+            "-Wl",
+            "-F /Library/Frameworks"
+        }
+
+    filter "system:not windows"
         postbuildcommands {
             "cp -rf Assets ../../Dist/%{cfg.system}/%{cfg.buildcfg}/%{cfg.platform}/%{prj.name}/Assets"
         }

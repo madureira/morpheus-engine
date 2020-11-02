@@ -14,7 +14,7 @@
         <img src="https://img.shields.io/badge/MSVC-2019+-ff69b4.svg"/>
     </a>
     <a aria-label="platforms" href="https://github.com/madureira/morpheus-engine#Platforms">
-        <img src="https://img.shields.io/badge/platforms-Windows%20%7C%20Linux-orange.svg"/>
+        <img src="https://img.shields.io/badge/platforms-Windows%20%7C%20Linux%20%7C%20MacOSX-orange.svg"/>
     </a>
 </p>
 
@@ -27,7 +27,7 @@
 
 ## Features
 
-- Cross platform (Windows and Linux);
+- Cross platform (Windows, Linux and MacOS);
 - Visual editor (multi-viewport);
 - Modern OpenGL features;
 - 2D batch rendering;
@@ -80,6 +80,32 @@ make config=release_x64
 
 ```
 cd Dist/linux/Release/x64/Editor/ && ./Editor
+```
+
+### Clean installation files
+
+```
+./clean.sh
+```
+
+![MacOSX](.github/macosx-logo.png "MacOSX")
+
+### Building Makefiles
+
+```
+./install.sh
+```
+
+### Building the Engine
+
+```
+make config=release_x64
+```
+
+### Running the Engine
+
+```
+cd Dist/macosx/Release/x64/Editor/ && ./Editor
 ```
 
 ### Clean installation files

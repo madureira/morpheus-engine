@@ -138,11 +138,11 @@ namespace Morpheus {
     using CustomLogSink_mt = CustomLogSink<std::mutex>;
     using CustomLogSink_st = CustomLogSink<spdlog::details::null_mutex>;
 
-    template<> uint16_t CustomLogSink_mt::s_MessageBufferCapacity = 200;
-    template<> uint16_t CustomLogSink_mt::s_MessageBufferSize = 0;
-    template<> uint16_t CustomLogSink_mt::s_MessageBufferBegin = 0;
-    template<> std::vector<Ref<LogMessage>> CustomLogSink_mt::s_MessageBuffer = std::vector<Ref<LogMessage>>(200);
-    template<> bool CustomLogSink_mt::s_AllowScrollingToBottom = true;
-    template<> bool CustomLogSink_mt::s_RequestScrollToBottom = false;
+    template<> inline uint16_t CustomLogSink_mt::s_MessageBufferCapacity = 200;
+    template<> inline uint16_t CustomLogSink_mt::s_MessageBufferSize = 0;
+    template<> inline uint16_t CustomLogSink_mt::s_MessageBufferBegin = 0;
+    template<> inline std::vector<Ref<LogMessage>> CustomLogSink_mt::s_MessageBuffer = std::vector<Ref<LogMessage>>(200);
+    template<> inline bool CustomLogSink_mt::s_AllowScrollingToBottom = true;
+    template<> inline bool CustomLogSink_mt::s_RequestScrollToBottom = false;
 
 }
