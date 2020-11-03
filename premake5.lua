@@ -59,8 +59,7 @@ project "Engine"
     files {
         "Morpheus/%{prj.name}/Source/**.h",
         "Morpheus/%{prj.name}/Source/**.cpp",
-        "Morpheus/%{prj.name}/Source/**.lua",
-        "Morpheus/%{prj.name}/Assets/**"
+        "Morpheus/%{prj.name}/Source/**.lua"
     }
 
     includedirs {
@@ -175,6 +174,7 @@ project "Editor"
 
     filter "system:windows"
         systemversion "latest"
+        files { "Morpheus/%{prj.name}/Assets/**" }
         links {
             "opengl32",
             "gdi32"
@@ -290,6 +290,7 @@ project "Game"
 
     filter "system:windows"
         systemversion "latest"
+        files { "Morpheus/%{prj.name}/Assets/**" }
         links {
             "opengl32",
             "gdi32"
