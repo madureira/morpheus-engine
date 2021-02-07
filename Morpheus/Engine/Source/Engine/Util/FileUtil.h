@@ -5,6 +5,7 @@
 #include <fstream>
 #include <filesystem>
 #include <Engine/Util/JSON.h>
+#include <Engine/Util/StringUtil.h>
 #include <iostream>
 
 namespace Morpheus {
@@ -32,31 +33,37 @@ namespace Morpheus {
 
         bool static IsImage(std::string extension)
         {
+            extension = StringUtil::ToLowerCase(extension);
             return (extension == PNG || extension == JPG || extension == JPEG || extension == GIF);
         }
 
         bool static IsCode(std::string extension)
         {
+            extension = StringUtil::ToLowerCase(extension);
             return (extension == H || extension == C || extension == CPP || extension == LUA);
         }
 
         bool static IsData(std::string extension)
         {
+            extension = StringUtil::ToLowerCase(extension);
             return (extension == JSON || extension == XML);
         }
 
         bool static IsFont(std::string extension)
         {
+            extension = StringUtil::ToLowerCase(extension);
             return (extension == TTF);
         }
 
         bool static IsShader(std::string extension)
         {
+            extension = StringUtil::ToLowerCase(extension);
             return (extension == VERT || extension == FRAG || extension == GEOM);
         }
 
         bool static IsScene(std::string extension)
         {
+            extension = StringUtil::ToLowerCase(extension);
             return (extension == SCN);
         }
     };
