@@ -105,7 +105,7 @@ make config=release_x64
 ### Opening the Editor
 
 ```
-cd Dist/macosx/Release/x64/Editor/ && ./Editor
+cd Dist/macosx/Release/x64/Editor/ && ./Editor.app
 ```
 
 ### Clean installation files
