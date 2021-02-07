@@ -9,7 +9,7 @@ namespace Editor {
     public:
         // Avoid special chars
         // Only permit a-z, A-Z, 0-9, -, _
-        static int SanitizeCallback(ImGuiTextEditCallbackData* data)
+        static int SanitizeCallback(ImGuiInputTextCallbackData* data)
         {
             return ((data->EventChar >= 97 && data->EventChar <= 122) // a-z
                 || (data->EventChar >= 65 && data->EventChar <= 90) // A-Z

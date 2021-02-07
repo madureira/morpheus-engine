@@ -28,7 +28,7 @@ namespace Editor {
 
             this->m_TreeState[tree["path"]] = this->CreateFolderNode(tree["path"], tree["name"]);
 
-            if (ImGui::IsItemClicked() || ImGui::IsItemFocused())
+            if (ImGui::IsItemClicked())
             {
                 std::string folderPath(tree["path"]);
                 this->m_HandleFolderSelection(folderPath);
@@ -59,7 +59,7 @@ namespace Editor {
 
             std::string filePath(tree["path"]);
 
-            if (ImGui::IsItemClicked() || ImGui::IsItemFocused())
+            if (ImGui::IsItemClicked())
             {
                 ME_LOG_INFO("File size: {0}", tree["size"]);
             }
