@@ -4,13 +4,13 @@
 namespace Editor {
 
     Actionbar::Actionbar()
-        : m_IsPlaying(false)
     {
     }
 
     void Actionbar::Render(entt::registry &registry)
     {
         auto& projectEntity = registry.ctx<Morpheus::ProjectEntity>();
+        bool projectLoaded = projectEntity.path.empty();
 
         ImGuiIO &io = ImGui::GetIO();
 
@@ -34,35 +34,26 @@ namespace Editor {
             ImGui::Dummy(ImVec2(2.0f, 0.0f));
             ImGui::SameLine();
 
-            Button::Render(nullptr, ICON_FA_ARROWS_ALT, "Move");
+            Button::Render(nullptr, ICON_FA_ARROWS_ALT, "Move", projectLoaded);
             ImGui::SameLine();
 
-            Button::Render(nullptr, ICON_FA_SYNC_ALT, "Rotate");
+            Button::Render(nullptr, ICON_FA_SYNC_ALT, "Rotate", projectLoaded);
             ImGui::SameLine();
 
-            Button::Render(nullptr, ICON_FA_EXPAND_ARROWS_ALT, "Scale");
+            Button::Render(nullptr, ICON_FA_EXPAND_ARROWS_ALT, "Scale", projectLoaded);
             ImGui::SameLine();
 
-            ImGui::Dummy(ImVec2(io.DisplaySize.x / 2 - 140.f, 0.0f));
+            ImGui::Dummy(ImVec2(io.DisplaySize.x / 2 - 125.f, 0.0f));
             ImGui::SameLine();
 
             static bool play = false;
 
-            if (Button::Render(nullptr, ICON_FA_PLAY, "Play", this->m_IsPlaying))
+            if (Button::Render(nullptr, play ? ICON_FA_PAUSE : ICON_FA_PLAY, play ? "Pause" : "Play", projectLoaded))
             {
-                play = true;
+                play = !play;
             }
-            ImGui::SameLine();
 
-            if (Button::Render(nullptr, ICON_FA_PAUSE, "Pause", !this->m_IsPlaying))
-            {
-                play = false;
-            }
-            ImGui::SameLine();
-
-            this->m_IsPlaying = play;
-
-            projectEntity.playing = this->m_IsPlaying;
+            projectEntity.playing = play;
         }
         ImGui::End();
         ImGui::PopStyleVar();
