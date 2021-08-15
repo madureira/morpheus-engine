@@ -1,5 +1,7 @@
 # IDE
+.idea/
 .vs/
+.vscode/
 **.DS_Store
 **.sln
 **.vcxproj
