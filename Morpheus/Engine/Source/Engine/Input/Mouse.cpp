@@ -14,19 +14,19 @@ namespace Morpheus {
     Mouse::Mouse(entt::registry& registry, GLFWwindow* pNativeWindow)
         : m_Window(pNativeWindow)
     {
-        glfwSetCursorPosCallback(this->m_Window, [](GLFWwindow* pNativeWindow, double xpos, double ypos)
+        glfwSetCursorPosCallback(m_Window, [](GLFWwindow* pNativeWindow, double xpos, double ypos)
             {
                 s_xPos = xpos;
                 s_yPos = ypos;
             });
 
-        glfwSetScrollCallback(this->m_Window, [](GLFWwindow* pNativeWindow, double xoffset, double yoffset)
+        glfwSetScrollCallback(m_Window, [](GLFWwindow* pNativeWindow, double xoffset, double yoffset)
             {
                 s_xOffset = xoffset;
                 s_yOffset = yoffset;
             });
 
-        glfwSetMouseButtonCallback(this->m_Window, [](GLFWwindow* pNativeWindow, int button, int action, int mods)
+        glfwSetMouseButtonCallback(m_Window, [](GLFWwindow* pNativeWindow, int button, int action, int mods)
             {
                 s_leftButton = (button == GLFW_MOUSE_BUTTON_LEFT && action == GLFW_PRESS);
                 s_middleButton = (button == GLFW_MOUSE_BUTTON_MIDDLE && action == GLFW_PRESS);

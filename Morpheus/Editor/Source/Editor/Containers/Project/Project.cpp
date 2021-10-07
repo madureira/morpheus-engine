@@ -15,11 +15,11 @@ namespace Editor {
         , m_CurrentSelectedFolder("")
         , m_CurrentSelectedFile("")
     {
-        this->m_Preview = new Preview(
-            [&selectedFolder = this->m_CurrentSelectedFolder](std::string selectedFolderByUser) {
+        m_Preview = new Preview(
+            [&selectedFolder = m_CurrentSelectedFolder](std::string selectedFolderByUser) {
                 selectedFolder = selectedFolderByUser;
             },
-            [&selectedFile = this->m_CurrentSelectedFile](std::string selectedFileByUser) {
+            [&selectedFile = m_CurrentSelectedFile](std::string selectedFileByUser) {
                 selectedFile = selectedFileByUser;
             }
         );
@@ -27,17 +27,17 @@ namespace Editor {
 
     Project::~Project()
     {
-        delete this->m_Preview;
-        delete this->m_TreeView;
-        delete this->m_CodeEditor;
+        delete m_Preview;
+        delete m_TreeView;
+        delete m_CodeEditor;
     }
 
     void Project::Render(entt::registry& registry)
     {
         auto& projectEntity = registry.ctx<Morpheus::ProjectEntity>();
 
-        this->UpdateProjectPath(projectEntity);
-        this->OpenCodeEditor(registry);
+        UpdateProjectPath(projectEntity);
+        OpenCodeEditor(registry);
 
         static bool* show = NULL;
         ImGuiWindowFlags windowFlags = ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoScrollbar;
@@ -52,9 +52,9 @@ namespace Editor {
             ImGui::PushStyleColor(ImGuiCol_ChildBg, { 0.180f, 0.180f , 0.180f , 1.00f });
             ImGui::BeginChild("TreeView", ImVec2(s_treeViewWidth, 0), false, ImGuiWindowFlags_HorizontalScrollbar);
             {
-                if (this->m_TreeView != nullptr)
+                if (m_TreeView != nullptr)
                 {
-                    this->m_TreeView->Render(registry);
+                    m_TreeView->Render(registry);
                 }
             }
             ImGui::EndChild();
@@ -80,8 +80,8 @@ namespace Editor {
             ImGui::PushStyleColor(ImGuiCol_ChildBg, { 0.180f, 0.180f , 0.180f , 1.00f });
             ImGui::BeginChild("FilesPreview", ImVec2(0, 0), false);
             {
-                this->m_Preview->UpdateSelectedFolder(this->m_CurrentSelectedFolder);
-                this->m_Preview->Render(registry);
+                m_Preview->UpdateSelectedFolder(m_CurrentSelectedFolder);
+                m_Preview->Render(registry);
             }
             ImGui::EndChild();
             ImGui::PopStyleColor();
@@ -96,29 +96,29 @@ namespace Editor {
         if (projectEntity.resetTreeViewOnly)
         {
             projectEntity.resetTreeViewOnly = false;
-            delete this->m_TreeView;
-            this->m_TreeView = new TreeView(this->m_ProjectPath,
-                [&selectedFolder = this->m_CurrentSelectedFolder](std::string selectedFolderByUser) {
+            delete m_TreeView;
+            m_TreeView = new TreeView(m_ProjectPath,
+                [&selectedFolder = m_CurrentSelectedFolder](std::string selectedFolderByUser) {
                     selectedFolder = selectedFolderByUser;
                 },
-                [&selectedFile = this->m_CurrentSelectedFile](std::string selectedFileByUser) {
+                [&selectedFile = m_CurrentSelectedFile](std::string selectedFileByUser) {
                     selectedFile = selectedFileByUser;
                 }
             );
         }
-        else if (projectEntity.reload || (this->m_ProjectPath != projectEntity.path && !projectEntity.path.empty()))
+        else if (projectEntity.reload || (m_ProjectPath != projectEntity.path && !projectEntity.path.empty()))
         {
             projectEntity.reload = false;
-            this->m_CurrentSelectedFolder = this->m_ProjectPath;
-            this->m_ProjectPath = projectEntity.path;
-            this->m_CurrentSelectedFile = "";
+            m_CurrentSelectedFolder = m_ProjectPath;
+            m_ProjectPath = projectEntity.path;
+            m_CurrentSelectedFile = "";
 
-            delete this->m_TreeView;
-            this->m_TreeView = new TreeView(this->m_ProjectPath,
-                [&selectedFolder = this->m_CurrentSelectedFolder](std::string selectedFolderByUser) {
+            delete m_TreeView;
+            m_TreeView = new TreeView(m_ProjectPath,
+                [&selectedFolder = m_CurrentSelectedFolder](std::string selectedFolderByUser) {
                     selectedFolder = selectedFolderByUser;
                 },
-                [&selectedFile = this->m_CurrentSelectedFile](std::string selectedFileByUser) {
+                [&selectedFile = m_CurrentSelectedFile](std::string selectedFileByUser) {
                     selectedFile = selectedFileByUser;
                 }
             );
@@ -130,16 +130,16 @@ namespace Editor {
         static bool showCodeEditor = false;
         static std::string filePath = "";
 
-        if (!this->m_CurrentSelectedFile.empty() && this->m_CurrentSelectedFile != filePath)
+        if (!m_CurrentSelectedFile.empty() && m_CurrentSelectedFile != filePath)
         {
             showCodeEditor = true;
-            filePath = this->m_CurrentSelectedFile;
-            this->m_CodeEditor = new CodeEditor(this->m_CurrentSelectedFile);
+            filePath = m_CurrentSelectedFile;
+            m_CodeEditor = new CodeEditor(m_CurrentSelectedFile);
         }
 
         if (showCodeEditor)
         {
-            this->m_CodeEditor->Draw();
+            m_CodeEditor->Draw();
         }
     }
 

@@ -13,61 +13,61 @@ namespace Editor {
 
         if (Morpheus::Extension::IsCode(extension) || Morpheus::Extension::IsData(extension) || Morpheus::Extension::IsShader(extension))
         {
-            this->m_ShowEditor = true;
-            this->m_TextEditor = new TextEditor();
-            this->m_TextEditor->SetPalette(TextEditor::GetDarkPalette());
+            m_ShowEditor = true;
+            m_TextEditor = new TextEditor();
+            m_TextEditor->SetPalette(TextEditor::GetDarkPalette());
 
             if (Morpheus::Extension::IsShader(extension))
             {
-                this->m_TextEditor->SetLanguageDefinition(TextEditor::LanguageDefinition::GLSL());
+                m_TextEditor->SetLanguageDefinition(TextEditor::LanguageDefinition::GLSL());
             }
             else if (extension == Morpheus::Extension::LUA)
             {
-                this->m_TextEditor->SetLanguageDefinition(TextEditor::LanguageDefinition::Lua());
+                m_TextEditor->SetLanguageDefinition(TextEditor::LanguageDefinition::Lua());
             }
             else if (extension == Morpheus::Extension::H || extension == Morpheus::Extension::CPP)
             {
-                this->m_TextEditor->SetLanguageDefinition(TextEditor::LanguageDefinition::CPlusPlus());
+                m_TextEditor->SetLanguageDefinition(TextEditor::LanguageDefinition::CPlusPlus());
             }
 
-            this->m_TextEditor->SetText(Morpheus::FileUtil::ReadFile(this->m_FilePath));
+            m_TextEditor->SetText(Morpheus::FileUtil::ReadFile(m_FilePath));
         }
     }
 
     CodeEditor::~CodeEditor()
     {
-        this->m_FilePath.erase();
-        delete this->m_TextEditor;
+        m_FilePath.erase();
+        delete m_TextEditor;
     }
 
     void CodeEditor::Draw()
     {
-        if (this->m_ShowEditor)
+        if (m_ShowEditor)
         {
-            auto cpos = this->m_TextEditor->GetCursorPosition();
+            auto cpos = m_TextEditor->GetCursorPosition();
 
             static ImGuiWindowFlags flags = ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoCollapse;
             ImGui::SetNextWindowSize(ImVec2(800, 600), ImGuiCond_FirstUseEver);
             std::string title(ICON_FA_CODE);
             title += "  ";
-            title += this->m_TextEditor->CanUndo() ? "Code Editor*" : "Code Editor";
+            title += m_TextEditor->CanUndo() ? "Code Editor*" : "Code Editor";
 
-            ImGui::Begin(title.c_str(), &this->m_ShowEditor, flags);
+            ImGui::Begin(title.c_str(), &m_ShowEditor, flags);
             {
                 ImVec2 codeEditorPos = ImGui::GetCursorPos();
 
                 ImGui::BeginChild("textRender", ImVec2(0, codeEditorPos.y - 50));
                 {
-                    this->m_TextEditor->Render("TextEditor");
+                    m_TextEditor->Render("TextEditor");
                 }
                 ImGui::EndChild();
 
                 ImGui::Text("Ln: %d, Col: %d | %s | %s | %s",
                     cpos.mLine + 1,
                     cpos.mColumn + 1,
-                    this->m_TextEditor->IsOverwrite() ? "Ovr" : "Ins",
-                    this->m_TextEditor->GetLanguageDefinition().mName.c_str(),
-                    this->m_FilePath.c_str());
+                    m_TextEditor->IsOverwrite() ? "Ovr" : "Ins",
+                    m_TextEditor->GetLanguageDefinition().mName.c_str(),
+                    m_FilePath.c_str());
             }
             ImGui::End();
         }

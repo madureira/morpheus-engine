@@ -15,8 +15,8 @@ namespace Editor {
 
     Menubar::~Menubar()
     {
-        delete this->m_NewProject;
-        delete this->m_NewScene;
+        delete m_NewProject;
+        delete m_NewScene;
     }
 
     void Menubar::Render(entt::registry& registry)
@@ -27,9 +27,9 @@ namespace Editor {
             {
                 if (ImGui::MenuItem(ICON_FA_FOLDER_PLUS "   New Project..."))
                 {
-                    if (this->m_NewProject == nullptr)
+                    if (m_NewProject == nullptr)
                     {
-                        this->m_NewProject = new NewProject();
+                        m_NewProject = new NewProject();
                     }
                 }
 
@@ -56,9 +56,9 @@ namespace Editor {
 
                 if (ImGui::MenuItem(ICON_FA_CUBE"   New Scene"))
                 {
-                    if (this->m_NewScene == nullptr)
+                    if (m_NewScene == nullptr)
                     {
-                        this->m_NewScene = new NewScene();
+                        m_NewScene = new NewScene();
                     }
                 }
 
@@ -85,22 +85,22 @@ namespace Editor {
             }
             ImGui::EndMainMenuBar();
 
-            if (this->m_NewProject != nullptr && this->m_NewProject->IsOpened())
+            if (m_NewProject != nullptr && m_NewProject->IsOpened())
             {
-                this->m_NewProject->Render(registry);
+                m_NewProject->Render(registry);
             }
             else
             {
-                this->m_NewProject = nullptr;
+                m_NewProject = nullptr;
             }
 
-            if (this->m_NewScene != nullptr && this->m_NewScene->IsOpened())
+            if (m_NewScene != nullptr && m_NewScene->IsOpened())
             {
-                this->m_NewScene->Render(registry);
+                m_NewScene->Render(registry);
             }
             else
             {
-                this->m_NewScene = nullptr;
+                m_NewScene = nullptr;
             }
         }
     }

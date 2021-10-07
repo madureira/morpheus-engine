@@ -26,10 +26,10 @@ namespace Editor {
 
     MorpheusEditor::~MorpheusEditor()
     {
-        delete this->m_Menubar;
-        delete this->m_Actionbar;
-        delete this->m_Dock;
-        delete this->m_Footer;
+        delete m_Menubar;
+        delete m_Actionbar;
+        delete m_Dock;
+        delete m_Footer;
         ImGui_ImplOpenGL3_Shutdown();
         ImGui_ImplGlfw_Shutdown();
         ImGui::DestroyContext();
@@ -84,10 +84,10 @@ namespace Editor {
         ImGui_ImplGlfw_InitForOpenGL(static_cast<GLFWwindow*>(windowComponent.GetNativeWindow()), true);
         ImGui_ImplOpenGL3_Init("#version 330");
 
-        this->m_Menubar = new Menubar();
-        this->m_Actionbar = new Actionbar();
-        this->m_Dock = new Dock(registry);
-        this->m_Footer = new Footer();
+        m_Menubar = new Menubar();
+        m_Actionbar = new Actionbar();
+        m_Dock = new Dock(registry);
+        m_Footer = new Footer();
     }
 
     void MorpheusEditor::OnFrameStarted(entt::registry& registry, double deltaTime, int currentFrame, int frameRate)
@@ -102,10 +102,10 @@ namespace Editor {
         ImGuiIO& io = ImGui::GetIO();
         io.DisplaySize = ImVec2((float)windowSize.width, (float)windowSize.height);
 
-        this->m_Menubar->Render(registry);
-        this->m_Actionbar->Render(registry);
-        this->m_Dock->Render(registry);
-        this->m_Footer->Render(registry);
+        m_Menubar->Render(registry);
+        m_Actionbar->Render(registry);
+        m_Dock->Render(registry);
+        m_Footer->Render(registry);
 
         ImGui::Render();
         ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());

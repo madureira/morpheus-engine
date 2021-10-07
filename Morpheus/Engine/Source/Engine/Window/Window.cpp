@@ -12,15 +12,15 @@ namespace Morpheus {
         if (!glfwInit())
         {
             ME_LOG_ERROR("GLFW ERROR: {0}", "Could not initialize GLFW");
-            this->Shutdown();
+            Shutdown();
             return;
         }
 
-        auto& settingsEntity = this->m_Registry.ctx<SettingsEntity>();
-        auto& settingsSize = this->m_Registry.get<SettingsComponent>(settingsEntity.id);
+        auto& settingsEntity = m_Registry.ctx<SettingsEntity>();
+        auto& settingsSize = m_Registry.get<SettingsComponent>(settingsEntity.id);
 
-        this->m_Width = settingsSize.windowWidth;
-        this->m_Height = settingsSize.windowHeight;
+        m_Width = settingsSize.windowWidth;
+        m_Height = settingsSize.windowHeight;
 
         const int MONITOR_INDEX = settingsSize.isPrimaryMonitor ? 0 : 1;
         int monitors;
@@ -39,21 +39,21 @@ namespace Morpheus {
         glfwWindowHint(GLFW_BLUE_BITS, pMode->blueBits);
         glfwWindowHint(GLFW_REFRESH_RATE, 60);
 
-        this->m_Window = glfwCreateWindow(this->m_Width, this->m_Height, settingsSize.windowTitle.c_str(), settingsSize.isWindowFullScreen ? pMonitor : nullptr, nullptr);
+        m_Window = glfwCreateWindow(m_Width, m_Height, settingsSize.windowTitle.c_str(), settingsSize.isWindowFullScreen ? pMonitor : nullptr, nullptr);
 
-        if (!this->m_Window)
+        if (!m_Window)
         {
             ME_LOG_ERROR("GLFW ERROR: {0}", "Could not create GLFWwindow*");
-            this->Shutdown();
+            Shutdown();
             return;
         }
 
-        glfwMakeContextCurrent(this->m_Window);
-        glfwSetWindowUserPointer(this->m_Window, this);
-        glfwSetWindowPos(this->m_Window, (pMode->width - this->m_Width) / 2, (pMode->height - this->m_Height) / 2);
-        glfwSetWindowSizeLimits(this->m_Window, 800, 600, 3840, 2160);
+        glfwMakeContextCurrent(m_Window);
+        glfwSetWindowUserPointer(m_Window, this);
+        glfwSetWindowPos(m_Window, (pMode->width - m_Width) / 2, (pMode->height - m_Height) / 2);
+        glfwSetWindowSizeLimits(m_Window, 800, 600, 3840, 2160);
         glfwSwapInterval(settingsSize.isVSyncOn ? 1 : 0);
-        glfwFocusWindow(this->m_Window);
+        glfwFocusWindow(m_Window);
 
         Image icon;
         ImageLoader::Load("Assets/icons/window-icon.png", false, icon);
@@ -65,7 +65,7 @@ namespace Morpheus {
         images[0] = { icon.width, icon.height, icon.pixels };
         images[1] = { smallIcon.width, smallIcon.height, smallIcon.pixels };
 
-        glfwSetWindowIcon(this->m_Window, 2, images);
+        glfwSetWindowIcon(m_Window, 2, images);
 
         ImageLoader::FreeImage(icon);
         ImageLoader::FreeImage(smallIcon);
@@ -75,7 +75,7 @@ namespace Morpheus {
                 ME_LOG_ERROR("GLFW ERROR: code: {0}, message: {1}", error, description);
             });
 
-        glfwSetWindowSizeCallback(this->m_Window, [](GLFWwindow* pNativeWindow, int width, int height)
+        glfwSetWindowSizeCallback(m_Window, [](GLFWwindow* pNativeWindow, int width, int height)
             {
                 Window& window = *(Window*)glfwGetWindowUserPointer(pNativeWindow);
                 window.m_Width = width;
@@ -88,7 +88,7 @@ namespace Morpheus {
                 windowSize.height = (float)height;
             });
 
-        glfwSetDropCallback(this->m_Window, [](GLFWwindow* pNativeWindow, int count, const char** paths)
+        glfwSetDropCallback(m_Window, [](GLFWwindow* pNativeWindow, int count, const char** paths)
             {
                 Window& window = *(Window*)glfwGetWindowUserPointer(pNativeWindow);
                 auto& windowEntity = window.m_Registry.ctx<Morpheus::WindowEntity>();
@@ -113,7 +113,7 @@ namespace Morpheus {
         if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
         {
             ME_LOG_ERROR("OpenGL ERROR: {0}", "Failed to initialize OpenGL context");
-            this->Shutdown();
+            Shutdown();
             return;
         }
 
@@ -123,12 +123,12 @@ namespace Morpheus {
 
     Window::~Window()
     {
-        this->Shutdown();
+        Shutdown();
     }
 
     bool Window::IsOpen() const
     {
-        return !glfwWindowShouldClose(this->m_Window);
+        return !glfwWindowShouldClose(m_Window);
     }
 
     void Window::PollEvents() const
@@ -144,17 +144,17 @@ namespace Morpheus {
 
     void Window::SwapBuffers() const
     {
-        glfwSwapBuffers(this->m_Window);
+        glfwSwapBuffers(m_Window);
     }
 
     unsigned int Window::GetWidth() const
     {
-        return this->m_Width;
+        return m_Width;
     }
 
     unsigned int Window::GetHeight() const
     {
-        return this->m_Height;
+        return m_Height;
     }
 
     double Window::GetTime() const
@@ -164,17 +164,17 @@ namespace Morpheus {
 
     void Window::Close() const
     {
-        glfwSetWindowShouldClose(this->m_Window, GLFW_TRUE);
+        glfwSetWindowShouldClose(m_Window, GLFW_TRUE);
     }
 
     GLFWwindow* Window::GetNativeWindow() const
     {
-        return this->m_Window;
+        return m_Window;
     }
 
     void Window::Shutdown() const
     {
-        glfwDestroyWindow(this->m_Window);
+        glfwDestroyWindow(m_Window);
         glfwTerminate();
     }
 

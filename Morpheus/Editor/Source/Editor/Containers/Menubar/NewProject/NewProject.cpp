@@ -37,7 +37,7 @@ namespace Editor {
             ImGui::Dummy(ImVec2(5.0f, 0.0f)); ImGui::SameLine();
             ImGui::Text("Project name:"); ImGui::SameLine();
             ImGuiInputTextFlags flags = ImGuiInputTextFlags_CallbackCharFilter;
-            ImGui::InputText("##projectName", this->m_ProjectName, IM_ARRAYSIZE(this->m_ProjectName), flags, InputUtil::SanitizeCallback);
+            ImGui::InputText("##projectName", m_ProjectName, IM_ARRAYSIZE(m_ProjectName), flags, InputUtil::SanitizeCallback);
 
             ImGui::Dummy(ImVec2(0.0f, 5.0f));
             ImGui::Dummy(ImVec2(32.0f, 0.0f)); ImGui::SameLine();
@@ -45,7 +45,7 @@ namespace Editor {
             ImGui::PushItemWidth(193);
             ImGui::PushItemFlag(ImGuiItemFlags_Disabled, true);
             ImGui::PushStyleVar(ImGuiStyleVar_Alpha, ImGui::GetStyle().Alpha * 0.5f);
-            ImGui::InputText("##projectLocation", this->m_ProjectLocation, IM_ARRAYSIZE(this->m_ProjectLocation));
+            ImGui::InputText("##projectLocation", m_ProjectLocation, IM_ARRAYSIZE(m_ProjectLocation));
             ImGui::PopItemFlag();
             ImGui::PopStyleVar();
             ImGui::PopItemWidth();
@@ -54,7 +54,7 @@ namespace Editor {
             if (Button::Render(ICON_FA_FOLDER_OPEN))
             {
                 std::string selectedPath = FileSystemDialog::OpenFolderSelector();
-                std::copy(selectedPath.begin(), selectedPath.end(), this->m_ProjectLocation);
+                std::copy(selectedPath.begin(), selectedPath.end(), m_ProjectLocation);
             }
 
             ImGui::Dummy(ImVec2(0.0f, 5.0f));
@@ -64,13 +64,13 @@ namespace Editor {
             ImGui::Indent(203);
             if (Button::Render("Cancel"))
             {
-                this->m_IsOpened = false;
+                m_IsOpened = false;
                 ImGui::CloseCurrentPopup();
             }
             ImGui::SameLine();
 
-            std::string projectName(this->m_ProjectName);
-            std::string projectLocation(this->m_ProjectLocation);
+            std::string projectName(m_ProjectName);
+            std::string projectLocation(m_ProjectLocation);
 
             if (projectName.empty() || projectLocation.empty())
             {
@@ -104,7 +104,7 @@ namespace Editor {
                     Morpheus::FileUtil::CreateFolder(projectPath, "Assets");
                     Morpheus::GlobalState::Save(registry);
 
-                    this->m_IsOpened = false;
+                    m_IsOpened = false;
                     ImGui::CloseCurrentPopup();
                 }
                 else
@@ -124,7 +124,7 @@ namespace Editor {
 
     bool NewProject::IsOpened() const
     {
-        return this->m_IsOpened;
+        return m_IsOpened;
     }
 
 }

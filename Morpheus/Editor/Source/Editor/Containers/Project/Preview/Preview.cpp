@@ -20,10 +20,10 @@ namespace Editor {
 
     Preview::~Preview()
     {
-        this->Shutdown();
-        delete this->m_FolderIcon;
-        delete this->m_FileIcon;
-        delete this->m_SceneIcon;
+        Shutdown();
+        delete m_FolderIcon;
+        delete m_FileIcon;
+        delete m_SceneIcon;
     }
 
     void Preview::Render(entt::registry& registry)
@@ -41,7 +41,7 @@ namespace Editor {
             ImGui::Dummy(ImVec2(0, margin));
 
             int itemId = 0;
-            for (auto &item : this->m_Items)
+            for (auto &item : m_Items)
             {
                 ImGui::Dummy(ImVec2(margin, 0));
                 ImGui::SameLine();
@@ -51,20 +51,20 @@ namespace Editor {
                 ImGui::PushStyleColor(ImGuiCol_ButtonHovered, ImVec4(ImColor(0.25f, 0.25f, 0.25f, 1.00f)));
                 ImGui::PushStyleColor(ImGuiCol_ButtonActive, ImVec4(ImColor(150, 150, 150)));
                 ImGui::PushID(itemId);
-                if (ImGui::ImageButton((void*)item->image->GetID(), ImVec2((float)(imageSize * this->m_Zoom), (float)(imageSize * this->m_Zoom))))
+                if (ImGui::ImageButton((void*)item->image->GetID(), ImVec2((float)(imageSize * m_Zoom), (float)(imageSize * m_Zoom))))
                 {
-                    this->m_SelectedItem = item->data["path"].get<std::string>();
+                    m_SelectedItem = item->data["path"].get<std::string>();
                 }
 
                 if (ImGui::IsItemHovered() && ImGui::IsMouseDoubleClicked(0))
                 {
                     if (item->data["type"].get<std::string>() == "folder")
                     {
-                        this->m_HandleFolderSelection(this->m_SelectedItem);
+                        m_HandleFolderSelection(m_SelectedItem);
                     }
                     else if (item->data["type"].get<std::string>() == "file")
                     {
-                        this->m_HandleFileSelection(this->m_SelectedItem);
+                        m_HandleFileSelection(m_SelectedItem);
                     }
                 }
 
@@ -73,10 +73,10 @@ namespace Editor {
                 ImGui::Dummy(ImVec2(0, 5));
                 ImGui::Dummy(ImVec2(5, 0));
                 ImGui::SameLine();
-                std::string truncatedText(this->TruncateFileName(item->title));
+                std::string truncatedText(TruncateFileName(item->title));
                 ImVec2 textSize = ImGui::CalcTextSize(truncatedText.c_str());
                 ImVec2 pos = ImGui::GetCursorPos();
-                pos.x += (imageSize * this->m_Zoom - textSize.x) * 0.5f;
+                pos.x += (imageSize * m_Zoom - textSize.x) * 0.5f;
                 ImGui::SetCursorPos(pos);
                 ImGui::Text(truncatedText.c_str());
                 ImGui::EndGroup();
@@ -88,7 +88,7 @@ namespace Editor {
                     ImGui::EndTooltip();
                 }
 
-                float nextSize = width + (margin * 3.0f) + (imageSize * this->m_Zoom);
+                float nextSize = width + (margin * 3.0f) + (imageSize * m_Zoom);
 
                 if (areaSize.x > nextSize)
                 {
@@ -106,7 +106,7 @@ namespace Editor {
                 itemId++;
             }
 
-            if (!this->m_CurrentFolder.empty())
+            if (!m_CurrentFolder.empty())
             {
                 auto& windowEntity = registry.ctx<Morpheus::WindowEntity>();
                 auto& dropFilesComponent = registry.get<Morpheus::DropFilesComponent>(windowEntity.id);
@@ -120,7 +120,7 @@ namespace Editor {
                         for (auto& fileOrigin : dropFilesComponent.filesPath)
                         {
                             ME_LOG_WARN("Uploading file: {0}", fileOrigin);
-                            std::string targetFile(this->m_CurrentFolder + pathSep + Morpheus::FileUtil::GetFileNameFromPath(fileOrigin));
+                            std::string targetFile(m_CurrentFolder + pathSep + Morpheus::FileUtil::GetFileNameFromPath(fileOrigin));
                             Morpheus::FileUtil::CopyFile(fileOrigin, targetFile);
                             copiedFiles++;
                         }
@@ -129,7 +129,7 @@ namespace Editor {
                         {
                             auto& projectEntity = registry.ctx<Morpheus::ProjectEntity>();
                             projectEntity.resetTreeViewOnly = true;
-                            this->m_CurrentFolder = "";
+                            m_CurrentFolder = "";
                         }
                     }
                     dropFilesComponent.filesPath.clear();
@@ -138,23 +138,23 @@ namespace Editor {
         }
         ImGui::EndChild();
 
-        if (!this->m_Items.empty())
+        if (!m_Items.empty())
         {
-            this->DrawFooter(winSize.x);
+            DrawFooter(winSize.x);
         }
     }
 
     void Preview::UpdateSelectedFolder(std::string& folderPath)
     {
-        if (this->m_CurrentFolder != folderPath)
+        if (m_CurrentFolder != folderPath)
         {
-            this->m_SelectedItem = "";
-            this->m_CurrentFolder = folderPath;
-            this->m_JSON = Morpheus::JSON::parse(Morpheus::FileUtil::ReadDirectoryAsJsonString(this->m_CurrentFolder));
+            m_SelectedItem = "";
+            m_CurrentFolder = folderPath;
+            m_JSON = Morpheus::JSON::parse(Morpheus::FileUtil::ReadDirectoryAsJsonString(m_CurrentFolder));
 
-            this->Shutdown();
+            Shutdown();
 
-            for (auto node : this->m_JSON)
+            for (auto node : m_JSON)
             {
                 json currentNode;
                 currentNode["name"] = node["name"];
@@ -169,7 +169,7 @@ namespace Editor {
 
                     if (Morpheus::Extension::IsImage(currentNode["extension"]))
                     {
-                        this->m_Items.push_back(
+                        m_Items.push_back(
                             new PreviewItem(
                                 currentNode["name"].get<std::string>(),
                                 new Morpheus::Texture(currentNode["path"].get<std::string>().c_str()),
@@ -179,20 +179,20 @@ namespace Editor {
                     }
                     else if (Morpheus::Extension::IsScene(currentNode["extension"]))
                     {
-                        this->m_Items.push_back(
+                        m_Items.push_back(
                             new PreviewItem(
                                 currentNode["name"].get<std::string>(),
-                                this->m_SceneIcon,
+                                m_SceneIcon,
                                 currentNode
                             )
                         );
                     }
                     else
                     {
-                        this->m_Items.push_back(
+                        m_Items.push_back(
                             new PreviewItem(
                                 currentNode["name"].get<std::string>(),
-                                this->m_FileIcon,
+                                m_FileIcon,
                                 currentNode
                             )
                         );
@@ -200,17 +200,17 @@ namespace Editor {
                 }
                 else if (currentNode["type"] == "folder")
                 {
-                    this->m_Items.push_back(
+                    m_Items.push_back(
                         new PreviewItem(
                             currentNode["name"].get<std::string>(),
-                            this->m_FolderIcon,
+                            m_FolderIcon,
                             currentNode
                         )
                     );
                 }
             }
 
-            std::sort(this->m_Items.begin(), this->m_Items.end(), [](const PreviewItem* a, const PreviewItem* b) {
+            std::sort(m_Items.begin(), m_Items.end(), [](const PreviewItem* a, const PreviewItem* b) {
                 if (a->data["type"] == "folder" && b->data["type"] == "folder")
                 {
                     return a->title < b->title;
@@ -223,20 +223,20 @@ namespace Editor {
 
     void Preview::UpdateSelectedFile(std::string& filePath)
     {
-        this->m_CurrentFile = filePath;
+        m_CurrentFile = filePath;
     }
 
     void Preview::Shutdown()
     {
-        for (auto item : this->m_Items)
+        for (auto item : m_Items)
         {
-            if (item->image != this->m_FileIcon && item->image != this->m_FolderIcon && item->image != this->m_SceneIcon)
+            if (item->image != m_FileIcon && item->image != m_FolderIcon && item->image != m_SceneIcon)
             {
                 delete item->image;
             }
             delete item;
         }
-        this->m_Items.clear();
+        m_Items.clear();
     }
 
     void Preview::DrawFooter(float areaWidth)
@@ -253,7 +253,7 @@ namespace Editor {
                 pos.y += 5;
                 pos.x += 10;
                 ImGui::SetCursorPos(pos);
-                ImGui::Text(this->m_SelectedItem.c_str());
+                ImGui::Text(m_SelectedItem.c_str());
             }
             ImGui::EndChild();
 
@@ -262,9 +262,9 @@ namespace Editor {
             ImGui::SameLine();
             if (Button::Render(ICON_FA_SEARCH_MINUS))
             {
-                if (this->m_Zoom > 1)
+                if (m_Zoom > 1)
                 {
-                    this->m_Zoom--;
+                    m_Zoom--;
                 }
             }
             ImGui::SameLine();
@@ -272,9 +272,9 @@ namespace Editor {
             ImGui::SameLine();
             if (Button::Render(ICON_FA_SEARCH_PLUS))
             {
-                if (this->m_Zoom < 3)
+                if (m_Zoom < 3)
                 {
-                    this->m_Zoom++;
+                    m_Zoom++;
                 }
             }
         }
@@ -285,9 +285,9 @@ namespace Editor {
     {
         static const int SLOT_SIZE = 8;
 
-        if (fileName.size() > SLOT_SIZE * this->m_Zoom)
+        if (fileName.size() > SLOT_SIZE * m_Zoom)
         {
-            return fileName.substr(0, SLOT_SIZE * this->m_Zoom) + "...";
+            return fileName.substr(0, SLOT_SIZE * m_Zoom) + "...";
         }
 
         return fileName;

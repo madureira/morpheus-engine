@@ -45,14 +45,14 @@ namespace Morpheus {
             , m_IsVSyncOn(false)
             , m_IsDebug(false)
         {
-            this->m_LuaState = new sol::state();
-            this->m_LuaState->open_libraries(sol::lib::base);
+            m_LuaState = new sol::state();
+            m_LuaState->open_libraries(sol::lib::base);
 
-            sol::load_result settingsContent = this->m_LuaState->load_file(SETTINGS_FILE_PATH);
+            sol::load_result settingsContent = m_LuaState->load_file(SETTINGS_FILE_PATH);
 
-            if (this->IsSettingsValid(settingsContent))
+            if (IsSettingsValid(settingsContent))
             {
-                this->LoadVariables();
+                LoadVariables();
             }
             else
             {
@@ -62,60 +62,60 @@ namespace Morpheus {
 
         ~Settings()
         {
-            delete this->m_LuaState;
+            delete m_LuaState;
         }
 
         inline std::string GetWindowTitle() const
         {
-            return this->m_WindowTitle;
+            return m_WindowTitle;
         }
 
         inline bool IsWindowFullscreen() const
         {
-            return this->m_IsWindowFullScreen;
+            return m_IsWindowFullScreen;
         }
 
         inline bool IsPrimaryMonitor() const
         {
-            return this->m_IsPrimaryMonitor;
+            return m_IsPrimaryMonitor;
         }
 
         inline unsigned int GetWindowWidth() const
         {
-            return this->m_WindowWidth;
+            return m_WindowWidth;
         }
 
         inline unsigned int GetWindowHeight() const
         {
-            return this->m_WindowHeight;
+            return m_WindowHeight;
         }
 
         inline unsigned int GetMaxFPS() const
         {
-            return this->m_FPS;
+            return m_FPS;
         }
 
         inline bool IsVSyncOn() const
         {
-            return this->m_IsVSyncOn;
+            return m_IsVSyncOn;
         }
 
         inline bool IsDebug() const
         {
-            return this->m_IsDebug;
+            return m_IsDebug;
         }
 
         inline SettingsComponent GetSettings() const
         {
             return SettingsComponent{
-                this->m_WindowTitle,
-                this->m_IsWindowFullScreen,
-                this->m_IsPrimaryMonitor,
-                this->m_WindowWidth,
-                this->m_WindowHeight,
-                this->m_FPS,
-                this->m_IsVSyncOn,
-                this->m_IsDebug
+                m_WindowTitle,
+                m_IsWindowFullScreen,
+                m_IsPrimaryMonitor,
+                m_WindowWidth,
+                m_WindowHeight,
+                m_FPS,
+                m_IsVSyncOn,
+                m_IsDebug
             };
         }
 
@@ -134,14 +134,14 @@ namespace Morpheus {
 
         void LoadVariables()
         {
-            sol::optional<std::string> windowTitle = (*this->m_LuaState)["config"]["window"]["title"];
-            sol::optional<bool> windowFullScreen = (*this->m_LuaState)["config"]["window"]["fullscreen"];
-            sol::optional<bool> windowPrimaryMonitor = (*this->m_LuaState)["config"]["window"]["primary_monitor"];
-            sol::optional<unsigned int> windowResolutionWidth = (*this->m_LuaState)["config"]["window"]["resolution"]["width"];
-            sol::optional<unsigned int> windowResolutionHeight = (*this->m_LuaState)["config"]["window"]["resolution"]["height"];
-            sol::optional<unsigned int> fps = (*this->m_LuaState)["config"]["fps"];
-            sol::optional<bool> vsync = (*this->m_LuaState)["config"]["vsync"];
-            sol::optional<bool> debug = (*this->m_LuaState)["config"]["debug"];
+            sol::optional<std::string> windowTitle = (*m_LuaState)["config"]["window"]["title"];
+            sol::optional<bool> windowFullScreen = (*m_LuaState)["config"]["window"]["fullscreen"];
+            sol::optional<bool> windowPrimaryMonitor = (*m_LuaState)["config"]["window"]["primary_monitor"];
+            sol::optional<unsigned int> windowResolutionWidth = (*m_LuaState)["config"]["window"]["resolution"]["width"];
+            sol::optional<unsigned int> windowResolutionHeight = (*m_LuaState)["config"]["window"]["resolution"]["height"];
+            sol::optional<unsigned int> fps = (*m_LuaState)["config"]["fps"];
+            sol::optional<bool> vsync = (*m_LuaState)["config"]["vsync"];
+            sol::optional<bool> debug = (*m_LuaState)["config"]["debug"];
 
             c_assert(windowTitle != sol::nullopt);
             c_assert(windowFullScreen != sol::nullopt);
@@ -152,14 +152,14 @@ namespace Morpheus {
             c_assert(vsync != sol::nullopt);
             c_assert(debug != sol::nullopt);
 
-            this->m_WindowTitle = windowTitle.value();
-            this->m_IsWindowFullScreen = windowFullScreen.value();
-            this->m_IsPrimaryMonitor = windowPrimaryMonitor.value();
-            this->m_WindowWidth = windowResolutionWidth.value();
-            this->m_WindowHeight = windowResolutionHeight.value();
-            this->m_FPS = fps.value();
-            this->m_IsVSyncOn = vsync.value();
-            this->m_IsDebug = debug.value();
+            m_WindowTitle = windowTitle.value();
+            m_IsWindowFullScreen = windowFullScreen.value();
+            m_IsPrimaryMonitor = windowPrimaryMonitor.value();
+            m_WindowWidth = windowResolutionWidth.value();
+            m_WindowHeight = windowResolutionHeight.value();
+            m_FPS = fps.value();
+            m_IsVSyncOn = vsync.value();
+            m_IsDebug = debug.value();
         }
     };
 

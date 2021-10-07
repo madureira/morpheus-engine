@@ -15,61 +15,61 @@ namespace Morpheus {
     {
         Morpheus::Log::Init();
 
-        this->m_Settings = new Settings(this->m_Registry);
+        m_Settings = new Settings(m_Registry);
 
         // The SettingsEntity needs to be registered before everything
-        Morpheus::SettingsEntity settingsEntity{ this->m_Registry.create() };
-        this->m_Registry.set<Morpheus::SettingsEntity>(settingsEntity);
-        this->m_Registry.emplace<Morpheus::SettingsComponent>(settingsEntity.id, this->m_Settings->GetSettings());
+        Morpheus::SettingsEntity settingsEntity{ m_Registry.create() };
+        m_Registry.set<Morpheus::SettingsEntity>(settingsEntity);
+        m_Registry.emplace<Morpheus::SettingsComponent>(settingsEntity.id, m_Settings->GetSettings());
 
-        this->m_Window = new Window(this->m_Registry);
+        m_Window = new Window(m_Registry);
 
-        this->RegisterECS();
+        RegisterECS();
 
-        this->m_Performance = new Performance(this->m_Settings);
-        this->m_Mouse = new Mouse(this->m_Registry, this->m_Window->GetNativeWindow());
-        this->m_Input = new Input(this->m_Registry, this->m_Window->GetNativeWindow());
+        m_Performance = new Performance(m_Settings);
+        m_Mouse = new Mouse(m_Registry, m_Window->GetNativeWindow());
+        m_Input = new Input(m_Registry, m_Window->GetNativeWindow());
     }
 
     Engine::~Engine()
     {
-        delete this->m_Performance;
-        delete this->m_Input;
-        delete this->m_Mouse;
-        delete this->m_Window;
-        delete this->m_Settings;
+        delete m_Performance;
+        delete m_Input;
+        delete m_Mouse;
+        delete m_Window;
+        delete m_Settings;
     }
 
     void Engine::RegisterECS()
     {
-        Morpheus::WindowEntity windowEntity{ this->m_Registry.create() };
-        this->m_Registry.set<Morpheus::WindowEntity>(windowEntity);
-        this->m_Registry.emplace<Morpheus::WindowComponent>(windowEntity.id, this->m_Window);
-        this->m_Registry.emplace<Morpheus::SizeComponent>(windowEntity.id, this->m_Settings->GetWindowWidth(), this->m_Settings->GetWindowHeight());
-        this->m_Registry.emplace<Morpheus::DropFilesComponent>(windowEntity.id, std::vector<std::string>());
+        Morpheus::WindowEntity windowEntity{ m_Registry.create() };
+        m_Registry.set<Morpheus::WindowEntity>(windowEntity);
+        m_Registry.emplace<Morpheus::WindowComponent>(windowEntity.id, m_Window);
+        m_Registry.emplace<Morpheus::SizeComponent>(windowEntity.id, m_Settings->GetWindowWidth(), m_Settings->GetWindowHeight());
+        m_Registry.emplace<Morpheus::DropFilesComponent>(windowEntity.id, std::vector<std::string>());
 
-        Morpheus::MouseEntity mouseEntity{ this->m_Registry.create() };
-        this->m_Registry.set<Morpheus::MouseEntity>(mouseEntity);
-        this->m_Registry.emplace<Morpheus::MouseStateComponent>(mouseEntity.id);
+        Morpheus::MouseEntity mouseEntity{ m_Registry.create() };
+        m_Registry.set<Morpheus::MouseEntity>(mouseEntity);
+        m_Registry.emplace<Morpheus::MouseStateComponent>(mouseEntity.id);
 
-        Morpheus::InputEntity inputEntity{ this->m_Registry.create() };
-        this->m_Registry.set<Morpheus::InputEntity>(inputEntity);
-        this->m_Registry.emplace<Morpheus::InputStateComponent>(inputEntity.id);
+        Morpheus::InputEntity inputEntity{ m_Registry.create() };
+        m_Registry.set<Morpheus::InputEntity>(inputEntity);
+        m_Registry.emplace<Morpheus::InputStateComponent>(inputEntity.id);
 
-        Morpheus::StatisticsEntity statisticsEntity{ this->m_Registry.create() };
-        this->m_Registry.set<Morpheus::StatisticsEntity>(statisticsEntity);
-        this->m_Registry.emplace<Morpheus::StatisticsComponent>(statisticsEntity.id);
+        Morpheus::StatisticsEntity statisticsEntity{ m_Registry.create() };
+        m_Registry.set<Morpheus::StatisticsEntity>(statisticsEntity);
+        m_Registry.emplace<Morpheus::StatisticsComponent>(statisticsEntity.id);
     }
 
     void Engine::Initialize(App* pApp)
     {
-        this->m_App = pApp;
-        this->m_App->Initialize(this->m_Registry);
+        m_App = pApp;
+        m_App->Initialize(m_Registry);
     }
 
     void Engine::Start()
     {
-        const int MAX_FPS = this->m_Settings->GetMaxFPS();
+        const int MAX_FPS = m_Settings->GetMaxFPS();
         const double MS_PER_FRAME = 1.0 / (MAX_FPS * 1.0);
         const double ONE_SECOND = 1.0;
         double lastFrameTime = 0.0;
@@ -77,20 +77,20 @@ namespace Morpheus {
         int currentFrame = 0;
         int frameRate = 0;
 
-        auto& statisticsEntity = this->m_Registry.ctx<Morpheus::StatisticsEntity>();
-        auto& statistics = this->m_Registry.get<Morpheus::StatisticsComponent>(statisticsEntity.id);
+        auto& statisticsEntity = m_Registry.ctx<Morpheus::StatisticsEntity>();
+        auto& statistics = m_Registry.get<Morpheus::StatisticsComponent>(statisticsEntity.id);
 
-        while (this->m_Window->IsOpen())
+        while (m_Window->IsOpen())
         {
-            double currentTime = this->m_Window->GetTime();
+            double currentTime = m_Window->GetTime();
             double deltaTime = currentTime - lastTime;
 
-            this->m_Window->PollEvents();
-            this->m_Mouse->Update(this->m_Registry);
-            this->m_Input->Update(this->m_Registry);
-            this->m_App->FrameListener(this->m_Registry, deltaTime, currentFrame, frameRate);
+            m_Window->PollEvents();
+            m_Mouse->Update(m_Registry);
+            m_Input->Update(m_Registry);
+            m_App->FrameListener(m_Registry, deltaTime, currentFrame, frameRate);
 
-            if (this->m_Settings->IsVSyncOn() || deltaTime >= MS_PER_FRAME)
+            if (m_Settings->IsVSyncOn() || deltaTime >= MS_PER_FRAME)
             {
                 currentFrame++;
 
@@ -98,9 +98,9 @@ namespace Morpheus {
 
                 statistics.frameRate = frameRate;
 
-                this->m_Window->Clear();
-                this->m_App->OnFrameStarted(this->m_Registry, deltaFrame, currentFrame, frameRate);
-                this->m_Performance->Show(frameRate, deltaTime);
+                m_Window->Clear();
+                m_App->OnFrameStarted(m_Registry, deltaFrame, currentFrame, frameRate);
+                m_Performance->Show(frameRate, deltaTime);
 
                 if (deltaFrame >= ONE_SECOND)
                 {
@@ -111,7 +111,7 @@ namespace Morpheus {
                 }
 
                 lastTime = currentTime;
-                this->m_Window->SwapBuffers();
+                m_Window->SwapBuffers();
             }
 
             statistics.vertices = 0;

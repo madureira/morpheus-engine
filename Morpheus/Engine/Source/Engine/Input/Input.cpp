@@ -27,8 +27,8 @@ namespace Morpheus {
 
     Input::~Input()
     {
-        delete this->m_Gamepad;
-        delete this->m_Keyboard;
+        delete m_Gamepad;
+        delete m_Keyboard;
     }
 
     void Input::Update(entt::registry& registry) const
@@ -38,11 +38,11 @@ namespace Morpheus {
 
         if (g_is_gamepad_connected)
         {
-            inputState = this->m_Gamepad->GetState();
+            inputState = m_Gamepad->GetState();
         }
         else
         {
-            inputState = this->m_Keyboard->GetState();
+            inputState = m_Keyboard->GetState();
         }
     }
 

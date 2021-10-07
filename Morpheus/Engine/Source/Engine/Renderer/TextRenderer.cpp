@@ -62,7 +62,7 @@ namespace Morpheus {
                 glm::ivec2(face->glyph->bitmap_left, face->glyph->bitmap_top),
                 (GLuint) face->glyph->advance.x
             };
-            this->m_Characters.insert(std::pair<GLchar, Character>(c, character));
+            m_Characters.insert(std::pair<GLchar, Character>(c, character));
         }
 
         glBindTexture(GL_TEXTURE_2D, 0);
@@ -70,10 +70,10 @@ namespace Morpheus {
         FT_Done_Face(face);
         FT_Done_FreeType(ft);
 
-        glGenVertexArrays(1, &this->m_VAO);
-        glGenBuffers(1, &this->m_VBO);
-        glBindVertexArray(this->m_VAO);
-        glBindBuffer(GL_ARRAY_BUFFER, this->m_VBO);
+        glGenVertexArrays(1, &m_VAO);
+        glGenBuffers(1, &m_VBO);
+        glBindVertexArray(m_VAO);
+        glBindBuffer(GL_ARRAY_BUFFER, m_VBO);
         glBufferData(GL_ARRAY_BUFFER, sizeof(GLfloat) * 6 * 4, NULL, GL_DYNAMIC_DRAW);
         glEnableVertexAttribArray(0);
         glVertexAttribPointer(0, 4, GL_FLOAT, GL_FALSE, 4 * sizeof(GLfloat), 0);
@@ -87,12 +87,12 @@ namespace Morpheus {
 
         glUniform3f(glGetUniformLocation(shader.GetProgram(), "textColor"), color.x, color.y, color.z);
         glActiveTexture(GL_TEXTURE0);
-        glBindVertexArray(this->m_VAO);
+        glBindVertexArray(m_VAO);
 
         std::string::const_iterator c;
         for (c = text.begin(); c != text.end(); c++)
         {
-            Character ch = this->m_Characters[*c];
+            Character ch = m_Characters[*c];
 
             GLfloat xpos = x + ch.Bearing.x * scale;
             GLfloat ypos = y - (ch.Size.y - ch.Bearing.y) * scale;
@@ -111,7 +111,7 @@ namespace Morpheus {
             };
 
             glBindTexture(GL_TEXTURE_2D, ch.TextureID);
-            glBindBuffer(GL_ARRAY_BUFFER, this->m_VBO);
+            glBindBuffer(GL_ARRAY_BUFFER, m_VBO);
             glBufferSubData(GL_ARRAY_BUFFER, 0, sizeof(vertices), vertices);
 
             glBindBuffer(GL_ARRAY_BUFFER, 0);

@@ -20,11 +20,11 @@ namespace Morpheus {
             return;
         }
 
-        this->m_Width = image.width;
-        this->m_Height = image.height;
+        m_Width = image.width;
+        m_Height = image.height;
 
-        glGenTextures(1, &this->m_Texture);
-        glBindTexture(GL_TEXTURE_2D, this->m_Texture);
+        glGenTextures(1, &m_Texture);
+        glBindTexture(GL_TEXTURE_2D, m_Texture);
 
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
@@ -32,7 +32,7 @@ namespace Morpheus {
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR_MIPMAP_LINEAR);
 
-        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, this->m_Width, this->m_Height, 0, GL_RGBA, GL_UNSIGNED_BYTE, image.pixels);
+        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, m_Width, m_Height, 0, GL_RGBA, GL_UNSIGNED_BYTE, image.pixels);
 
         glGenerateMipmap(GL_TEXTURE_2D);
 
@@ -43,12 +43,12 @@ namespace Morpheus {
 
     Texture::~Texture()
     {
-        glDeleteTextures(1, &this->m_Texture);
+        glDeleteTextures(1, &m_Texture);
     }
 
     unsigned int Texture::GetID() const
     {
-        return this->m_Texture;
+        return m_Texture;
     }
 
     unsigned int Texture::GetWidth() const

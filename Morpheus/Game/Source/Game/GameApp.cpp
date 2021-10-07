@@ -17,13 +17,13 @@ namespace Game {
 
     GameApp::~GameApp()
     {
-        delete this->m_SpriteRenderer;
-        delete this->m_Texture;
-        delete this->m_Normal;
-        delete this->m_Specular;
-        delete this->m_TexturePlayer;
-        delete this->m_NormalPlayer;
-        delete this->m_SpecularPlayer;
+        delete m_SpriteRenderer;
+        delete m_Texture;
+        delete m_Normal;
+        delete m_Specular;
+        delete m_TexturePlayer;
+        delete m_NormalPlayer;
+        delete m_SpecularPlayer;
     }
 
     void GameApp::Initialize(entt::registry& registry)
@@ -31,20 +31,20 @@ namespace Game {
         auto& settingsEntity = registry.ctx<Morpheus::SettingsEntity>();
         auto& settingsSize = registry.get<Morpheus::SettingsComponent>(settingsEntity.id);
 
-        this->m_InitialWindowWidth = settingsSize.windowWidth;
-        this->m_InitialWindowHeight = settingsSize.windowHeight;
+        m_InitialWindowWidth = settingsSize.windowWidth;
+        m_InitialWindowHeight = settingsSize.windowHeight;
 
-        this->m_SpriteRenderer = new Morpheus::SpriteRenderer(registry, glm::vec2(this->m_InitialWindowWidth, this->m_InitialWindowHeight));
+        m_SpriteRenderer = new Morpheus::SpriteRenderer(registry, glm::vec2(m_InitialWindowWidth, m_InitialWindowHeight));
 
-        this->m_Texture = new Morpheus::Texture("Assets/images/tileset.png");
-        this->m_Normal = new Morpheus::Texture("Assets/images/tileset_n.png");
-        this->m_Specular = new Morpheus::Texture("Assets/images/tileset_s.png");
+        m_Texture = new Morpheus::Texture("Assets/images/tileset.png");
+        m_Normal = new Morpheus::Texture("Assets/images/tileset_n.png");
+        m_Specular = new Morpheus::Texture("Assets/images/tileset_s.png");
 
-        this->m_TexturePlayer = new Morpheus::Texture("Assets/images/ash.png");
-        this->m_NormalPlayer = new Morpheus::Texture("Assets/images/ash_n.png");
-        this->m_SpecularPlayer = new Morpheus::Texture("Assets/images/ash_s.png");
+        m_TexturePlayer = new Morpheus::Texture("Assets/images/ash.png");
+        m_NormalPlayer = new Morpheus::Texture("Assets/images/ash_n.png");
+        m_SpecularPlayer = new Morpheus::Texture("Assets/images/ash_s.png");
 
-        this->m_Tiles = Morpheus::MapLoader::load("Assets/maps/level_1/map_3.json");
+        m_Tiles = Morpheus::MapLoader::load("Assets/maps/level_1/map_3.json");
     }
 
     void GameApp::OnFrameStarted(entt::registry& registry, double deltaTime, int currentFrame, int frameRate)
@@ -97,24 +97,24 @@ namespace Game {
 
         zoom = zoom < scaleFactor ? scaleFactor : zoom;
 
-        for (const auto& tile : this->m_Tiles)
+        for (const auto& tile : m_Tiles)
         {
-            this->m_SpriteRenderer->Draw(this->m_Texture, this->m_Normal, this->m_Specular, tile->destRect, tile->sourceRect, glm::vec4(1, 1, 1, 1));
+            m_SpriteRenderer->Draw(m_Texture, m_Normal, m_Specular, tile->destRect, tile->sourceRect, glm::vec4(1, 1, 1, 1));
         }
 
-        this->m_SpriteRenderer->SetScale(zoom);
+        m_SpriteRenderer->SetScale(zoom);
 
-        //this->m_SpriteRenderer->SetAmbientColor(glm::vec4(1.0f, 1.0f, 1.0f, 0.01f));
+        //m_SpriteRenderer->SetAmbientColor(glm::vec4(1.0f, 1.0f, 1.0f, 0.01f));
 
-        this->m_SpriteRenderer->SetAmbientColor(ambienteColor);
-        this->m_SpriteRenderer->EnableNormal(!inputState.SPACE);
-        this->m_SpriteRenderer->EnableSpecular(!inputState.LEFT_CONTROL);
-        this->m_SpriteRenderer->EnableWireframe(inputState.LEFT_SHIFT);
+        m_SpriteRenderer->SetAmbientColor(ambienteColor);
+        m_SpriteRenderer->EnableNormal(!inputState.SPACE);
+        m_SpriteRenderer->EnableSpecular(!inputState.LEFT_CONTROL);
+        m_SpriteRenderer->EnableWireframe(inputState.LEFT_SHIFT);
 
-        //this->m_SpriteRenderer->AddSpotLight(glm::vec3(600.0, 400.0, 0.01f), glm::vec4(1.0f, 0.8f, 0.6f, 1.0f), glm::vec3(0.4f, 3.0f, 20.0f));
-        this->m_SpriteRenderer->AddSpotLight(glm::vec3(600.0, 400.0, 0.01f), glm::vec4(1.0f, 0.8f, 0.6f, 1.0f), glm::vec3(0.01f, 1.0f, 20.0f));
+        //m_SpriteRenderer->AddSpotLight(glm::vec3(600.0, 400.0, 0.01f), glm::vec4(1.0f, 0.8f, 0.6f, 1.0f), glm::vec3(0.4f, 3.0f, 20.0f));
+        m_SpriteRenderer->AddSpotLight(glm::vec3(600.0, 400.0, 0.01f), glm::vec4(1.0f, 0.8f, 0.6f, 1.0f), glm::vec3(0.01f, 1.0f, 20.0f));
 
-        this->m_SpriteRenderer->Render();
+        m_SpriteRenderer->Render();
 
         static int frameCount = 0;
         static int frame = 0;
@@ -161,19 +161,19 @@ namespace Game {
 
         glm::vec4 destPlayerPos(750.0, 400.0 - zoom, 64, 64);
 
-        this->m_SpriteRenderer->Draw(
-            this->m_TexturePlayer,
-            this->m_NormalPlayer,
-            this->m_SpecularPlayer,
+        m_SpriteRenderer->Draw(
+            m_TexturePlayer,
+            m_NormalPlayer,
+            m_SpecularPlayer,
             destPlayerPos,
             spriteFrame,
             glm::vec4(1, 1, 1, 1)
         );
 
-        //this->m_SpriteRenderer->AddSpotLight(glm::vec3(600.0, 400.0, 0.01f), glm::vec4(1.0f, 0.8f, 0.6f, 1.0f), glm::vec3(0.1f, 1.0f, 900.0f));
-        this->m_SpriteRenderer->AddSpotLight(glm::vec3(560.0, 300.0 - zoom, 0.01f), glm::vec4(1.0f, 0.8f, 0.6f, 1.0f), glm::vec3(0.01f, 1.0f, 20.0f));
+        //m_SpriteRenderer->AddSpotLight(glm::vec3(600.0, 400.0, 0.01f), glm::vec4(1.0f, 0.8f, 0.6f, 1.0f), glm::vec3(0.1f, 1.0f, 900.0f));
+        m_SpriteRenderer->AddSpotLight(glm::vec3(560.0, 300.0 - zoom, 0.01f), glm::vec4(1.0f, 0.8f, 0.6f, 1.0f), glm::vec3(0.01f, 1.0f, 20.0f));
 
-        this->m_SpriteRenderer->Render();
+        m_SpriteRenderer->Render();
     }
 
     void GameApp::FrameListener(entt::registry& registry, double deltaTime, int currentFrame, int frameRate)

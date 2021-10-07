@@ -9,33 +9,33 @@ namespace Editor {
         , m_HandleFolderSelection(onFolderSelect)
         , m_HandleFileSelection(onFileSelect)
     {
-        this->m_JSON = Morpheus::JSON::parse(Morpheus::FileUtil::ReadDirectoryTreeAsJsonString(currentPath));
+        m_JSON = Morpheus::JSON::parse(Morpheus::FileUtil::ReadDirectoryTreeAsJsonString(currentPath));
     }
 
     void TreeView::Render(entt::registry& registry)
     {
-        this->RenderFileTree(this->m_JSON);
+        RenderFileTree(m_JSON);
     }
 
     void TreeView::RenderFileTree(Morpheus::JSON& tree)
     {
         if (tree["type"] == "folder")
         {
-            if (this->m_TreeState.find(tree["path"]) == this->m_TreeState.end())
+            if (m_TreeState.find(tree["path"]) == m_TreeState.end())
             {
-                this->m_TreeState[tree["path"]] = false;
+                m_TreeState[tree["path"]] = false;
             }
 
-            this->m_TreeState[tree["path"]] = this->CreateFolderNode(tree["path"], tree["name"]);
+            m_TreeState[tree["path"]] = CreateFolderNode(tree["path"], tree["name"]);
 
             if (ImGui::IsItemClicked())
             {
                 std::string folderPath(tree["path"]);
-                this->m_HandleFolderSelection(folderPath);
+                m_HandleFolderSelection(folderPath);
                 ME_LOG_INFO("Folder path: {0}", folderPath);
             }
 
-            if (this->m_TreeState[tree["path"]])
+            if (m_TreeState[tree["path"]])
             {
                 std::sort(tree["children"].begin(), tree["children"].end(), [](const Morpheus::JSON& a, const Morpheus::JSON& b) {
                     if (a["type"] == "folder" && b["type"] == "folder")
@@ -48,14 +48,14 @@ namespace Editor {
 
                 for (auto& node : tree["children"])
                 {
-                    this->RenderFileTree(node);
+                    RenderFileTree(node);
                 }
                 ImGui::TreePop();
             }
         }
         else
         {
-            this->CreateFileNode(tree["path"], tree["name"], tree["extension"]);
+            CreateFileNode(tree["path"], tree["name"], tree["extension"]);
 
             std::string filePath(tree["path"]);
 
@@ -66,7 +66,7 @@ namespace Editor {
 
             if (ImGui::IsItemHovered() && ImGui::IsMouseDoubleClicked(0))
             {
-                this->m_HandleFileSelection(filePath);
+                m_HandleFileSelection(filePath);
             }
         }
     }
@@ -74,13 +74,13 @@ namespace Editor {
     bool TreeView::CreateFolderNode(std::string nodeIndex, std::string nodeTitle)
     {
         ImGuiTreeNodeFlags flags = ImGuiTreeNodeFlags_None;
-        return ImGui::TreeNodeEx(this->BuildFolderTitle(nodeTitle, this->m_TreeState[nodeIndex]).c_str(), flags);
+        return ImGui::TreeNodeEx(BuildFolderTitle(nodeTitle, m_TreeState[nodeIndex]).c_str(), flags);
     }
 
     void TreeView::CreateFileNode(std::string nodeIndex, std::string nodeTitle, std::string fileExtension)
     {
         ImGuiTreeNodeFlags flags = ImGuiTreeNodeFlags_Leaf | ImGuiTreeNodeFlags_NoTreePushOnOpen;
-        ImGui::TreeNodeEx(this->BuildFileTitle(nodeTitle, fileExtension).c_str(), flags);
+        ImGui::TreeNodeEx(BuildFileTitle(nodeTitle, fileExtension).c_str(), flags);
     }
 
     std::string TreeView::BuildFolderTitle(std::string& title, bool isOpened)

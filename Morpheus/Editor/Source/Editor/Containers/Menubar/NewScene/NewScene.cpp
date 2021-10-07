@@ -36,7 +36,7 @@ namespace Editor {
             ImGui::Text("Scene name:"); ImGui::SameLine();
             ImGuiInputTextFlags flags = ImGuiInputTextFlags_CallbackCharFilter;
             ImGui::PushItemWidth(230);
-            ImGui::InputText("##sceneName", this->m_SceneName, IM_ARRAYSIZE(this->m_SceneName), flags, InputUtil::SanitizeCallback);
+            ImGui::InputText("##sceneName", m_SceneName, IM_ARRAYSIZE(m_SceneName), flags, InputUtil::SanitizeCallback);
             ImGui::PopItemWidth();
 
             ImGui::Dummy(ImVec2(0.0f, 5.0f));
@@ -46,12 +46,12 @@ namespace Editor {
             ImGui::Indent(203);
             if (ImGui::Button("Cancel"))
             {
-                this->m_IsOpened = false;
+                m_IsOpened = false;
                 ImGui::CloseCurrentPopup();
             }
             ImGui::SameLine();
 
-            std::string sceneName(this->m_SceneName);
+            std::string sceneName(m_SceneName);
 
             if (sceneName.empty())
             {
@@ -72,7 +72,7 @@ namespace Editor {
 
                 Morpheus::GlobalState::Save(registry);
 
-                this->m_IsOpened = false;
+                m_IsOpened = false;
                 ImGui::CloseCurrentPopup();
             }
 
@@ -87,7 +87,7 @@ namespace Editor {
 
     bool NewScene::IsOpened() const
     {
-        return this->m_IsOpened;
+        return m_IsOpened;
     }
 
 }

@@ -19,11 +19,11 @@ namespace Editor {
 
     Dock::~Dock()
     {
-        delete this->m_Project;
-        delete this->m_Inspector;
-        delete this->m_Hierarchy;
-        delete this->m_Console;
-        delete this->m_Scene;
+        delete m_Project;
+        delete m_Inspector;
+        delete m_Hierarchy;
+        delete m_Console;
+        delete m_Scene;
     }
 
     void Dock::Render(entt::registry& registry)
@@ -74,11 +74,11 @@ namespace Editor {
 
             ImGui::DockSpace(dockspaceID, ImVec2(0.0f, 0.0f), dockspaceFlags);
 
-            this->m_Hierarchy->Render(registry);
-            this->m_Inspector->Render(registry);
-            this->m_Project->Render(registry);
-            this->m_Console->Render(registry);
-            this->m_Scene->Render(registry);
+            m_Hierarchy->Render(registry);
+            m_Inspector->Render(registry);
+            m_Project->Render(registry);
+            m_Console->Render(registry);
+            m_Scene->Render(registry);
         }
         ImGui::End();
         ImGui::PopStyleVar();

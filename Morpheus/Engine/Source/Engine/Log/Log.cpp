@@ -9,8 +9,8 @@ namespace Morpheus {
 
     Log::~Log()
     {
-        this->s_CoreLogger.reset();
-        this->s_ClientLogger.reset();
+        s_CoreLogger.reset();
+        s_ClientLogger.reset();
         spdlog::shutdown();
     }
 

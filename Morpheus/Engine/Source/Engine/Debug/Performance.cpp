@@ -16,40 +16,40 @@ namespace Morpheus {
         , m_InitialWindowWidth(0.0f)
         , m_InitialWindowHeight(0.0f)
     {
-        if (this->m_Settings->IsDebug())
+        if (m_Settings->IsDebug())
         {
-            this->m_TextShader = new Shader("Assets/shaders/text.vert", "Assets/shaders/text.frag");
-            this->m_TextRenderer = new TextRenderer("Assets/fonts/roboto-regular.ttf");
+            m_TextShader = new Shader("Assets/shaders/text.vert", "Assets/shaders/text.frag");
+            m_TextRenderer = new TextRenderer("Assets/fonts/roboto-regular.ttf");
 
-            this->m_InitialWindowWidth = static_cast<GLfloat>(this->m_Settings->GetWindowWidth());
-            this->m_InitialWindowHeight = static_cast<GLfloat>(this->m_Settings->GetWindowHeight());
+            m_InitialWindowWidth = static_cast<GLfloat>(m_Settings->GetWindowWidth());
+            m_InitialWindowHeight = static_cast<GLfloat>(m_Settings->GetWindowHeight());
 
-            glm::mat4 projection = glm::ortho(0.0f, this->m_InitialWindowWidth, 0.0f, this->m_InitialWindowHeight);
-            this->m_TextShader->Enable();
-            glUniformMatrix4fv(glGetUniformLocation(this->m_TextShader->GetProgram(), "projection"), 1, GL_FALSE, glm::value_ptr(projection));
+            glm::mat4 projection = glm::ortho(0.0f, m_InitialWindowWidth, 0.0f, m_InitialWindowHeight);
+            m_TextShader->Enable();
+            glUniformMatrix4fv(glGetUniformLocation(m_TextShader->GetProgram(), "projection"), 1, GL_FALSE, glm::value_ptr(projection));
         }
     }
 
     Performance::~Performance()
     {
-        delete this->m_TextShader;
-        delete this->m_TextRenderer;
+        delete m_TextShader;
+        delete m_TextRenderer;
     }
 
     void Performance::Show(unsigned int frames, double deltaTime)
     {
-        if (this->m_Settings->IsDebug())
+        if (m_Settings->IsDebug())
         {
             static const float scale = 0.3f;
             static const float originX = 5.0f;
             static const float rowHeight = 20.0f;
-            const float fpsTextPosY = this->m_InitialWindowHeight - rowHeight;
-            const float timeTextPosY = this->m_InitialWindowHeight - rowHeight * 2;
+            const float fpsTextPosY = m_InitialWindowHeight - rowHeight;
+            const float timeTextPosY = m_InitialWindowHeight - rowHeight * 2;
             const std::string fpsText = "FPS: " + std::to_string(frames);
             const std::string timeText = std::to_string(deltaTime) + " ms/frame";
 
-            this->m_TextRenderer->Render(*this->m_TextShader, fpsText, originX, fpsTextPosY, scale, glm::vec3(0.5f, 0.8f, 0.2f));
-            this->m_TextRenderer->Render(*this->m_TextShader, timeText, originX, timeTextPosY, scale, glm::vec3(0.3f, 0.7f, 0.9f));
+            m_TextRenderer->Render(*m_TextShader, fpsText, originX, fpsTextPosY, scale, glm::vec3(0.5f, 0.8f, 0.2f));
+            m_TextRenderer->Render(*m_TextShader, timeText, originX, timeTextPosY, scale, glm::vec3(0.3f, 0.7f, 0.9f));
         }
     }
 
