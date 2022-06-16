@@ -10,8 +10,8 @@
     <a aria-label="c++" href="https://github.com/madureira/morpheus-engine">
         <img src="https://img.shields.io/badge/std-c++17-blue.svg"/>
     </a>
-    <a aria-label="msvc2019+" href="https://visualstudio.microsoft.com/downloads">
-        <img src="https://img.shields.io/badge/MSVC-2019+-ff69b4.svg"/>
+    <a aria-label="msvc2022+" href="https://visualstudio.microsoft.com/downloads">
+        <img src="https://img.shields.io/badge/MSVC-2022+-ff69b4.svg"/>
     </a>
     <a aria-label="platforms" href="https://github.com/madureira/morpheus-engine#Platforms">
         <img src="https://img.shields.io/badge/platforms-Windows%20%7C%20Linux%20%7C%20MacOSX-333333.svg"/>
@@ -42,7 +42,7 @@
 
 ![Windows](.github/windows-logo.png "windows")
 
-### Building for [Visual Studio IDE 2019](https://visualstudio.microsoft.com/downloads)
+### Building for [Visual Studio IDE 2022](https://visualstudio.microsoft.com/downloads)
 
 ```
 install.bat
